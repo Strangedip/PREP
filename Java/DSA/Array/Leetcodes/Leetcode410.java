@@ -1,3 +1,4 @@
+// **************************
 // return highest sum of k subarrays made from an array
 // A subarray is a contiguous part of the array. 
 
