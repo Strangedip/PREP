@@ -1,0 +1,50 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #19376D
+}
+
+.container{
+    margin:5vw 35vw;
+    padding: 20px;
+}
+
+form{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #A5D7E8;
+    border-radius: 20px;
+}
+form h2{
+    font-family: cursive;
+    font-weight: 800;
+    padding-bottom: 20px;
+}
+
+form input{
+    font-family: cursive;
+    font-size: 20px;
+    margin: 15px 0px;
+    padding: 5px;
+    width: 20vw;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+}
+
+#submit-btn{
+    font-family:cursive;
+    font-size: 25px;
+    margin: 20px 0px;
+    padding: 10px;
+    width: 120px;
+    border: none;
+    border-radius: 25px;
+    background-color: #4a5ca4;
+    color: white;
+}
+#submit-btn:hover{
+    background-color: #62CDFF;
+}
