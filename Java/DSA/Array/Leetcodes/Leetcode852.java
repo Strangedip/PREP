@@ -3,7 +3,7 @@
 
 public class Leetcode852 {
     public static void main(String[] args) {
-        int[] array={-1,-3,1,2,3,4,4,4,4,3,2,1,0,-2,-3,-4};
+        int[] array={-1,-3,1,2,3,4,4,4,4,3,2,1,0,-2,-3};
         System.out.println(peakElement(array));
     }
     public static int peakElement(int[] nums){
