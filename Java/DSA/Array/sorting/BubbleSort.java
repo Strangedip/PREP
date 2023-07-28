@@ -6,59 +6,60 @@ public class BubbleSort {
         int[] b = { 4, 2, 0, 7, 1, 12, -3, -12 };
         int[] c = { 4, 2, 0, 7, 1, 12, -3, -12 };
         // int[] a = { 1,2,3,4,5,7 };
-        
+
         // print before sorting
         System.out.println(Arrays.toString(a));
         System.out.println("\nactual bubble sorting algorithm");
         bubbleSort(a);
         System.out.println(Arrays.toString(a));
-        
+
         System.out.println("\nbubble sort with while");
         bubbleSort1(b);
         System.out.println(Arrays.toString(b));
-        
+
         System.out.println("\nbubble sort with index change");
         bubbleSort2(c);
         System.out.println(Arrays.toString(c));
-        
+
     }
 
-    //actual bubble sorting algorithm
-    static void bubbleSort(int[] a){
-        //keeps counter
-        int count=0;
-        for(int i=0;i<a.length;i++){
+    // actual bubble sorting algorithm
+    static void bubbleSort(int[] a) {
+        // keeps counter
+        int count = 0;
+        for (int i = 0; i < a.length; i++) {
             count++;
-            //assuming array is sorted
-            boolean flag=true;
+            // assuming array is sorted
+            boolean flag = true;
 
             // iterates over array for j and j-1 values
-            for (int j = 1; j < a.length-i; j++) {
+            for (int j = 1; j < a.length - i; j++) {
                 count++;
 
                 // if j-1 > j swap
-                if (a[j-1] > a[j]) {
+                if (a[j - 1] > a[j]) {
                     int temp = a[j];
-                    a[j] = a[j-1];
-                    a[j-1] = temp;
+                    a[j] = a[j - 1];
+                    a[j - 1] = temp;
 
-                    // mark as unsorted 
-                    flag=false;
+                    // mark as unsorted
+                    flag = false;
                 }
             }
             // if array is already sorted stop loop
-            if(flag){
+            if (flag) {
                 break;
             }
-            
+
         }
-        System.out.println("count "+count);
+        System.out.println("count " + count);
     }
 
-    // comparing one with next, if larger swap without changing index using while loop
+    // comparing one with next, if larger swap without changing index using while
+    // loop
     static void bubbleSort1(int[] a) {
         // for (int i = 0; i < a.length - 1; i++)
-        int count=0;
+        int count = 0;
         int i = 0;
         // i will run for n-1
         while (i < a.length - 1) {
@@ -78,13 +79,13 @@ public class BubbleSort {
             }
             i++;
         }
-        System.out.println("count "+count);
+        System.out.println("count " + count);
     }
 
     // comparing one element with rest of the array and swap if current is larger
     // and change current index to swapped larger elemnet takes(57 turns)
     static void bubbleSort2(int[] a) {
-        int count=0;
+        int count = 0;
         while (true) {
             count++;
             boolean flag = true;
@@ -99,14 +100,15 @@ public class BubbleSort {
             }
             if (flag) {
                 break;
-            } else {
+            } 
+            // if not sorted perform sorting
+            else {
                 while (i < a.length - 1 && j < a.length) {
                     count++;
                     if (a[i] > a[j]) {
                         int temp = a[j];
                         a[j] = a[i];
                         a[i] = temp;
-
                         i = j;
                         j++;
                     } else if (a[i] < a[j]) {
@@ -119,7 +121,7 @@ public class BubbleSort {
                 }
             }
         }
-        System.out.println("count "+count);
+        System.out.println("count " + count);
 
     }
 }
