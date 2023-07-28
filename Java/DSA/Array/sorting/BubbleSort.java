@@ -2,10 +2,18 @@ import java.util.Arrays;
 
 public class BubbleSort {
     public static void main(String[] args) {
+        // Best cases
+        // int[] a = { 4, 5, 7, 10, 20, 30, 112 };
+        // int[] b = { 4, 5, 7, 10, 20, 30, 112 };
+        // int[] c = { 4, 5, 7, 10, 20, 30, 112 };
+
+        // // Avg cases
         int[] a = { 4, 2, 0, 7, 1, 12, -3, -12 };
         int[] b = { 4, 2, 0, 7, 1, 12, -3, -12 };
         int[] c = { 4, 2, 0, 7, 1, 12, -3, -12 };
-        // int[] a = { 1,2,3,4,5,7 };
+
+        // Worst case
+        // int[] a = { 7, 6, 5, 4, 3, 2, 1 };
 
         // print before sorting
         System.out.println(Arrays.toString(a));
@@ -27,12 +35,14 @@ public class BubbleSort {
     static void bubbleSort(int[] a) {
         // keeps counter
         int count = 0;
-        for (int i = 0; i < a.length; i++) {
+        
+        for (int i = 0; i < a.length ; i++) {
             count++;
             // assuming array is sorted
             boolean flag = true;
 
             // iterates over array for j and j-1 values
+            // dont check for already moved at end element hence a.length-i (i is counter for numbers moved)
             for (int j = 1; j < a.length - i; j++) {
                 count++;
 
@@ -59,10 +69,14 @@ public class BubbleSort {
     // loop
     static void bubbleSort1(int[] a) {
         // for (int i = 0; i < a.length - 1; i++)
+
         int count = 0;
         int i = 0;
         // i will run for n-1
         while (i < a.length - 1) {
+            // flag check is swapping is performed or not
+            // if no swap done means array is sorted and break loop
+            boolean flag = true;
             count++;
             int j = i + 1;
 
@@ -74,10 +88,14 @@ public class BubbleSort {
                     int temp = a[j];
                     a[j] = a[i];
                     a[i] = temp;
+                    flag = false;
                 }
                 j++;
             }
             i++;
+            if (flag) {
+                break;
+            }
         }
         System.out.println("count " + count);
     }
@@ -100,7 +118,7 @@ public class BubbleSort {
             }
             if (flag) {
                 break;
-            } 
+            }
             // if not sorted perform sorting
             else {
                 while (i < a.length - 1 && j < a.length) {
