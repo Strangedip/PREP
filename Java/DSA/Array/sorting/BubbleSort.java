@@ -7,7 +7,7 @@ public class BubbleSort {
         // int[] b = { 4, 5, 7, 10, 20, 30, 112 };
         // int[] c = { 4, 5, 7, 10, 20, 30, 112 };
 
-        // // Avg cases
+        //  Avg cases
         int[] a = { 4, 2, 0, 7, 1, 12, -3, -12 };
         int[] b = { 4, 2, 0, 7, 1, 12, -3, -12 };
         int[] c = { 4, 2, 0, 7, 1, 12, -3, -12 };
@@ -115,7 +115,7 @@ public class BubbleSort {
                 if (!(a[i2] < a[i2 + 1])) {
                     flag = false;
                 }
-            }
+            }   
             if (flag) {
                 break;
             }
