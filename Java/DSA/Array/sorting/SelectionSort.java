@@ -9,11 +9,11 @@ public class SelectionSort {
         // int[] a = { 5, 4, 3, 2, 1, 0 };
 
         System.out.println(Arrays.toString(a));
-        sort(a);
+        selectionSort(a);
         System.out.println(Arrays.toString(a));
     }
 
-    static void sort(int[] a) {
+    static void selectionSort(int[] a) {
         // fix array size as end index to reduce as sorted array index
         int end = a.length - 1;
         while (end > 0) {
