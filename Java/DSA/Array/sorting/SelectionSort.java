@@ -2,31 +2,24 @@ import java.util.Arrays;
 
 public class SelectionSort {
     static int count1 = 0;
-    static int count2 = 0;
 
     // ignore counters.. its just to count checks in algorithm
     public static void main(String[] args) {
         // Best case
         // int[] a = { 1, 2, 33, 55, 77, 100, 110, 200 };
-        // int[] b = { 1, 2, 33, 55, 77, 100, 110, 200 };
-
+        
         // avg case
-        // int[] a = { 4, 2, 0, 7, 1, 12, -3, -12 };
-        // int[] b = { 4, 2, 0, 7, 1, 12, -3, -12 };
+        // int[] a = { 4, 2, 0, 7, 1, 12, -3, -12 };;
 
         // worst case
         int[] a = { 5, 4, 3, 2, 1, 0, -1, -10 };
-        int[] b = { 5, 4, 3, 2, 1, 0, -1, -10 };
+
 
         System.out.println(Arrays.toString(a));
         selectionSort(a);
         System.out.println(Arrays.toString(a));
         System.out.println("no of checks: " + count1);
 
-        // my modification
-        modifiedSelectionSort(b);
-        System.out.println(Arrays.toString(b));
-        System.out.println("no of checks: " + count2);
     }
 
     static void selectionSort(int[] a) {
@@ -62,27 +55,5 @@ public class SelectionSort {
         return max;
     }
 
-    // selecting next element and checking its position in array
-    // by comparing with all previous values
-    static void modifiedSelectionSort(int[] a) {
-        // starting from index 1
-        for (int i = 1; i < a.length; i++) {
-            count2++;
-            // continue if next element is already bigger than end of sorted array
-            if (a[i - 1] < a[i]) {
-                continue;
-            }
-
-            for (int j = 0; j < i; j++) {
-                count2++;
-                // else swap with bare smaller element
-                if (a[i] < a[j]) {
-                    int temp = a[i];
-                    a[i] = a[j];
-                    a[j] = temp;
-                }
-            }
-        }
-    }
-
+    
 }
