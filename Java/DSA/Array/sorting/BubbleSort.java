@@ -42,7 +42,7 @@ public class BubbleSort {
             boolean flag = true;
 
             // iterates over array for j and j-1 values
-            // dont check for already moved at end element hence a.length-i (i is counter for numbers moved)
+            // don't check for already moved at end element hence a.length-i (i is counter for numbers moved)
             for (int j = 1; j < a.length - i; j++) {
                 count++;
 
@@ -101,7 +101,7 @@ public class BubbleSort {
     }
 
     // comparing one element with rest of the array and swap if current is larger
-    // and change current index to swapped larger elemnet takes(57 turns)
+    // and change current index to swapped larger element takes(57 turns)
     static void bubbleSort2(int[] a) {
         int count = 0;
         while (true) {
