@@ -1,7 +1,7 @@
 // find missing number in an ranged array 0 to n of size n-1
 public class LeetCode268 {
     public static void main(String[] args) {
-        int[] a = { 5, 3, 1, 2, 6, 4 };
+        int[] a = {0, 5, 3, 1, 2, 6, 4 };
         System.out.println(missingNumber(a));
     }
 
