@@ -13,7 +13,7 @@ public class LeetCode287 {
     }
 
     static public int findDuplicate(int[] nums) {
-        cyclicSort(a);
+        cyclicSort(nums);
         for (int i = 0; i < nums.length; i++) {
             if (i + 1 != nums[i]) {
                 return nums[i];
