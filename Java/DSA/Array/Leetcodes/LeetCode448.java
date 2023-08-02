@@ -8,18 +8,18 @@ import java.util.List;
 public class LeetCode448 {
 
     public static void main(String[] args) {
-        int[] a = { 5, 6, 1, 7, 4 };
+        int[] a = { 4,3,2,7,8,2,3,1 };
         cyclicSort(a);
         System.out.println(Arrays.toString(a));
-        // System.out.println(findDisappearedNumbers(a));
+        System.out.println(findDisappearedNumbers(a));
     }
 
     public static List<Integer> findDisappearedNumbers(int[] nums) {
         cyclicSort(nums);
-        ArrayList<Integer> a=new ArrayList<>();
+        ArrayList<Integer> a = new ArrayList<>();
         for (int i = 0; i < nums.length; i++) {
-            if (i+1 != nums[i]) {
-                a.add(i);
+            if (i != nums[i] - 1 ) {
+                a.add(i+1);
             }
         }
         return a;
@@ -32,9 +32,9 @@ public class LeetCode448 {
         while (i < a.length) {
             // the element should be less than size of the array else it will throw error
             // if element-1 is not equal to element index swap element to its n-1 position
-            if (a[i] < a.length && i != a[i]) {
-                int temp = a[a[i]-1];
-                a[a[i]-1] = a[i];
+            if (a[i] < a.length + 1 && a[a[i] - 1] != a[i]) {
+                int temp = a[a[i] - 1];
+                a[a[i] - 1] = a[i];
                 a[i] = temp;
             } else {
                 // if element is at right position increase i by one (no swap required)

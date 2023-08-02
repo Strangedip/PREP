@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class CyclicSort {
     public static void main(String[] args) {
-        int[] a = { 0, 2, 3, 5, 4 };
+        int[] a = { 3,4,4,4,3};
         cyclicSort(a);
         System.out.println(Arrays.toString(a));
     }
@@ -11,7 +11,7 @@ public class CyclicSort {
         int i = 0;
         while (i < a.length) {
             System.out.println(Arrays.toString(a));
-            if (a[i] < a.length && a[i] != i) {
+            if (a[i] < a.length && a[i] != a[a[i]]) {
                 int temp = a[a[i]];
                 a[a[i]] = a[i];
                 a[i] = temp;
