@@ -7,7 +7,6 @@ public class StringBuilderClass {
 
         // StringBuilder sb= new StringBuilder();
         StringBuilder sb= new StringBuilder("a");
-
         StringBuilderClass r=new StringBuilderClass();
         sb.append('b');
         sb.append("c");
