@@ -16,7 +16,7 @@ public class BinarySearchRecursion {
             return -1;
         }
         if (a[mid] == key) {
-            // if found return index
+            // if found return current index
             return mid;
         } else if (a[mid] > key) {
             // if key is smaller than mid element reduce end
