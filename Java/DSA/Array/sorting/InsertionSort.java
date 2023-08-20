@@ -10,10 +10,10 @@ public class InsertionSort {
         // int[] a = { 1, 2, 33, 55, 77, 100, 110, 200 };
 
         // avg case
-        int[] a = { 4, 2, 0, 7, 1, 12, -3, -12 };
+        // int[] a = { 4, 2, 0, 7, 1, 12, -3, -12 };
 
         // worst case
-        // int[] a = { 5, 4, 3, 2, 1, 0, -1, -10 };
+        int[] a = { 5, 4, 3, 2, 1, 0, -1, -10 };
 
         System.out.println(Arrays.toString(a));
         insertionSort(a);
@@ -24,6 +24,21 @@ public class InsertionSort {
     }
 
     static void insertionSort(int[] a) {
+        for (int i = 0; i < a.length; i++) {
+            count++;
+            int min = a[i];
+            for (int j = i + 1; j < a.length; j++) {
+                count++;
+                if (min > a[j]) {
+                    int temp = a[i];
+                    a[i] = a[j];
+                    a[j] = temp;
+                }
+            }
+        }
+    }
+
+    static void insertionSort1(int[] a) {
         for (int i = 0; i < a.length - 1; i++) {
             count++;
 
