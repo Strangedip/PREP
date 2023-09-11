@@ -2,37 +2,41 @@ package Competitive;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
 public class AdmissionInNinjaGram {
     public static void main(String[] args) {
-        int k = 3;
         ArrayList<Integer> ans = new ArrayList<>();
+        ans.add(1);
+        ans.add(1);
+        ans.add(2);
         ans.add(3);
-        ans.add(6);
-        ans.add(5);
+        ans.add(3);
         ans.add(4);
-        ans.add(3);
-        System.out.println(getMaximumOfSubarrays(ans, k));
+        ans.add(5);
+        ans.add(5);
+        ans.add(5);
+        int k=2;
+        int[] a = { 2 ,5, 6, 2 };
+        int[] b = { 2 ,5, 1,3 };
+        System.out.println((sortedArray(a,b)));
+        // System.out.println(Arrays.toString(rotateArray(a, a.length)));
 
     }
 
-    public static ArrayList<Integer> getMaximumOfSubarrays(ArrayList<Integer> arr, int k) {
-        ArrayList<Integer> ans = new ArrayList<>();
-        for (int i = k; i <= arr.size()-k; i++) {
-            int large=0;
-            int b=k;
-            while(b>0){
-                if(arr.get(b)>large)
-                {
-                    large=arr.get(b);
-                }
-                b--;
-            }
-            ans.add(large);
+    public static List< Integer > sortedArray(int []a, int []b) {
+        // Write your code here
+        Set<Integer> s= new TreeSet<>();
+        for (int i = 0; i < a.length; i++) {
+            s.add(a[i]);
         }
-        
-        return ans;
+        for (int i = 0; i < b.length; i++) {
+            s.add(b[i]);
+        }
+        return new ArrayList<>(s);
     }
 }
