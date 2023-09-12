@@ -1,3 +1,5 @@
+package DSA.sorting;
+
 import java.util.Arrays;
 
 public class InsertionSort {
@@ -19,46 +21,22 @@ public class InsertionSort {
         insertionSort(a);
         // modifiedInsertionSort(a);
         System.out.println(Arrays.toString(a));
-        System.out.println("no of checks: " + count);
+        // System.out.println("no of checks: " + count);
 
     }
 
+    // actual insertion sort
     static void insertionSort(int[] a) {
-        for (int i = 0; i < a.length; i++) {
-            count++;
-            int min = a[i];
-            for (int j = i + 1; j < a.length; j++) {
-                count++;
-                if (min > a[j]) {
-                    int temp = a[i];
-                    a[i] = a[j];
-                    a[j] = temp;
-                }
+        int i = 0;
+        while (i < a.length) {
+            int j = i;
+            while (j > 0 && a[j] < a[j - 1]) {
+                int t = a[j];
+                a[j] = a[j - 1];
+                a[j - 1] = t;
+                j--;
             }
-        }
-    }
-
-    static void insertionSort1(int[] a) {
-        for (int i = 0; i < a.length - 1; i++) {
-            count++;
-
-            // check if already at right position
-            if (a[i + 1] > a[i]) {
-                continue;
-            }
-            for (int j = i + 1; j > 0; j--) {
-                count++;
-                // if previous element is bigger swap with bigger element
-                if (a[j] < a[j - 1]) {
-                    int temp = a[j - 1];
-                    a[j - 1] = a[j];
-                    a[j] = temp;
-                }
-                // if previous element is smaller or equal break loop as its already sorted
-                else {
-                    break;
-                }
-            }
+            i++;
         }
     }
 

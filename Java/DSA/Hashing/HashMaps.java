@@ -1,12 +1,6 @@
 package DSA.Hashing;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class HashMaps {
     public static void main(String[] args) {
@@ -19,23 +13,9 @@ public class HashMaps {
                 a.put(n[i], 1);
             }
         }
-        ArrayList<Integer> ar = new ArrayList<>();
-        Collections.reverse(ar);
-    }
-}
-class Solution {
-    public static ArrayList<Integer> addOneToNumber(ArrayList<Integer> arr) {
-        int index = arr.size() - 1;
-        while (index >= 0 && arr.get(index) == 9) {
-            arr.set(index, 0);
-            index -= 1;
-        }
-        if (index < 0) {
-            arr.set(0, 1);
-            arr.add(arr.size(), 0);
-        } else
-            arr.set(index, arr.get(index) + 1);
-        return arr;
-    }
 
+        for (Map.Entry<Integer, Integer> mp : a.entrySet()) {
+            System.out.println(mp);
+        }
+    }
 }
