@@ -5,13 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index</title>
-    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css')}}">
 </head>
 
 <body>
-    <header>Header</header>
-    <main>Main</main>
-    <footer>Footer</footer>
+    <div class="container">
+        <div class="form-container">
+            <section class="slog">
+                <h1>Facebook</h1>
+                <h2>Facebook helps you connect and share with the people in your life.</h2>
+            </section>
+            <form class="from-control">
+                <input type="text" name="username" id="username" placeholder="Email address or phone number">
+                <input type="password" name="password" id="password" placeholder="Password">
+                <input type="submit" value="Login">
+                <a href="#">Forgotten password?</a>
+                <hr>
+                <button class="create-btn">Create new account</button>
+            </form class="from-control">
+            <p><a href="#"><strong>Create a Page</strong></a> for a celebrity, brand or business.</p>
+        </div>
+        <footer>Footer</footer>
+    </div>
 </body>
 
 </html>
