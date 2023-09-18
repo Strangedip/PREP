@@ -5,3 +5,4 @@ app =Flask(__name__)
 @app.route("/")
 def indes():
     return render_template("index.html",name="mera")
+app.run(debug=True)
