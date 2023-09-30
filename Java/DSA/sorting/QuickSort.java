@@ -11,7 +11,10 @@ public class QuickSort {
 
     public static void quickSort(int[] a, int low, int high) {
 
-       
+    }
+
+    public static int partition(int[] a, int low, int high) {
+        return -1;
     }
 
     public static void swap(int[] a, int i, int j) {
