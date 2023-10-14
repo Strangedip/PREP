@@ -13,6 +13,7 @@ public class AssessmentApplication {
 		Partner p = context.getBean(Partner.class);
 
 		System.out.println(p);
+		
 	}
 
 	
