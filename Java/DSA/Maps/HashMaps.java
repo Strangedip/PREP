@@ -1,4 +1,4 @@
-package DSA.Hashing;
+package DSA.Maps;
 
 import java.util.*;
 
