@@ -1,4 +1,4 @@
-// Create array with index given with elements from given index
+// Create array with index given with elements from given index (insertion order)
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -24,3 +24,5 @@ public class Leetcode1389 {
         return ans;
     }
 }
+
+// run loop to create a list to add ith element at jth index based on index array.

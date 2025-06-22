@@ -39,3 +39,6 @@ public class LeetCode442 {
         }
     }
 }
+
+// use cyclic sort -> a[i] ~ i
+// since it is ranged and have to find missing. use cyclic sort to sort in O(n). then search duplicates using linear search and add in new array.

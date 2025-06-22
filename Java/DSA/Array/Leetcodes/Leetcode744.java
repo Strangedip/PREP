@@ -1,12 +1,15 @@
 // Find ceiling letter in char letters i.e smallest greater char or equal to target
+
 public class Leetcode744 {
     public static void main(String[] args) {
-        char[] letters = { 'a', 'e', 'f', 'g', 'g' };
+        char[] letters = { 'a', 'c' };
         char target = 'e';
         System.out.println(ceilingChar(letters, target));
     }
 
     public static char ceilingChar(char[] letters, char target) {
+        if(letters.length==0) return '-';
+        
         int start = 0;
         int end = letters.length - 1;
         int middle;
@@ -20,13 +23,12 @@ public class Leetcode744 {
                 start=middle+1;
             }
         }
-        // edge case if greater or equal to tarhet elemnt is not present
+        // edge case if greater or equal to target element is not present return first char.
         if (start > letters.length - 1) {
             return letters[0];
         }
         return letters[start];
-
-        // another type to return without applying if to check if variable is out of array range
-        // return letters[start % letters.length];  e.g 3%4=3 , 5%4=1
     }
 }
+
+// Use binary search to find elements which (middle) is greater than the target. if not make middle = start. to find at larger side.

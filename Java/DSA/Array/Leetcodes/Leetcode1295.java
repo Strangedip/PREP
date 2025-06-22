@@ -34,3 +34,6 @@ public class Leetcode1295 {
         return digit;
     }
 }
+
+// count digit by using method dividing by 10.
+// handle cases for 0 and negative numbers

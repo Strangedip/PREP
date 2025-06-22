@@ -31,3 +31,6 @@ public class leetcode66 {
 
     }
 }
+
+// start from end. simply add 1 in each element if it not '9'. if its 9 make it 0 and go to next.
+// if all are 9 create new array with +1 size and append 1 at start.

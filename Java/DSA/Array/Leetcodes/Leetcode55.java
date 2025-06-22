@@ -1,6 +1,6 @@
 // **************************
 // jump from 1 index to other depending on value of index user currently is 
-// check if user can reaach last element (max jump<=array[i])
+// check if user can reach last element (max jump<=array[i])
 
 public class Leetcode55 {
     public static void main(String[] args) {
@@ -19,3 +19,5 @@ public class Leetcode55 {
         return false;
     }
 }
+
+// uses greedy approach store the max jump can be made from visited elements. if reaches end of array+ true

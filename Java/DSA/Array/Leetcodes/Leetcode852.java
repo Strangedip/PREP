@@ -12,14 +12,11 @@ public class Leetcode852 {
         int middle;
         while(start<=end){
             middle=(start+end)/2;
-            //edge case for repeating peak element
-            if(nums[middle]==nums[middle+1]){
-                return middle;
-            }
+            //edge case for repeating element
             if(nums[middle]>nums[middle+1]){
                 end=middle-1;
             }
-            else if (nums[middle]<nums[middle+1]){
+            else if (nums[middle]<=nums[middle+1]){
                 start=middle+1;
             }
         }
@@ -27,3 +24,5 @@ public class Leetcode852 {
         return start;
     }
 }
+
+// Uses binary search to find peak. since array is sorted ascending a<b<c..., peak will be current -> current > next.

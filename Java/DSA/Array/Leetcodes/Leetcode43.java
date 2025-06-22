@@ -84,3 +84,5 @@ public class Leetcode43 {
         return ans;
     }
 }
+
+// Uses binary search, find recurring number start finding its start and end.

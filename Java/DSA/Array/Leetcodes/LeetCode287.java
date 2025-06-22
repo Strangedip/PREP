@@ -35,3 +35,6 @@ public class LeetCode287 {
         }
     }
 }
+
+// use cyclic sort -> a[i] ~ i
+// since it is ranged and have to find missing. use cyclic sort to sort in O(n). then search using linear search
