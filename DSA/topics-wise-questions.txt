@@ -1,0 +1,313 @@
+Category-Wise Minimum Questions List
+
+#1. Arrays & Matrix
+Two Sum, Three Sum, Four Sum
+
+Best Time to Buy and Sell Stock
+
+Rotate Array
+
+Move Zeroes
+
+Product of Array Except Self
+
+Maximum Subarray (Kadane's Algorithm)
+
+Container With Most Water
+
+Find Minimum in Rotated Sorted Array
+
+Search in Rotated Sorted Array
+
+Spiral Matrix
+
+Set Matrix Zeroes
+
+Merge Intervals
+
+Insert Interval
+
+Trapping Rain Water
+
+
+#2. Strings
+Reverse String
+
+Longest Substring Without Repeating Characters
+
+Valid Palindrome
+
+Longest Palindromic Substring
+
+Group Anagrams
+
+Valid Anagram
+
+Minimum Window Substring
+
+Implement strStr()/Substring Search
+
+Integer to Roman / Roman to Integer
+
+
+#3. Linked Lists
+Reverse Linked List
+
+Merge Two Sorted Lists
+
+Linked List Cycle Detection
+
+Remove Nth Node From End
+
+Reorder List
+
+Find Middle Node
+
+Add Two Numbers
+
+LRU Cache Implementation
+
+
+#4. Stacks & Queues
+Valid Parentheses
+
+Min Stack
+
+Daily Temperatures
+
+Implement Queue using Stacks
+
+Evaluate Reverse Polish Notation
+
+Next Greater Element
+
+
+#5. Trees & Binary Trees
+Maximum Depth of Binary Tree
+
+Validate Binary Search Tree
+
+Symmetric Tree
+
+Binary Tree Level Order Traversal
+
+Invert/Flip Binary Tree
+
+Construct Tree from Pre/In/Postorder
+
+Subtree of Another Tree
+
+Serialize and Deserialize Binary Tree
+
+
+#6. Binary Search Tree (BST)
+Insert/Search/Delete Node in BST
+
+Lowest Common Ancestor
+
+Kth Smallest Element
+
+Balanced BST Check
+
+
+#7. Heaps & Priority Queues
+Top K Frequent Elements
+
+Find Median from Data Stream
+
+Merge K Sorted Lists
+
+Kth Largest Element in Array
+
+
+#8. Graphs
+Clone Graph
+
+Number of Islands
+
+Graph Traversals: BFS & DFS
+
+Course Schedule (Cycle Detection)
+
+Topological Sorting
+
+Word Ladder
+
+**Advanced Graph Algorithms (SDE2+):**
+Union Find (Disjoint Set Union)
+
+Dijkstra's Shortest Path Algorithm
+
+Minimum Spanning Tree (Kruskal's, Prim's)
+
+Strongly Connected Components
+
+
+#9. Backtracking
+N-Queens Problem
+
+Permutations & Combinations
+
+Subsets
+
+Sudoku Solver
+
+Generate Parentheses
+
+
+#10. Dynamic Programming
+Climbing Stairs
+
+Coin Change
+
+Longest Increasing Subsequence
+
+Longest Common Subsequence
+
+Palindromic Substrings
+
+Word Break Problem
+
+House Robber Series
+
+Decode Ways
+
+Unique Paths
+
+Jump Game
+
+**Advanced DP Patterns (SDE2+):**
+Interval DP (Matrix Chain Multiplication, Burst Balloons)
+
+Bitmask DP (Traveling Salesman, Assignment Problems)
+
+Tree DP (Maximum Path Sum, House Robber III)
+
+Digit DP (Count Numbers with Constraints)
+
+Probability DP (Expected Value Problems)
+
+
+#11. Sliding Window / Two Pointers
+Longest Substring with K Distinct Characters
+
+Minimum Window Substring
+
+Trapping Rain Water (optimized)
+
+Container With Most Water
+
+Remove Duplicates from Sorted Array
+
+**Advanced Sliding Window (SDE2+):**
+Variable Size Windows
+
+Sliding Window Maximum/Minimum (Deque)
+
+Multiple Sliding Windows
+
+Complex Constraint Problems
+
+
+#12. Sorting & Searching
+Merge Sort
+
+Quick Sort
+
+Binary Search in sorted array
+
+Find Peak Element
+
+
+#13. Recursion & Divide and Conquer
+Master Theorem Analysis
+
+Maximum Subarray (Divide & Conquer)
+
+Closest Pair of Points
+
+Inversion Count
+
+Karatsuba Multiplication
+
+Fast Fourier Transform (FFT)
+
+
+#14. Greedy Algorithms
+Jump Game
+
+Gas Station
+
+Partition Labels
+
+Minimum Number of Arrows to Burst Balloons
+
+
+#15. Bit Manipulation
+Single Number
+
+Number of 1 Bits
+
+Counting Bits
+
+Reverse Bits
+
+
+#16. Advanced & Miscellaneous (SDE2+ Essential)
+Trie (Prefix Tree) - Basic & Advanced Applications
+
+XOR Trie (Maximum XOR Problems)
+
+Segment Trees (Range Queries & Updates)
+
+Fenwick Trees (Binary Indexed Tree)
+
+Design Data Structures (LRU Cache, LFU Cache)
+
+System Design Problems
+
+
+#17. Mathematical Algorithms (SDE2+)
+Number Theory Fundamentals
+
+GCD & LCM (Euclidean Algorithm)
+
+Prime Number Algorithms (Sieve of Eratosthenes)
+
+Modular Arithmetic & Fast Exponentiation
+
+Combinatorics & Factorials
+
+Chinese Remainder Theorem
+
+Euler's Totient Function
+
+
+**SDE2+ ADVANCED TOPICS SUMMARY:**
+
+**Data Structures:**
+- Union Find (Disjoint Set)
+- Segment Trees
+- Comprehensive Trie Implementation
+- Advanced Heap Applications
+
+**Algorithms:**
+- Dijkstra's Shortest Path
+- Advanced DP Patterns (5 types)
+- Master Theorem & Complexity Analysis
+- Advanced Sliding Window Techniques
+- Mathematical Algorithms & Number Theory
+
+**Key Skills for SDE2:**
+- Algorithm complexity analysis
+- Advanced data structure design
+- Pattern recognition across problem types
+- Optimization techniques
+- Mathematical problem solving
+
+**Interview Focus Areas:**
+- System design integration
+- Multiple solution approaches
+- Trade-off analysis
+- Real-world applications
+- Scalability considerations
