@@ -31,7 +31,7 @@ The software industry has fundamentally shifted. AI is no longer a niche special
 ## Directory Structure
 
 ```
-AI/
+05_AI/
 ├── README.md                           ← YOU ARE HERE
 ├── 01_AI_Fundamentals.md               — Core ML/DL/LLM concepts every developer must know
 ├── 02_LLM_and_Prompt_Engineering.md    — Working with LLMs, prompt techniques, token economics

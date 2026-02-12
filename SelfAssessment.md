@@ -14,7 +14,7 @@
 
 ## Section 1: Java Internals & Memory Model
 
-**Guide Reference**: [01_Advanced_SpringBoot_Java_Internals.md](TechGuide/01_Advanced_SpringBoot_Java_Internals.md)
+**Guide Reference**: [02_Advanced_SpringBoot_Java_Internals.md](01_TechGuide/02_Advanced_SpringBoot_Java_Internals.md)
 
 | # | Topic | Can You Explain? | Confidence (1-5) |
 |---|-------|-----------------|-------------------|
@@ -35,7 +35,7 @@
 
 ## Section 2: Java Concurrency
 
-**Guide Reference**: [01_Advanced_SpringBoot_Java_Internals.md](TechGuide/01_Advanced_SpringBoot_Java_Internals.md) (Section 1.2)
+**Guide Reference**: [02_Advanced_SpringBoot_Java_Internals.md](01_TechGuide/02_Advanced_SpringBoot_Java_Internals.md) (Section 1.2)
 
 | # | Topic | Can You Explain? | Confidence (1-5) |
 |---|-------|-----------------|-------------------|
@@ -56,7 +56,7 @@
 
 ## Section 3: Spring Boot Internals
 
-**Guide Reference**: [01_Advanced_SpringBoot_Java_Internals.md](TechGuide/01_Advanced_SpringBoot_Java_Internals.md) (Section 1.3, 1.4)
+**Guide Reference**: [02_Advanced_SpringBoot_Java_Internals.md](01_TechGuide/02_Advanced_SpringBoot_Java_Internals.md) (Section 1.3, 1.4)
 
 | # | Topic | Can You Explain? | Confidence (1-5) |
 |---|-------|-----------------|-------------------|
@@ -77,7 +77,7 @@
 
 ## Section 4: Microservices Resilience Patterns
 
-**Guide Reference**: [02_Microservices_Distributed_Systems.md](TechGuide/02_Microservices_Distributed_Systems.md) (Section 2.1)
+**Guide Reference**: [06_Microservices_Distributed_Systems.md](01_TechGuide/06_Microservices_Distributed_Systems.md) (Section 2.1)
 
 | # | Topic | Can You Explain? | Confidence (1-5) |
 |---|-------|-----------------|-------------------|
@@ -95,7 +95,7 @@
 
 ## Section 5: Data Consistency Patterns
 
-**Guide Reference**: [02_Microservices_Distributed_Systems.md](TechGuide/02_Microservices_Distributed_Systems.md) (Section 2.2)
+**Guide Reference**: [06_Microservices_Distributed_Systems.md](01_TechGuide/06_Microservices_Distributed_Systems.md) (Section 2.2)
 
 | # | Topic | Can You Explain? | Confidence (1-5) |
 |---|-------|-----------------|-------------------|
@@ -113,7 +113,7 @@
 
 ## Section 6: Communication (REST, gRPC, Kafka)
 
-**Guide Reference**: [02_Microservices_Distributed_Systems.md](TechGuide/02_Microservices_Distributed_Systems.md) (Section 2.3)
+**Guide Reference**: [06_Microservices_Distributed_Systems.md](01_TechGuide/06_Microservices_Distributed_Systems.md) (Section 2.3)
 
 | # | Topic | Can You Explain? | Confidence (1-5) |
 |---|-------|-----------------|-------------------|
@@ -131,7 +131,7 @@
 
 ## Section 7: Database & Performance Tuning
 
-**Guide Reference**: [03_Database_Performance_Tuning.md](TechGuide/03_Database_Performance_Tuning.md)
+**Guide Reference**: [05_Database_Performance_Tuning.md](01_TechGuide/05_Database_Performance_Tuning.md)
 
 | # | Topic | Can You Explain? | Confidence (1-5) |
 |---|-------|-----------------|-------------------|
@@ -154,7 +154,7 @@
 
 ## Section 8: System Design Concepts
 
-**Guide Reference**: [04_System_Design.md](TechGuide/04_System_Design.md)
+**Guide Reference**: [07_System_Design.md](01_TechGuide/07_System_Design.md)
 
 | # | Topic | Can You Explain? | Confidence (1-5) |
 |---|-------|-----------------|-------------------|
@@ -173,7 +173,7 @@
 
 ## Section 9: Modern Trends (AI, Kubernetes)
 
-**Guide Reference**: [05_Modern_Trends_2026.md](TechGuide/05_Modern_Trends_2026.md)
+**Guide Reference**: [13_Modern_Trends_2026.md](01_TechGuide/13_Modern_Trends_2026.md)
 
 | # | Topic | Can You Explain? | Confidence (1-5) |
 |---|-------|-----------------|-------------------|
@@ -194,7 +194,7 @@
 
 ## Section 10: Angular & Frontend Engineering
 
-**Guide Reference**: [06_Angular_Frontend_Engineering.md](TechGuide/06_Angular_Frontend_Engineering.md)
+**Guide Reference**: [08_Angular_Frontend_Engineering.md](01_TechGuide/08_Angular_Frontend_Engineering.md)
 
 | # | Topic | Can You Explain? | Confidence (1-5) |
 |---|-------|-----------------|-------------------|
@@ -220,7 +220,7 @@
 
 ## Section 11: Modern Java Features (Java 17-21)
 
-**Guide Reference**: [07_Modern_Java_Features.md](TechGuide/07_Modern_Java_Features.md)
+**Guide Reference**: [01_Modern_Java_Features.md](01_TechGuide/01_Modern_Java_Features.md)
 
 | # | Topic | Can You Explain? | Confidence (1-5) |
 |---|-------|-----------------|-------------------|
@@ -241,7 +241,7 @@
 
 ## Section 12: Testing Strategies
 
-**Guide Reference**: [08_Testing_Strategies.md](TechGuide/08_Testing_Strategies.md)
+**Guide Reference**: [09_Testing_Strategies.md](01_TechGuide/09_Testing_Strategies.md)
 
 | # | Topic | Can You Explain? | Confidence (1-5) |
 |---|-------|-----------------|-------------------|
@@ -259,7 +259,7 @@
 
 ## Section 13: DevOps, CI/CD, Docker
 
-**Guide Reference**: [09_DevOps_CICD_Docker.md](TechGuide/09_DevOps_CICD_Docker.md)
+**Guide Reference**: [10_DevOps_CICD_Docker.md](01_TechGuide/10_DevOps_CICD_Docker.md)
 
 | # | Topic | Can You Explain? | Confidence (1-5) |
 |---|-------|-----------------|-------------------|
@@ -279,7 +279,7 @@
 
 ## Section 14: Observability
 
-**Guide Reference**: [10_Observability.md](TechGuide/10_Observability.md)
+**Guide Reference**: [11_Observability.md](01_TechGuide/11_Observability.md)
 
 | # | Topic | Can You Explain? | Confidence (1-5) |
 |---|-------|-----------------|-------------------|
@@ -300,7 +300,7 @@
 
 ## Section 15: API Design & REST
 
-**Guide Reference**: [11_API_Design_REST.md](TechGuide/11_API_Design_REST.md)
+**Guide Reference**: [04_API_Design_REST.md](01_TechGuide/04_API_Design_REST.md)
 
 | # | Topic | Can You Explain? | Confidence (1-5) |
 |---|-------|-----------------|-------------------|
@@ -320,7 +320,7 @@
 
 ## Section 16: Design Patterns, SOLID & Clean Architecture
 
-**Guide Reference**: [12_Design_Patterns_SOLID_CleanArch.md](TechGuide/12_Design_Patterns_SOLID_CleanArch.md)
+**Guide Reference**: [03_Design_Patterns_SOLID_CleanArch.md](01_TechGuide/03_Design_Patterns_SOLID_CleanArch.md)
 
 | # | Topic | Can You Explain? | Confidence (1-5) |
 |---|-------|-----------------|-------------------|
@@ -341,7 +341,7 @@
 
 ## Section 17: Leadership & Behavioral
 
-**Guide Reference**: [13_Leadership_Behavioral_SystemDesign.md](TechGuide/13_Leadership_Behavioral_SystemDesign.md)
+**Guide Reference**: [14_Leadership_Behavioral_SystemDesign.md](01_TechGuide/14_Leadership_Behavioral_SystemDesign.md)
 
 | # | Topic | Are You Prepared? | Confidence (1-5) |
 |---|-------|-------------------|-------------------|
@@ -364,7 +364,7 @@
 
 ## Section 18: System Design Practice
 
-**Guide Reference**: [SystemDesign/](SystemDesign/)
+**Guide Reference**: [04_SystemDesign/](04_SystemDesign/)
 
 | # | Problem | Can You Design It End-to-End in 45 min? | Confidence (1-5) |
 |---|---------|----------------------------------------|-------------------|
@@ -388,7 +388,7 @@
 
 ## Section 19: AI, LLM & RAG
 
-**Guide Reference**: [AI/](AI/)
+**Guide Reference**: [05_AI/](05_AI/)
 
 | # | Topic | Can You Explain? | Confidence (1-5) |
 |---|-------|-----------------|-------------------|
@@ -417,7 +417,7 @@
 
 ## Section 20: Application Security & OWASP
 
-**Guide Reference**: [TechGuide/14_Security_OWASP_Cloud.md](TechGuide/14_Security_OWASP_Cloud.md)
+**Guide Reference**: [01_TechGuide/12_Security_OWASP_Cloud.md](01_TechGuide/12_Security_OWASP_Cloud.md)
 
 | # | Topic | Can You Explain? | Confidence (1-5) |
 |---|-------|-----------------|-------------------|
@@ -438,7 +438,7 @@
 
 ## Section 21: DSA
 
-**Guide Reference**: [DSA/](DSA/)
+**Guide Reference**: [02_DSA/](02_DSA/)
 
 | # | Topic Area | Can You Solve Medium Problems? | Confidence (1-5) |
 |---|-----------|-------------------------------|-------------------|

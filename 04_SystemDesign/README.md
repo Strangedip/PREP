@@ -40,7 +40,7 @@ Use the templates when practicing new problems on your own. They give you a repe
 ## Directory Structure
 
 ```
-SystemDesign/
+04_SystemDesign/
 ├── 01_LowLevelDesign/
 │   ├── ParkingLot/ParkingLot.md                 # Classic OOD — Strategy, Factory, State
 │   ├── BookMyShow/BookMyShow.md                  # Ticket booking with seat locking
@@ -60,7 +60,7 @@ SystemDesign/
 │   ├── RideSharing/RideSharing.md                # Geospatial indexing, matching, ETA, surge
 │   └── PaymentSystem/PaymentSystem.md            # ACID, idempotency, reconciliation, fraud
 │
-└── Templates/
+└── 00_Templates/
     ├── LLD_Template/LLD_Template.md              # Step-by-step LLD interview framework
     └── HLD_Template/HLD_Template.md              # Step-by-step HLD interview framework
 ```
@@ -164,8 +164,8 @@ Use these when practicing new problems that are not in this repo.
 
 | Template | Purpose | Link |
 |----------|---------|------|
-| **LLD Template** | Step-by-step methodology for any OOD problem | [LLD_Template.md](Templates/LLD_Template/LLD_Template.md) |
-| **HLD Template** | Step-by-step methodology for any distributed systems problem | [HLD_Template.md](Templates/HLD_Template/HLD_Template.md) |
+| **LLD Template** | Step-by-step methodology for any OOD problem | [LLD_Template.md](00_Templates/LLD_Template/LLD_Template.md) |
+| **HLD Template** | Step-by-step methodology for any distributed systems problem | [HLD_Template.md](00_Templates/HLD_Template/HLD_Template.md) |
 
 ### LLD Template Summary (5-Step Method)
 
@@ -322,12 +322,12 @@ These are common in Lead Engineer interviews. Use the HLD Template to practice t
 
 | Topic | Where to Study |
 |-------|---------------|
-| SOLID Principles deep dive | [12_Design_Patterns_SOLID_CleanArch.md](../TechGuide/12_Design_Patterns_SOLID_CleanArch.md) |
-| Caching patterns (Cache-Aside, Write-Through) | [03_Database_Performance_Tuning.md](../TechGuide/03_Database_Performance_Tuning.md) |
-| CAP Theorem, Load Balancing, API Gateway | [04_System_Design.md](../TechGuide/04_System_Design.md) |
-| Kafka, gRPC, Resilience patterns | [02_Microservices_Distributed_Systems.md](../TechGuide/02_Microservices_Distributed_Systems.md) |
-| Database indexing, sharding, EXPLAIN ANALYZE | [03_Database_Performance_Tuning.md](../TechGuide/03_Database_Performance_Tuning.md) |
-| Kubernetes, Docker, CI/CD deployment | [09_DevOps_CICD_Docker.md](../TechGuide/09_DevOps_CICD_Docker.md) |
-| Observability (logs, metrics, traces) | [10_Observability.md](../TechGuide/10_Observability.md) |
-| API Design, REST, pagination, error handling | [11_API_Design_REST.md](../TechGuide/11_API_Design_REST.md) |
-| Behavioral & System Design interview framework | [13_Leadership_Behavioral_SystemDesign.md](../TechGuide/13_Leadership_Behavioral_SystemDesign.md) |
+| SOLID Principles deep dive | [03_Design_Patterns_SOLID_CleanArch.md](../01_TechGuide/03_Design_Patterns_SOLID_CleanArch.md) |
+| Caching patterns (Cache-Aside, Write-Through) | [05_Database_Performance_Tuning.md](../01_TechGuide/05_Database_Performance_Tuning.md) |
+| CAP Theorem, Load Balancing, API Gateway | [07_System_Design.md](../01_TechGuide/07_System_Design.md) |
+| Kafka, gRPC, Resilience patterns | [06_Microservices_Distributed_Systems.md](../01_TechGuide/06_Microservices_Distributed_Systems.md) |
+| Database indexing, sharding, EXPLAIN ANALYZE | [05_Database_Performance_Tuning.md](../01_TechGuide/05_Database_Performance_Tuning.md) |
+| Kubernetes, Docker, CI/CD deployment | [10_DevOps_CICD_Docker.md](../01_TechGuide/10_DevOps_CICD_Docker.md) |
+| Observability (logs, metrics, traces) | [11_Observability.md](../01_TechGuide/11_Observability.md) |
+| API Design, REST, pagination, error handling | [04_API_Design_REST.md](../01_TechGuide/04_API_Design_REST.md) |
+| Behavioral & System Design interview framework | [14_Leadership_Behavioral_SystemDesign.md](../01_TechGuide/14_Leadership_Behavioral_SystemDesign.md) |

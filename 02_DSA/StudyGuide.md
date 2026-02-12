@@ -72,49 +72,49 @@ Before choosing a path, honestly evaluate yourself:
   - `02_Strings/GroupAnagrams/` — HashMap with complex keys
 
 - [ ] **Week 7**: Linked Lists
-  - `03_Linked_Lists/ReverseLinkedList/` — Pointer manipulation basics
-  - `03_Linked_Lists/MergeTwoSortedLists/` — Dummy node technique
-  - `03_Linked_Lists/LinkedListCycle/` — Floyd's cycle detection
+  - `05_Linked_Lists/ReverseLinkedList/` — Pointer manipulation basics
+  - `05_Linked_Lists/MergeTwoSortedLists/` — Dummy node technique
+  - `05_Linked_Lists/LinkedListCycle/` — Floyd's cycle detection
 
 - [ ] **Week 8**: Stacks and Queues
-  - `04_Stacks_Queues/ValidParentheses/` — Stack basics
-  - `04_Stacks_Queues/ImplementQueueUsingStacks/` — LIFO/FIFO conversion
-  - `04_Stacks_Queues/MinStack/` — Auxiliary stack pattern
+  - `06_Stacks_Queues/ValidParentheses/` — Stack basics
+  - `06_Stacks_Queues/ImplementQueueUsingStacks/` — LIFO/FIFO conversion
+  - `06_Stacks_Queues/MinStack/` — Auxiliary stack pattern
 
 ### Phase 3: Basic Algorithms (Weeks 9-12)
 **Goals**: Learn fundamental algorithmic thinking
 
 - [ ] **Week 9**: Searching and Sorting
-  - `12_Sorting_Searching/BinarySearch/` — Divide search space
-  - `12_Sorting_Searching/MergeSort/` — Divide and conquer
+  - `03_Sorting_Searching/BinarySearch/` — Divide search space
+  - `03_Sorting_Searching/MergeSort/` — Divide and conquer
   - Understanding O(n log n) vs O(n²)
 
 - [ ] **Week 10**: Trees (Basics)
-  - `05_Trees_Binary_Trees/MaximumDepth/` — Recursion on trees
-  - `05_Trees_Binary_Trees/InvertBinaryTree/` — Tree transformation
-  - `05_Trees_Binary_Trees/SymmetricTree/` — Mirror validation
+  - `08_Trees_Binary_Trees/MaximumDepth/` — Recursion on trees
+  - `08_Trees_Binary_Trees/InvertBinaryTree/` — Tree transformation
+  - `08_Trees_Binary_Trees/SymmetricTree/` — Mirror validation
 
 - [ ] **Week 11**: Recursion and Backtracking (Intro)
-  - `09_Backtracking/Subsets/` — Generate all subsets
-  - `09_Backtracking/Permutations/` — Generate permutations
+  - `12_Backtracking/Subsets/` — Generate all subsets
+  - `12_Backtracking/Permutations/` — Generate permutations
   - Understanding recursive call stack
 
 - [ ] **Week 12**: Basic Sliding Window and Two Pointers
   - `02_Strings/LongestSubstringWithoutRepeating/` — Sliding window
-  - `11_Sliding_Window_Two_Pointers/RemoveDuplicatesFromSortedArray/` — Two pointers
+  - `04_Sliding_Window_Two_Pointers/RemoveDuplicatesFromSortedArray/` — Two pointers
 
 ### Phase 4: Problem Patterns (Weeks 13-16)
 **Goals**: Recognize common patterns and solve independently
 
 - [ ] **Week 13**: Dynamic Programming (Intro)
-  - `10_Dynamic_Programming/ClimbingStairs/` — Fibonacci-like DP
-  - `10_Dynamic_Programming/HouseRobber/` — Include/exclude DP
+  - `13_Dynamic_Programming/ClimbingStairs/` — Fibonacci-like DP
+  - `13_Dynamic_Programming/HouseRobber/` — Include/exclude DP
   - Understanding memoization vs tabulation
 
 - [ ] **Week 14**: Binary Search Tree
-  - `06_Binary_Search_Tree/BSTOperations/` — Insert, Search, Delete
-  - `06_Binary_Search_Tree/LowestCommonAncestorBST/` — BST property usage
-  - `06_Binary_Search_Tree/BalancedBSTCheck/` — Height checking
+  - `09_Binary_Search_Tree/BSTOperations/` — Insert, Search, Delete
+  - `09_Binary_Search_Tree/LowestCommonAncestorBST/` — BST property usage
+  - `09_Binary_Search_Tree/BalancedBSTCheck/` — Height checking
 
 - [ ] **Week 15**: Bit Manipulation and Math
   - `15_Bit_Manipulation/SingleNumber/` — XOR trick
@@ -154,64 +154,64 @@ Before choosing a path, honestly evaluate yourself:
   - `02_Strings/IntegerToRoman/` — Mapping problems
 
 - [ ] **Week 3**: Linked List Mastery
-  - `03_Linked_Lists/ReorderList/` — Multi-step transformation
-  - `03_Linked_Lists/AddTwoNumbers/` — Digit arithmetic
-  - `03_Linked_Lists/RemoveNthNodeFromEnd/` — Two-pointer with gap
-  - `03_Linked_Lists/LRUCache/` — DoublyLinkedList + HashMap design
+  - `05_Linked_Lists/ReorderList/` — Multi-step transformation
+  - `05_Linked_Lists/AddTwoNumbers/` — Digit arithmetic
+  - `05_Linked_Lists/RemoveNthNodeFromEnd/` — Two-pointer with gap
+  - `05_Linked_Lists/LRUCache/` — DoublyLinkedList + HashMap design
 
 - [ ] **Week 4**: Stack Applications
-  - `04_Stacks_Queues/DailyTemperatures/` — Monotonic stack
-  - `04_Stacks_Queues/EvaluateReversePolishNotation/` — Stack evaluation
-  - `04_Stacks_Queues/NextGreaterElement/` — Monotonic stack pattern
+  - `06_Stacks_Queues/DailyTemperatures/` — Monotonic stack
+  - `06_Stacks_Queues/EvaluateReversePolishNotation/` — Stack evaluation
+  - `06_Stacks_Queues/NextGreaterElement/` — Monotonic stack pattern
 
 ### Phase 2: Trees and Graphs (Weeks 5-8)
 **Goals**: Master hierarchical and connected data structures
 
 - [ ] **Week 5**: Tree Traversal and Construction
-  - `05_Trees_Binary_Trees/BinaryTreeLevelOrderTraversal/` — BFS on trees
-  - `05_Trees_Binary_Trees/ValidateBinarySearchTree/` — Range validation
-  - `05_Trees_Binary_Trees/ConstructTreeFromTraversals/` — Reconstruction
-  - `05_Trees_Binary_Trees/SerializeDeserializeBinaryTree/` — Encoding/Decoding
+  - `08_Trees_Binary_Trees/BinaryTreeLevelOrderTraversal/` — BFS on trees
+  - `08_Trees_Binary_Trees/ValidateBinarySearchTree/` — Range validation
+  - `08_Trees_Binary_Trees/ConstructTreeFromTraversals/` — Reconstruction
+  - `08_Trees_Binary_Trees/SerializeDeserializeBinaryTree/` — Encoding/Decoding
 
 - [ ] **Week 6**: BST Operations + Heaps
-  - `06_Binary_Search_Tree/KthSmallestElementBST/` — Inorder traversal
-  - `07_Heaps_Priority_Queues/TopKFrequentElements/` — Heap + HashMap
-  - `07_Heaps_Priority_Queues/KthLargestElementInArray/` — QuickSelect
-  - `07_Heaps_Priority_Queues/FindMedianFromDataStream/` — Two-heap pattern
+  - `09_Binary_Search_Tree/KthSmallestElementBST/` — Inorder traversal
+  - `10_Heaps_Priority_Queues/TopKFrequentElements/` — Heap + HashMap
+  - `10_Heaps_Priority_Queues/KthLargestElementInArray/` — QuickSelect
+  - `10_Heaps_Priority_Queues/FindMedianFromDataStream/` — Two-heap pattern
 
 - [ ] **Week 7**: Graph Basics
-  - `08_Graphs/NumberOfIslands/` — Grid as graph, DFS/BFS
-  - `08_Graphs/CloneGraph/` — DFS with visited map
-  - `08_Graphs/CourseSchedule/` — Topological sort, cycle detection
+  - `11_Graphs/NumberOfIslands/` — Grid as graph, DFS/BFS
+  - `11_Graphs/CloneGraph/` — DFS with visited map
+  - `11_Graphs/CourseSchedule/` — Topological sort, cycle detection
 
 - [ ] **Week 8**: Advanced Graphs
-  - `08_Graphs/WordLadder/` — BFS for shortest path
-  - `08_Graphs/TopologicalSort/` — Kahn's algorithm
-  - `08_Graphs/UnionFind/` — Disjoint set with path compression
+  - `11_Graphs/WordLadder/` — BFS for shortest path
+  - `11_Graphs/TopologicalSort/` — Kahn's algorithm
+  - `11_Graphs/UnionFind/` — Disjoint set with path compression
 
 ### Phase 3: Advanced Techniques (Weeks 9-12)
 **Goals**: Master optimization and advanced patterns
 
 - [ ] **Week 9**: Dynamic Programming
-  - `10_Dynamic_Programming/CoinChange/` — Unbounded knapsack
-  - `10_Dynamic_Programming/LongestCommonSubsequence/` — 2D DP
-  - `10_Dynamic_Programming/UniquePaths/` — Grid DP
-  - `10_Dynamic_Programming/WordBreak/` — String DP
+  - `13_Dynamic_Programming/CoinChange/` — Unbounded knapsack
+  - `13_Dynamic_Programming/LongestCommonSubsequence/` — 2D DP
+  - `13_Dynamic_Programming/UniquePaths/` — Grid DP
+  - `13_Dynamic_Programming/WordBreak/` — String DP
 
 - [ ] **Week 10**: More DP + Backtracking
-  - `10_Dynamic_Programming/LongestIncreasingSubsequence/` — DP + Binary Search
-  - `10_Dynamic_Programming/PalindromicSubstrings/` — Palindrome DP
-  - `09_Backtracking/GenerateParentheses/` — Constrained generation
-  - `09_Backtracking/NQueens/` — Complex constraint satisfaction
+  - `13_Dynamic_Programming/LongestIncreasingSubsequence/` — DP + Binary Search
+  - `13_Dynamic_Programming/PalindromicSubstrings/` — Palindrome DP
+  - `12_Backtracking/GenerateParentheses/` — Constrained generation
+  - `12_Backtracking/NQueens/` — Complex constraint satisfaction
 
 - [ ] **Week 11**: Greedy + Sliding Window
   - `14_Greedy_Algorithms/JumpGame/` — Greedy choice
   - `14_Greedy_Algorithms/GasStation/` — Circular greedy
   - `14_Greedy_Algorithms/PartitionLabels/` — Interval greedy
-  - `11_Sliding_Window_Two_Pointers/LongestSubstringKDistinct/` — Variable window
+  - `04_Sliding_Window_Two_Pointers/LongestSubstringKDistinct/` — Variable window
 
 - [ ] **Week 12**: Sorting + Advanced Search
-  - `12_Sorting_Searching/QuickSort/` — Partition algorithm
+  - `03_Sorting_Searching/QuickSort/` — Partition algorithm
   - `01_Arrays_Matrix/MergeIntervals/` — Interval sorting
   - `01_Arrays_Matrix/SearchInRotatedSortedArray/` — Modified binary search
   - `01_Arrays_Matrix/FindMinimumInRotatedSortedArray/` — Rotated array binary search
@@ -222,18 +222,18 @@ Before choosing a path, honestly evaluate yourself:
 - [ ] **Week 13**: Hard Array/String Problems
   - `01_Arrays_Matrix/TrappingRainWater/` — Multiple approaches
   - `01_Arrays_Matrix/FourSum/` — Generalized multi-pointer
-  - `11_Sliding_Window_Two_Pointers/SlidingWindowMaximum/` — Monotonic deque
+  - `04_Sliding_Window_Two_Pointers/SlidingWindowMaximum/` — Monotonic deque
 
 - [ ] **Week 14**: Advanced Data Structures
-  - `16_Advanced_Miscellaneous/Trie/` — Prefix tree
-  - `16_Advanced_Miscellaneous/SegmentTree/` — Range queries
+  - `17_Advanced_Miscellaneous/Trie/` — Prefix tree
+  - `17_Advanced_Miscellaneous/SegmentTree/` — Range queries
   - `15_Bit_Manipulation/CountingBits/` — DP on bits
   - `15_Bit_Manipulation/ReverseBits/` — Bit manipulation
 
 - [ ] **Week 15**: Merge K + Mixed Hard
-  - `07_Heaps_Priority_Queues/MergeKSortedLists/` — K-way merge
-  - `09_Backtracking/SudokuSolver/` — Complex backtracking
-  - `05_Trees_Binary_Trees/SubtreeOfAnotherTree/` — Tree comparison
+  - `10_Heaps_Priority_Queues/MergeKSortedLists/` — K-way merge
+  - `12_Backtracking/SudokuSolver/` — Complex backtracking
+  - `08_Trees_Binary_Trees/SubtreeOfAnotherTree/` — Tree comparison
 
 - [ ] **Week 16**: Timed Mock Practice
   - Solve 2-3 random Medium/Hard problems in 45 minutes each
@@ -256,25 +256,25 @@ Before choosing a path, honestly evaluate yourself:
 **Goals**: Master sophisticated data structures
 
 - [ ] **Week 1**: Union Find and Advanced Trees
-  - `08_Graphs/UnionFind/` — Path compression + rank
-  - `16_Advanced_Miscellaneous/SegmentTree/` — Range queries with lazy propagation
-  - `08_Graphs/DijkstraAlgorithm/` — Weighted shortest path
+  - `11_Graphs/UnionFind/` — Path compression + rank
+  - `17_Advanced_Miscellaneous/SegmentTree/` — Range queries with lazy propagation
+  - `11_Graphs/DijkstraAlgorithm/` — Weighted shortest path
 
 - [ ] **Week 2**: Trie Applications + Advanced Graphs
-  - `16_Advanced_Miscellaneous/Trie/` — Prefix tree with XOR applications
-  - `13_Recursion_Divide_Conquer/InversionCount/` — Merge sort application
-  - `13_Recursion_Divide_Conquer/MasterTheorem/` — Complexity analysis
+  - `17_Advanced_Miscellaneous/Trie/` — Prefix tree with XOR applications
+  - `07_Recursion_Divide_Conquer/InversionCount/` — Merge sort application
+  - `07_Recursion_Divide_Conquer/MasterTheorem/` — Complexity analysis
 
 - [ ] **Week 3**: Mathematical Algorithms
-  - `17_Math_Algorithms/NumberTheory/` — GCD, primes, modular arithmetic
-  - `11_Sliding_Window_Two_Pointers/AdvancedSlidingWindow/` — Complex variable windows
-  - `11_Sliding_Window_Two_Pointers/MinimumSizeSubarraySum/` — Subarray window
+  - `16_Math_Algorithms/NumberTheory/` — GCD, primes, modular arithmetic
+  - `04_Sliding_Window_Two_Pointers/AdvancedSlidingWindow/` — Complex variable windows
+  - `04_Sliding_Window_Two_Pointers/MinimumSizeSubarraySum/` — Subarray window
 
 ### Phase 2: Advanced DP + Complex Problems (Weeks 4-6)
 **Goals**: Master advanced algorithmic techniques
 
 - [ ] **Week 4**: Advanced Dynamic Programming
-  - `10_Dynamic_Programming/AdvancedDP/` — Interval DP, Bitmask DP, Tree DP
+  - `13_Dynamic_Programming/AdvancedDP/` — Interval DP, Bitmask DP, Tree DP
   - Digit DP and Probability DP patterns
   - State space optimization techniques
 
@@ -300,7 +300,7 @@ Before choosing a path, honestly evaluate yourself:
 
 - [ ] **Week 8**: Weak Area Deep Dive + Final Review
   - Identify weakest categories and drill them
-  - Review all algorithmic patterns (see `CodingPatterns/AlgorithmicPatterns.md`)
+  - Review all algorithmic patterns (see `03_CodingPatterns/02_AlgorithmicPatterns.md`)
   - Revisit top 20 most-asked problems by company
   - Final timed assessment: 4 problems in 3 hours
 
@@ -443,7 +443,7 @@ Solve problems WITHOUT looking at previous solutions. If stuck for 20 minutes, p
 After solving a problem, explain it as if teaching a junior developer. If you cannot explain it simply, you do not understand it well enough.
 
 ### Pattern-First Approach
-Before jumping into problems, study the 16 algorithmic patterns in `CodingPatterns/AlgorithmicPatterns.md`. Then when you see a new problem, your first thought should be: "Which pattern does this match?"
+Before jumping into problems, study the 16 algorithmic patterns in `03_CodingPatterns/02_AlgorithmicPatterns.md`. Then when you see a new problem, your first thought should be: "Which pattern does this match?"
 
 ### Daily Practice Routine
 

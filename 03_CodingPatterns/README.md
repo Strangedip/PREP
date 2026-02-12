@@ -8,8 +8,8 @@
 
 | File | Content | When to Study |
 |------|---------|---------------|
-| [AlgorithmicPatterns.md](AlgorithmicPatterns.md) | 16 algorithmic patterns with templates, complexity, and when-to-use | Before DSA practice — learn patterns, then apply |
-| [patterns.md](patterns.md) | 25 GoF Design Patterns + Spring Boot integration | Before System Design and Machine Coding rounds |
+| [02_AlgorithmicPatterns.md](02_AlgorithmicPatterns.md) | 16 algorithmic patterns with templates, complexity, and when-to-use | Before DSA practice — learn patterns, then apply |
+| [01_Patterns.md](01_Patterns.md) | 25 GoF Design Patterns + Spring Boot integration | Before System Design and Machine Coding rounds |
 
 ---
 
@@ -36,7 +36,7 @@ These patterns cover 90%+ of coding interview problems. Master the pattern, then
 | 15 | Monotonic Stack | Daily Temperatures, Next Greater | Next greater/smaller element |
 | 16 | Union Find | Connected Components, MST | Dynamic connectivity, grouping |
 
-→ **Detailed templates and code in [AlgorithmicPatterns.md](AlgorithmicPatterns.md)**
+→ **Detailed templates and code in [02_AlgorithmicPatterns.md](02_AlgorithmicPatterns.md)**
 
 ---
 
@@ -79,7 +79,7 @@ Used in Machine Coding rounds, System Design discussions, and code quality evalu
 | Visitor | `BeanDefinitionVisitor` | Operations on heterogeneous structures |
 | Interpreter | SpEL (Spring Expression Language) | Parsing expressions |
 
-→ **Full code examples in [patterns.md](patterns.md)**
+→ **Full code examples in [01_Patterns.md](01_Patterns.md)**
 
 ---
 

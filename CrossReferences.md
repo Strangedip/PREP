@@ -71,8 +71,8 @@ public class DistributedCache {
 ### **Trees & Hierarchical Data ↔ Database Design**
 
 #### **DSA Concepts**
-- `05_Trees_Binary_Trees/` - Tree traversals and operations
-- `06_Binary_Search_Tree/` - Ordered data structures
+- `08_Trees_Binary_Trees/` - Tree traversals and operations
+- `09_Binary_Search_Tree/` - Ordered data structures
 - B-trees, B+ trees concepts
 
 #### **System Design Applications**
@@ -120,10 +120,10 @@ public class DatabaseIndex {
 ### **Graphs ↔ Network & Social Systems**
 
 #### **DSA Concepts**
-- `08_Graphs/NumberOfIslands/` - Connected components
-- `08_Graphs/CourseSchedule/` - Topological sorting
-- `08_Graphs/WordLadder/` - Shortest path algorithms
-- `08_Graphs/DijkstraAlgorithm/` - Weighted shortest paths
+- `11_Graphs/NumberOfIslands/` - Connected components
+- `11_Graphs/CourseSchedule/` - Topological sorting
+- `11_Graphs/WordLadder/` - Shortest path algorithms
+- `11_Graphs/DijkstraAlgorithm/` - Weighted shortest paths
 
 #### **System Design Applications**
 - **Social Networks**
@@ -198,9 +198,9 @@ public class FriendRecommendation {
 ### **Dynamic Programming ↔ Caching & Optimization**
 
 #### **DSA Concepts**
-- `10_Dynamic_Programming/CoinChange/` - Memoization
-- `10_Dynamic_Programming/LongestCommonSubsequence/` - Optimal substructure
-- `10_Dynamic_Programming/UniquePaths/` - State transition
+- `13_Dynamic_Programming/CoinChange/` - Memoization
+- `13_Dynamic_Programming/LongestCommonSubsequence/` - Optimal substructure
+- `13_Dynamic_Programming/UniquePaths/` - State transition
 
 #### **System Design Applications**
 - **Caching Strategies**
@@ -261,9 +261,9 @@ public class APICache {
 ### **Heaps & Priority Queues ↔ Resource Management**
 
 #### **DSA Concepts**
-- `07_Heaps_Priority_Queues/KthLargestElementInArray/` - Priority-based selection
-- `07_Heaps_Priority_Queues/TopKFrequentElements/` - Frequency analysis
-- `07_Heaps_Priority_Queues/FindMedianFromDataStream/` - Real-time statistics
+- `10_Heaps_Priority_Queues/KthLargestElementInArray/` - Priority-based selection
+- `10_Heaps_Priority_Queues/TopKFrequentElements/` - Frequency analysis
+- `10_Heaps_Priority_Queues/FindMedianFromDataStream/` - Real-time statistics
 
 #### **System Design Applications**
 - **Task Scheduling**
@@ -333,9 +333,9 @@ public class TrendingTopics {
 ### **Sorting & Searching ↔ Data Processing**
 
 #### **DSA Concepts**
-- `12_Sorting_Searching/BinarySearch/` - Efficient searching
-- `12_Sorting_Searching/MergeSort/` - Divide and conquer
-- `12_Sorting_Searching/QuickSort/` - In-place sorting
+- `03_Sorting_Searching/BinarySearch/` - Efficient searching
+- `03_Sorting_Searching/MergeSort/` - Divide and conquer
+- `03_Sorting_Searching/QuickSort/` - In-place sorting
 
 #### **System Design Applications**
 - **Database Query Processing**
@@ -404,7 +404,7 @@ public class DistributedSearch {
 ### **Union Find ↔ Distributed Systems**
 
 #### **DSA Concepts**
-- `08_Graphs/UnionFind/` - Disjoint set operations
+- `11_Graphs/UnionFind/` - Disjoint set operations
 - Connected components
 - Path compression and union by rank
 

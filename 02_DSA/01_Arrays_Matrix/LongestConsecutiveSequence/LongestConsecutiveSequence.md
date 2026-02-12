@@ -264,7 +264,7 @@ class Solution {
 
 | Problem | Connection | LeetCode |
 |---------|-----------|----------|
-| Union Find | Alternative approach using connected components | [DSA/08_Graphs/UnionFind](../../08_Graphs/UnionFind/UnionFind.md) |
+| Union Find | Alternative approach using connected components | [02_DSA/11_Graphs/UnionFind](../../11_Graphs/UnionFind/UnionFind.md) |
 | Longest Increasing Subsequence | Also finds longest sequence, but not consecutive | [300](https://leetcode.com/problems/longest-increasing-subsequence/) |
 | Missing Number | Uses HashSet for O(1) lookups on number ranges | [268](https://leetcode.com/problems/missing-number/) |
 | First Missing Positive | Related — find smallest missing positive integer | [41](https://leetcode.com/problems/first-missing-positive/) |

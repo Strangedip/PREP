@@ -297,7 +297,7 @@ User Input: "My email is john@example.com and I need help with order ORD-12345"
          ▼ (Only redacted text goes to LLM)
 ┌─────────────────┐
 │ External LLM API│  → "I can help with order ORD-12345. I'll send details to [EMAIL_0]"
-│ (OpenAI/Claude) │
+│ (Open05_AI/Claude) │
 └────────┬────────┘
          │
          ▼

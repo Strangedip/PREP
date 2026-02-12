@@ -27,7 +27,7 @@ A company pays you to know this because:
 - **RAG Architecture**: Explain the full pipeline — document ingestion, chunking, embedding, vector storage, retrieval, augmented prompt construction, LLM generation.
 - **Vector Databases**: Know what vector embeddings are, why you need a specialized database for them, and the options (pgvector, Pinecone, Weaviate, Milvus, Qdrant, ChromaDB).
 - **Chunking strategies**: Why you can't feed an entire 500-page document to an LLM. How to split documents into meaningful chunks.
-- **Spring AI**: Know that Spring AI is the official Spring framework for AI integration (production-ready in 2025+). Demonstrate integration with OpenAI/Anthropic APIs and vector stores.
+- **Spring AI**: Know that Spring AI is the official Spring framework for AI integration (production-ready in 2025+). Demonstrate integration with Open05_AI/Anthropic APIs and vector stores.
 - **Keywords**: "Embedding model", "vector similarity search", "cosine similarity", "semantic search", "chunking strategy", "context window", "prompt engineering", "retrieval pipeline", "Spring AI", "pgvector".
 
 ---
