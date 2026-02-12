@@ -1,546 +1,294 @@
-# 🚀 Software Development Learning Repository
+# Software Engineer Interview Preparation — Associate to Lead
 
-> **A comprehensive knowledge hub for continuous learning and deep understanding of software development concepts, patterns, and best practices.**
-
-[![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)]()
-[![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring&logoColor=white)]()
-[![Data Structures](https://img.shields.io/badge/Data_Structures-FF6B6B?style=for-the-badge)]()
-[![Algorithms](https://img.shields.io/badge/Algorithms-4ECDC4?style=for-the-badge)]()
-[![Design Patterns](https://img.shields.io/badge/Design_Patterns-45B7D1?style=for-the-badge)]()
+> **Your Career Level Journey**: Associate SDE → Mid-Level SDE → Senior SDE → Lead Software Engineer
+> **Tech Stack**: Java 17-21, Spring Boot 3.x, Angular 17+, Microservices, Kubernetes, Cloud-Native
+> **Purpose**: One repo, all levels. Study it when you need to crack any engineering role.
 
 ---
 
-## 📋 **Repository Overview**
+## What This Repository Covers
 
-This repository serves as a **comprehensive learning resource** for understanding fundamental and advanced concepts in software development:
-- **Data Structures & Algorithms** - Core computer science fundamentals
-- **Design Patterns** - Proven solutions to common software problems
-- **System Design** - Understanding how to build scalable, maintainable systems
-- **Software Engineering Best Practices** - Clean code, architecture principles
+This is your **lifetime reference** for software engineering interviews and daily revision. It is structured so that whether you are preparing for your first job or your tenth, you will find what you need.
 
-### 🎯 **Learning Philosophy**
-This repository focuses on **deep understanding** rather than quick fixes. Each topic is explored with:
-- Multiple implementation approaches
-- Real-world applications
-- Comprehensive explanations
-- Best practices and gotchas
-- Continuous learning mindset
+| Career Level | What You Need | Where to Find It |
+|-------------|---------------|-----------------|
+| **Associate / Junior SDE** | Core Java, basic DSA, simple Spring Boot, HTML/CSS/JS | TechGuide Sections 1, 7, 6 (basics) + DSA Path 1 |
+| **Mid-Level SDE** | Deep Java, Design Patterns, databases, Medium DSA | TechGuide Sections 1-3, 7, 12 + DSA Path 2 |
+| **Senior SDE** | Microservices, System Design, testing, Angular depth | TechGuide Sections 2-4, 6, 8, 11 + DSA Path 3 + SystemDesign |
+| **Lead / Staff Engineer** | All of the above + Leadership, DevOps, Observability, AI/RAG, Agents, MLOps | Everything in this repo (including AI/) |
 
 ---
 
-## 📁 **Repository Structure**
+## Repository Structure
 
 ```
-📦 PREP/
-├── 🧮 DSA/                          # Data Structures & Algorithms (120+ Problems)
-│   ├── 01_Arrays_Matrix/            # Array & Matrix Problems (16 problems)
-│   ├── 02_Strings/                  # String Manipulation (9 problems)
-│   ├── 03_Linked_Lists/             # Linked List Operations (8 problems)
-│   ├── 04_Stacks_Queues/            # Stack & Queue Problems (6 problems)
-│   ├── 05_Trees_Binary_Trees/       # Tree Algorithms (8 problems)
-│   ├── 06_Binary_Search_Tree/       # BST Operations (4 problems)
-│   ├── 07_Heaps_Priority_Queues/    # Heap & Priority Queue (4 problems)
-│   ├── 08_Graphs/                   # Graph Algorithms (6+ problems)
-│   ├── 09_Backtracking/             # Backtracking Problems (5 problems)
-│   ├── 10_Dynamic_Programming/      # DP Patterns (11+ problems)
-│   ├── 11_Sliding_Window_Two_Pointers/ # Two Pointers Technique (5+ problems)
-│   ├── 12_Sorting_Searching/        # Sorting & Searching (4 problems)
-│   ├── 13_Recursion_Divide_Conquer/ # Divide & Conquer (3+ problems)
-│   ├── 14_Greedy_Algorithms/        # Greedy Approach (4 problems)
-│   ├── 15_Bit_Manipulation/         # Bitwise Operations (4 problems)
-│   ├── 16_Advanced_Miscellaneous/   # Advanced Data Structures
-│   ├── 17_Math_Algorithms/          # Mathematical Algorithms
-│   ├── LearningPaths.md             # 📚 Structured Learning Paths by Experience Level
-│   └── ProblemDifficultyGuide.md    # 📊 Progressive Difficulty Guide
-├── 🎨 CodingPatterns/               # Design Patterns & Best Practices
-│   └── patterns.md                  # Comprehensive Design Patterns Guide
-├── 🏗️ SystemDesign/                # System Design (Low-Level & High-Level)
-│   ├── 01_LowLevelDesign/           # Object-Oriented Design Problems
-│   ├── 02_HighLevelDesign/          # Distributed System Design
-│   ├── 03_SystemComponents/         # System Building Blocks
-│   ├── 04_Scalability/              # Performance & Scale Patterns
-│   └── 05_Templates/                # Design Templates & Guides
-├── 📝 CodeQuality.md                # Code Quality & Best Practices Guide
-├── 🔗 CrossReferences.md            # DSA ↔ System Design Connections
-└── 🧪 SelfAssessment.md             # Knowledge Validation & Self-Testing
+PREP/
+│
+├── README.md                       ← YOU ARE HERE (Master Guide)
+│
+├── AI/                             ← AI & Machine Learning for Developers (2026)
+│   ├── README.md                   — Study path, career-level guide
+│   ├── 01_AI_Fundamentals.md       — Core ML/DL/LLM/Transformer concepts
+│   ├── 02_LLM_and_Prompt_Engineering.md — API calls, prompting, guardrails
+│   ├── 03_RAG_Architecture.md      — RAG end-to-end with Spring Boot
+│   ├── 04_Vector_Databases_Embeddings.md — pgvector, Pinecone, HNSW, similarity search
+│   ├── 05_Spring_AI.md             — ChatClient, embedding, function calling, streaming
+│   ├── 06_AI_Agents_and_Workflows.md — Agentic AI, MCP, ReAct, multi-agent
+│   ├── 07_AI_Powered_Dev_Tools.md  — Copilot, Cursor, CodeRabbit, AI in SDLC
+│   ├── 08_AI_in_Frontend.md        — AI-powered Angular UIs, streaming chat
+│   ├── 09_MLOps_AI_in_Production.md — Deploy, monitor, scale, cost-control AI
+│   ├── 10_AI_System_Design.md      — AI system design interview problems
+│   └── 11_AI_Ethics_Safety_Governance.md — Responsible AI, bias, PII, compliance
+│
+├── TechGuide/                      ← Core Knowledge Base (14 Deep-Dive Sections)
+│   ├── 00_TableOfContents.md       — Full index with career-level indicators
+│   ├── 01_Advanced_SpringBoot_Java_Internals.md
+│   ├── 02_Microservices_Distributed_Systems.md
+│   ├── 03_Database_Performance_Tuning.md
+│   ├── 04_System_Design.md
+│   ├── 05_Modern_Trends_2026.md
+│   ├── 06_Angular_Frontend_Engineering.md
+│   ├── 07_Modern_Java_Features.md
+│   ├── 08_Testing_Strategies.md
+│   ├── 09_DevOps_CICD_Docker.md
+│   ├── 10_Observability.md
+│   ├── 11_API_Design_REST.md
+│   ├── 12_Design_Patterns_SOLID_CleanArch.md
+│   ├── 13_Leadership_Behavioral_SystemDesign.md
+│   └── 14_Security_OWASP_Cloud.md
+│
+├── DSA/                            ← 100+ Coding Problems with Solutions
+│   ├── 01_Arrays_Matrix/           — 16 problems
+│   ├── 02_Strings/                 — 9 problems
+│   ├── 03_Linked_Lists/            — 8 problems
+│   ├── 04_Stacks_Queues/           — 6 problems
+│   ├── 05_Trees_Binary_Trees/      — 8 problems
+│   ├── 06_Binary_Search_Tree/      — 4 problems
+│   ├── 07_Heaps_Priority_Queues/   — 4 problems
+│   ├── 08_Graphs/                  — 7 problems (incl. Dijkstra, Union Find)
+│   ├── 09_Backtracking/            — 5 problems
+│   ├── 10_Dynamic_Programming/     — 10+ problems (incl. Advanced DP)
+│   ├── 11_Sliding_Window_Two_Pointers/ — 5+ problems
+│   ├── 12_Sorting_Searching/       — 3 problems
+│   ├── 13_Recursion_Divide_Conquer/ — Master Theorem + problems
+│   ├── 14_Greedy_Algorithms/       — 4 problems (incl. Task Scheduler)
+│   ├── 15_Bit_Manipulation/        — 5 problems
+│   ├── 16_Advanced_Miscellaneous/  — Trie, Segment Tree
+│   ├── 17_Math_Algorithms/         — Number Theory
+│   ├── 18_Concurrency_Multithreading/ — Print In Order, Producer-Consumer, Read-Write Lock
+│   ├── StudyGuide.md               — Learning paths by career level
+│   └── README.md                   — DSA overview and problem index
+│
+├── CodingPatterns/                 ← Design Patterns + Algorithmic Patterns
+│   ├── AlgorithmicPatterns.md      — 16 coding interview patterns with templates
+│   ├── patterns.md                 — 25 GoF Design Patterns with Spring Boot examples
+│   └── README.md                   — Pattern overview and study order
+│
+├── SystemDesign/                   ← LLD + HLD Problems + Templates
+│   ├── 01_LowLevelDesign/         — 6 OOD problems (ParkingLot, BookMyShow, etc.)
+│   ├── 02_HighLevelDesign/        — 9 system design problems (URL Shortener, Chat, Twitter, Uber, Payment, etc.)
+│   ├── Templates/                 — HLD & LLD interview templates
+│   └── README.md                  — System design overview and study guide
+│
+├── CodeQuality.md                  ← SOLID, Clean Code, Code Review Checklists
+├── CrossReferences.md              ← How DSA concepts map to System Design
+├── SelfAssessment.md               ← Topic-by-topic readiness checklists
+└── Companies.md                    ← Company-specific interview guides & tips
 ```
 
 ---
 
-## 🎓 **Complete Learning Resources**
+## Learning Path by Career Level
 
-### **📚 Core Learning Materials**
-- **[DSA Learning Paths](DSA/LearningPaths.md)** - Structured paths for beginners, intermediate, and advanced learners
-- **[Problem Difficulty Guide](DSA/ProblemDifficultyGuide.md)** - Progressive learning within each topic category
-- **[Design Patterns Guide](CodingPatterns/patterns.md)** - Comprehensive patterns with practical examples
-- **[System Design Repository](SystemDesign/)** - Complete low-level and high-level design resources
+### Associate / Junior SDE — Weeks 1-16
 
-### **🛠️ Quality & Practice Resources**
-- **[Code Quality Guide](CodeQuality.md)** - Best practices, checklists, and clean code principles
-- **[Cross-References](CrossReferences.md)** - Connections between DSA and System Design concepts
-- **[Self-Assessment Guide](SelfAssessment.md)** - Validate your understanding and track progress
+You are learning the fundamentals. Focus on understanding, not speed.
 
-### **🎯 Learning Support Tools**
-- **Progress Tracking Templates** - Weekly and monthly learning analytics
-- **Study Method Guides** - Individual and group study strategies
-- **Skill Assessment Rubrics** - Measure your development across competency levels
-- **Knowledge Gap Analysis** - Identify and address learning gaps systematically
+| Week | Topic | Resource | Priority |
+|------|-------|----------|----------|
+| 1-2 | Java Basics (OOP, Collections, Streams) | [TechGuide/07](TechGuide/07_Modern_Java_Features.md) (start with basics) | CRITICAL |
+| 3-4 | Spring Boot Basics (DI, REST, Bean Lifecycle) | [TechGuide/01](TechGuide/01_Advanced_SpringBoot_Java_Internals.md) (Sections 1.3-1.4) | CRITICAL |
+| 5-8 | DSA Core (Arrays, Strings, Lists, Stacks) | [DSA/StudyGuide.md — Path 1](DSA/StudyGuide.md) | CRITICAL |
+| 9-10 | Trees, Sorting, Binary Search | [DSA/StudyGuide.md — Path 1](DSA/StudyGuide.md) | HIGH |
+| 11-12 | Basic SQL, REST API design | [TechGuide/03](TechGuide/03_Database_Performance_Tuning.md), [TechGuide/11](TechGuide/11_API_Design_REST.md) | HIGH |
+| 13-14 | Angular Basics (Components, Routing) | [TechGuide/06](TechGuide/06_Angular_Frontend_Engineering.md) (basics) | MEDIUM |
+| 15-16 | Basic DP, Greedy, Bit Manipulation | [DSA/StudyGuide.md — Path 1](DSA/StudyGuide.md) | HIGH |
 
----
-
-## 📚 **Step-by-Step Learning Guide: Easy to Advanced**
-
-> **Follow this comprehensive roadmap to master software development concepts systematically**
-
-This guide provides the optimal learning order, building from fundamental concepts to advanced system design. Each step builds upon previous knowledge, ensuring a solid foundation before moving to more complex topics.
-
-### 🎯 **Learning Principles**
-- **Foundation First**: Master basics before advancing
-- **Incremental Complexity**: Gradual increase in difficulty
-- **Practice-Driven**: Hands-on coding with every concept
-- **Connect & Apply**: Link theoretical knowledge to practical applications
-- **Review & Reinforce**: Regular revisiting of key concepts
+**Key outcome**: Solve 80% of LeetCode Easy problems. Explain basic Spring Boot and REST.
 
 ---
 
-## 🚀 **Phase 1: Programming Fundamentals (Weeks 1-4)**
-*Build the essential foundation for all future learning*
+### Mid-Level SDE — Weeks 1-16
 
-### **Week 1-2: Java Basics & Problem-Solving Mindset**
-#### **📋 Learning Goals**
-- Master Java syntax and basic programming concepts
-- Develop problem-solving thinking
-- Understand input/output operations and basic debugging
+You know the basics. Now build depth and pattern recognition.
 
-#### **📚 Study Order**
-1. **Java Fundamentals** (2-3 hours/day)
-   - Variables, data types, operators
-   - Control structures (if-else, loops)
-   - Functions and parameter passing
-   - Arrays and basic string operations
+| Week | Topic | Resource | Priority |
+|------|-------|----------|----------|
+| 1-2 | Java Memory Model, Concurrency | [TechGuide/01](TechGuide/01_Advanced_SpringBoot_Java_Internals.md) (Sections 1.1-1.2) | CRITICAL |
+| 3-4 | Design Patterns (SOLID, GoF) | [TechGuide/12](TechGuide/12_Design_Patterns_SOLID_CleanArch.md), [CodingPatterns/](CodingPatterns/) | CRITICAL |
+| 5-8 | DSA Medium Problems (Trees, Graphs, DP) | [DSA/StudyGuide.md — Path 2](DSA/StudyGuide.md) | CRITICAL |
+| 9-10 | Database Indexing, SQL Optimization | [TechGuide/03](TechGuide/03_Database_Performance_Tuning.md) | HIGH |
+| 11-12 | Spring Boot Security (JWT, OAuth2) | [TechGuide/01](TechGuide/01_Advanced_SpringBoot_Java_Internals.md) (Section 1.4) | HIGH |
+| 13-14 | Angular State Management, RxJS | [TechGuide/06](TechGuide/06_Angular_Frontend_Engineering.md) (Sections 6.2-6.3) | HIGH |
+| 15-16 | Code Quality, Testing | [CodeQuality.md](CodeQuality.md), [TechGuide/08](TechGuide/08_Testing_Strategies.md) | HIGH |
 
-2. **Basic Problem Solving** (1 hour/day)
-   - Start with `DSA/01_Arrays_Matrix/TwoSum/` - understand the problem thoroughly
-   - Practice: `DSA/01_Arrays_Matrix/MoveZeroes/`
-   - Read about complexity analysis (Big O notation basics)
-
-#### **✅ Milestone Checklist**
-- [ ] Can write basic Java programs without syntax errors
-- [ ] Understands what algorithms and data structures are
-- [ ] Can solve simple array manipulation problems
-- [ ] Knows how to analyze basic time complexity
-
-### **Week 3-4: Core Data Structures Foundation**
-#### **📋 Learning Goals**
-- Understand fundamental data structures
-- Learn when and why to use different structures
-- Master basic operations on each structure
-
-#### **📚 Study Order**
-1. **Arrays Mastery** (Week 3)
-   - `DSA/01_Arrays_Matrix/RotateArray/` - array manipulation
-   - `DSA/01_Arrays_Matrix/MaximumSubarray/` - introduction to algorithms
-   - Study the [Problem Difficulty Guide](DSA/ProblemDifficultyGuide.md) for arrays
-
-2. **Strings & Basic Patterns** (Week 4)
-   - `DSA/02_Strings/ReverseString/` - basic string operations
-   - `DSA/02_Strings/ValidPalindrome/` - two-pointer technique introduction
-   - `DSA/02_Strings/ValidAnagram/` - character frequency counting
-
-#### **✅ Milestone Checklist**
-- [ ] Comfortable with array operations and indexing
-- [ ] Understands two-pointer technique basics
-- [ ] Can manipulate strings confidently
-- [ ] Recognizes when to use hash tables for counting
+**Key outcome**: Solve 70% of LeetCode Medium problems. Design clean APIs with proper patterns.
 
 ---
 
-## 🔧 **Phase 2: Core Data Structures (Weeks 5-8)**
-*Master the essential building blocks of computer science*
+### Senior SDE — Weeks 1-12
 
-### **Week 5: Linked Lists & Pointer Manipulation**
-#### **📋 Learning Goals**
-- Understand memory concepts and pointers
-- Master linked list operations
-- Learn recursive vs iterative approaches
+You build production systems. Now learn to design them at scale.
 
-#### **📚 Study Order**
-1. **Linked List Fundamentals**
-   - `DSA/03_Linked_Lists/ReverseLinkedList/` - master pointer manipulation
-   - `DSA/03_Linked_Lists/MergeTwoSortedLists/` - merging technique
-   - `DSA/03_Linked_Lists/LinkedListCycle/` - cycle detection (Floyd's algorithm)
+| Week | Topic | Resource | Priority |
+|------|-------|----------|----------|
+| 1-2 | Microservices (Circuit Breaker, SAGA, Kafka) | [TechGuide/02](TechGuide/02_Microservices_Distributed_Systems.md) | CRITICAL |
+| 3-4 | System Design Concepts (CAP, Scaling, LB) | [TechGuide/04](TechGuide/04_System_Design.md) | CRITICAL |
+| 5-6 | HLD Practice (URL Shortener, Chat System) | [SystemDesign/02_HighLevelDesign/](SystemDesign/02_HighLevelDesign/) | CRITICAL |
+| 7-8 | LLD Practice (Parking Lot, Elevator) | [SystemDesign/01_LowLevelDesign/](SystemDesign/01_LowLevelDesign/) | HIGH |
+| 9-10 | DB Scaling (Sharding, Caching, Redis) | [TechGuide/03](TechGuide/03_Database_Performance_Tuning.md) (Sections 3.2-3.3) | HIGH |
+| 11-12 | DSA Hard Problems + Mock Interviews | [DSA/StudyGuide.md — Path 3](DSA/StudyGuide.md) | CRITICAL |
 
-2. **First Design Pattern Introduction**
-   - Read `CodingPatterns/patterns.md` - Singleton Pattern section
-   - Understand why design patterns matter
-   - Practice: Implement a simple singleton logger
-
-#### **✅ Milestone Checklist**
-- [ ] Can manipulate pointers confidently
-- [ ] Understands the difference between iterative and recursive solutions
-- [ ] Knows when linked lists are better than arrays
-- [ ] Has implemented first design pattern
-
-### **Week 6: Stacks, Queues & Algorithm Thinking**
-#### **📋 Learning Goals**
-- Understand LIFO and FIFO principles
-- Learn how stacks and queues solve real problems
-- Develop algorithmic thinking patterns
-
-#### **📚 Study Order**
-1. **Stack Applications**
-   - `DSA/04_Stacks_Queues/ValidParentheses/` - classic stack problem
-   - `DSA/04_Stacks_Queues/DailyTemperatures/` - monotonic stack pattern
-   - `DSA/04_Stacks_Queues/MinStack/` - design with constraints
-
-2. **Queue Operations**
-   - `DSA/04_Stacks_Queues/ImplementQueueUsingStacks/` - understanding relationships
-   - Study when to use stacks vs queues
-
-#### **✅ Milestone Checklist**
-- [ ] Recognizes stack and queue use cases immediately
-- [ ] Can implement stacks and queues from scratch
-- [ ] Understands monotonic stack concept
-- [ ] Sees patterns in problem types
-
-### **Week 7-8: Trees & Hierarchical Thinking**
-#### **📋 Learning Goals**
-- Understand tree structures and recursion
-- Master tree traversal techniques
-- Learn binary search tree properties
-
-#### **📚 Study Order**
-1. **Basic Tree Operations** (Week 7)
-   - `DSA/05_Trees_Binary_Trees/MaximumDepth/` - recursive tree thinking
-   - `DSA/05_Trees_Binary_Trees/InvertBinaryTree/` - tree manipulation
-   - `DSA/05_Trees_Binary_Trees/BinaryTreeLevelOrderTraversal/` - BFS introduction
-
-2. **Binary Search Trees** (Week 8)
-   - `DSA/06_Binary_Search_Tree/ValidateBinarySearchTree/` - BST properties
-   - `DSA/05_Trees_Binary_Trees/SymmetricTree/` - tree comparison patterns
-   - Study tree traversal patterns (inorder, preorder, postorder)
-
-#### **✅ Milestone Checkpoints**
-- [ ] Thinks recursively about tree problems naturally
-- [ ] Can implement all tree traversal methods
-- [ ] Understands BST properties and advantages
-- [ ] Can design simple tree-based solutions
+**Key outcome**: Design scalable distributed systems. Solve Hard DSA problems. Explain trade-offs.
 
 ---
 
-## 🧠 **Phase 3: Algorithmic Patterns (Weeks 9-12)**
-*Learn the core patterns that solve 80% of coding problems*
+### Lead / Staff Engineer — Weeks 1-12
 
-### **Week 9: Searching & Sorting Foundations**
-#### **📋 Learning Goals**
-- Master binary search and its applications
-- Understand sorting algorithms and their trade-offs
-- Learn divide-and-conquer thinking
+You own technical direction. Now master everything and lead.
 
-#### **📚 Study Order**
-1. **Search Algorithms**
-   - `DSA/12_Sorting_Searching/BinarySearch/` - master binary search
-   - `DSA/01_Arrays_Matrix/SearchInRotatedSortedArray/` - binary search variants
-   - `DSA/01_Arrays_Matrix/FindMinimumInRotatedSortedArray/` - search space concepts
+| Week | Topic | Resource | Priority |
+|------|-------|----------|----------|
+| 1 | Java Internals Deep Dive (GC, Memory, Concurrency) | [TechGuide/01](TechGuide/01_Advanced_SpringBoot_Java_Internals.md) | CRITICAL |
+| 2 | Modern Java (Virtual Threads, Records, Sealed) | [TechGuide/07](TechGuide/07_Modern_Java_Features.md) | HIGH |
+| 3 | Microservices Resilience + Data Consistency | [TechGuide/02](TechGuide/02_Microservices_Distributed_Systems.md) | CRITICAL |
+| 4 | Database Optimization + Caching Patterns | [TechGuide/03](TechGuide/03_Database_Performance_Tuning.md) | CRITICAL |
+| 5 | System Design Framework + Practice | [TechGuide/04](TechGuide/04_System_Design.md), [SystemDesign/](SystemDesign/) | CRITICAL |
+| 6 | Clean Architecture + DDD | [TechGuide/12](TechGuide/12_Design_Patterns_SOLID_CleanArch.md) | HIGH |
+| 7 | Angular Signals, State, Performance | [TechGuide/06](TechGuide/06_Angular_Frontend_Engineering.md) | HIGH |
+| 8 | API Design + REST Best Practices | [TechGuide/11](TechGuide/11_API_Design_REST.md) | HIGH |
+| 9 | DevOps + CI/CD + Kubernetes | [TechGuide/09](TechGuide/09_DevOps_CICD_Docker.md), [TechGuide/05](TechGuide/05_Modern_Trends_2026.md) | HIGH |
+| 10 | Observability (Logging, Metrics, Tracing) | [TechGuide/10](TechGuide/10_Observability.md) | HIGH |
+| 11 | **AI/ML Complete** (LLM, RAG, Spring AI, Agents, MLOps) | [AI/](AI/) (all 11 sections) | **CRITICAL** |
+| 12 | Leadership, Behavioral, Story Bank | [TechGuide/13](TechGuide/13_Leadership_Behavioral_SystemDesign.md) | CRITICAL |
 
-2. **Sorting Understanding**
-   - `DSA/12_Sorting_Searching/MergeSort/` - divide and conquer
-   - `DSA/12_Sorting_Searching/QuickSort/` - partitioning technique
-   - Study when to use different sorting algorithms
-
-#### **✅ Milestone Checklist**
-- [ ] Can implement binary search without bugs
-- [ ] Understands when and how to apply binary search
-- [ ] Knows sorting algorithm trade-offs
-- [ ] Thinks in terms of divide-and-conquer
-
-### **Week 10: Two Pointers & Sliding Window**
-#### **📋 Learning Goals**
-- Master the two-pointer technique
-- Understand sliding window optimization
-- Recognize when these patterns apply
-
-#### **📚 Study Order**
-1. **Two-Pointer Mastery**
-   - `DSA/01_Arrays_Matrix/ThreeSum/` - extending two-pointer technique
-   - `DSA/01_Arrays_Matrix/ContainerWithMostWater/` - optimization with constraints
-   - `DSA/11_Sliding_Window_Two_Pointers/RemoveDuplicatesFromSortedArray/`
-
-2. **Sliding Window Technique**
-   - `DSA/02_Strings/LongestSubstringWithoutRepeating/` - classic sliding window
-   - `DSA/11_Sliding_Window_Two_Pointers/LongestSubstringKDistinct/`
-   - Practice identifying sliding window problems
-
-#### **✅ Milestone Checklist**
-- [ ] Recognizes two-pointer opportunities immediately
-- [ ] Can optimize O(n²) solutions to O(n) using these techniques
-- [ ] Understands sliding window mechanics
-- [ ] Applies these patterns to new problems confidently
-
-### **Week 11: Recursion & Backtracking**
-#### **📋 Learning Goals**
-- Master recursive thinking and implementation
-- Understand backtracking as controlled recursion
-- Learn to solve constraint-based problems
-
-#### **📚 Study Order**
-1. **Recursion Foundations**
-   - `DSA/13_Recursion_Divide_Conquer/` - study Master Theorem
-   - Practice writing recursive solutions for previous problems
-   - Understand base cases and recursive cases
-
-2. **Backtracking Introduction**
-   - `DSA/09_Backtracking/GenerateParentheses/` - systematic enumeration
-   - `DSA/09_Backtracking/Subsets/` - decision tree exploration
-   - `DSA/09_Backtracking/Permutations/` - ordering problems
-
-#### **✅ Milestone Checklist**
-- [ ] Writes recursive solutions naturally
-- [ ] Can break down complex problems into subproblems
-- [ ] Understands backtracking decision trees
-- [ ] Solves constraint-based enumeration problems
-
-### **Week 12: Dynamic Programming Introduction**
-#### **📋 Learning Goals**
-- Understand the DP mindset and when to apply it
-- Master memoization and tabulation
-- Recognize optimal substructure
-
-#### **📚 Study Order**
-1. **DP Fundamentals**
-   - `DSA/10_Dynamic_Programming/ClimbingStairs/` - basic DP concept
-   - `DSA/10_Dynamic_Programming/HouseRobber/` - decision-based DP
-   - `DSA/10_Dynamic_Programming/CoinChange/` - unbounded problems
-
-2. **DP Pattern Recognition**
-   - Study different DP patterns in the repository
-   - Practice converting recursive solutions to DP
-   - Understand time vs space optimization
-
-#### **✅ Milestone Checklist**
-- [ ] Recognizes DP opportunities in problems
-- [ ] Can implement both memoization and tabulation
-- [ ] Understands state definition and transitions
-- [ ] Optimizes recursive solutions using DP
+**Key outcome**: Pass any technical, system design, and behavioral round at FAANG-level companies.
 
 ---
 
-## 🚀 **Phase 4: Advanced Data Structures (Weeks 13-16)**
-*Learn sophisticated tools for complex problems*
+## Section-by-Section Summary
 
-### **Week 13: Heaps & Priority Queues**
-#### **📋 Learning Goals**
-- Understand heap properties and operations
-- Master priority queue applications
-- Learn heap-based algorithms
+### TechGuide — What Each Section Covers
 
-#### **📚 Study Order**
-1. **Heap Fundamentals**
-   - `DSA/07_Heaps_Priority_Queues/KthLargestElementInArray/` - heap basics
-   - `DSA/07_Heaps_Priority_Queues/TopKFrequentElements/` - frequency analysis
-   - `DSA/07_Heaps_Priority_Queues/FindMedianFromDataStream/` - advanced heap usage
+| # | Section | Key Topics | Relevant From |
+|---|---------|-----------|---------------|
+| 01 | [Java & Spring Boot Internals](TechGuide/01_Advanced_SpringBoot_Java_Internals.md) | Memory Model, GC (G1GC/ZGC), Concurrency, Bean Lifecycle, OAuth2/JWT | Mid-Level+ |
+| 02 | [Microservices & Distributed Systems](TechGuide/02_Microservices_Distributed_Systems.md) | Circuit Breaker, SAGA, Kafka, gRPC, Outbox Pattern | Senior+ |
+| 03 | [Database & Performance Tuning](TechGuide/03_Database_Performance_Tuning.md) | Indexing, EXPLAIN ANALYZE, N+1, Sharding, Caching, Redis | Mid-Level+ |
+| 04 | [System Design](TechGuide/04_System_Design.md) | CAP, Scaling, Load Balancers, API Gateway, Strangler Fig | Senior+ |
+| 05 | [Modern Trends 2026](TechGuide/05_Modern_Trends_2026.md) | RAG/AI with Spring AI, Kubernetes for Engineers | Lead |
+| 06 | [Angular & Frontend](TechGuide/06_Angular_Frontend_Engineering.md) | Signals, Standalone Components, NgRx Signal Store, RxJS, Guards | All Levels |
+| 07 | [Modern Java (17-21)](TechGuide/07_Modern_Java_Features.md) | Records, Sealed Classes, Virtual Threads, Pattern Matching | Mid-Level+ |
+| 08 | [Testing Strategies](TechGuide/08_Testing_Strategies.md) | JUnit 5, Testcontainers, WireMock, Contract Testing | Mid-Level+ |
+| 09 | [DevOps & CI/CD](TechGuide/09_DevOps_CICD_Docker.md) | Docker, GitHub Actions, Blue-Green, GitOps, Terraform | Senior+ |
+| 10 | [Observability](TechGuide/10_Observability.md) | Structured Logging, Prometheus, OpenTelemetry, SLI/SLO | Senior+ |
+| 11 | [API Design & REST](TechGuide/11_API_Design_REST.md) | RESTful Design, RFC 7807, Pagination, Versioning, HATEOAS | Mid-Level+ |
+| 12 | [Design Patterns & Architecture](TechGuide/12_Design_Patterns_SOLID_CleanArch.md) | SOLID, GoF Patterns, CQRS, Clean Architecture, DDD | Mid-Level+ |
+| 13 | [Leadership & Behavioral](TechGuide/13_Leadership_Behavioral_SystemDesign.md) | STAR Method, Story Bank, System Design Framework, ADRs | Lead |
+| 14 | [Security, OWASP & Cloud](TechGuide/14_Security_OWASP_Cloud.md) | OWASP Top 10, JWT, CORS, STRIDE, AWS Services, IAM, VPC | Senior+ |
 
-2. **Real-world Applications**
-   - Study how operating systems use priority queues
-   - Read `CrossReferences.md` section on heaps in system design
-   - Practice: Design a task scheduler using heaps
+### AI — What Each Section Covers
 
-#### **✅ Milestone Checklist**
-- [ ] Can implement heap operations from scratch
-- [ ] Recognizes when priority queues solve problems optimally
-- [ ] Understands heap applications in real systems
-- [ ] Can design heap-based solutions
+| # | Section | Key Topics | Relevant From |
+|---|---------|-----------|---------------|
+| 01 | [AI Fundamentals](AI/01_AI_Fundamentals.md) | Transformers, Tokens, Embeddings, LLM landscape, model comparison | All Levels |
+| 02 | [LLM & Prompt Engineering](AI/02_LLM_and_Prompt_Engineering.md) | Few-shot, CoT, ReAct, structured output, prompt injection defense | All Levels |
+| 03 | [RAG Architecture](AI/03_RAG_Architecture.md) | Ingestion, chunking strategies, retrieval, re-ranking, evaluation | Mid-Level+ |
+| 04 | [Vector Databases](AI/04_Vector_Databases_Embeddings.md) | pgvector, Pinecone, HNSW, IVF, hybrid search, multi-tenancy | Mid-Level+ |
+| 05 | [Spring AI](AI/05_Spring_AI.md) | ChatClient, EmbeddingModel, VectorStore, Function Calling, Advisors | Mid-Level+ |
+| 06 | [AI Agents](AI/06_AI_Agents_and_Workflows.md) | ReAct, MCP, multi-agent, plan-and-execute, safety controls | Senior+ |
+| 07 | [AI Dev Tools](AI/07_AI_Powered_Dev_Tools.md) | Copilot, Cursor, CodeRabbit, .cursorrules, AI in SDLC | All Levels |
+| 08 | [AI in Frontend](AI/08_AI_in_Frontend.md) | Angular streaming chat, SSE, markdown rendering, AI UX patterns | Mid-Level+ |
+| 09 | [MLOps](AI/09_MLOps_AI_in_Production.md) | LLM routing, cost management, A/B testing, quality monitoring | Senior+ |
+| 10 | [AI System Design](AI/10_AI_System_Design.md) | AI customer support, knowledge base, code review, recommendation | Lead |
+| 11 | [AI Ethics & Governance](AI/11_AI_Ethics_Safety_Governance.md) | Hallucination prevention, bias, PII, prompt injection, EU AI Act | Lead |
 
-### **Week 14: Graph Algorithms Foundation**
-#### **📋 Learning Goals**
-- Understand graph representation and terminology
-- Master graph traversal algorithms
-- Learn to model real-world problems as graphs
+### Supporting Files
 
-#### **📚 Study Order**
-1. **Graph Traversal**
-   - `DSA/08_Graphs/NumberOfIslands/` - BFS/DFS on grids
-   - `DSA/08_Graphs/CloneGraph/` - graph construction
-   - `DSA/08_Graphs/CourseSchedule/` - topological sorting
-
-2. **Graph Applications**
-   - `DSA/08_Graphs/WordLadder/` - shortest path in unweighted graphs
-   - Study graph representations (adjacency list vs matrix)
-   - Practice modeling problems as graphs
-
-#### **✅ Milestone Checklist**
-- [ ] Implements BFS and DFS confidently
-- [ ] Models real-world problems as graphs
-- [ ] Understands when to use different graph representations
-- [ ] Can solve path-finding and connectivity problems
-
-### **Week 15-16: Advanced Algorithms**
-#### **📋 Learning Goals**
-- Learn advanced graph algorithms
-- Understand Union-Find data structure
-- Master complex algorithmic techniques
-
-#### **📚 Study Order**
-1. **Advanced Graph Algorithms** (Week 15)
-   - `DSA/08_Graphs/DijkstraAlgorithm/` - weighted shortest paths
-   - `DSA/08_Graphs/UnionFind/` - disjoint set operations
-   - Study minimum spanning tree algorithms
-
-2. **Specialized Data Structures** (Week 16)
-   - `DSA/16_Advanced_Miscellaneous/Trie/` - string processing
-   - `DSA/16_Advanced_Miscellaneous/SegmentTree/` - range queries
-   - `DSA/15_Bit_Manipulation/` - bitwise operations
-
-#### **✅ Milestone Checklist**
-- [ ] Can implement Dijkstra's algorithm
-- [ ] Understands Union-Find applications
-- [ ] Uses tries for string problems
-- [ ] Applies bit manipulation techniques
+| File | Purpose | When to Use |
+|------|---------|-------------|
+| [CodeQuality.md](CodeQuality.md) | SOLID, Clean Code, naming conventions, anti-patterns, code review checklist | Before any coding round |
+| [CrossReferences.md](CrossReferences.md) | How DSA concepts map to System Design (Arrays → Caches, Trees → DBs, Graphs → Networks) | When connecting DSA to design |
+| [SelfAssessment.md](SelfAssessment.md) | Topic-by-topic readiness checklists with confidence scoring | Weekly self-check |
+| [Companies.md](Companies.md) | Google, Amazon, Meta, Microsoft, Flipkart, Apple interview guides | Before company-specific prep |
+| [DSA/StudyGuide.md](DSA/StudyGuide.md) | Learning paths by career level + difficulty progression per category | When planning DSA study |
 
 ---
 
-## 🏗️ **Phase 5: System Design Integration (Weeks 17-20)**
-*Connect algorithms to real-world system building*
+## Quick Reference: Interview Keywords by Topic
 
-### **Week 17: Design Patterns Mastery**
-#### **📋 Learning Goals**
-- Master essential design patterns
-- Understand when and how to apply patterns
-- See patterns in real codebases
+Use these keywords in your answers to signal depth to the interviewer.
 
-#### **📚 Study Order**
-1. **Core Patterns**
-   - Study `CodingPatterns/patterns.md` systematically
-   - Implement: Singleton, Factory, Observer, Strategy patterns
-   - Practice: Decorator and Adapter patterns
-
-2. **Pattern Applications**
-   - Refactor previous code using appropriate patterns
-   - Study how Spring Framework uses design patterns
-   - Read `CodeQuality.md` for pattern best practices
-
-#### **✅ Milestone Checklist**
-- [ ] Can identify pattern opportunities in code
-- [ ] Implements patterns correctly and efficiently
-- [ ] Understands pattern trade-offs and alternatives
-- [ ] Refactors code using appropriate patterns
-
-### **Week 18: Low-Level System Design**
-#### **📋 Learning Goals**
-- Apply OOP principles to system design
-- Learn to design extensible and maintainable systems
-- Master the design process
-
-#### **📚 Study Order**
-1. **Object-Oriented Design**
-   - Study `SystemDesign/01_LowLevelDesign/ParkingLot/`
-   - Practice: Design a library management system
-   - Apply SOLID principles to designs
-
-2. **Design Process**
-   - Follow the systematic design approach
-   - Practice requirement gathering and clarification
-   - Learn to handle extensibility requirements
-
-#### **✅ Milestone Checklist**
-- [ ] Designs well-structured object-oriented systems
-- [ ] Applies SOLID principles naturally
-- [ ] Can extend systems without breaking existing code
-- [ ] Documents design decisions clearly
-
-### **Week 19: High-Level System Design**
-#### **📋 Learning Goals**
-- Understand distributed system concepts
-- Learn to design scalable architectures
-- Master system component integration
-
-#### **📚 Study Order**
-1. **System Components**
-   - Study `SystemDesign/03_SystemComponents/`
-   - Learn about load balancers, caches, databases
-   - Understand CAP theorem and trade-offs
-
-2. **Scalable System Design**
-   - Practice: Design `SystemDesign/02_HighLevelDesign/URLShortener/`
-   - Study horizontal vs vertical scaling
-   - Learn database sharding and replication
-
-#### **✅ Milestone Checklist**
-- [ ] Understands distributed system challenges
-- [ ] Can design systems for scale
-- [ ] Makes informed trade-off decisions
-- [ ] Connects algorithms to system components
-
-### **Week 20: Integration & Real-world Applications**
-#### **📋 Learning Goals**
-- Connect all learned concepts
-- Apply knowledge to real-world scenarios
-- Build confidence in system thinking
-
-#### **📚 Study Order**
-1. **Cross-Topic Integration**
-   - Study `CrossReferences.md` thoroughly
-   - Practice: Design a complete system (e.g., chat application)
-   - Apply DSA knowledge to system optimization
-
-2. **Portfolio Development**
-   - Implement a significant project using learned concepts
-   - Document design decisions and trade-offs
-   - Prepare to explain technical choices
-
-#### **✅ Final Milestone Checklist**
-- [ ] Connects DSA concepts to system design naturally
-- [ ] Can design and implement complete systems
-- [ ] Makes data-driven technical decisions
-- [ ] Explains complex concepts clearly to others
+| Topic | Must-Say Keywords |
+|-------|-------------------|
+| **Java Memory** | Weak Generational Hypothesis, Escape Analysis, TLAB, Dominator Tree, GC Roots, Retained Heap |
+| **Garbage Collection** | Concurrent Marking, Colored Pointers (ZGC), Stop-The-World, Region-based, G1GC pause target |
+| **Concurrency** | Fan-out/Fan-in, CAS (Compare-And-Swap), Happens-Before, Work-Stealing, ForkJoinPool |
+| **Spring Boot** | IoC, BeanPostProcessor, Conditional Beans, CGLIB Proxy, Component Scanning, AutoConfiguration |
+| **Security** | OWASP Top 10, PKCE, IDOR, STRIDE, JWT Algorithm Confusion, CORS, CSP, HSTS, SSRF, BCrypt, PCI DSS |
+| **Cloud / AWS** | VPC, Security Groups, IAM Least Privilege, EKS, RDS, S3, SQS, SNS, ALB, CloudWatch, Secrets Manager |
+| **Resilience** | Cascading Failure, Fail Fast, Exponential Backoff + Jitter, Blast Radius, Circuit Breaker states |
+| **SAGA Pattern** | Compensating Transaction, Orchestration vs Choreography, Outbox Pattern, Idempotency Key |
+| **Database** | Covering Index, Partition Pruning, Leftmost Prefix Rule, N+1 Problem, EXPLAIN ANALYZE |
+| **Caching** | Cache-Aside, Cache Stampede, TTL, Eviction Policy, Near-Cache, Write-Behind |
+| **System Design** | CAP Theorem, PACELC, Consistent Hashing, Strangler Fig, Anti-Corruption Layer |
+| **Kubernetes** | Desired State, Reconciliation Loop, Readiness Probe, HPA, Pod Disruption Budget, Graceful Shutdown |
+| **AI / RAG** | Vector Embedding, Cosine Similarity, Semantic Search, Chunking, Context Window, HNSW Index, Spring AI ChatClient, Function Calling, MCP, AI Agents, ReAct, Prompt Injection, PII Redaction, Hallucination Prevention, Token Cost, Semantic Cache |
+| **Angular** | OnPush, Signals, Lazy Loading, NgRx Signal Store, Zone.js, Change Detection, RxJS operators |
+| **Docker / CI-CD** | Multi-stage Build, Layer Caching, GitOps, Canary, Feature Flags, Trunk-based Development |
+| **Observability** | Three Pillars, RED Method, USE Method, SLI/SLO/SLA, OpenTelemetry, Tail Sampling |
+| **API Design** | RFC 7807, Cursor Pagination, Idempotency Key, HATEOAS, OpenAPI, Versioning, Sunset Header |
+| **Architecture** | Clean Architecture, Hexagonal, CQRS, Event Sourcing, Bounded Context, DIP, Ports and Adapters |
+| **Leadership** | STAR Method, Ownership, Data-driven, Trade-offs, ADR, Error Budget, Disagree and Commit |
+| **Modern Java** | Records, Sealed Classes, Pattern Matching, Virtual Threads, Structured Concurrency, Gatherers |
+| **Testing** | Testing Pyramid, Testcontainers, WireMock, Contract Testing, Mutation Testing, Arrange-Act-Assert |
 
 ---
 
-## 📊 **Learning Schedule & Time Management**
+## The Engineer's Mindset — All Levels
 
-### **📅 Weekly Structure (Recommended: 10-15 hours/week)**
-- **Monday-Wednesday** (6-8 hours): Core learning and problem-solving
-- **Thursday-Friday** (3-4 hours): Practice and pattern recognition
-- **Saturday** (2-3 hours): Review, connections, and documentation
-- **Sunday** (1 hour): Planning next week and self-assessment
+### Junior Level Thinking
+- "Does my code work correctly for the given examples?"
+- "Can I explain what each line does?"
 
-### **📈 Daily Learning Approach**
-1. **Morning (30-45 minutes)**: Review previous day's concepts
-2. **Main Session (1-2 hours)**: New learning and problem-solving
-3. **Evening (15-30 minutes)**: Reflection and planning next steps
+### Mid-Level Thinking
+- "What is the time/space complexity?"
+- "Are there edge cases I am missing?"
+- "Is there a more efficient approach?"
 
-### **🎯 Progress Validation**
-- **Weekly**: Complete self-check questions from `SelfAssessment.md`
-- **Bi-weekly**: Solve a mix of problems without looking at solutions
-- **Monthly**: Take comprehensive assessment and update learning plan
-- **Quarterly**: Review progress against long-term goals
+### Senior Level Thinking
+- "What are the trade-offs between approaches?"
+- "How does this scale? What happens at 10x traffic?"
+- "What are the failure modes?"
 
----
-
-## 🚨 **Important Learning Guidelines**
-
-### **⚠️ Common Pitfalls to Avoid**
-1. **Rushing Through Fundamentals** - Take time to truly understand basics
-2. **Memorizing Solutions** - Focus on understanding patterns and approaches
-3. **Skipping Practice** - Code every concept, don't just read about it
-4. **Ignoring Complexity Analysis** - Always analyze time and space complexity
-5. **Working in Isolation** - Explain concepts to others to validate understanding
-
-### **✅ Success Strategies**
-1. **Consistent Daily Practice** - Better than long weekend sessions
-2. **Connect New to Old** - Always relate new concepts to previous learning
-3. **Teach Others** - Explaining concepts solidifies your understanding
-4. **Iterate and Improve** - Come back to problems with fresh perspective
-5. **Stay Curious** - Ask "why" and "how" beyond just "what"
-
-### **🔄 When to Move Forward**
-Move to the next topic only when you can:
-- [ ] Solve 80% of problems in current topic independently
-- [ ] Explain the core concepts to someone else
-- [ ] Identify the pattern in new, similar problems
-- [ ] Apply the concept to solve variations
-- [ ] Connect the topic to real-world applications
+### Lead Level Thinking
+- "Why this design over alternatives? Can I justify it?"
+- "How does the team maintain this? What is the operational cost?"
+- "What monitoring and alerting do we need?"
+- "How does this evolve over the next 2 years?"
+- "Would a new team member understand why we made this decision?"
 
 ---
 
-**🎯 Remember: This journey is about building deep understanding, not racing to the finish line. Take time to truly master each phase before advancing. The solid foundation you build will accelerate all future learning!** 
+## Daily Practice Routine (Any Level)
+
+| Time | Activity | Duration |
+|------|----------|----------|
+| Morning | DSA problem (timed: Easy 20 min, Medium 35 min, Hard 45 min) | 30-60 min |
+| Afternoon | Study one TechGuide section | 60-90 min |
+| Evening | Review keywords + practice explaining one concept aloud | 30 min |
+| Weekend | System Design mock (45 min) + Behavioral story practice (30 min) | 75 min |
+
+---
+
+**This repository is your complete engineering knowledge base. Study it systematically, practice consistently, and you will be ready — at every level of your career.**

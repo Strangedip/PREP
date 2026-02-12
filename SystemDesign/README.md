@@ -1,353 +1,333 @@
-# 🏗️ System Design Learning Repository
+# System Design — Interview Practice Problems
 
-> **Master the principles of designing scalable, maintainable, and robust software systems**
-
-[![System Design](https://img.shields.io/badge/System_Design-FF9500?style=for-the-badge)]()
-[![Low Level Design](https://img.shields.io/badge/Low_Level_Design-4A90E2?style=for-the-badge)]()
-[![High Level Design](https://img.shields.io/badge/High_Level_Design-7ED321?style=for-the-badge)]()
-[![Scalability](https://img.shields.io/badge/Scalability-F5A623?style=for-the-badge)]()
+> **Target**: Lead Software Engineer at FAANG-level companies
+> **Scope**: Both Low-Level Design (OOD) and High-Level Design (Distributed Systems)
+> **Approach**: Every problem is a complete, interview-ready walkthrough — requirements, design, code, trade-offs
 
 ---
 
-## 📋 **Overview**
+## How to Use This Section
 
-This section provides **comprehensive system design learning** covering both **Object-Oriented Design (Low-Level)** and **Distributed System Design (High-Level)**. Essential for understanding how to build **scalable, maintainable, and efficient software systems**.
+Each problem file follows a consistent structure modeled after what interviewers expect:
 
-### 🎯 **Learning Goals**
-- **Understand design principles** and patterns that create robust systems
-- **Learn architectural thinking** for both small and large-scale applications
-- **Master trade-off analysis** in system design decisions
-- **Develop intuition** for scaling and performance optimization
-- **Build confidence** in designing real-world systems
+**Low-Level Design (LLD) Problems:**
+1. Problem Statement & Requirements (Functional + Non-Functional)
+2. Core Classes & Relationships (UML-style)
+3. Design Patterns Used (with justification)
+4. Complete Implementation (Java)
+5. Algorithms & Business Logic
+6. Edge Cases & Error Handling
+7. Testing Strategy
+8. Interview Discussion Points
+
+**High-Level Design (HLD) Problems:**
+1. Problem Statement & Requirements
+2. Capacity Estimation (QPS, Storage, Bandwidth, Memory)
+3. High-Level Architecture (components, data flow)
+4. Detailed Component Design (each service broken down)
+5. Database Schema & Data Modeling
+6. API Design (REST endpoints, request/response)
+7. Scaling Strategy (sharding, replication, caching)
+8. Monitoring, Alerting & Operational Concerns
+9. Security Considerations
+10. Interview Discussion Points
+
+**Templates:**
+Use the templates when practicing new problems on your own. They give you a repeatable methodology.
 
 ---
 
-## 📁 **Structure Overview**
+## Directory Structure
 
 ```
-📦 SystemDesign/
-├── 📚 01_LowLevelDesign/          # Object-Oriented Design Problems
-│   ├── ParkingLot/               # Classic OOD problem
-│   ├── LibraryManagementSystem/  # Complex domain modeling
-│   ├── ElevatorSystem/           # State machine design
-│   ├── ChatApplication/          # Real-time messaging system
-│   ├── FileSystem/               # Hierarchical data structures
-│   ├── TicTacToe/               # Game design patterns
-│   ├── VendingMachine/          # State pattern implementation
-│   └── OnlineBookingSystem/     # E-commerce design
-├── 🌐 02_HighLevelDesign/         # Distributed System Design
-│   ├── URLShortener/            # Scalable web service
-│   ├── ChatSystem/              # Real-time messaging at scale
-│   ├── SocialMediaFeed/         # News feed generation
-│   ├── RideSharing/             # Location-based services
-│   ├── VideoStreamingPlatform/  # Content delivery systems
-│   ├── SearchEngine/            # Information retrieval
-│   ├── PaymentSystem/           # Financial transactions
-│   └── NotificationSystem/      # Push notification service
-├── 🔧 03_SystemComponents/        # Building Blocks
-│   ├── LoadBalancer/            # Traffic distribution
-│   ├── Cache/                   # Caching strategies
-│   ├── Database/                # Storage solutions
-│   ├── MessageQueue/            # Async communication
-│   └── CDN/                     # Content delivery
-├── 📊 04_Scalability/             # Performance & Scale
-│   ├── HorizontalScaling/       # Scale-out strategies
-│   ├── DatabaseSharding/        # Data partitioning
-│   ├── Microservices/          # Service decomposition
-│   └── EventDrivenArchitecture/ # Async patterns
-└── 📋 05_Templates/               # Design Templates
-    ├── LLD_Template/            # Low-level design approach
-    ├── HLD_Template/            # High-level design approach
-    └── Questions/               # Common design scenarios
+SystemDesign/
+├── 01_LowLevelDesign/
+│   ├── ParkingLot/ParkingLot.md                 # Classic OOD — Strategy, Factory, State
+│   ├── BookMyShow/BookMyShow.md                  # Ticket booking with seat locking
+│   ├── ElevatorSystem/ElevatorSystem.md          # State machine, scheduling algorithms
+│   ├── SnakeAndLadder/SnakeAndLadder.md          # Game design, turn-based mechanics
+│   ├── LibraryManagement/LibraryManagement.md    # Domain modeling, CRUD, Observer
+│   └── VendingMachine/VendingMachine.md          # State pattern, finite automata
+│
+├── 02_HighLevelDesign/
+│   ├── URLShortener/URLShortener.md              # Encoding, caching, analytics
+│   ├── RateLimiter/RateLimiter.md                # Token Bucket, Sliding Window, distributed
+│   ├── ChatSystem/ChatSystem.md                  # WebSocket, presence, message delivery
+│   ├── NotificationSystem/NotificationSystem.md  # Multi-channel fanout, priority, DLQ
+│   ├── NewsFeed/NewsFeed.md                      # Fan-out on write/read, ranking
+│   ├── DistributedCache/DistributedCache.md      # Consistent hashing, eviction, replication
+│   ├── Twitter/Twitter.md                        # Timeline, fan-out, celebrity problem, search
+│   ├── RideSharing/RideSharing.md                # Geospatial indexing, matching, ETA, surge
+│   └── PaymentSystem/PaymentSystem.md            # ACID, idempotency, reconciliation, fraud
+│
+└── Templates/
+    ├── LLD_Template/LLD_Template.md              # Step-by-step LLD interview framework
+    └── HLD_Template/HLD_Template.md              # Step-by-step HLD interview framework
 ```
 
 ---
 
-## 🧩 **Low-Level Design (Object-Oriented Design)**
+## Low-Level Design Problems
 
-### **🎯 Core Learning Objectives**
-- **SOLID Principles** application in real-world scenarios
-- **Design Patterns** practical implementation
-- **UML Diagrams** for system modeling
-- **Code organization** and structure
-- **Extensibility** and maintainability principles
+### Problem Catalog
 
-### **📚 Problems Covered**
+| # | Problem | Difficulty | Key Patterns | Key Concepts | Link |
+|---|---------|-----------|-------------|-------------|------|
+| 1 | **Parking Lot** | Medium | Strategy, Factory, Singleton | Resource allocation, pricing, multi-level | [ParkingLot.md](01_LowLevelDesign/ParkingLot/ParkingLot.md) |
+| 2 | **BookMyShow** | Hard | Observer, Strategy, Repository | Seat locking, concurrent booking, ACID | [BookMyShow.md](01_LowLevelDesign/BookMyShow/BookMyShow.md) |
+| 3 | **Elevator System** | Hard | State, Strategy, Observer | Scheduling (SCAN, LOOK), multi-elevator dispatch | [ElevatorSystem.md](01_LowLevelDesign/ElevatorSystem/ElevatorSystem.md) |
+| 4 | **Snake & Ladder** | Medium | Factory, Builder, Command | Game loop, turn management, board generation | [SnakeAndLadder.md](01_LowLevelDesign/SnakeAndLadder/SnakeAndLadder.md) |
+| 5 | **Library Management** | Medium | Observer, Strategy, Repository | Book tracking, member management, fines | [LibraryManagement.md](01_LowLevelDesign/LibraryManagement/LibraryManagement.md) |
+| 6 | **Vending Machine** | Medium | State, Strategy | Finite state machine, inventory, payment | [VendingMachine.md](01_LowLevelDesign/VendingMachine/VendingMachine.md) |
 
-| Problem | Complexity | Key Learning Areas | Real-World Applications |
-|---------|------------|-------------------|------------------------|
-| **Parking Lot** | ⭐⭐ | Strategy, State patterns | Booking systems, resource management |
-| **Library Management** | ⭐⭐⭐ | Domain modeling, CRUD operations | Enterprise applications, data management |
-| **Elevator System** | ⭐⭐⭐ | State machines, scheduling algorithms | IoT systems, embedded systems |
-| **Chat Application** | ⭐⭐⭐⭐ | Observer pattern, real-time updates | Social platforms, communication systems |
-| **File System** | ⭐⭐⭐⭐ | Composite pattern, hierarchical data | Storage systems, content management |
-| **Vending Machine** | ⭐⭐ | State pattern, finite automata | Embedded systems, state management |
-| **Online Booking** | ⭐⭐⭐⭐ | Complex business logic, transactions | E-commerce, reservation systems |
+### What Interviewers Evaluate in LLD
 
-### **🔑 Skills Developed**
-✅ **Class Design** - Proper abstraction and encapsulation  
-✅ **Relationship Modeling** - Inheritance, composition, aggregation  
-✅ **Pattern Application** - Real-world design pattern usage  
-✅ **Code Organization** - Package structure and modularity  
-✅ **Extensibility Planning** - Future requirements consideration  
+| Evaluation Criteria | What They Look For |
+|--------------------|--------------------|
+| **Requirements Gathering** | Did you ask clarifying questions? Did you define scope? |
+| **Class Design** | Proper abstraction, encapsulation, single responsibility |
+| **Design Patterns** | Did you use patterns naturally (not forced)? Can you justify the choice? |
+| **Relationships** | Correct use of inheritance vs composition vs aggregation |
+| **SOLID Principles** | SRP, OCP, LSP, ISP, DIP — are they followed? |
+| **Extensibility** | Can the design accommodate new requirements without major rewrites? |
+| **Error Handling** | Null checks, invalid input, concurrent access, edge cases |
+| **Code Quality** | Clean, readable, consistent naming, proper access modifiers |
 
----
+### Recommended Practice Order (LLD)
 
-## 🌐 **High-Level Design (Distributed Systems)**
+**Start with** (Pattern-focused, medium complexity):
+1. Parking Lot — Strategy and Factory patterns, straightforward requirements
+2. Vending Machine — State pattern, finite state machine
+3. Snake & Ladder — Game design, command pattern
 
-### **🎯 Core Learning Objectives**
-- **Scalability principles** (horizontal and vertical scaling)
-- **Reliability patterns** and fault tolerance
-- **Consistency models** and availability trade-offs
-- **Performance optimization** strategies
-- **Security considerations** in distributed systems
-
-### **📚 Systems Covered**
-
-| System | Scale Characteristics | Key Learning Areas | Technologies Explored |
-|--------|----------------------|-------------------|----------------------|
-| **URL Shortener** | 100M+ URLs/day | Encoding algorithms, caching strategies | Redis, Load balancers, CDN |
-| **Chat System** | 1B+ messages/day | Real-time communication, presence | WebSockets, message queues |
-| **Social Media Feed** | 500M+ users | Timeline generation, fanout patterns | Distributed caching, databases |
-| **Ride Sharing** | 10M+ rides/day | Geo-location, real-time matching | Sharding, geospatial indexes |
-| **Video Streaming** | 1B+ hours/month | CDN architecture, video encoding | Distributed storage, transcoding |
-| **Search Engine** | 100B+ queries/day | Indexing, ranking algorithms | Distributed computing, caching |
-| **Payment System** | 1M+ transactions/day | ACID properties, security | Consistency patterns, encryption |
-| **Notification System** | 10B+ notifications/day | Delivery reliability, fan-out | Message queues, retry mechanisms |
-
-### **🔧 System Components Mastery**
-
-#### **Load Balancing**
-- Layer 4 vs Layer 7 load balancing strategies
-- Load balancing algorithms and their trade-offs
-- Health checks and automatic failover mechanisms
-
-#### **Caching**
-- Cache-aside, write-through, write-behind patterns
-- Distributed caching with Redis/Memcached
-- Cache invalidation strategies and consistency
-
-#### **Databases**
-- SQL vs NoSQL trade-offs and use cases
-- Replication strategies and sharding patterns
-- CAP theorem practical applications
-
-#### **Message Queues**
-- Apache Kafka, RabbitMQ patterns
-- Event-driven architectures
-- Reliability patterns and dead letter queues
+**Then advance to** (More complex domains):
+4. Library Management — Domain modeling, multiple interacting entities
+5. BookMyShow — Concurrency, seat locking, real-world complexity
+6. Elevator System — Complex scheduling, state machines, multi-component design
 
 ---
 
-## 📈 **Learning Path**
+## High-Level Design Problems
 
-### **Phase 1: Low-Level Design Foundations (3-4 weeks)**
+### Problem Catalog
 
-#### **Week 1-2: Design Principles**
-1. **Master SOLID Principles**
-   - Single Responsibility Principle
-   - Open/Closed Principle
-   - Liskov Substitution Principle
-   - Interface Segregation Principle
-   - Dependency Inversion Principle
+| # | Problem | Difficulty | Key Components | Scale Target | Link |
+|---|---------|-----------|---------------|-------------|------|
+| 1 | **URL Shortener** | Medium | Encoding, Cache, Counter | 100M URLs/day | [URLShortener.md](02_HighLevelDesign/URLShortener/URLShortener.md) |
+| 2 | **Rate Limiter** | Medium | Token Bucket, Sliding Window | 1M+ requests/sec | [RateLimiter.md](02_HighLevelDesign/RateLimiter/RateLimiter.md) |
+| 3 | **Chat System** | Hard | WebSocket, Presence, MQ | 1B messages/day | [ChatSystem.md](02_HighLevelDesign/ChatSystem/ChatSystem.md) |
+| 4 | **Notification System** | Hard | Fan-out, Priority, DLQ | 10B notifications/day | [NotificationSystem.md](02_HighLevelDesign/NotificationSystem/NotificationSystem.md) |
+| 5 | **News Feed** | Hard | Fan-out, Ranking, Cache | 500M users | [NewsFeed.md](02_HighLevelDesign/NewsFeed/NewsFeed.md) |
+| 6 | **Distributed Cache** | Hard | Consistent Hashing, Replication | Millions of ops/sec | [DistributedCache.md](02_HighLevelDesign/DistributedCache/DistributedCache.md) |
+| 7 | **Twitter** | Hard | Fan-out, Timeline, Social Graph | 500M tweets/day | [Twitter.md](02_HighLevelDesign/Twitter/Twitter.md) |
+| 8 | **Ride-Sharing (Uber)** | Hard | Geospatial, Matching, Surge | 20M rides/day | [RideSharing.md](02_HighLevelDesign/RideSharing/RideSharing.md) |
+| 9 | **Payment System** | Hard | ACID, Idempotency, Reconciliation | $1B+ daily volume | [PaymentSystem.md](02_HighLevelDesign/PaymentSystem/PaymentSystem.md) |
 
-2. **Core Design Patterns**
-   - Creational: Singleton, Factory, Builder
-   - Structural: Adapter, Composite, Decorator
-   - Behavioral: Observer, Strategy, State
+### What Interviewers Evaluate in HLD
 
-3. **Practice Basic Problems**
-   - Parking Lot System
-   - Vending Machine
-   - TicTacToe Game
+| Evaluation Criteria | What They Look For |
+|--------------------|--------------------|
+| **Requirements** | Did you clarify functional AND non-functional? Did you prioritize? |
+| **Estimation** | Can you do back-of-the-envelope math for QPS, storage, bandwidth? |
+| **Architecture** | Is the high-level diagram clear? Are components well-defined? |
+| **Data Model** | SQL vs NoSQL choice justified? Schema handles the scale? |
+| **API Design** | RESTful, proper HTTP methods, pagination, error codes? |
+| **Scaling** | Sharding strategy, caching layers, async processing? |
+| **Trade-offs** | Can you articulate why you chose X over Y? CAP awareness? |
+| **Reliability** | Fault tolerance, monitoring, graceful degradation? |
+| **Communication** | Did you drive the conversation? Did you draw diagrams? |
 
-#### **Week 3-4: Advanced OOD**
-1. **Complex Domain Modeling**
-   - Library Management System
-   - Online Booking System
-   - Chat Application
+### Recommended Practice Order (HLD)
 
-2. **Design Documentation**
-   - Class diagrams and relationships
-   - Sequence diagrams for interactions
-   - Use case analysis
+**Start with** (Well-defined scope, proven patterns):
+1. URL Shortener — Classic starter, covers encoding, caching, DB design
+2. Rate Limiter — Algorithm-focused, distributed systems fundamentals
 
-### **Phase 2: High-Level Design Foundations (4-5 weeks)**
+**Then advance to** (More complex, multiple subsystems):
+3. Notification System — Fan-out patterns, multi-channel delivery, reliability
+4. Chat System — Real-time, presence, message ordering, WebSocket
+5. News Feed — Fan-out on write vs read, ranking, social graph
 
-#### **Week 1-2: System Design Fundamentals**
-1. **Scalability Concepts**
-   - Horizontal vs vertical scaling patterns
-   - Database scaling strategies
-   - Caching layer design
+**Capstone** (Infra-level thinking):
+6. Distributed Cache — Low-level distributed systems, consistent hashing, replication
 
-2. **System Components**
-   - Load balancers and traffic distribution
-   - CDNs and content delivery
-   - Message queues and async communication
-   - Database design and partitioning
-
-3. **Practice Basic Systems**
-   - URL Shortener service
-   - Simple Chat System
-
-#### **Week 3-4: Advanced System Design**
-1. **Complex Distributed Systems**
-   - Social Media Feed generation
-   - Video Streaming Platform
-   - Search Engine architecture
-
-2. **Advanced Concepts**
-   - Microservices architecture patterns
-   - Event-driven design principles
-   - Data consistency and consensus
-
-#### **Week 5: Integration & Application**
-1. **End-to-End System Design**
-2. **Performance calculations and capacity planning**
-3. **Trade-off analysis and decision making**
-4. **Real-world case study analysis**
+**Advanced** (Multi-domain, Lead-level):
+7. Twitter — Social graph, fan-out trade-offs, celebrity problem, search and trends
+8. Ride-Sharing (Uber) — Geospatial indexing, real-time matching, dynamic pricing, ETA
+9. Payment System — Financial transactions, ACID, idempotency, reconciliation, fraud
 
 ---
 
-## 🎯 **Design Methodology**
+## Design Templates
 
-### **Low-Level Design Approach**
-1. **Problem Understanding** (Clarify requirements and scope)
-   - Identify actors and use cases
-   - Define functional requirements
-   - Understand constraints and assumptions
+Use these when practicing new problems that are not in this repo.
 
-2. **Domain Modeling** (Identify core entities)
-   - Extract nouns as potential classes
-   - Define relationships and interactions
-   - Apply appropriate design patterns
+| Template | Purpose | Link |
+|----------|---------|------|
+| **LLD Template** | Step-by-step methodology for any OOD problem | [LLD_Template.md](Templates/LLD_Template/LLD_Template.md) |
+| **HLD Template** | Step-by-step methodology for any distributed systems problem | [HLD_Template.md](Templates/HLD_Template/HLD_Template.md) |
 
-3. **Detailed Design** (Implementation planning)
-   - Design class hierarchies
-   - Define interfaces and contracts
-   - Plan for extensibility and maintenance
+### LLD Template Summary (5-Step Method)
 
-4. **Validation** (Verify design quality)
-   - Review against SOLID principles
-   - Consider alternative approaches
-   - Plan for future enhancements
+| Step | Time | What to Do |
+|------|------|-----------|
+| 1. Understand | 5 min | Clarify requirements, identify actors, define scope |
+| 2. High-Level | 5 min | Use case diagram, identify core components |
+| 3. Class Design | 15 min | Class diagram, relationships, design patterns |
+| 4. Implement | 15 min | Key methods, error handling, algorithms |
+| 5. Discuss | 5 min | Trade-offs, extensibility, testing approach |
 
-### **High-Level Design Approach**
-1. **Requirements Analysis** (Understand the problem)
-   - Functional requirements definition
-   - Non-functional requirements (scale, performance)
-   - Constraints and assumptions
+### HLD Template Summary (4-Step Method)
 
-2. **Capacity Estimation** (Scale planning)
-   - Calculate expected load (QPS, storage, bandwidth)
-   - Estimate resource requirements
-   - Plan for growth and peak usage
-
-3. **System Architecture** (Design the solution)
-   - Identify system components
-   - Design data flow and interactions
-   - Choose appropriate technologies
-
-4. **Deep Dive** (Detailed component design)
-   - Database schema design
-   - API design and contracts
-   - Scaling strategies and bottleneck resolution
-
-5. **Reliability & Performance** (System qualities)
-   - Monitoring and alerting strategies
-   - Failure handling and recovery
-   - Performance optimization
+| Step | Time | What to Do |
+|------|------|-----------|
+| 1. Requirements | 5 min | Functional, non-functional, capacity estimation |
+| 2. High-Level Architecture | 10 min | System diagram, core components, data flow |
+| 3. Deep Dive | 20 min | DB schema, API design, caching, algorithms |
+| 4. Operational | 10 min | Scaling, fault tolerance, monitoring, security |
 
 ---
 
-## 💡 **Design Principles & Best Practices**
+## Common Patterns Across Problems
 
-### **For Low-Level Design**
-✅ **Start with requirements** - Understand what you're building before how  
-✅ **Think in abstractions** - Identify interfaces before implementations  
-✅ **Apply SOLID principles** - Ensure maintainable and extensible design  
-✅ **Consider future changes** - Design for evolution and growth  
-✅ **Document decisions** - Make design rationale clear  
+### LLD Patterns You Must Know
 
-### **For High-Level Design**
-✅ **Estimate first** - Understand scale before designing  
-✅ **Start simple** - Begin with basic architecture, then add complexity  
-✅ **Identify bottlenecks** - Find and address scaling limitations  
-✅ **Consider trade-offs** - Balance consistency, availability, and performance  
-✅ **Plan for failure** - Design for reliability and fault tolerance  
+| Pattern | Where It Appears | Core Idea |
+|---------|-----------------|-----------|
+| **Strategy** | Parking Lot (pricing), BookMyShow (discount), Library (fine calculation) | Swap algorithms at runtime via interface |
+| **State** | Vending Machine (states), Elevator (direction), BookMyShow (booking status) | Object behavior changes based on internal state |
+| **Factory** | Parking Lot (vehicles), Snake & Ladder (board elements) | Centralize object creation, decouple client from concrete classes |
+| **Observer** | Library (notifications), BookMyShow (waitlist), Elevator (floor arrival) | Notify dependents automatically when state changes |
+| **Singleton** | Parking Lot (system), Vending Machine (system) | Single instance for resource managers |
+| **Builder** | Snake & Ladder (board), BookMyShow (show configuration) | Step-by-step construction of complex objects |
+| **Repository** | Library (book store), BookMyShow (show store) | Abstract data access behind a collection-like interface |
 
----
+### HLD Patterns You Must Know
 
-## 🏗️ **Real-World Applications**
-
-### **Industry Patterns**
-Understanding how different domains apply these concepts:
-
-| Domain | LLD Focus | HLD Focus | Key Considerations |
-|--------|-----------|-----------|-------------------|
-| **E-commerce** | Order management, payment processing | Scalability, inventory management | Consistency, peak load handling |
-| **Social Media** | User interactions, content modeling | Feed generation, real-time updates | User engagement, content delivery |
-| **Fintech** | Transaction processing, security | Compliance, high availability | Data integrity, regulatory requirements |
-| **Gaming** | Game state management | Real-time multiplayer, leaderboards | Low latency, state synchronization |
-| **IoT** | Device modeling, data collection | Data processing pipelines | Device management, data volume |
+| Pattern | Where It Appears | Core Idea |
+|---------|-----------------|-----------|
+| **Cache-Aside** | URL Shortener, News Feed, Distributed Cache | Check cache first, load from DB on miss |
+| **Write-Behind** | News Feed (timeline), Notification System (delivery log) | Write to cache immediately, async persist to DB |
+| **Fan-out on Write** | News Feed, Notification System | Pre-compute and push to recipients when event occurs |
+| **Fan-out on Read** | News Feed (celebrity followers) | Compute on-demand when recipient requests |
+| **Consistent Hashing** | Distributed Cache, Chat System (server assignment) | Distribute data across nodes with minimal rehashing |
+| **Pub/Sub** | Notification System, Chat System | Decouple producers from consumers via message broker |
+| **Token Bucket** | Rate Limiter | Control throughput with fixed-rate token replenishment |
+| **CQRS** | News Feed (write=posts DB, read=timeline cache) | Separate read and write models for different optimization |
 
 ---
 
-## 📚 **Learning Resources & References**
+## Capacity Estimation Cheat Sheet
 
-### **Essential Reading**
-- **"Designing Data-Intensive Applications"** by Martin Kleppmann
-- **"System Design Interview"** by Alex Xu
-- **"Clean Architecture"** by Robert C. Martin
-- **"Microservices Patterns"** by Chris Richardson
+Use these numbers for quick back-of-the-envelope calculations in HLD interviews.
 
-### **Online Resources**
-- **High Scalability** blog for real-world case studies
-- **AWS Architecture Center** for cloud design patterns
-- **Google Cloud Architecture Framework** for scalability patterns
-- **System Design Primer** (GitHub) for fundamentals
+### Traffic Estimation
 
-### **Tools for Practice**
-- **draw.io** for system architecture diagrams
-- **Lucidchart** for UML and flow diagrams
-- **Figma** for UI mockups and user flows
-- **Postman** for API design and testing
+| Metric | Formula |
+|--------|---------|
+| Requests per second (QPS) | Daily Active Users x Avg Requests per User / 86,400 |
+| Peak QPS | QPS x 2 (or 3 for spiky traffic) |
+| Write QPS | Total QPS x Write Ratio (typically 10-20%) |
+| Read QPS | Total QPS x Read Ratio (typically 80-90%) |
 
----
+### Storage Estimation
 
-## 🚀 **Next Steps in Your Learning Journey**
+| Data Type | Typical Size |
+|-----------|-------------|
+| Short URL record | ~500 bytes |
+| Chat message | ~200 bytes |
+| User profile | ~1 KB |
+| Social media post | ~1 KB (text) + 500 KB (media reference) |
+| Notification record | ~500 bytes |
 
-1. **Assess your current level**
-   - Beginner: Start with Low-Level Design fundamentals
-   - Intermediate: Focus on both LLD and basic HLD concepts
-   - Advanced: Master complex HLD concepts and trade-offs
+### Quick Math Shortcuts
 
-2. **Practice consistently**
-   - Solve 2-3 LLD problems per week
-   - Design 1 HLD system per week
-   - Time yourself to build efficiency
+| Number | Approximation |
+|--------|---------------|
+| 1 day | ~100,000 seconds (86,400) |
+| 1 million | 10^6 |
+| 1 billion | 10^9 |
+| 1 TB | 10^12 bytes, ~1 million MB |
+| 1 GB/day | ~12 KB/sec |
+| 100 million daily requests | ~1,200 QPS |
+| 1 billion daily requests | ~12,000 QPS |
 
-3. **Build real projects**
-   - Implement your designs in code
-   - Deploy systems and observe behavior
-   - Monitor and optimize performance
+### Memory Estimation (Caching)
 
-4. **Learn from others**
-   - Study existing system architectures
-   - Join design communities and discussions
-   - Review and critique design decisions
-
-5. **Teach and share**
-   - Explain designs to others
-   - Write about your learning experience
-   - Contribute to open source projects
+| Scenario | Formula |
+|----------|---------|
+| Cache size for N items | N x Average Object Size |
+| 80/20 rule | 20% of data serves 80% of reads |
+| Cache memory | Daily Read QPS x 86,400 x 0.20 x Object Size |
 
 ---
 
-<div align="center">
+## Additional HLD Problems to Practice (Not in Repo)
 
-**Ready to master system design? Choose your learning path and start building!**
+These are common in Lead Engineer interviews. Use the HLD Template to practice them:
 
-[**🧩 Low-Level Design**](01_LowLevelDesign/) | [**🌐 High-Level Design**](02_HighLevelDesign/) | [**🔧 System Components**](03_SystemComponents/)
+| # | Problem | Key Concepts to Cover |
+|---|---------|----------------------|
+| 1 | **Design YouTube** | Video upload, transcoding, CDN, recommendations |
+| 2 | **Design WhatsApp** | End-to-end encryption, group messaging, media, backup |
+| 3 | **Design Google Drive** | File sync, chunking, dedup, conflict resolution |
+| 4 | **Design Instagram** | Image storage, CDN, news feed, stories, explore |
+| 5 | **Design Typeahead** | Trie, prefix search, ranking, distributed autocomplete |
+| 6 | **Design Web Crawler** | BFS/DFS, politeness, dedup, distributed crawling |
+| 7 | **Design Ticket Master** | Inventory, seat locking, payments, high concurrency |
 
-</div> 
+---
+
+## Additional LLD Problems to Practice (Not in Repo)
+
+| # | Problem | Key Patterns |
+|---|---------|-------------|
+| 1 | **Design Chess** | State, Strategy, Command, Observer |
+| 2 | **Design ATM** | State, Chain of Responsibility |
+| 3 | **Design Hotel Booking** | Strategy (pricing), Observer, Repository |
+| 4 | **Design File System** | Composite, Iterator |
+| 5 | **Design Tic-Tac-Toe** | State, Strategy (AI), Observer |
+| 6 | **Design Online Shopping Cart** | Strategy (discount), Observer, Factory |
+| 7 | **Design Stack Overflow** | Observer, Strategy (ranking), Repository |
+| 8 | **Design Splitwise** | Strategy, Observer, graph algorithms |
+| 9 | **Design Car Rental** | Strategy (pricing), State, Factory |
+| 10 | **Design Food Delivery** | State, Strategy, Observer, Factory |
+
+---
+
+## Interview Tips
+
+### For LLD Interviews
+
+1. **Always start by clarifying scope** — "Should I design the full system or focus on core booking flow?"
+2. **Draw the class diagram first** — Visual structure before diving into code
+3. **Name your patterns** — "I'm using Strategy here because pricing rules may change"
+4. **Think about concurrency** — "What happens if two users book the same seat?"
+5. **Mention extensibility** — "If we need to add a new vehicle type, we just extend the Vehicle class"
+6. **Discuss testing** — "I'd unit test the pricing strategy independently"
+
+### For HLD Interviews
+
+1. **Never jump to the solution** — Ask questions, clarify requirements, estimate scale
+2. **Draw the architecture diagram early** — Box-and-arrow diagram within first 10 minutes
+3. **Estimate before designing** — "At 100M users, that's ~1,200 QPS, which one server can handle"
+4. **Make trade-offs explicit** — "I'm choosing eventual consistency here because strong consistency would limit our write throughput"
+5. **Think about failure modes** — "What if the cache goes down? We fall back to DB with degraded latency"
+6. **Mention monitoring** — "I'd add latency percentiles (p99), error rates, and cache hit ratio dashboards"
+7. **Lead the conversation** — Don't wait for the interviewer to ask; proactively discuss scaling, security, and reliability
+
+---
+
+## Cross-References
+
+| Topic | Where to Study |
+|-------|---------------|
+| SOLID Principles deep dive | [12_Design_Patterns_SOLID_CleanArch.md](../TechGuide/12_Design_Patterns_SOLID_CleanArch.md) |
+| Caching patterns (Cache-Aside, Write-Through) | [03_Database_Performance_Tuning.md](../TechGuide/03_Database_Performance_Tuning.md) |
+| CAP Theorem, Load Balancing, API Gateway | [04_System_Design.md](../TechGuide/04_System_Design.md) |
+| Kafka, gRPC, Resilience patterns | [02_Microservices_Distributed_Systems.md](../TechGuide/02_Microservices_Distributed_Systems.md) |
+| Database indexing, sharding, EXPLAIN ANALYZE | [03_Database_Performance_Tuning.md](../TechGuide/03_Database_Performance_Tuning.md) |
+| Kubernetes, Docker, CI/CD deployment | [09_DevOps_CICD_Docker.md](../TechGuide/09_DevOps_CICD_Docker.md) |
+| Observability (logs, metrics, traces) | [10_Observability.md](../TechGuide/10_Observability.md) |
+| API Design, REST, pagination, error handling | [11_API_Design_REST.md](../TechGuide/11_API_Design_REST.md) |
+| Behavioral & System Design interview framework | [13_Leadership_Behavioral_SystemDesign.md](../TechGuide/13_Leadership_Behavioral_SystemDesign.md) |

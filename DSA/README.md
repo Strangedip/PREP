@@ -1,256 +1,314 @@
-# 🧮 Data Structures & Algorithms Learning Repository
+# Data Structures & Algorithms — Lead Engineer Interview Prep
 
-## 📋 Overview
-
-A **comprehensive DSA learning resource** containing **120+ problems** with detailed explanations, multiple approaches, and algorithmic patterns. Designed for **deep understanding** and **continuous learning** of fundamental computer science concepts.
-
-> **🎯 Learning Goal:** Master data structures and algorithms through systematic study and practical implementation  
-> **📚 Approach:** Understanding concepts deeply rather than memorizing solutions  
-> **💡 Focus:** Building strong foundations in computational thinking and problem-solving  
-
-## ✨ What Makes This Repository Special
-
-### 🔥 **Comprehensive Topic Coverage**
-- **Union Find (Disjoint Set Union)** - Graph connectivity algorithms
-- **Segment Trees** - Advanced range query data structures  
-- **Comprehensive Trie** - String processing + XOR applications
-- **Advanced DP Patterns** - Interval, Bitmask, Tree, Digit, Probability DP
-- **Mathematical Algorithms** - Number theory, modular arithmetic, combinatorics
-- **Graph Algorithms** - Dijkstra, MST, strongly connected components
-
-### 🎯 **Deep Learning Features**
-- **Multiple solution approaches** with complexity analysis
-- **Pattern-based learning** for systematic problem-solving
-- **Practical applications** showing real-world usage
-- **Concept explanations** focusing on understanding over memorization
-- **Progressive difficulty** building from fundamentals to advanced topics
-
-## 📁 Repository Structure
-
-```
-📦 DSA/
-├── 01_Arrays_Matrix/           # 16 problems ✅
-├── 02_Strings/                 # 9 problems ✅  
-├── 03_Linked_Lists/            # 8 problems ✅
-├── 04_Stacks_Queues/           # 6 problems ✅
-├── 05_Trees_Binary_Trees/      # 8 problems ✅
-├── 06_Binary_Search_Tree/      # 4 problems ✅
-├── 07_Heaps_Priority_Queues/   # 4 problems ✅
-├── 08_Graphs/                  # 6+ problems ✅ + Union Find, Dijkstra
-├── 09_Backtracking/            # 5 problems ✅
-├── 10_Dynamic_Programming/     # 11+ problems ✅ + Advanced DP Patterns
-├── 11_Sliding_Window_Two_Pointers/ # 5+ problems ✅ + Advanced Patterns
-├── 12_Sorting_Searching/       # 4 problems ✅
-├── 13_Recursion_Divide_Conquer/ # 3+ problems ✅ + Master Theorem
-├── 14_Greedy_Algorithms/       # 4 problems ✅
-├── 15_Bit_Manipulation/        # 4 problems ✅
-├── 16_Advanced_Miscellaneous/  # ✅ Segment Tree, Trie, Design Problems
-├── 17_Math_Algorithms/         # ✅ Number Theory, Combinatorics
-└── topics-wise-questions.txt   # Complete study roadmap
-```
-
-### 📄 File Structure
-```
-ProblemName/
-├── ProblemName.java           # Complete implementation
-└── ProblemName.md             # Comprehensive explanation
-    ├── Problem Statement
-    ├── Multiple Approaches
-    ├── Complexity Analysis
-    ├── Real-world Applications
-    └── Related Problems
-```
-
-## 🎯 Advanced Topics Breakdown
-
-### 🔗 **Advanced Data Structures**
-| Topic | Problems | Key Algorithms |
-|-------|----------|----------------|
-| **Union Find** | Cycle Detection, Connected Components | Path Compression, Union by Rank |
-| **Segment Trees** | Range Queries, Updates | Build, Query, Update, Lazy Propagation |
-| **Trie Applications** | Word Search, XOR Problems | Basic Trie, XOR Trie, Auto-complete |
-| **Advanced Heaps** | Sliding Window Median | Two-heap technique, K-way merge |
-
-### 🧠 **Advanced Algorithm Patterns**
-
-#### **Dynamic Programming (5 Advanced Patterns)**
-1. **Interval DP** - Matrix Chain Multiplication, Burst Balloons
-2. **Bitmask DP** - Traveling Salesman, Assignment Problems  
-3. **Tree DP** - Maximum Path Sum, House Robber III
-4. **Digit DP** - Count Numbers with Constraints
-5. **Probability DP** - Expected Value Problems
-
-#### **Graph Algorithms**
-- **Dijkstra's Algorithm** - Single-source shortest path
-- **Union Find Applications** - MST, Dynamic Connectivity
-- **Advanced BFS/DFS** - Multi-source, bidirectional
-
-#### **Mathematical Algorithms**
-- **Number Theory** - GCD, LCM, Prime algorithms
-- **Modular Arithmetic** - Fast exponentiation, inverse
-- **Combinatorics** - nCr, nPr, Catalan numbers
-
-## 🚀 Learning Roadmap
-
-### **Phase 1: Foundation Building** (Week 1-2)
-**Goal:** Establish solid fundamentals
-- [ ] Arrays & Matrix (Basic operations, searching, sorting)
-- [ ] Strings (Pattern matching, manipulation)
-- [ ] Linked Lists (Traversal, insertion, deletion)
-- [ ] Trees (Basic traversals, BST operations)
-
-### **Phase 2: Core Algorithm Patterns** (Week 3-4)
-**Goal:** Master fundamental algorithmic thinking
-- [ ] **Two Pointers** → Solving array and string problems efficiently
-- [ ] **Sliding Window** → Substring and subarray problems
-- [ ] **Recursion & Backtracking** → Decision trees and search spaces
-- [ ] **Basic Dynamic Programming** → Optimization problems
-
-### **Phase 3: Advanced Data Structures** (Week 5-6)
-**Goal:** Learn sophisticated data organization
-- [ ] **Union Find** → Graph connectivity problems
-- [ ] **Segment Trees** → Range query optimizations
-- [ ] **Trie Applications** → String processing & XOR problems
-- [ ] **Advanced Heaps** → Priority-based problems
-
-### **Phase 4: Complex Algorithms** (Week 7-8)
-**Goal:** Master advanced algorithmic concepts
-- [ ] **Advanced DP Patterns** → 5 different DP types
-- [ ] **Graph Algorithms** → Dijkstra, MST algorithms
-- [ ] **Mathematical Algorithms** → Number theory applications
-- [ ] **Optimization Techniques** → Algorithm improvement strategies
-
-## 🏆 Key Skills You'll Develop
-
-### **🎯 Algorithmic Thinking**
-- **Problem decomposition** into manageable subproblems
-- **Pattern recognition** across different problem types
-- **Trade-off analysis** between time and space complexity
-
-### **📊 Complexity Analysis**
-- **Big O notation** mastery and practical application
-- **Amortized complexity** understanding
-- **Space optimization** techniques and memory management
-
-### **🔧 Implementation Skills**
-- **Clean code practices** in algorithm implementation
-- **Edge case handling** and robust solution design
-- **Code optimization** for performance and readability
-
-## 💎 Essential Problems by Category
-
-### **🔴 Foundation Level (Must Master)**
-1. **Two Sum & Variants** - Hash table optimization techniques
-2. **Binary Search** - Search space reduction principles
-3. **Tree Traversals** - Recursive and iterative approaches  
-4. **Merge Sort** - Divide and conquer paradigm
-5. **Dynamic Programming Basics** - Fibonacci, climbing stairs
-6. **Graph BFS/DFS** - Graph traversal fundamentals
-7. **Linked List Operations** - Pointer manipulation
-8. **Stack Applications** - Expression evaluation, parentheses
-
-### **🟡 Intermediate Level (Core Understanding)**
-- **Advanced Array Problems** - Sliding window, two pointers
-- **String Algorithms** - Pattern matching, anagrams
-- **Tree Problems** - Path finding, construction
-- **Graph Applications** - Shortest paths, cycle detection
-- **DP Optimization** - Space and time improvements
-- **Heap Operations** - Priority queue applications
-- **Bit Manipulation** - Efficient operations using bits
-
-### **🟢 Advanced Level (Deep Mastery)**
-- **Union Find** - Connected components, cycle detection
-- **Segment Tree** - Range queries with updates
-- **Trie + XOR** - Maximum XOR, advanced string operations
-- **Interval DP** - Complex optimization problems
-- **Advanced Graph** - MST, strongly connected components
-- **Mathematical** - Number theory, combinatorics
-
-## 📈 Learning Progress Framework
-
-### **Understanding Levels**
-- **Level 1: Recognition** - Can identify the problem type
-- **Level 2: Implementation** - Can code a working solution
-- **Level 3: Optimization** - Can improve time/space complexity
-- **Level 4: Variation** - Can solve similar problems independently
-- **Level 5: Teaching** - Can explain concepts to others
-
-### **Problem-Solving Process**
-1. **Problem Analysis** (Understanding requirements and constraints)
-2. **Pattern Recognition** (Identifying familiar problem patterns)
-3. **Approach Design** (Planning the solution strategy)
-4. **Implementation** (Writing clean, efficient code)
-5. **Testing & Validation** (Verifying correctness and edge cases)
-6. **Optimization** (Improving performance where possible)
-
-## 📚 Learning Resources & Connections
-
-### **📖 Comprehensive Explanations**
-Each problem includes:
-- **Conceptual Understanding** - Why this approach works
-- **Step-by-step Walkthrough** - Detailed solution process
-- **Multiple Solutions** - Different approaches with trade-offs
-- **Complexity Analysis** - Time and space complexity explanation
-- **Real-world Applications** - Where you might use this
-- **Related Problems** - Building understanding connections
-
-### **🔗 Pattern Relationships**
-- **Cross-topic connections** showing how concepts relate
-- **Progressive difficulty** building on previous knowledge
-- **Alternative approaches** for comprehensive understanding
-
-## 💡 Learning Philosophy & Methodology
-
-### **1. Concept First, Code Second**
-- Understand the underlying principles before implementation
-- Learn why algorithms work, not just how they work
-- Build intuition through examples and visualizations
-
-### **2. Practice with Purpose**
-- Focus on understanding patterns rather than memorizing solutions
-- Implement solutions from scratch to build muscle memory
-- Review and analyze different approaches for the same problem
-
-### **3. Connect and Apply**
-- Relate abstract concepts to real-world applications
-- Build connections between different algorithmic techniques
-- Practice explaining concepts to solidify understanding
-
-### **4. Iterate and Improve**
-- Review solved problems periodically to reinforce learning
-- Challenge yourself with increasingly complex variations
-- Seek to optimize and improve existing solutions
-
-## 📊 Progress Tracking
-
-### **Completion Checklist**
-- [ ] **Basic Patterns Mastered** (Arrays, Strings, LinkedList)
-- [ ] **Core Algorithms Understood** (Sorting, Searching, Basic DP)
-- [ ] **Advanced Data Structures** (Union Find, Segment Tree, Trie)
-- [ ] **Complex Algorithms** (Advanced DP, Graph algorithms, Math)
-- [ ] **Problem-Solving Fluency** (Can approach new problems systematically)
-
-### **Skill Assessment**
-Rate your understanding (1-5) on:
-- [ ] **Pattern Recognition Speed**
-- [ ] **Multiple Approach Generation**
-- [ ] **Complexity Analysis Accuracy**
-- [ ] **Code Quality & Clarity**
-- [ ] **Concept Explanation Ability**
-
-## 🚀 Your Learning Journey
-
-### **What Sets This Approach Apart**
-✅ **Deep conceptual understanding** beyond surface-level solutions  
-✅ **Pattern-based learning** for transferable problem-solving skills  
-✅ **Multiple solution approaches** building comprehensive knowledge  
-✅ **Real-world connections** showing practical applications  
-✅ **Progressive difficulty** ensuring solid foundation building  
-
-### **Long-term Learning Benefits**
-- **Strong problem-solving foundation** applicable to any programming challenge
-- **Computational thinking skills** useful in system design and optimization
-- **Pattern recognition abilities** that speed up learning new concepts
-- **Code quality awareness** leading to better software development practices
+> **Target**: SDE-2 / Lead Software Engineer at FAANG-level companies
+> **Strategy**: Pattern recognition over brute-force memorization. Solve by category, then mix.
+> **What interviewers expect at this level**: Clean code, optimal complexity, clear communication of trade-offs, and the ability to handle follow-up questions without hesitation.
 
 ---
+
+## How This Section is Organized
+
+Every problem has two files:
+
+| File | Purpose |
+|------|---------|
+| `ProblemName.md` | Complete explanation: problem statement, multiple approaches, complexity analysis, interview tips, edge cases, real-world applications |
+| `ProblemName.java` | Clean, production-quality Java implementation with comments |
+
+Problems are grouped by data structure/algorithm category. Within each category, they progress from foundational to advanced.
+
+---
+
+## Repository Structure
+
+```
+DSA/
+├── 01_Arrays_Matrix/           # 16 problems — Two pointers, prefix sums, binary search
+├── 02_Strings/                 # 9 problems — Sliding window, hashing, pattern matching
+├── 03_Linked_Lists/            # 8 problems — Pointer manipulation, fast/slow, reversal
+├── 04_Stacks_Queues/           # 6 problems — Monotonic stack, simulation
+├── 05_Trees_Binary_Trees/      # 8 problems — DFS, BFS, construction, serialization
+├── 06_Binary_Search_Tree/      # 4 problems — BST properties, validation, search
+├── 07_Heaps_Priority_Queues/   # 4 problems — Top K, merge K, median finding
+├── 08_Graphs/                  # 7 problems — BFS, DFS, Dijkstra, Union Find, Topo Sort
+├── 09_Backtracking/            # 5 problems — Subsets, permutations, constraint satisfaction
+├── 10_Dynamic_Programming/     # 10+ problems — Knapsack, LCS, LIS, grid, string, interval
+├── 11_Sliding_Window_Two_Pointers/ # 3+ problems — Variable window, deque, complex constraints
+├── 12_Sorting_Searching/       # 3 problems — Merge sort, quick sort, binary search
+├── 13_Recursion_Divide_Conquer/ # Master Theorem + classic divide-and-conquer
+├── 14_Greedy_Algorithms/       # 3 problems — Jump game, gas station, partitioning
+├── 15_Bit_Manipulation/        # 2 problems — Single number, bit counting
+├── 16_Advanced_Miscellaneous/  # Segment Tree, Trie (with XOR), design problems
+├── 17_Math_Algorithms/         # Number theory, primes, modular arithmetic, combinatorics
+├── AlgorithmicPatterns → ../CodingPatterns/AlgorithmicPatterns.md (16 pattern templates)
+└── StudyGuide.md               # Learning paths by career level + difficulty progression
+```
+
+---
+
+## What a Lead Engineer Must Know (Beyond Solving)
+
+At the Lead/SDE-2 level, interviewers evaluate more than just "can you solve it." They evaluate:
+
+| Dimension | What They Look For | How to Demonstrate |
+|-----------|-------------------|-------------------|
+| **Problem Decomposition** | Can you break the problem into subproblems? | Think out loud, define helper functions |
+| **Pattern Recognition** | Do you recognize Two Pointers, Sliding Window, DP, etc.? | Name the pattern: "This is a sliding window problem" |
+| **Optimal Complexity** | Do you reach optimal time/space? | State complexity before coding, justify trade-offs |
+| **Clean Code** | Is your code readable and maintainable? | Descriptive names, small functions, input validation |
+| **Edge Cases** | Do you think about edge cases proactively? | Mention them before the interviewer asks |
+| **Communication** | Can you explain your thinking clearly? | Structured approach: understand → plan → code → test |
+| **Follow-up Handling** | Can you adapt when constraints change? | "If the input is sorted, we can use binary search" |
+| **Testing** | Do you verify your solution? | Trace through examples, boundary cases |
+
+---
+
+## The 45-Minute Interview Structure
+
+| Phase | Time | What to Do |
+|-------|------|-----------|
+| **Understand** | 3-5 min | Repeat the problem, ask clarifying questions, confirm constraints |
+| **Plan** | 5-7 min | Identify the pattern, describe the approach, state complexity |
+| **Code** | 20-25 min | Write clean code, explain as you go |
+| **Test** | 5-7 min | Trace through examples, check edge cases |
+| **Follow-up** | 5 min | Handle variations ("What if the input is too large for memory?") |
+
+---
+
+## Category Deep Dive
+
+### 01. Arrays & Matrix (16 Problems)
+
+The most frequently tested category. Every FAANG interview has at least one array problem.
+
+| Problem | Pattern | Difficulty | Must-Know |
+|---------|---------|-----------|-----------|
+| [Two Sum](01_Arrays_Matrix/TwoSum/TwoSum.md) | Hash Map | Easy | Yes |
+| [Three Sum](01_Arrays_Matrix/ThreeSum/ThreeSum.md) | Two Pointers + Sort | Medium | Yes |
+| [Four Sum](01_Arrays_Matrix/FourSum/FourSum.md) | K-Sum reduction | Medium | Nice-to-have |
+| [Best Time to Buy and Sell Stock](01_Arrays_Matrix/BestTimeToBuyAndSellStock/BestTimeToBuyAndSellStock.md) | Kadane's variant | Easy | Yes |
+| [Maximum Subarray](01_Arrays_Matrix/MaximumSubarray/MaximumSubarray.md) | Kadane's Algorithm | Medium | Yes |
+| [Product of Array Except Self](01_Arrays_Matrix/ProductOfArrayExceptSelf/ProductOfArrayExceptSelf.md) | Prefix/Suffix pass | Medium | Yes |
+| [Container With Most Water](01_Arrays_Matrix/ContainerWithMostWater/ContainerWithMostWater.md) | Two Pointers | Medium | Yes |
+| [Trapping Rain Water](01_Arrays_Matrix/TrappingRainWater/TrappingRainWater.md) | Two Pointers / Stack | Hard | Yes |
+| [Merge Intervals](01_Arrays_Matrix/MergeIntervals/MergeIntervals.md) | Sort + Merge | Medium | Yes |
+| [Insert Interval](01_Arrays_Matrix/InsertInterval/InsertInterval.md) | Merge Intervals | Medium | Yes |
+| [Rotate Array](01_Arrays_Matrix/RotateArray/RotateArray.md) | Reverse | Medium | Yes |
+| [Move Zeroes](01_Arrays_Matrix/MoveZeroes/MoveZeroes.md) | Two Pointers (Same Dir) | Easy | Warm-up |
+| [Search in Rotated Sorted Array](01_Arrays_Matrix/SearchInRotatedSortedArray/SearchInRotatedSortedArray.md) | Modified Binary Search | Medium | Yes |
+| [Find Minimum in Rotated Sorted Array](01_Arrays_Matrix/FindMinimumInRotatedSortedArray/FindMinimumInRotatedSortedArray.md) | Binary Search | Medium | Yes |
+| [Set Matrix Zeroes](01_Arrays_Matrix/SetMatrixZeroes/SetMatrixZeroes.md) | In-place marking | Medium | Nice-to-have |
+| [Spiral Matrix](01_Arrays_Matrix/SpiralMatrix/SpiralMatrix.md) | Simulation | Medium | Nice-to-have |
+
+**Key patterns in this category**: Two Pointers, Sliding Window, Prefix Sum, Binary Search, Kadane's Algorithm, Sort + Merge.
+
+### 02. Strings (9 Problems)
+
+String problems test sliding window, hashing, and pattern matching.
+
+| Problem | Pattern | Difficulty | Must-Know |
+|---------|---------|-----------|-----------|
+| [Longest Substring Without Repeating](02_Strings/LongestSubstringWithoutRepeating/LongestSubstringWithoutRepeating.md) | Sliding Window | Medium | Yes |
+| [Minimum Window Substring](02_Strings/MinimumWindowSubstring/MinimumWindowSubstring.md) | Sliding Window | Hard | Yes |
+| [Group Anagrams](02_Strings/GroupAnagrams/GroupAnagrams.md) | Hashing | Medium | Yes |
+| [Longest Palindromic Substring](02_Strings/LongestPalindromicSubstring/LongestPalindromicSubstring.md) | Expand Around Center | Medium | Yes |
+| [Valid Anagram](02_Strings/ValidAnagram/ValidAnagram.md) | Hashing/Sorting | Easy | Warm-up |
+| [Valid Palindrome](02_Strings/ValidPalindrome/ValidPalindrome.md) | Two Pointers | Easy | Warm-up |
+| [Reverse String](02_Strings/ReverseString/ReverseString.md) | Two Pointers | Easy | Warm-up |
+| [Implement strStr](02_Strings/ImplementStrStr/ImplementStrStr.md) | KMP / Two Pointers | Medium | Nice-to-have |
+| [Integer to Roman](02_Strings/IntegerToRoman/IntegerToRoman.md) | Greedy | Medium | Nice-to-have |
+
+### 03. Linked Lists (8 Problems)
+
+Tests pointer manipulation, fast/slow pointers, and in-place reversal.
+
+| Problem | Pattern | Difficulty | Must-Know |
+|---------|---------|-----------|-----------|
+| [Reverse Linked List](03_Linked_Lists/ReverseLinkedList/ReverseLinkedList.md) | In-Place Reversal | Easy | Yes |
+| [Linked List Cycle](03_Linked_Lists/LinkedListCycle/LinkedListCycle.md) | Fast & Slow Pointers | Easy | Yes |
+| [Merge Two Sorted Lists](03_Linked_Lists/MergeTwoSortedLists/MergeTwoSortedLists.md) | Two Pointers Merge | Easy | Yes |
+| [LRU Cache](03_Linked_Lists/LRUCache/LRUCache.md) | HashMap + DLL | Hard | Yes (design) |
+| [Reorder List](03_Linked_Lists/ReorderList/ReorderList.md) | Middle + Reverse + Merge | Medium | Yes |
+| [Remove Nth Node From End](03_Linked_Lists/RemoveNthNodeFromEnd/RemoveNthNodeFromEnd.md) | Two Pointers with Gap | Medium | Yes |
+| [Add Two Numbers](03_Linked_Lists/AddTwoNumbers/AddTwoNumbers.md) | Simulation | Medium | Yes |
+| [Find Middle Node](03_Linked_Lists/FindMiddleNode/FindMiddleNode.md) | Fast & Slow | Easy | Yes |
+
+### 04. Stacks & Queues (6 Problems)
+
+| Problem | Pattern | Difficulty |
+|---------|---------|-----------|
+| [Valid Parentheses](04_Stacks_Queues/ValidParentheses/ValidParentheses.md) | Stack | Easy |
+| [Min Stack](04_Stacks_Queues/MinStack/MinStack.md) | Two Stacks | Medium |
+| [Daily Temperatures](04_Stacks_Queues/DailyTemperatures/DailyTemperatures.md) | Monotonic Stack | Medium |
+| [Evaluate Reverse Polish Notation](04_Stacks_Queues/EvaluateReversePolishNotation/EvaluateReversePolishNotation.md) | Stack | Medium |
+| [Next Greater Element](04_Stacks_Queues/NextGreaterElement/NextGreaterElement.md) | Monotonic Stack | Medium |
+| [Implement Queue Using Stacks](04_Stacks_Queues/ImplementQueueUsingStacks/ImplementQueueUsingStacks.md) | Two Stacks | Easy |
+
+### 05. Trees (8 Problems)
+
+| Problem | Pattern | Difficulty |
+|---------|---------|-----------|
+| [Maximum Depth](05_Trees_Binary_Trees/MaximumDepth/MaximumDepth.md) | DFS | Easy |
+| [Invert Binary Tree](05_Trees_Binary_Trees/InvertBinaryTree/InvertBinaryTree.md) | DFS/BFS | Easy |
+| [Symmetric Tree](05_Trees_Binary_Trees/SymmetricTree/SymmetricTree.md) | DFS (two pointers) | Easy |
+| [Validate BST](05_Trees_Binary_Trees/ValidateBinarySearchTree/ValidateBinarySearchTree.md) | DFS with bounds | Medium |
+| [Level Order Traversal](05_Trees_Binary_Trees/BinaryTreeLevelOrderTraversal/BinaryTreeLevelOrderTraversal.md) | BFS | Medium |
+| [Subtree of Another Tree](05_Trees_Binary_Trees/SubtreeOfAnotherTree/SubtreeOfAnotherTree.md) | DFS + comparison | Medium |
+| [Construct Tree From Traversals](05_Trees_Binary_Trees/ConstructTreeFromTraversals/ConstructTreeFromTraversals.md) | Divide and Conquer | Medium |
+| [Serialize/Deserialize Binary Tree](05_Trees_Binary_Trees/SerializeDeserializeBinaryTree/SerializeDeserializeBinaryTree.md) | BFS/DFS | Hard |
+
+### 06. BST (4 Problems)
+
+| Problem | Pattern | Difficulty |
+|---------|---------|-----------|
+| [BST Operations](06_Binary_Search_Tree/BSTOperations/BSTOperations.md) | BST properties | Medium |
+| [Lowest Common Ancestor BST](06_Binary_Search_Tree/LowestCommonAncestorBST/LowestCommonAncestorBST.md) | BST properties | Medium |
+| [Kth Smallest Element BST](06_Binary_Search_Tree/KthSmallestElementBST/KthSmallestElementBST.md) | Inorder traversal | Medium |
+| [Balanced BST Check](06_Binary_Search_Tree/BalancedBSTCheck/BalancedBSTCheck.md) | DFS with height | Easy |
+
+### 07. Heaps (4 Problems)
+
+| Problem | Pattern | Difficulty |
+|---------|---------|-----------|
+| [Top K Frequent Elements](07_Heaps_Priority_Queues/TopKFrequentElements/TopKFrequentElements.md) | Min-Heap / Bucket Sort | Medium |
+| [Kth Largest Element](07_Heaps_Priority_Queues/KthLargestElementInArray/KthLargestElementInArray.md) | Quickselect / Min-Heap | Medium |
+| [Merge K Sorted Lists](07_Heaps_Priority_Queues/MergeKSortedLists/MergeKSortedLists.md) | K-Way Merge | Hard |
+| [Find Median from Data Stream](07_Heaps_Priority_Queues/FindMedianFromDataStream/FindMedianFromDataStream.md) | Two Heaps | Hard |
+
+### 08. Graphs (7 Problems)
+
+| Problem | Pattern | Difficulty |
+|---------|---------|-----------|
+| [Number of Islands](08_Graphs/NumberOfIslands/NumberOfIslands.md) | BFS/DFS on Grid | Medium |
+| [Clone Graph](08_Graphs/CloneGraph/CloneGraph.md) | DFS + HashMap | Medium |
+| [Course Schedule](08_Graphs/CourseSchedule/CourseSchedule.md) | Topological Sort / Cycle Detection | Medium |
+| [Topological Sort](08_Graphs/TopologicalSort/TopologicalSort.md) | Kahn's Algorithm / DFS | Medium |
+| [Word Ladder](08_Graphs/WordLadder/WordLadder.md) | BFS Shortest Path | Hard |
+| [Dijkstra's Algorithm](08_Graphs/DijkstraAlgorithm/DijkstraAlgorithm.md) | Priority Queue + Greedy | Hard |
+| [Union Find](08_Graphs/UnionFind/UnionFind.md) | Path Compression + Rank | Medium |
+
+### 09. Backtracking (5 Problems)
+
+| Problem | Pattern | Difficulty |
+|---------|---------|-----------|
+| [Subsets](09_Backtracking/Subsets/Subsets.md) | Include/Exclude | Medium |
+| [Permutations](09_Backtracking/Permutations/Permutations.md) | Used array | Medium |
+| [Generate Parentheses](09_Backtracking/GenerateParentheses/GenerateParentheses.md) | Constraint tracking | Medium |
+| [N-Queens](09_Backtracking/NQueens/NQueens.md) | Constraint satisfaction | Hard |
+| [Sudoku Solver](09_Backtracking/SudokuSolver/SudokuSolver.md) | Constraint satisfaction | Hard |
+
+### 10. Dynamic Programming (10+ Problems)
+
+| Problem | Sub-Pattern | Difficulty |
+|---------|-----------|-----------|
+| [Climbing Stairs](10_Dynamic_Programming/ClimbingStairs/ClimbingStairs.md) | Decision DP | Easy |
+| [House Robber](10_Dynamic_Programming/HouseRobber/HouseRobber.md) | Decision DP | Medium |
+| [Coin Change](10_Dynamic_Programming/CoinChange/CoinChange.md) | Unbounded Knapsack | Medium |
+| [Unique Paths](10_Dynamic_Programming/UniquePaths/UniquePaths.md) | Grid DP | Medium |
+| [Longest Common Subsequence](10_Dynamic_Programming/LongestCommonSubsequence/LongestCommonSubsequence.md) | LCS | Medium |
+| [Longest Increasing Subsequence](10_Dynamic_Programming/LongestIncreasingSubsequence/LongestIncreasingSubsequence.md) | LIS | Medium |
+| [Word Break](10_Dynamic_Programming/WordBreak/WordBreak.md) | String DP | Medium |
+| [Palindromic Substrings](10_Dynamic_Programming/PalindromicSubstrings/PalindromicSubstrings.md) | Interval DP | Medium |
+| [Jump Game](10_Dynamic_Programming/JumpGame/JumpGame.md) | Greedy/DP | Medium |
+| [Advanced DP Patterns](10_Dynamic_Programming/AdvancedDP/AdvancedDP.md) | Interval, Bitmask, Tree, Digit, Probability | Hard |
+
+### 11-17. Advanced Categories
+
+| Category | Key Topics |
+|----------|-----------|
+| **11. Sliding Window / Two Pointers** | Variable-size windows, deque, at-most-K trick |
+| **12. Sorting & Searching** | Merge sort, quick sort, binary search |
+| **13. Recursion & Divide and Conquer** | Master theorem, recurrence analysis |
+| **14. Greedy Algorithms** | Jump game, gas station, partition labels |
+| **15. Bit Manipulation** | XOR tricks, bit counting, single number |
+| **16. Advanced Data Structures** | Segment Tree (range queries), Trie (prefix search + XOR) |
+| **17. Math Algorithms** | GCD/LCM, primes (Sieve), modular arithmetic, combinatorics |
+
+---
+
+## Complexity Cheat Sheet
+
+### Time Complexity Ranking (Best → Worst)
+
+| Complexity | Name | Example |
+|-----------|------|---------|
+| O(1) | Constant | HashMap lookup, array access |
+| O(log n) | Logarithmic | Binary search, balanced BST |
+| O(n) | Linear | Single pass, two pointers |
+| O(n log n) | Linearithmic | Merge sort, heap sort |
+| O(n²) | Quadratic | Nested loops, brute force pairs |
+| O(2^n) | Exponential | Subsets, recursive backtracking |
+| O(n!) | Factorial | Permutations |
+
+### Space Complexity Common Cases
+
+| Structure | Space |
+|-----------|-------|
+| Hash Map with n entries | O(n) |
+| Recursion depth d | O(d) stack frames |
+| 2D DP table n×m | O(n×m) → optimize to O(n) with rolling array |
+| Adjacency list with V vertices, E edges | O(V + E) |
+| Heap of K elements | O(K) |
+
+---
+
+## Interview Preparation Priority
+
+### Tier 1: Must-Solve (Asked in 80%+ of interviews)
+
+These are the problems you must solve in your sleep:
+
+1. Two Sum
+2. Best Time to Buy and Sell Stock
+3. Maximum Subarray
+4. Merge Intervals
+5. Longest Substring Without Repeating Characters
+6. Reverse Linked List
+7. Linked List Cycle
+8. Valid Parentheses
+9. Binary Tree Level Order Traversal
+10. Number of Islands
+11. Course Schedule
+12. Coin Change
+13. LRU Cache
+14. Top K Frequent Elements
+
+### Tier 2: Frequently Asked (50-80% of interviews)
+
+15. Three Sum
+16. Container With Most Water
+17. Product of Array Except Self
+18. Group Anagrams
+19. Merge Two Sorted Lists
+20. Validate BST
+21. Serialize/Deserialize Binary Tree
+22. Word Ladder
+23. Subsets
+24. Permutations
+25. Climbing Stairs
+26. Longest Increasing Subsequence
+27. Daily Temperatures
+
+### Tier 3: Differentiators (Asked at Senior+ levels)
+
+28. Trapping Rain Water
+29. Minimum Window Substring
+30. LRU Cache (with follow-ups)
+31. Merge K Sorted Lists
+32. Find Median from Data Stream
+33. N-Queens
+34. Word Break
+35. Dijkstra's Algorithm
+36. Segment Tree
+37. Trie (with XOR variant)
+
+---
+
+## Cross-References
+
+| Need to study... | Go to... |
+|-----------------|---------|
+| 16 Algorithmic Pattern Templates | [AlgorithmicPatterns.md](../CodingPatterns/AlgorithmicPatterns.md) |
+| GoF Design Patterns | [patterns.md](../CodingPatterns/patterns.md) |
+| System Design (uses DSA concepts) | [CrossReferences.md](../CrossReferences.md) |
+| Study Paths + Difficulty Progression | [StudyGuide.md](StudyGuide.md) |
