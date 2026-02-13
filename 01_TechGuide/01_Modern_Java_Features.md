@@ -1,8 +1,8 @@
-# Section 7: Modern Java Features (Java 17–21) & Virtual Threads
+# Section 1: Modern Java Features (Java 17–21) & Virtual Threads
 
 ---
 
-## 7.1 Records, Sealed Classes, and Pattern Matching
+## 1.1 Records, Sealed Classes, and Pattern Matching
 
 ---
 
@@ -318,7 +318,7 @@ public double calculateLength(Object shape) {
 
 ---
 
-## 7.2 Virtual Threads (Project Loom) — Java 21+
+## 1.2 Virtual Threads (Project Loom) — Java 21+
 
 ---
 
@@ -521,7 +521,7 @@ public OrderSummary getOrderSummary(String orderId) throws Exception {
 
 ---
 
-## 7.3 Text Blocks, Switch Expressions, and Other Quality-of-Life Features
+## 1.3 Text Blocks, Switch Expressions, and Other Quality-of-Life Features
 
 ---
 

@@ -1,8 +1,8 @@
-# Section 6: Angular & Frontend Engineering (Full-Stack Lead Critical)
+# Section 8: Angular & Frontend Engineering (Full-Stack Lead Critical)
 
 ---
 
-## 6.1 Angular Architecture: Modules, Standalone Components, Signals, and Change Detection
+## 8.1 Angular Architecture: Modules, Standalone Components, Signals, and Change Detection
 
 ---
 
@@ -413,7 +413,7 @@ Angular 17 introduced a built-in control flow that replaces `*ngIf`, `*ngFor`, a
 
 ---
 
-## 6.2 State Management: Service-based State, NgRx (Redux), and Signal Store
+## 8.2 State Management: Service-based State, NgRx (Redux), and Signal Store
 
 ---
 
@@ -693,7 +693,7 @@ export class OrderDashboardComponent implements OnInit {
 
 ---
 
-## 6.3 RxJS Mastery: Operators Every Lead Must Know
+## 8.3 RxJS Mastery: Operators Every Lead Must Know
 
 ---
 
@@ -874,7 +874,7 @@ export class OrderListComponent {
 
 ---
 
-## 6.4 Routing, Lazy Loading, and Guards
+## 8.4 Routing, Lazy Loading, and Guards
 
 ---
 
@@ -1011,7 +1011,7 @@ export const orderResolver: ResolveFn<Order> = (route) => {
 
 ---
 
-## 6.5 Angular HTTP Client, Interceptors, and Error Handling
+## 8.5 Angular HTTP Client, Interceptors, and Error Handling
 
 ---
 
@@ -1149,7 +1149,7 @@ export const appConfig: ApplicationConfig = {
 
 ---
 
-## 6.6 Angular Performance Optimization
+## 8.6 Angular Performance Optimization
 
 ---
 
@@ -1222,7 +1222,7 @@ export const appConfig: ApplicationConfig = {
 
 ---
 
-## 6.7 Reactive Forms, Validation, and Type-Safe Forms
+## 8.7 Reactive Forms, Validation, and Type-Safe Forms
 
 ---
 
@@ -1405,7 +1405,7 @@ export function customerExistsValidator(
 
 ---
 
-## 6.8 Angular Testing: Unit Tests and Component Tests
+## 8.8 Angular Testing: Unit Tests and Component Tests
 
 ---
 

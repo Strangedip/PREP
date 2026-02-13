@@ -2,7 +2,7 @@
 
 > **Covers**: Associate SDE → Mid-Level SDE → Senior SDE → Lead Software Engineer
 > **Tech Stack**: Java 17-21, Spring Boot 3.x, Angular 17+, Microservices, Kubernetes, Cloud-Native
-> **Purpose**: Your lifetime technical reference. Read sections 01 → 14 in order for a top-to-bottom learning path.
+> **Purpose**: Your lifetime technical reference. Read sections 01 → 20 in order for a top-to-bottom learning path.
 
 ---
 
@@ -192,6 +192,7 @@ Each section below is tagged with the minimum level where the topic becomes rele
 - **9.5 Performance Testing**: JMeter, Gatling, load profiles, SLA validation
 - **9.6 Security Testing**: OWASP ZAP, SonarQube, dependency scanning
 - **9.7 E2E Testing**: Playwright, Cypress, Page Object Model
+- **9.8 Testing Best Practices**: Quick reference, mutation testing, interview keywords
 
 ### [Section 10: DevOps, CI/CD, Docker & Containerization](./10_DevOps_CICD_Docker.md) `SR+`
 
@@ -281,6 +282,89 @@ Each section below is tagged with the minimum level where the topic becomes rele
 - **14.4 Common System Design Questions**: Key components and trade-offs
 - **14.5 Architecture Decision Records (ADRs)**: Documenting technical decisions
 - **14.6 Estimation & Planning**: PERT estimation, technical roadmapping
+
+### [Section 15: Java Collections & Concurrency Deep Dive](./15_Java_Collections_Concurrency_DeepDive.md) `MID+`
+
+- **15.1 Collections Framework Internals**: HashMap internals (hashing, treeification, resizing), LinkedHashMap, TreeMap
+  - HashMap Node structure, collision resolution, load factor 0.75
+  - Fail-fast vs fail-safe iterators, Immutable Collections (Java 9+)
+  - Collection performance comparison table
+- **15.2 Java Stream API Deep Dive**: Collectors, flatMap, parallel streams, Gatherers
+  - Four Collector categories: Reducing, Grouping, Partitioning, Joining
+  - Custom Collector implementation
+  - Parallel stream pitfalls and custom ForkJoinPool
+- **15.3 Functional Programming in Java**: Function, Predicate, Consumer, Supplier, Optional best practices
+- **15.4 Concurrency — Locks & Synchronizers**: ReentrantLock, ReadWriteLock, StampedLock
+  - CountDownLatch, CyclicBarrier, Semaphore, Phaser — comparison table
+- **15.5 ConcurrentHashMap Internals**: Java 7 segments vs Java 8 CAS+synchronized
+  - Atomic compound operations, bulk parallel operations
+- **15.6 Atomic Variables & CAS**: AtomicInteger, AtomicReference, LongAdder
+- **15.7 CompletableFuture Advanced Patterns**: Fan-out/in, first-wins, pipeline, retry
+- **15.8 Thread Pool Configuration**: ThreadPoolExecutor 7 parameters, sizing guidelines
+- **15.9 Interview Quick Reference**: Top questions, one-line answers, keywords
+
+### [Section 16: Spring Ecosystem Deep Dive](./16_Spring_Ecosystem_DeepDive.md) `MID+`
+
+- **16.1 Spring Data JPA — Beyond Basics**: Query methods, @Query, Specifications, Projections, Auditing, Batch operations
+- **16.2 Spring WebFlux & Project Reactor**: Mono, Flux, reactive REST controllers, WebClient
+- **16.3 Spring Cloud**: Service Discovery (Eureka), API Gateway, Config Server
+- **16.4 Spring Batch**: Chunk processing, readers/writers, fault tolerance, skip/retry
+- **16.5 Spring AOP**: CGLIB proxy internals, self-invocation problem, custom aspects, @RateLimit
+- **16.6 Spring Profiles & Configuration**: @ConfigurationProperties, type-safe config, HikariCP tuning
+- **16.7 Spring Actuator**: Custom health indicators, business metrics, Prometheus export
+- **16.8 Spring Events**: ApplicationEventPublisher, @TransactionalEventListener, async events
+- **16.9 Interview Quick Reference**: Top questions, one-line answers, keywords
+
+### [Section 17: Networking & Protocols](./17_Networking_Protocols.md) `MID+`
+
+- **17.1 OSI Model & TCP/IP**: TCP vs UDP, three-way handshake, TIME_WAIT
+- **17.2 HTTP Deep Dive**: HTTP/1.1 vs HTTP/2 vs HTTP/3 (QUIC), multiplexing, 0-RTT
+- **17.3 TLS/SSL**: TLS 1.3 handshake, mTLS, forward secrecy, certificate pinning
+- **17.4 DNS**: Resolution flow, record types, GeoDNS, DNS in system design
+- **17.5 WebSocket Protocol**: Full-duplex, Spring Boot STOMP, WebSocket vs SSE vs Long Polling
+- **17.6 gRPC & Protocol Buffers**: 4 streaming patterns, Protobuf, gRPC vs REST decision guide
+- **17.7 CDN**: Edge caching, Cache-Control headers, ETag, invalidation
+- **17.8 Connection Pooling**: HikariCP sizing, HTTP client pools, TCP reuse
+- **17.9 Interview Quick Reference**: Top questions, one-line answers, keywords
+
+### [Section 18: Performance Engineering & JVM Tuning](./18_Performance_Engineering_JVM.md) `SR+`
+
+- **18.1 JVM Architecture**: Memory layout, essential JVM flags, GC selection
+- **18.2 Garbage Collection Deep Dive**: G1GC vs ZGC vs Shenandoah decision matrix
+- **18.3 Profiling**: Java Flight Recorder (JFR), async-profiler flame graphs, thread dump analysis, heap dump analysis
+- **18.4 JMH — Microbenchmarking**: Proper Java benchmarking with warmup, fork, Blackhole
+- **18.5 Common Performance Anti-Patterns**: N+1, chatty calls, inefficient serialization, sync I/O in event loops
+- **18.6 Performance Testing Methodology**: Load, stress, soak, spike testing
+- **18.7 Performance Budgets**: Backend and frontend budgets, SLI/SLO/SLA framework, error budgets
+- **18.8 Interview Quick Reference**: Top questions, one-line answers, keywords
+
+### [Section 19: Event-Driven Architecture & Messaging](./19_Event_Driven_Architecture.md) `SR+`
+
+- **19.1 Event-Driven Patterns**: Event Notification, Event-Carried State Transfer, Event Sourcing
+  - Message vs Event vs Command — naming conventions
+- **19.2 Apache Kafka Deep Dive**: Architecture, Spring Boot producer/consumer, delivery guarantees
+  - exactly-once semantics, idempotent producers, transactional API
+- **19.3 Schema Evolution**: Avro, Schema Registry, backward/forward/full compatibility
+- **19.4 Event Sourcing & CQRS**: Aggregate, event handler, projection, Axon Framework
+- **19.5 Dead Letter Queues & Error Handling**: Retry strategies, DLT, poison pill handling
+- **19.6 Saga Pattern**: Choreography vs Orchestration, compensating transactions, Outbox Pattern
+- **19.7 RabbitMQ vs Kafka**: Architecture comparison, decision guide
+- **19.8 Change Data Capture (CDC)**: Debezium, transaction log, use cases
+- **19.9 Interview Quick Reference**: Top questions, one-line answers, keywords
+
+### [Section 20: Technical Leadership & Software Architecture](./20_Technical_Leadership_Architecture.md) `LEAD`
+
+- **20.1 Architecture Decision Records (ADRs)**: Template, when to write, examples
+- **20.2 Technical Estimation & Planning**: T-shirt sizing, story points, three-point estimation
+  - Technical Design Document template
+- **20.3 Code Review Leadership**: Architecture alignment, production readiness, communication guidelines
+- **20.4 Team Mentorship & Technical Growth**: Mentorship framework, career development
+- **20.5 Incident Management & Post-Mortems**: Severity levels, post-mortem template, blameless culture
+- **20.6 System Design Interview Framework**: 4-step approach, back-of-the-envelope calculations
+- **20.7 Stakeholder Communication**: Translating technical decisions for non-technical audiences
+- **20.8 Technical Debt Management**: Debt quadrant, tracking, payoff strategies
+- **20.9 Behavioral Interview — STAR Stories**: 8 prepared story templates for Lead roles
+- **20.10 Interview Quick Reference**: Amazon Leadership Principles, top questions
 
 ---
 

@@ -1,10 +1,10 @@
-# 14. Application Security, OWASP & Cloud Fundamentals
+# Section 12: Application Security, OWASP & Cloud Fundamentals
 
 > **Why This Matters for Lead Engineers**: Security is non-negotiable at every level. Lead engineers are expected to design secure systems from the ground up, conduct threat modeling, ensure OWASP Top 10 compliance, and understand cloud infrastructure (AWS/GCP/Azure) enough to make informed architectural decisions. These topics are increasingly asked in system design rounds and leadership discussions.
 
 ---
 
-## 14.1 OWASP Top 10 (2021) — Complete Guide
+## 12.1 OWASP Top 10 (2021) — Complete Guide
 
 The Open Web Application Security Project (OWASP) Top 10 is the most authoritative list of critical web application security risks. Every lead engineer must know these cold.
 
@@ -376,7 +376,7 @@ public void fetchExternalResource(String url) {
 
 ---
 
-## 14.2 JWT Security Deep Dive
+## 12.2 JWT Security Deep Dive
 
 ### JWT Structure
 ```
@@ -436,7 +436,7 @@ public class JwtTokenProvider {
 
 ---
 
-## 14.3 CORS (Cross-Origin Resource Sharing)
+## 12.3 CORS (Cross-Origin Resource Sharing)
 
 ### Why CORS Exists
 Browsers enforce the Same-Origin Policy: JavaScript on `app.example.com` cannot make requests to `api.example.com` without explicit permission.
@@ -464,7 +464,7 @@ public CorsConfigurationSource corsConfigurationSource() {
 
 ---
 
-## 14.4 Cloud Fundamentals for Backend Engineers
+## 12.4 Cloud Fundamentals for Backend Engineers
 
 > You do not need to be a certified cloud architect, but as a Lead Engineer, you must understand the services you depend on and make informed decisions about infrastructure.
 
@@ -595,7 +595,7 @@ Security Groups:
 
 ---
 
-## 14.5 Security in System Design Interviews
+## 12.5 Security in System Design Interviews
 
 ### Security Checklist for Every System Design
 
@@ -614,7 +614,7 @@ When designing any system in an interview, mention these security considerations
 
 ---
 
-## 14.6 Interview Quick Reference
+## 12.6 Interview Quick Reference
 
 ### OWASP Top 10 One-Liner Summary
 

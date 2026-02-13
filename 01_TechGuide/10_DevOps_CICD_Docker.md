@@ -1,8 +1,8 @@
-# Section 9: DevOps, CI/CD, Docker & Containerization
+# Section 10: DevOps, CI/CD, Docker & Containerization
 
 ---
 
-## 9.1 Docker: Containerization for Java/Angular Applications
+## 10.1 Docker: Containerization for Java/Angular Applications
 
 ---
 
@@ -296,7 +296,7 @@ volumes:
 
 ---
 
-## 9.2 CI/CD Pipelines: From Commit to Production
+## 10.2 CI/CD Pipelines: From Commit to Production
 
 ---
 
@@ -760,7 +760,7 @@ deploy-production:
 
 ---
 
-## 9.3 GitOps: Infrastructure as Code, Declarative Deployments
+## 10.3 GitOps: Infrastructure as Code, Declarative Deployments
 
 ---
 
@@ -908,7 +908,7 @@ images:
 
 ---
 
-## 9.4 Feature Flags: Decoupling Deployment from Release
+## 10.4 Feature Flags: Decoupling Deployment from Release
 
 ---
 
@@ -1071,7 +1071,7 @@ export class FeatureFlagDirective implements OnInit, OnDestroy {
 
 ---
 
-## 9.5 Infrastructure as Code (IaC): Terraform & Kubernetes
+## 10.5 Infrastructure as Code (IaC): Terraform & Kubernetes
 
 ---
 
@@ -1299,7 +1299,7 @@ variable "aws_region" {
 
 ---
 
-## 9.6 Security in the Pipeline: DevSecOps
+## 10.6 Security in the Pipeline: DevSecOps
 
 ---
 
@@ -1399,7 +1399,7 @@ private String dbPassword;  // Comes from Vault, not application.yml
 
 ---
 
-## 9.7 Docker Best Practices Checklist for Lead Engineers
+## 10.7 Docker Best Practices Checklist for Lead Engineers
 
 ---
 
@@ -1452,7 +1452,7 @@ src/test/
 
 ---
 
-## 9.8 Interview Quick Reference: DevOps & CI/CD
+## 10.8 Interview Quick Reference: DevOps & CI/CD
 
 ---
 

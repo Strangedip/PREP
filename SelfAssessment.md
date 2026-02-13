@@ -35,7 +35,7 @@
 
 ## Section 2: Java Concurrency
 
-**Guide Reference**: [02_Advanced_SpringBoot_Java_Internals.md](01_TechGuide/02_Advanced_SpringBoot_Java_Internals.md) (Section 1.2)
+**Guide Reference**: [02_Advanced_SpringBoot_Java_Internals.md](01_TechGuide/02_Advanced_SpringBoot_Java_Internals.md) (Section 2.2)
 
 | # | Topic | Can You Explain? | Confidence (1-5) |
 |---|-------|-----------------|-------------------|
@@ -56,7 +56,7 @@
 
 ## Section 3: Spring Boot Internals
 
-**Guide Reference**: [02_Advanced_SpringBoot_Java_Internals.md](01_TechGuide/02_Advanced_SpringBoot_Java_Internals.md) (Section 1.3, 1.4)
+**Guide Reference**: [02_Advanced_SpringBoot_Java_Internals.md](01_TechGuide/02_Advanced_SpringBoot_Java_Internals.md) (Section 2.3, 2.4)
 
 | # | Topic | Can You Explain? | Confidence (1-5) |
 |---|-------|-----------------|-------------------|
@@ -77,7 +77,7 @@
 
 ## Section 4: Microservices Resilience Patterns
 
-**Guide Reference**: [06_Microservices_Distributed_Systems.md](01_TechGuide/06_Microservices_Distributed_Systems.md) (Section 2.1)
+**Guide Reference**: [06_Microservices_Distributed_Systems.md](01_TechGuide/06_Microservices_Distributed_Systems.md) (Section 6.1)
 
 | # | Topic | Can You Explain? | Confidence (1-5) |
 |---|-------|-----------------|-------------------|
@@ -95,7 +95,7 @@
 
 ## Section 5: Data Consistency Patterns
 
-**Guide Reference**: [06_Microservices_Distributed_Systems.md](01_TechGuide/06_Microservices_Distributed_Systems.md) (Section 2.2)
+**Guide Reference**: [06_Microservices_Distributed_Systems.md](01_TechGuide/06_Microservices_Distributed_Systems.md) (Section 6.2)
 
 | # | Topic | Can You Explain? | Confidence (1-5) |
 |---|-------|-----------------|-------------------|
@@ -113,7 +113,7 @@
 
 ## Section 6: Communication (REST, gRPC, Kafka)
 
-**Guide Reference**: [06_Microservices_Distributed_Systems.md](01_TechGuide/06_Microservices_Distributed_Systems.md) (Section 2.3)
+**Guide Reference**: [06_Microservices_Distributed_Systems.md](01_TechGuide/06_Microservices_Distributed_Systems.md) (Section 6.3)
 
 | # | Topic | Can You Explain? | Confidence (1-5) |
 |---|-------|-----------------|-------------------|
@@ -457,6 +457,142 @@
 
 ---
 
+## Section 22: Java Collections & Concurrency Deep Dive
+
+**Guide Reference**: [15_Java_Collections_Concurrency_DeepDive.md](01_TechGuide/15_Java_Collections_Concurrency_DeepDive.md)
+
+| # | Topic | Can You Explain? | Confidence (1-5) |
+|---|-------|-----------------|-------------------|
+| 22.1 | HashMap internals: hashing, treeification at 8, resizing, load factor 0.75 | ☐ | ___ |
+| 22.2 | LinkedHashMap: insertion vs access order, building LRU cache | ☐ | ___ |
+| 22.3 | TreeMap: Red-Black tree, NavigableMap operations (floor, ceiling, subMap) | ☐ | ___ |
+| 22.4 | Fail-fast vs fail-safe iterators, ConcurrentModificationException | ☐ | ___ |
+| 22.5 | Java Stream API: Collectors (groupingBy, partitioningBy, joining), flatMap, custom Collector | ☐ | ___ |
+| 22.6 | Parallel streams: when they help, when they hurt, custom ForkJoinPool | ☐ | ___ |
+| 22.7 | Optional best practices: map/flatMap, never as method parameter | ☐ | ___ |
+| 22.8 | ReentrantLock vs synchronized: fairness, tryLock, interruptible | ☐ | ___ |
+| 22.9 | ReadWriteLock, StampedLock (optimistic read), when to use each | ☐ | ___ |
+| 22.10 | CountDownLatch, CyclicBarrier, Semaphore, Phaser — comparison | ☐ | ___ |
+| 22.11 | ConcurrentHashMap internals: Java 8 CAS + synchronized on bucket head | ☐ | ___ |
+| 22.12 | AtomicInteger, AtomicReference, LongAdder vs AtomicLong | ☐ | ___ |
+| 22.13 | CompletableFuture patterns: fan-out/in, first-wins, retry | ☐ | ___ |
+| 22.14 | ThreadPoolExecutor 7 parameters, sizing (CPU-bound vs I/O-bound) | ☐ | ___ |
+
+**Your Average Score**: ___ / 5
+
+---
+
+## Section 23: Spring Ecosystem Deep Dive
+
+**Guide Reference**: [16_Spring_Ecosystem_DeepDive.md](01_TechGuide/16_Spring_Ecosystem_DeepDive.md)
+
+| # | Topic | Can You Explain? | Confidence (1-5) |
+|---|-------|-----------------|-------------------|
+| 23.1 | Spring Data JPA: query method resolution, @Query, JOIN FETCH | ☐ | ___ |
+| 23.2 | Specifications: dynamic composable queries for search/filter | ☐ | ___ |
+| 23.3 | JPA Projections: interface-based, class-based, dynamic | ☐ | ___ |
+| 23.4 | JPA Auditing: @CreatedDate, @LastModifiedDate, AuditorAware | ☐ | ___ |
+| 23.5 | JPA batch operations: batch_size config, JDBC batch insert | ☐ | ___ |
+| 23.6 | WebFlux: Mono, Flux, reactive controller, WebClient | ☐ | ___ |
+| 23.7 | Spring Cloud: Eureka, Gateway, Config Server, @RefreshScope | ☐ | ___ |
+| 23.8 | Spring Batch: chunk processing, ItemReader/Processor/Writer, skip/retry | ☐ | ___ |
+| 23.9 | Spring AOP: CGLIB proxy, self-invocation problem, custom aspects | ☐ | ___ |
+| 23.10 | Spring Events: @EventListener, @TransactionalEventListener (AFTER_COMMIT) | ☐ | ___ |
+| 23.11 | Spring Actuator: custom health indicators, business metrics, Prometheus | ☐ | ___ |
+
+**Your Average Score**: ___ / 5
+
+---
+
+## Section 24: Networking & Protocols
+
+**Guide Reference**: [17_Networking_Protocols.md](01_TechGuide/17_Networking_Protocols.md)
+
+| # | Topic | Can You Explain? | Confidence (1-5) |
+|---|-------|-----------------|-------------------|
+| 24.1 | TCP vs UDP: reliability, ordering, connection-oriented vs connectionless | ☐ | ___ |
+| 24.2 | TCP three-way handshake, four-way termination, TIME_WAIT | ☐ | ___ |
+| 24.3 | HTTP/1.1 vs HTTP/2: multiplexing, binary framing, HPACK | ☐ | ___ |
+| 24.4 | HTTP/3 (QUIC): no TCP HOL blocking, 0-RTT, connection migration | ☐ | ___ |
+| 24.5 | TLS 1.3: 1-RTT handshake, forward secrecy, AEAD | ☐ | ___ |
+| 24.6 | mTLS: mutual authentication, service mesh integration | ☐ | ___ |
+| 24.7 | DNS resolution flow, record types (A, CNAME, MX, SRV), GeoDNS | ☐ | ___ |
+| 24.8 | WebSocket: full-duplex, upgrade handshake, Spring STOMP | ☐ | ___ |
+| 24.9 | gRPC: 4 streaming patterns, Protocol Buffers, vs REST decision | ☐ | ___ |
+| 24.10 | CDN: edge caching, Cache-Control, ETag, invalidation | ☐ | ___ |
+| 24.11 | Connection pooling: HikariCP sizing formula, HTTP client pools | ☐ | ___ |
+
+**Your Average Score**: ___ / 5
+
+---
+
+## Section 25: Performance Engineering & JVM Tuning
+
+**Guide Reference**: [18_Performance_Engineering_JVM.md](01_TechGuide/18_Performance_Engineering_JVM.md)
+
+| # | Topic | Can You Explain? | Confidence (1-5) |
+|---|-------|-----------------|-------------------|
+| 25.1 | JVM memory layout: Heap (Young+Old), Metaspace, Code Cache, Thread Stacks | ☐ | ___ |
+| 25.2 | Essential JVM flags: -Xms, -Xmx, GC selection, HeapDumpOnOOM | ☐ | ___ |
+| 25.3 | G1GC vs ZGC vs Shenandoah: decision matrix, when to use each | ☐ | ___ |
+| 25.4 | Java Flight Recorder (JFR): production-safe profiling, what it captures | ☐ | ___ |
+| 25.5 | Flame graphs: how to read them, async-profiler for CPU/alloc/lock | ☐ | ___ |
+| 25.6 | Thread dump analysis: BLOCKED, WAITING, deadlock detection | ☐ | ___ |
+| 25.7 | Heap dump analysis: Eclipse MAT, Dominator Tree, retained heap | ☐ | ___ |
+| 25.8 | JMH microbenchmarking: warmup, fork, Blackhole, avoiding common traps | ☐ | ___ |
+| 25.9 | Performance anti-patterns: N+1, chatty calls, sync I/O in event loops | ☐ | ___ |
+| 25.10 | SLI/SLO/SLA/Error Budgets: definitions, examples, engineering culture | ☐ | ___ |
+
+**Your Average Score**: ___ / 5
+
+---
+
+## Section 26: Event-Driven Architecture
+
+**Guide Reference**: [19_Event_Driven_Architecture.md](01_TechGuide/19_Event_Driven_Architecture.md)
+
+| # | Topic | Can You Explain? | Confidence (1-5) |
+|---|-------|-----------------|-------------------|
+| 26.1 | Event Notification vs Event-Carried State Transfer vs Event Sourcing | ☐ | ___ |
+| 26.2 | Message vs Event vs Command: semantics and naming conventions | ☐ | ___ |
+| 26.3 | Kafka architecture: topics, partitions, consumer groups, offsets | ☐ | ___ |
+| 26.4 | Kafka delivery guarantees: at-most-once, at-least-once, exactly-once | ☐ | ___ |
+| 26.5 | Spring Boot Kafka: producer config (acks, idempotence, batching) | ☐ | ___ |
+| 26.6 | Spring Boot Kafka: consumer config (manual commit, error handling, DLT) | ☐ | ___ |
+| 26.7 | Schema evolution: Avro, Schema Registry, backward/forward compatibility | ☐ | ___ |
+| 26.8 | Event Sourcing + CQRS: Aggregate, event handler, projection | ☐ | ___ |
+| 26.9 | Dead Letter Topic: retry strategy, poison pill handling | ☐ | ___ |
+| 26.10 | Saga Pattern: choreography vs orchestration, compensating transactions | ☐ | ___ |
+| 26.11 | Kafka vs RabbitMQ: architecture, throughput, routing, use cases | ☐ | ___ |
+| 26.12 | CDC with Debezium: transaction log, event format, use cases | ☐ | ___ |
+
+**Your Average Score**: ___ / 5
+
+---
+
+## Section 27: Technical Leadership & Architecture
+
+**Guide Reference**: [20_Technical_Leadership_Architecture.md](01_TechGuide/20_Technical_Leadership_Architecture.md)
+
+| # | Topic | Are You Prepared? | Confidence (1-5) |
+|---|-------|-------------------|-------------------|
+| 27.1 | ADR template: Status, Context, Decision, Consequences, Alternatives | ☐ | ___ |
+| 27.2 | Technical estimation: T-shirt sizing, story points, three-point estimation | ☐ | ___ |
+| 27.3 | Technical Design Document: requirements, architecture, rollout plan | ☐ | ___ |
+| 27.4 | Code review leadership: architecture alignment, communication guidelines | ☐ | ___ |
+| 27.5 | Mentorship framework: pairing, stretch assignments, feedback | ☐ | ___ |
+| 27.6 | Incident management: severity levels, post-mortem template | ☐ | ___ |
+| 27.7 | System Design interview framework: 4-step approach | ☐ | ___ |
+| 27.8 | Back-of-the-envelope calculations: QPS, storage, latency numbers | ☐ | ___ |
+| 27.9 | Stakeholder communication: translating tech to business impact | ☐ | ___ |
+| 27.10 | Technical debt: quadrant, tracking, 20% rule, prevention | ☐ | ___ |
+| 27.11 | Amazon Leadership Principles: Ownership, Dive Deep, Bias for Action, Earn Trust | ☐ | ___ |
+| 27.12 | 8 STAR stories prepared: leadership, conflict, mentorship, failure, ambiguity | ☐ | ___ |
+
+**Your Average Score**: ___ / 5
+
+---
+
 ## Overall Readiness Score
 
 | Section | Topic | Your Score |
@@ -482,17 +618,23 @@
 | 19 | AI, LLM & RAG | ___ / 5 |
 | 20 | Application Security & OWASP | ___ / 5 |
 | 21 | DSA | ___ / 5 |
-| **TOTAL** | | **___ / 105** |
+| 22 | Java Collections & Concurrency Deep Dive | ___ / 5 |
+| 23 | Spring Ecosystem Deep Dive | ___ / 5 |
+| 24 | Networking & Protocols | ___ / 5 |
+| 25 | Performance Engineering & JVM Tuning | ___ / 5 |
+| 26 | Event-Driven Architecture | ___ / 5 |
+| 27 | Technical Leadership & Architecture | ___ / 5 |
+| **TOTAL** | | **___ / 135** |
 
 ### Readiness Interpretation
 
 | Total Score | Readiness Level | Recommendation |
 |-------------|----------------|----------------|
-| **90-105** | Interview-Ready | Schedule interviews with confidence |
-| **75-89** | Almost Ready | Focus on weak sections for 1-2 more weeks |
-| **55-74** | Making Progress | Need 3-4 more weeks of focused study |
-| **40-54** | Building Foundation | Need 6-8 more weeks, follow the learning path |
-| **< 40** | Starting Out | Follow the full 12-week learning path from Phase 1 |
+| **115-135** | Interview-Ready | Schedule interviews with confidence |
+| **95-114** | Almost Ready | Focus on weak sections for 1-2 more weeks |
+| **70-94** | Making Progress | Need 3-4 more weeks of focused study |
+| **50-69** | Building Foundation | Need 6-8 more weeks, follow the learning path |
+| **< 50** | Starting Out | Follow the full 12-week learning path from Phase 1 |
 
 ---
 
@@ -500,8 +642,8 @@
 
 If you have limited time, focus on these high-impact sections first:
 
-1. **Critical (Interview eliminators)**: Sections 4, 5, 8, 17, 18, 21 (DSA)
-2. **High (Frequently asked)**: Sections 1, 2, 3, 7, 10, 16, 19 (AI)
-3. **Medium (Differentiators)**: Sections 6, 9, 11, 15, 20 (Security)
+1. **Critical (Interview eliminators)**: Sections 4, 5, 8, 17, 18, 21 (DSA), 22, 25
+2. **High (Frequently asked)**: Sections 1, 2, 3, 7, 10, 16, 19 (AI), 23, 26
+3. **Medium (Differentiators)**: Sections 6, 9, 11, 15, 20 (Security), 24, 27
 4. **Good-to-have (Bonus points)**: Sections 12, 13, 14
 

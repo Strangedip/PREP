@@ -1,8 +1,8 @@
-# Section 10: Observability — Logging, Metrics & Distributed Tracing
+# Section 11: Observability — Logging, Metrics & Distributed Tracing
 
 ---
 
-## 10.1 The Three Pillars of Observability
+## 11.1 The Three Pillars of Observability
 
 ---
 
@@ -75,7 +75,7 @@ DEBUGGING WORKFLOW:
 
 ---
 
-## 10.2 Structured Logging
+## 11.2 Structured Logging
 
 ---
 
@@ -341,7 +341,7 @@ public class OrderService {
 
 ---
 
-## 10.3 Metrics with Prometheus & Grafana
+## 11.3 Metrics with Prometheus & Grafana
 
 ---
 
@@ -606,7 +606,7 @@ groups:
 
 ---
 
-## 10.4 Distributed Tracing with OpenTelemetry
+## 11.4 Distributed Tracing with OpenTelemetry
 
 ---
 
@@ -876,7 +876,7 @@ public class OrderService {
 
 ---
 
-## 10.5 Grafana Dashboards: Putting It All Together
+## 11.5 Grafana Dashboards: Putting It All Together
 
 ---
 
@@ -953,7 +953,7 @@ Metrics, logs, and traces are useless if nobody looks at them. Grafana provides 
 
 ---
 
-## 10.6 Alerting Strategy
+## 11.6 Alerting Strategy
 
 ---
 
@@ -1035,7 +1035,7 @@ receivers:
 
 ---
 
-## 10.7 Interview Quick Reference: Observability
+## 11.7 Interview Quick Reference: Observability
 
 ---
 

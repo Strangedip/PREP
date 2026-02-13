@@ -1,8 +1,8 @@
-# Section 13: Leadership, Behavioral & System Design Interviews
+# Section 14: Leadership, Behavioral & System Design Interviews
 
 ---
 
-## 13.1 The STAR Method — Structuring Behavioral Answers
+## 14.1 The STAR Method — Structuring Behavioral Answers
 
 ---
 
@@ -211,7 +211,7 @@ R: "We completed the migration successfully, albeit late. The compatibility laye
 
 ---
 
-## 13.2 Leadership Principles for Lead Engineers
+## 14.2 Leadership Principles for Lead Engineers
 
 ---
 
@@ -260,7 +260,7 @@ Before the interview, prepare **8-10 stories** that cover these categories:
 
 ---
 
-## 13.3 System Design Interview Framework
+## 14.3 System Design Interview Framework
 
 ---
 
@@ -506,7 +506,7 @@ Cost estimation (approximate):
 
 ---
 
-## 13.4 Common System Design Questions & Key Points
+## 14.4 Common System Design Questions & Key Points
 
 ---
 
@@ -527,7 +527,7 @@ Cost estimation (approximate):
 
 ---
 
-## 13.5 Architecture Decision Records (ADRs)
+## 14.5 Architecture Decision Records (ADRs)
 
 ---
 
@@ -594,7 +594,7 @@ We will use PostgreSQL 16 as our primary database.
 
 ---
 
-## 13.6 Estimation, Planning & Technical Roadmapping
+## 14.6 Estimation, Planning & Technical Roadmapping
 
 ---
 
@@ -668,7 +668,7 @@ Q4 2024: Advanced Features
 
 ---
 
-## 13.7 Interview Quick Reference: Leadership & System Design
+## 14.7 Interview Quick Reference: Leadership & System Design
 
 ---
 

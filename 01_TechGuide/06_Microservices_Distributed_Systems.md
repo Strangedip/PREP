@@ -1,8 +1,8 @@
-# Section 2: Microservices & Distributed Systems (CRITICAL)
+# Section 6: Microservices & Distributed Systems (CRITICAL)
 
 ---
 
-## 2.1 Resilience Patterns: Circuit Breaker, Bulkhead, Retry, and Rate Limiting
+## 6.1 Resilience Patterns: Circuit Breaker, Bulkhead, Retry, and Rate Limiting
 
 ---
 
@@ -270,7 +270,7 @@ public class ExternalApiService {
 
 ---
 
-## 2.2 Data Consistency: SAGA Pattern, Two-Phase Commit, Eventual Consistency
+## 6.2 Data Consistency: SAGA Pattern, Two-Phase Commit, Eventual Consistency
 
 ---
 
@@ -710,7 +710,7 @@ Coordinator          Participant A         Participant B
 
 ---
 
-## 2.3 Communication: REST vs. gRPC, and Message Queues (Kafka/RabbitMQ)
+## 6.3 Communication: REST vs. gRPC, and Message Queues (Kafka/RabbitMQ)
 
 ---
 

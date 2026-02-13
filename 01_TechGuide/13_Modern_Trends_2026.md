@@ -1,8 +1,8 @@
-# Section 5: Modern Trends (2026 Focus)
+# Section 13: Modern Trends (2026 Focus)
 
 ---
 
-## 5.1 AI Integration: RAG (Retrieval-Augmented Generation) with Spring Boot & Vector DBs
+## 13.1 AI Integration: RAG (Retrieval-Augmented Generation) with Spring Boot & Vector DBs
 
 ---
 
@@ -486,7 +486,7 @@ private List<Document> reciprocalRankFusion(
 
 ---
 
-## 5.2 Deployment: Kubernetes Basics for Leads
+## 13.2 Deployment: Kubernetes Basics for Leads
 
 ---
 

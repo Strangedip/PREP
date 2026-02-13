@@ -41,7 +41,13 @@ PREP/
 │   ├── 11_Observability.md            — Logs, Metrics, Traces, OpenTelemetry
 │   ├── 12_Security_OWASP_Cloud.md     — OWASP Top 10, AWS, IAM, VPC
 │   ├── 13_Modern_Trends_2026.md       — Latest industry trends
-│   └── 14_Leadership_Behavioral_SystemDesign.md — STAR, ADRs, Estimation
+│   ├── 14_Leadership_Behavioral_SystemDesign.md — STAR, ADRs, Estimation
+│   ├── 15_Java_Collections_Concurrency_DeepDive.md — HashMap, ConcurrentHashMap, Locks, Streams
+│   ├── 16_Spring_Ecosystem_DeepDive.md — JPA, WebFlux, Cloud, Batch, AOP, Events
+│   ├── 17_Networking_Protocols.md      — HTTP/2/3, TLS, DNS, WebSocket, gRPC, CDN
+│   ├── 18_Performance_Engineering_JVM.md — JVM tuning, GC, JFR, profiling, JMH
+│   ├── 19_Event_Driven_Architecture.md — Kafka deep dive, Event Sourcing, CQRS, Saga, CDC
+│   └── 20_Technical_Leadership_Architecture.md — ADRs, estimation, post-mortems, mentorship
 │
 ├── 02_DSA/                            ← 100+ Coding Problems (study top to bottom)
 │   ├── README.md                      — DSA overview and problem index
@@ -90,6 +96,7 @@ PREP/
 │   ├── 10_AI_System_Design.md        — AI system design interview problems
 │   └── 11_AI_Ethics_Safety_Governance.md — Responsible AI, bias, PII, compliance
 │
+├── InterviewQuestions.md               ← Top 200 Interview Questions — rapid-fire Q&A
 ├── CodeQuality.md                     ← SOLID, Clean Code, Code Review Checklists
 ├── CrossReferences.md                 ← How DSA concepts map to System Design
 ├── SelfAssessment.md                  ← Topic-by-topic readiness checklists
@@ -107,7 +114,7 @@ You are learning the fundamentals. Focus on understanding, not speed.
 | Week | Topic | Resource | Priority |
 |------|-------|----------|----------|
 | 1-2 | Java Basics (OOP, Collections, Streams) | [§01 Modern Java](01_TechGuide/01_Modern_Java_Features.md) (start with basics) | CRITICAL |
-| 3-4 | Spring Boot Basics (DI, REST, Bean Lifecycle) | [§02 Spring Boot](01_TechGuide/02_Advanced_SpringBoot_Java_Internals.md) (Sections 1.3-1.4) | CRITICAL |
+| 3-4 | Spring Boot Basics (DI, REST, Bean Lifecycle) | [§02 Spring Boot](01_TechGuide/02_Advanced_SpringBoot_Java_Internals.md) (Sections 2.3-2.4) | CRITICAL |
 | 5-8 | DSA Core (Arrays, Strings, Lists, Stacks) | [02_DSA/StudyGuide.md — Path 1](02_DSA/StudyGuide.md) | CRITICAL |
 | 9-10 | Trees, Sorting, Binary Search | [02_DSA/StudyGuide.md — Path 1](02_DSA/StudyGuide.md) | HIGH |
 | 11-12 | Basic SQL, REST API design | [§05 Database](01_TechGuide/05_Database_Performance_Tuning.md), [§04 API Design](01_TechGuide/04_API_Design_REST.md) | HIGH |
@@ -124,12 +131,12 @@ You know the basics. Now build depth and pattern recognition.
 
 | Week | Topic | Resource | Priority |
 |------|-------|----------|----------|
-| 1-2 | Java Memory Model, Concurrency | [§02 Spring Boot](01_TechGuide/02_Advanced_SpringBoot_Java_Internals.md) (Sections 1.1-1.2) | CRITICAL |
+| 1-2 | Java Memory Model, Concurrency | [§02 Spring Boot](01_TechGuide/02_Advanced_SpringBoot_Java_Internals.md) (Sections 2.1-2.2) | CRITICAL |
 | 3-4 | Design Patterns (SOLID, GoF) | [§03 Design Patterns](01_TechGuide/03_Design_Patterns_SOLID_CleanArch.md), [03_CodingPatterns/](03_CodingPatterns/) | CRITICAL |
 | 5-8 | DSA Medium Problems (Trees, Graphs, DP) | [02_DSA/StudyGuide.md — Path 2](02_DSA/StudyGuide.md) | CRITICAL |
 | 9-10 | Database Indexing, SQL Optimization | [§05 Database](01_TechGuide/05_Database_Performance_Tuning.md) | HIGH |
-| 11-12 | Spring Boot Security (JWT, OAuth2) | [§02 Spring Boot](01_TechGuide/02_Advanced_SpringBoot_Java_Internals.md) (Section 1.4) | HIGH |
-| 13-14 | Angular State Management, RxJS | [§08 Angular](01_TechGuide/08_Angular_Frontend_Engineering.md) (Sections 6.2-6.3) | HIGH |
+| 11-12 | Spring Boot Security (JWT, OAuth2) | [§02 Spring Boot](01_TechGuide/02_Advanced_SpringBoot_Java_Internals.md) (Section 2.4) | HIGH |
+| 13-14 | Angular State Management, RxJS | [§08 Angular](01_TechGuide/08_Angular_Frontend_Engineering.md) (Sections 8.2-8.3) | HIGH |
 | 15-16 | Code Quality, Testing | [CodeQuality.md](CodeQuality.md), [§09 Testing](01_TechGuide/09_Testing_Strategies.md) | HIGH |
 
 **Key outcome**: Solve 70% of LeetCode Medium problems. Design clean APIs with proper patterns.
@@ -146,7 +153,7 @@ You build production systems. Now learn to design them at scale.
 | 3-4 | System Design Concepts (CAP, Scaling, LB) | [§07 System Design](01_TechGuide/07_System_Design.md) | CRITICAL |
 | 5-6 | HLD Practice (URL Shortener, Chat System) | [04_SystemDesign/02_HighLevelDesign/](04_SystemDesign/02_HighLevelDesign/) | CRITICAL |
 | 7-8 | LLD Practice (Parking Lot, Elevator) | [04_SystemDesign/01_LowLevelDesign/](04_SystemDesign/01_LowLevelDesign/) | HIGH |
-| 9-10 | DB Scaling (Sharding, Caching, Redis) | [§05 Database](01_TechGuide/05_Database_Performance_Tuning.md) (Sections 3.2-3.3) | HIGH |
+| 9-10 | DB Scaling (Sharding, Caching, Redis) | [§05 Database](01_TechGuide/05_Database_Performance_Tuning.md) (Sections 5.2-5.3) | HIGH |
 | 11-12 | DSA Hard Problems + Mock Interviews | [02_DSA/StudyGuide.md — Path 3](02_DSA/StudyGuide.md) | CRITICAL |
 
 **Key outcome**: Design scalable distributed systems. Solve Hard DSA problems. Explain trade-offs.
@@ -178,7 +185,7 @@ You own technical direction. Now master everything and lead.
 
 ## Section-by-Section Summary
 
-### TechGuide — What Each Section Covers (read in order 01 → 14)
+### TechGuide — What Each Section Covers (read in order 01 → 20)
 
 | # | Section | Key Topics | Relevant From |
 |---|---------|-----------|---------------|
@@ -196,6 +203,12 @@ You own technical direction. Now master everything and lead.
 | 12 | [Security, OWASP & Cloud](01_TechGuide/12_Security_OWASP_Cloud.md) | OWASP Top 10, JWT, CORS, STRIDE, AWS Services, IAM, VPC | Senior+ |
 | 13 | [Modern Trends 2026](01_TechGuide/13_Modern_Trends_2026.md) | RAG/AI with Spring AI, Kubernetes for Engineers | Lead |
 | 14 | [Leadership & Behavioral](01_TechGuide/14_Leadership_Behavioral_SystemDesign.md) | STAR Method, Story Bank, System Design Framework, ADRs | Lead |
+| 15 | [Java Collections & Concurrency](01_TechGuide/15_Java_Collections_Concurrency_DeepDive.md) | HashMap internals, ConcurrentHashMap, Locks, Streams, CompletableFuture | Mid-Level+ |
+| 16 | [Spring Ecosystem Deep Dive](01_TechGuide/16_Spring_Ecosystem_DeepDive.md) | JPA Specifications, WebFlux, Cloud Gateway, Batch, AOP, Events | Mid-Level+ |
+| 17 | [Networking & Protocols](01_TechGuide/17_Networking_Protocols.md) | HTTP/2/3, TLS, DNS, WebSocket, gRPC, CDN, Connection Pooling | Mid-Level+ |
+| 18 | [Performance Engineering & JVM](01_TechGuide/18_Performance_Engineering_JVM.md) | JVM tuning, G1/ZGC, JFR, flame graphs, JMH, SLI/SLO | Senior+ |
+| 19 | [Event-Driven Architecture](01_TechGuide/19_Event_Driven_Architecture.md) | Kafka deep dive, Event Sourcing, CQRS, Saga, CDC, Schema Evolution | Senior+ |
+| 20 | [Technical Leadership](01_TechGuide/20_Technical_Leadership_Architecture.md) | ADRs, estimation, post-mortems, code review, mentorship, tech debt | Lead |
 
 ### AI — What Each Section Covers
 
@@ -217,6 +230,7 @@ You own technical direction. Now master everything and lead.
 
 | File | Purpose | When to Use |
 |------|---------|-------------|
+| [InterviewQuestions.md](InterviewQuestions.md) | Top 200 interview questions with one-line answers + section references | Night before interviews |
 | [CodeQuality.md](CodeQuality.md) | SOLID, Clean Code, naming conventions, anti-patterns, code review checklist | Before any coding round |
 | [CrossReferences.md](CrossReferences.md) | How DSA concepts map to System Design (Arrays → Caches, Trees → DBs, Graphs → Networks) | When connecting DSA to design |
 | [SelfAssessment.md](SelfAssessment.md) | Topic-by-topic readiness checklists with confidence scoring | Weekly self-check |

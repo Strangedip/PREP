@@ -1,8 +1,8 @@
-# Section 4: System Design (SDE-2/Lead Level)
+# Section 7: System Design (SDE-2/Lead Level)
 
 ---
 
-## 4.1 Scalability Concepts: Vertical vs. Horizontal Scaling, CAP Theorem, Load Balancers
+## 7.1 Scalability Concepts: Vertical vs. Horizontal Scaling, CAP Theorem, Load Balancers
 
 ---
 
@@ -205,7 +205,7 @@ Each key is assigned to the first server found clockwise on the ring from the ke
 
 ---
 
-## 4.2 Design Patterns: API Gateway, BFF, Strangler Fig Pattern
+## 7.2 Design Patterns: API Gateway, BFF, Strangler Fig Pattern
 
 ---
 

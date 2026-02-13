@@ -1,8 +1,8 @@
-# Section 12: Design Patterns, SOLID Principles & Clean Architecture
+# Section 3: Design Patterns, SOLID Principles & Clean Architecture
 
 ---
 
-## 12.1 SOLID Principles — The Foundation of Maintainable Code
+## 3.1 SOLID Principles — The Foundation of Maintainable Code
 
 ---
 
@@ -381,7 +381,7 @@ class OrderServiceTest {
 
 ---
 
-## 12.2 Gang of Four (GoF) Design Patterns — The Essential Ones
+## 3.2 Gang of Four (GoF) Design Patterns — The Essential Ones
 
 ---
 
@@ -769,7 +769,7 @@ public class CsvProductImporter extends DataImportTemplate<Product> {
 
 ---
 
-## 12.3 Microservices Design Patterns
+## 3.3 Microservices Design Patterns
 
 ---
 
@@ -1000,7 +1000,7 @@ public class EventStore {
 
 ---
 
-## 12.4 Clean Architecture
+## 3.4 Clean Architecture
 
 ---
 
@@ -1235,7 +1235,7 @@ public class JpaOrderRepository implements OrderRepository {
 
 ---
 
-## 12.5 Domain-Driven Design (DDD) — Key Concepts
+## 3.5 Domain-Driven Design (DDD) — Key Concepts
 
 ---
 
@@ -1380,7 +1380,7 @@ public record CustomerId(String value) {
 
 ---
 
-## 12.6 Interview Quick Reference: Design Patterns & Architecture
+## 3.6 Interview Quick Reference: Design Patterns & Architecture
 
 ---
 

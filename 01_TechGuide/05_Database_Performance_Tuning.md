@@ -1,8 +1,8 @@
-# Section 3: Database & Performance Tuning
+# Section 5: Database & Performance Tuning
 
 ---
 
-## 3.1 SQL Optimization: Indexing Strategies, EXPLAIN ANALYZE, and the N+1 Problem
+## 5.1 SQL Optimization: Indexing Strategies, EXPLAIN ANALYZE, and the N+1 Problem
 
 ---
 
@@ -331,7 +331,7 @@ For production, use tools like **Hibernate Statistics**, **p6spy**, or **datasou
 
 ---
 
-## 3.2 Scaling: Database Sharding vs. Partitioning, and Read Replicas
+## 5.2 Scaling: Database Sharding vs. Partitioning, and Read Replicas
 
 ---
 
@@ -571,7 +571,7 @@ spring:
 
 ---
 
-## 3.3 Caching: Redis/Hazelcast Strategies, Cache-Aside, Write-Through, Eviction Policies
+## 5.3 Caching: Redis/Hazelcast Strategies, Cache-Aside, Write-Through, Eviction Policies
 
 ---
 

@@ -1,8 +1,8 @@
-# Section 1: Advanced Spring Boot & Java Internals
+# Section 2: Advanced Spring Boot & Java Internals
 
 ---
 
-## 1.1 Java Memory Model: Heap vs. Stack, Garbage Collection, and Debugging Memory Leaks
+## 2.1 Java Memory Model: Heap vs. Stack, Garbage Collection, and Debugging Memory Leaks
 
 ---
 
@@ -262,7 +262,7 @@ public class UserContextFilter implements Filter {
 
 ---
 
-## 1.2 Concurrency: CompletableFuture, Custom Thread Pools, and Race Conditions
+## 2.2 Concurrency: CompletableFuture, Custom Thread Pools, and Race Conditions
 
 ---
 
@@ -548,7 +548,7 @@ The Java Memory Model (JMM) defines which writes are guaranteed to be visible to
 
 ---
 
-## 1.3 Spring Magic: @SpringBootApplication, AutoConfiguration, and Bean Lifecycle
+## 2.3 Spring Magic: @SpringBootApplication, AutoConfiguration, and Bean Lifecycle
 
 ---
 
@@ -791,7 +791,7 @@ public class OrderService {
 
 ---
 
-## 1.4 Security: OAuth2 Flows, JWT Implementation, and Stateless vs. Stateful Security
+## 2.4 Security: OAuth2 Flows, JWT Implementation, and Stateless vs. Stateful Security
 
 ---
 

@@ -1,8 +1,8 @@
-# Section 11: API Design & REST Best Practices
+# Section 4: API Design & REST Best Practices
 
 ---
 
-## 11.1 RESTful API Design Principles
+## 4.1 RESTful API Design Principles
 
 ---
 
@@ -194,7 +194,7 @@ public class OrderController {
 
 ---
 
-## 11.2 Error Handling with RFC 7807 (Problem Details)
+## 4.2 Error Handling with RFC 7807 (Problem Details)
 
 ---
 
@@ -372,7 +372,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 ---
 
-## 11.3 Pagination, Filtering & Sorting
+## 4.3 Pagination, Filtering & Sorting
 
 ---
 
@@ -523,7 +523,7 @@ GET /api/v1/orders?fields=id,status,total,createdAt
 
 ---
 
-## 11.4 API Versioning Strategies
+## 4.4 API Versioning Strategies
 
 ---
 
@@ -626,7 +626,7 @@ public class OrderControllerV1 {
 
 ---
 
-## 11.5 HATEOAS — Hypermedia as the Engine of Application State
+## 4.5 HATEOAS — Hypermedia as the Engine of Application State
 
 ---
 
@@ -701,7 +701,7 @@ public class OrderController {
 
 ---
 
-## 11.6 OpenAPI Specification (Swagger)
+## 4.6 OpenAPI Specification (Swagger)
 
 ---
 
@@ -780,7 +780,7 @@ public record CreateOrderRequest(
 
 ---
 
-## 11.7 API Security Best Practices
+## 4.7 API Security Best Practices
 
 ---
 
@@ -854,7 +854,7 @@ public class SecurityConfig {
 
 ---
 
-## 11.8 Interview Quick Reference: API Design
+## 4.8 Interview Quick Reference: API Design
 
 ---
 
