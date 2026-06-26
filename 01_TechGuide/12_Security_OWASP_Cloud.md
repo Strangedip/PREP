@@ -4,19 +4,39 @@
 
 ---
 
-## 12.1 OWASP Top 10 (2021) — Complete Guide
+## 12.1 OWASP Top 10 (2025) — Complete Guide
 
-The Open Web Application Security Project (OWASP) Top 10 is the most authoritative list of critical web application security risks. Every lead engineer must know these cold.
+The [OWASP Top 10:2025](https://owasp.org/Top10/2025/) is the authoritative list of critical web application security risks. Every lead engineer must know these cold. This section is aligned with **2025** rankings and categories while preserving deep-dive material from prior versions where it still applies.
 
-### A01:2021 — Broken Access Control
+### What Changed from OWASP Top 10 (2021)
 
-**What it is**: Users can act outside their intended permissions. This is the #1 most common vulnerability.
+| 2025 Rank | Category | Notes vs 2021 |
+|-----------|----------|---------------|
+| **A01** | Broken Access Control | Still #1. **SSRF is now part of this category** (was A10:2021). |
+| **A02** | Security Misconfiguration | Moved up from #5 — cloud/config defaults are a major attack surface. |
+| **A03** | Software Supply Chain Failures | **New/expands** A06:2021 Vulnerable Components — dependencies, build pipeline, distribution. |
+| **A04** | Cryptographic Failures | Was A02:2021 — same risks, slightly lower rank but still critical. |
+| **A05** | Injection | Was A03:2021 — SQL, XSS, command injection, etc. |
+| **A06** | Insecure Design | Was A04:2021 — threat modeling, STRIDE, secure design patterns. |
+| **A07** | Authentication Failures | Was A07:2021 Identification and Authentication Failures — MFA, session, brute force. |
+| **A08** | Software or Data Integrity Failures | Was A08:2021 — CI/CD integrity, deserialization, signed artifacts. |
+| **A09** | Security Logging and Alerting Failures | Was A09:2021 — audit logs, monitoring, alerting. |
+| **A10** | Mishandling of Exceptional Conditions | **New for 2025** — error handling, fail-open logic, exceptional paths. |
+
+**Interview tip (2025)**: Mention you follow OWASP **2025** — especially supply chain (A03), misconfiguration at #2, and that SSRF is discussed under access control (A01).
+
+---
+
+### A01:2025 — Broken Access Control
+
+**What it is**: Users can act outside their intended permissions. This remains the **#1** most common vulnerability in OWASP 2025 data (~73% of apps had related CWEs).
 
 **Examples**:
 - Horizontal privilege escalation: User A accesses User B's data by changing `/api/users/123/orders` to `/api/users/456/orders`
 - Vertical privilege escalation: Regular user accesses admin endpoints
 - IDOR (Insecure Direct Object Reference): Predictable IDs expose resources
 - Missing function-level access control: Admin endpoints accessible without role check
+- **SSRF** (Server-Side Request Forgery): Server tricked into requesting internal/metadata URLs — **rolled into A01:2025**
 
 **Prevention in Spring Boot**:
 ```java
@@ -45,13 +65,138 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 }
 ```
 
-**Interview Answer**: "Broken Access Control is the #1 OWASP risk. I prevent it using defense-in-depth: method-level security with @PreAuthorize, URL-pattern-based authorization in SecurityFilterChain, and ownership validation in the service layer. I never rely solely on the frontend hiding buttons — the server must enforce authorization on every request."
+**Interview Answer**: "Broken Access Control is still #1 in OWASP 2025. I prevent it using defense-in-depth: method-level security with @PreAuthorize, URL-pattern-based authorization in SecurityFilterChain, and ownership validation in the service layer. I never rely solely on the frontend hiding buttons — the server must enforce authorization on every request. SSRF is now categorized here too, so I also validate outbound URLs and block internal/metadata targets."
+
+#### SSRF Prevention (part of A01:2025)
+
+**What it is**: Attacker tricks the server into making requests to unintended locations (internal services, metadata endpoints, cloud provider APIs).
+
+**Prevention**:
+```java
+// Validate and sanitize URLs before making server-side requests
+public void fetchExternalResource(String url) {
+    URI uri = URI.create(url);
+
+    // Block private IP ranges
+    InetAddress address = InetAddress.getByName(uri.getHost());
+    if (address.isLoopbackAddress() || address.isSiteLocalAddress() || address.isLinkLocalAddress()) {
+        throw new SecurityException("Access to internal networks is blocked");
+    }
+
+    // Block cloud metadata endpoints
+    if (uri.getHost().equals("169.254.169.254")) {
+        throw new SecurityException("Access to cloud metadata is blocked");
+    }
+
+    // Allowlist approach (preferred)
+    if (!ALLOWED_DOMAINS.contains(uri.getHost())) {
+        throw new SecurityException("Domain not in allowlist");
+    }
+}
+```
 
 ---
 
-### A02:2021 — Cryptographic Failures
+### A02:2025 — Security Misconfiguration
 
-**What it is**: Sensitive data exposed due to weak or missing encryption.
+**What it is**: Missing security hardening, default configurations, unnecessary features enabled. **Ranked #2 in 2025** — configuration errors grew with cloud-native and multi-service deployments.
+
+**Common Issues and Fixes**:
+```yaml
+# application.yml — Production Security Hardening
+
+# Disable actuator endpoints in production (or protect them)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    health:
+      show-details: never  # Don't expose internal details
+    env:
+      enabled: false       # Never expose env variables
+
+# Disable stack traces in error responses
+server:
+  error:
+    include-stacktrace: never
+    include-message: never
+
+# Secure headers
+spring:
+  security:
+    headers:
+      frame-options: DENY
+      xss-protection: 1; mode=block
+      content-type-options: nosniff
+```
+
+**Docker Security**:
+```dockerfile
+# Use non-root user
+FROM eclipse-temurin:21-jre-alpine
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+USER appuser
+COPY --chown=appuser:appgroup target/app.jar /app/app.jar
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+```
+
+**Additional 2025 focus**: Lock down cloud IAM defaults, disable unused API endpoints, secure K8s RBAC and NetworkPolicies, rotate default credentials, and audit Terraform/Helm charts in CI.
+
+---
+
+### A03:2025 — Software Supply Chain Failures
+
+**What it is**: Compromised or vulnerable dependencies, build pipelines, and artifact distribution — expands the older "Vulnerable Components" category to the full supply chain (OWASP 2025 A03).
+
+**Examples**:
+- Known CVEs in transitive Maven/npm dependencies
+- Dependency confusion / typosquatting attacks
+- Compromised CI/CD publishing malicious artifacts
+- Unsigned container images deployed to production
+
+**Prevention**:
+```xml
+<!-- Maven: OWASP Dependency Check Plugin -->
+<plugin>
+    <groupId>org.owasp</groupId>
+    <artifactId>dependency-check-maven</artifactId>
+    <version>9.0.9</version>
+    <configuration>
+        <failBuildOnCVSS>7</failBuildOnCVSS> <!-- Fail on HIGH severity -->
+    </configuration>
+</plugin>
+```
+
+```yaml
+# GitHub Actions: Automated dependency scanning
+- name: OWASP Dependency Check
+  uses: dependency-check/Dependency-Check_Action@main
+  with:
+    project: 'my-app'
+    path: '.'
+    format: 'HTML'
+
+# Also use:
+# - Snyk (snyk test)
+# - GitHub Dependabot
+# - Trivy (container scanning)
+# - Cosign / Sigstore for signed images
+# - SBOM generation (CycloneDX) in CI
+```
+
+**Supply chain checklist**:
+- Pin dependency versions; review lockfiles in PRs
+- Sign commits; protect `main` with required reviews
+- Scan images before deploy; verify image signatures in K8s admission
+- Use private artifact registry with least-privilege publish tokens
+
+---
+
+### A04:2025 — Cryptographic Failures
+
+**What it is**: Sensitive data exposed due to weak or missing encryption. Still a top risk in 2025 (A04) — often leads directly to data breach.
 
 **Examples**:
 - Passwords stored in plaintext or weak hashes (MD5, SHA1)
@@ -96,7 +241,7 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 ---
 
-### A03:2021 — Injection
+### A05:2025 — Injection
 
 **What it is**: Untrusted data sent to an interpreter as part of a command or query.
 
@@ -152,7 +297,7 @@ public class CommentRequest {
 
 ---
 
-### A04:2021 — Insecure Design
+### A06:2025 — Insecure Design
 
 **What it is**: Flaws in the design itself, not just the implementation. This is about missing security requirements and threat modeling.
 
@@ -175,88 +320,7 @@ public class CommentRequest {
 
 ---
 
-### A05:2021 — Security Misconfiguration
-
-**What it is**: Missing security hardening, default configurations, unnecessary features enabled.
-
-**Common Issues and Fixes**:
-```yaml
-# application.yml — Production Security Hardening
-
-# Disable actuator endpoints in production (or protect them)
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info,prometheus
-  endpoint:
-    health:
-      show-details: never  # Don't expose internal details
-    env:
-      enabled: false       # Never expose env variables
-
-# Disable stack traces in error responses
-server:
-  error:
-    include-stacktrace: never
-    include-message: never
-
-# Secure headers
-spring:
-  security:
-    headers:
-      frame-options: DENY
-      xss-protection: 1; mode=block
-      content-type-options: nosniff
-```
-
-**Docker Security**:
-```dockerfile
-# Use non-root user
-FROM eclipse-temurin:21-jre-alpine
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
-USER appuser
-COPY --chown=appuser:appgroup target/app.jar /app/app.jar
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
-```
-
----
-
-### A06:2021 — Vulnerable and Outdated Components
-
-**What it is**: Using libraries with known vulnerabilities.
-
-**Prevention**:
-```xml
-<!-- Maven: OWASP Dependency Check Plugin -->
-<plugin>
-    <groupId>org.owasp</groupId>
-    <artifactId>dependency-check-maven</artifactId>
-    <version>9.0.9</version>
-    <configuration>
-        <failBuildOnCVSS>7</failBuildOnCVSS> <!-- Fail on HIGH severity -->
-    </configuration>
-</plugin>
-```
-
-```yaml
-# GitHub Actions: Automated dependency scanning
-- name: OWASP Dependency Check
-  uses: dependency-check/Dependency-Check_Action@main
-  with:
-    project: 'my-app'
-    path: '.'
-    format: 'HTML'
-
-# Also use:
-# - Snyk (snyk test)
-# - GitHub Dependabot
-# - Trivy (container scanning)
-```
-
----
-
-### A07:2021 — Identification and Authentication Failures
+### A07:2025 — Authentication Failures
 
 **What it is**: Weak authentication mechanisms allowing account compromise.
 
@@ -293,7 +357,7 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 ---
 
-### A08:2021 — Software and Data Integrity Failures
+### A08:2025 — Software and Data Integrity Failures
 
 **What it is**: Code and infrastructure that does not protect against integrity violations (CI/CD pipeline attacks, insecure deserialization, unsigned updates).
 
@@ -306,7 +370,7 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 ---
 
-### A09:2021 — Security Logging and Monitoring Failures
+### A09:2025 — Security Logging and Alerting Failures
 
 **What it is**: Insufficient logging makes it impossible to detect, escalate, and respond to attacks.
 
@@ -346,33 +410,49 @@ public class SecurityAuditLogger {
 
 ---
 
-### A10:2021 — Server-Side Request Forgery (SSRF)
+### A10:2025 — Mishandling of Exceptional Conditions
 
-**What it is**: Attacker tricks the server into making requests to unintended locations (internal services, metadata endpoints, cloud provider APIs).
+**What it is**: **New category in OWASP 2025.** Security flaws from improper handling of errors, edge cases, and abnormal system states — logic bugs, failing open, leaking internals in exceptions, and unsafe recovery paths.
 
-**Prevention**:
+**Examples**:
+- Payment API returns success when downstream processor times out (fail-open)
+- Stack traces and internal paths exposed in API error responses
+- Race conditions when inventory goes negative under concurrent load
+- Retry logic bypasses rate limits or idempotency checks
+- "Catch-all" handlers that grant access on any error
+
+**Prevention in Spring Boot**:
 ```java
-// Validate and sanitize URLs before making server-side requests
-public void fetchExternalResource(String url) {
-    URI uri = URI.create(url);
+// RFC 7807 Problem Details — no stack traces to clients
+@RestControllerAdvice
+public class GlobalExceptionHandler {
 
-    // Block private IP ranges
-    InetAddress address = InetAddress.getByName(uri.getHost());
-    if (address.isLoopbackAddress() || address.isSiteLocalAddress() || address.isLinkLocalAddress()) {
-        throw new SecurityException("Access to internal networks is blocked");
+    @ExceptionHandler(Exception.class)
+    public ProblemDetail handleUnexpected(Exception ex, HttpServletRequest request) {
+        log.error("Unhandled error path={}", request.getRequestURI(), ex); // log server-side only
+        return ProblemDetail.forStatusAndDetail(
+            HttpStatus.INTERNAL_SERVER_ERROR,
+            "An unexpected error occurred"); // generic client message
     }
 
-    // Block cloud metadata endpoints
-    if (uri.getHost().equals("169.254.169.254")) {
-        throw new SecurityException("Access to cloud metadata is blocked");
-    }
-
-    // Allowlist approach (preferred)
-    if (!ALLOWED_DOMAINS.contains(uri.getHost())) {
-        throw new SecurityException("Domain not in allowlist");
+    @ExceptionHandler(PaymentTimeoutException.class)
+    public ProblemDetail handlePaymentTimeout(PaymentTimeoutException ex) {
+        // FAIL CLOSED — do not mark payment as successful
+        return ProblemDetail.forStatusAndDetail(
+            HttpStatus.SERVICE_UNAVAILABLE,
+            "Payment could not be confirmed. Please retry.");
     }
 }
 ```
+
+**Design principles**:
+- **Fail closed** on security and financial operations — deny by default on ambiguity
+- Never expose stack traces, SQL, or file paths in production API responses
+- Test exceptional paths: timeouts, partial failures, duplicate requests, null inputs
+- Use idempotency keys for retried operations
+- Circuit breakers with safe fallbacks (not silent success)
+
+**Note**: SSRF prevention is under **A01:2025** (Broken Access Control) in the 2025 list — see SSRF section above.
 
 ---
 
@@ -616,20 +696,36 @@ When designing any system in an interview, mention these security considerations
 
 ## 12.6 Interview Quick Reference
 
-### OWASP Top 10 One-Liner Summary
+### OWASP Top 10:2025 One-Liner Summary
 
-| # | Risk | One-Line Prevention |
-|---|------|-------------------|
-| A01 | Broken Access Control | Server-side authz on every request, never trust client |
-| A02 | Cryptographic Failures | BCrypt passwords, AES-256 data, TLS 1.3 transport |
-| A03 | Injection | Parameterized queries, input validation, output encoding |
-| A04 | Insecure Design | Threat modeling (STRIDE), security user stories |
-| A05 | Security Misconfiguration | Disable defaults, minimize attack surface, automate hardening |
-| A06 | Vulnerable Components | Dependency scanning (OWASP DC, Snyk, Dependabot) |
-| A07 | Auth Failures | MFA, rate-limited login, secure session management |
-| A08 | Integrity Failures | Signed commits, CI/CD pipeline security, SRI |
-| A09 | Logging Failures | Log security events, mask PII, centralize logs, alert |
-| A10 | SSRF | URL allowlisting, block private IPs, validate schemes |
+| # | Risk (2025) | One-Line Prevention |
+|---|-------------|---------------------|
+| A01 | Broken Access Control (+ SSRF) | Server-side authz every request; URL allowlists for outbound calls |
+| A02 | Security Misconfiguration | Disable defaults, harden cloud/K8s, minimal actuator exposure |
+| A03 | Software Supply Chain Failures | Dependency scan, SBOM, signed images, protected CI/CD |
+| A04 | Cryptographic Failures | BCrypt/Argon2 passwords, AES-256, TLS 1.3, secrets in Vault |
+| A05 | Injection | Parameterized queries, input validation, output encoding, CSP |
+| A06 | Insecure Design | Threat modeling (STRIDE), security user stories, ADRs |
+| A07 | Authentication Failures | MFA, rate-limited login, secure sessions, account lockout |
+| A08 | Software/Data Integrity Failures | Signed commits, CI/CD gates, no unsafe deserialization |
+| A09 | Logging & Alerting Failures | Log security events, mask PII, centralize, alert on anomalies |
+| A10 | Mishandling Exceptional Conditions | Fail closed, no stack traces to clients, test error paths |
+
+### OWASP 2021 → 2025 Quick Mapping (reference)
+
+| 2021 | 2025 |
+|------|------|
+| A01 Broken Access Control | A01 (+ SSRF merged in) |
+| A02 Cryptographic Failures | A04 |
+| A03 Injection | A05 |
+| A04 Insecure Design | A06 |
+| A05 Security Misconfiguration | A02 |
+| A06 Vulnerable Components | A03 (expanded to Supply Chain) |
+| A07 Identification/Authentication Failures | A07 Authentication Failures |
+| A08 Software/Data Integrity | A08 |
+| A09 Logging/Monitoring Failures | A09 |
+| A10 SSRF | A01 (no longer standalone) |
+| — | A10 Mishandling Exceptional Conditions (new) |
 
 ### Security Headers Every Response Should Have
 

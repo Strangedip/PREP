@@ -1,4 +1,4 @@
-# 🎯 Top 200 Interview Questions — Lead Software Engineer
+# 🎯 Top 218 Interview Questions — Lead Software Engineer
 
 > **Purpose**: Rapid-fire reference. Review these the night before your interview.
 > **Format**: Question → One-liner answer → Section reference for deep dive.
@@ -97,8 +97,16 @@
 | 61 | ACID properties? | Atomicity, Consistency, Isolation, Durability. | Section 5.1 |
 | 62 | Isolation levels? | Read Uncommitted → Read Committed → Repeatable Read → Serializable. Trade-off: consistency vs performance. | Section 5.1 |
 | 63 | Optimistic vs Pessimistic locking? | Optimistic: version column, retry on conflict. Pessimistic: SELECT FOR UPDATE, blocks. | Section 5.2 |
-| 64 | Redis cache patterns? | Cache-Aside, Read-Through, Write-Through, Write-Behind. | Section 5.4 |
-| 65 | Cache invalidation strategies? | TTL, event-based invalidation, write-through. "Two hard problems in CS." | Section 5.4 |
+| 64 | Redis cache patterns? | Cache-Aside, Read-Through, Write-Through, Write-Behind. | [§28 Redis](01_TechGuide/28_Redis_Distributed_Caching.md) |
+| 65 | Cache invalidation strategies? | TTL, event-based invalidation, write-through. "Two hard problems in CS." | [§28 Redis](01_TechGuide/28_Redis_Distributed_Caching.md) |
+| 66a | PostgreSQL MVCC? | Multi-version rows; readers don't block writers; snapshot per transaction. | [§26 PostgreSQL](01_TechGuide/26_PostgreSQL_Relational_DB_Deep_Dive.md) |
+| 66b | Why VACUUM in PostgreSQL? | Reclaim dead tuple space; prevent bloat; update visibility map. | [§26 PostgreSQL](01_TechGuide/26_PostgreSQL_Relational_DB_Deep_Dive.md) |
+| 66c | DynamoDB partition key design? | Access-pattern-first; high cardinality; avoid hot partitions. | [§27 NoSQL](01_TechGuide/27_NoSQL_Databases_Guide.md) |
+| 66d | MongoDB shard key mistakes? | Low cardinality (status) causes hot shards; immutable after sharding. | [§27 NoSQL](01_TechGuide/27_NoSQL_Databases_Guide.md) |
+| 66e | Cache stampede fix? | Mutex lock, probabilistic early refresh, background rebuild of hot keys. | [§28 Redis](01_TechGuide/28_Redis_Distributed_Caching.md) |
+| 66f | Redis Cluster hash slots? | 16384 slots; CRC16(key); hash tags `{user}` for co-located keys. | [§28 Redis](01_TechGuide/28_Redis_Distributed_Caching.md) |
+| 66g | SQL window functions? | RANK, LAG, SUM OVER — aggregates without collapsing rows. | [§35 SQL](01_TechGuide/35_SQL_Fundamentals.md) |
+| 66h | LEFT JOIN vs INNER JOIN? | INNER: matches only. LEFT: all left rows, NULL for non-matching right. | [§35 SQL](01_TechGuide/35_SQL_Fundamentals.md) |
 
 ## Microservices & Distributed Systems
 
@@ -153,7 +161,7 @@
 | 97 | API versioning strategies? | URL (/v2/), Header (Accept), Query param. URL versioning most common. | Section 4.2 |
 | 98 | HATEOAS? | API responses include links to related actions/resources. | Section 4.1 |
 | 99 | Pagination strategies? | Offset (LIMIT/OFFSET), Cursor (keyset), Page token. Cursor best for large datasets. | Section 4.2 |
-| 100 | REST vs GraphQL? | REST: multiple endpoints, over/under-fetching. GraphQL: single endpoint, precise data. | Section 4.3 |
+| 100 | REST vs GraphQL? | REST: resource URLs + HTTP caching. GraphQL: single endpoint, client-defined shape, N+1 risk. | [§21 GraphQL](01_TechGuide/21_GraphQL_and_Alternative_APIs.md) |
 
 ## Angular & Frontend
 
@@ -180,6 +188,14 @@
 | 114 | WebSocket vs SSE? | WebSocket: bidirectional. SSE: server-to-client only, built-in reconnect. | Section 17.5 |
 | 115 | When to use gRPC? | Internal microservices, high throughput, streaming, polyglot environments. | Section 17.6 |
 | 116 | Connection pooling? | Reuse TCP connections instead of creating new ones. HikariCP, Apache HttpClient. | Section 17.8 |
+| 116a | Security Group vs NACL? | SG: stateful, instance-level. NACL: stateless, subnet-level, allow+deny. | [§29 Networking](01_TechGuide/29_Advanced_Networking_Infrastructure.md) |
+| 116b | L4 vs L7 load balancer? | L4: TCP/IP routing. L7: HTTP path/host routing, TLS termination. | [§29 Networking](01_TechGuide/29_Advanced_Networking_Infrastructure.md) |
+| 116c | NAT Gateway purpose? | Private subnet outbound internet without public IPs on instances. | [§29 Networking](01_TechGuide/29_Advanced_Networking_Infrastructure.md) |
+| 116d | K8s liveness vs readiness? | Liveness: restart if dead. Readiness: remove from Service if not ready. | [§30 Kubernetes](01_TechGuide/30_Kubernetes_Deep_Dive.md) |
+| 116e | S3 vs EBS? | S3: object storage, HTTP API. EBS: block storage attached to EC2. | [§31 Cloud](01_TechGuide/31_Cloud_Computing_AWS_GCP_Azure.md) |
+| 116f | SQS vs SNS? | SQS: queue, one consumer per message. SNS: pub/sub fan-out. | [§31 Cloud](01_TechGuide/31_Cloud_Computing_AWS_GCP_Azure.md) |
+| 116g | Linux OOM Killer? | Kernel kills process when system runs out of memory. | [§32 Linux](01_TechGuide/32_Operating_Systems_and_Linux.md) |
+| 116h | Elasticsearch inverted index? | Term → document list — fast full-text search vs B-Tree exact match. | [§34 Elasticsearch](01_TechGuide/34_Search_Engines_Elasticsearch.md) |
 
 ## Testing
 
@@ -217,33 +233,48 @@
 
 | # | Question | Quick Answer | Deep Dive |
 |---|----------|-------------|-----------|
-| 134 | OWASP Top 10? | Injection, Broken Auth, Sensitive Data, XXE, Broken Access Control, Misconfig, XSS, Deserialization, Components, Logging. | Section 12.1 |
+| 134 | OWASP Top 10 (2025)? | A01 Access Control (+SSRF), A02 Misconfig, A03 Supply Chain, A04 Crypto, A05 Injection, A06 Insecure Design, A07 Auth, A08 Integrity, A09 Logging, A10 Exceptional Conditions. | [§12 Security](01_TechGuide/12_Security_OWASP_Cloud.md) |
 | 135 | SQL Injection prevention? | Use parameterized queries / prepared statements. Never concatenate user input. | Section 12.1 |
 | 136 | JWT structure? | Header.Payload.Signature. Base64URL encoded. Stateless but can't revoke easily. | Section 12.2 |
 | 137 | CORS? | Browser security policy. Server specifies allowed origins, methods, headers. | Section 12.3 |
 | 138 | OAuth2 grant types? | Authorization Code (web), Client Credentials (service-to-service), PKCE (mobile/SPA). | Section 12.2 |
 
-## AI & Modern Trends
+## AI & Modern Trends (2026 — CRITICAL)
 
 | # | Question | Quick Answer | Deep Dive |
 |---|----------|-------------|-----------|
-| 139 | What is RAG? | Retrieval-Augmented Generation — retrieve relevant documents, then generate answer with LLM. | Section 05_AI |
-| 140 | Vector databases? | Store embeddings for semantic search. Pinecone, Weaviate, pgvector. | Section 05_AI |
-| 141 | Spring AI? | Spring framework for AI integration. Templates, vector stores, prompt engineering. | Section 05_AI |
-| 142 | AI in System Design? | Use LLMs for summarization, classification, search. Design for latency, cost, fallbacks. | Section 05_AI |
+| 139 | What is RAG? | Retrieve relevant docs → inject as context → LLM generates grounded answer. | [05_AI/03](05_AI/03_RAG_Architecture.md) |
+| 140 | Vector databases? | Store embeddings for ANN search. pgvector, Pinecone, Weaviate, HNSW index. | [05_AI/04](05_AI/04_Vector_Databases_Embeddings.md) |
+| 141 | Spring AI? | ChatClient, EmbeddingModel, VectorStore, Advisors, function calling, streaming. | [05_AI/05](05_AI/05_Spring_AI.md) |
+| 142 | AI in System Design? | LLM gateway, RAG pipeline, semantic cache, fallbacks, cost/latency budgets. | [05_AI/10](05_AI/10_AI_System_Design.md) |
+| 143 | What is MCP? | Model Context Protocol — standard for AI agents to discover and call tools/resources. | [05_AI/06](05_AI/06_AI_Agents_and_Workflows.md) |
+| 144 | ReAct pattern? | Reason + Act loop — LLM thinks, calls tool, observes result, repeats. | [05_AI/06](05_AI/06_AI_Agents_and_Workflows.md) |
+| 145 | Fine-tuning vs RAG? | Fine-tune: change model weights (expensive, static). RAG: retrieve fresh data at query time. | [05_AI/01](05_AI/01_AI_Fundamentals.md) |
+| 146 | Chunking strategies? | Fixed size, sentence, paragraph, semantic — trade-off context vs retrieval precision. | [05_AI/03](05_AI/03_RAG_Architecture.md) |
+| 147 | Cosine similarity vs Euclidean? | Cosine: direction (typical for embeddings). Euclidean: magnitude-sensitive distance. | [05_AI/04](05_AI/04_Vector_Databases_Embeddings.md) |
+| 148 | Prompt injection? | Malicious input manipulates LLM behavior. Defense: input sanitization, output validation, privilege separation. | [05_AI/11](05_AI/11_AI_Ethics_Safety_Governance.md) |
+| 149 | Hallucination prevention? | RAG with citations, temperature control, confidence thresholds, human-in-the-loop. | [05_AI/11](05_AI/11_AI_Ethics_Safety_Governance.md) |
+| 150 | Token economics? | Cost = tokens × price. Optimize: shorter prompts, caching, smaller models for simple tasks. | [05_AI/02](05_AI/02_LLM_and_Prompt_Engineering.md) |
+| 151 | LLM routing? | Route simple queries to cheap/fast models; complex to GPT-4/Claude. Cascade pattern. | [05_AI/09](05_AI/09_MLOps_AI_in_Production.md) |
+| 152 | Semantic caching? | Cache LLM responses by embedding similarity — not exact string match. | [05_AI/09](05_AI/09_MLOps_AI_in_Production.md) |
+| 153 | RAG evaluation? | RAGAS metrics: faithfulness, answer relevance, context precision/recall. | [05_AI/09](05_AI/09_MLOps_AI_in_Production.md) |
+| 154 | Function calling? | LLM returns structured tool invocation JSON → app executes → feeds result back. | [05_AI/05](05_AI/05_Spring_AI.md) |
+| 155 | Multi-agent systems? | Specialized agents (researcher, coder, reviewer) orchestrated by supervisor agent. | [05_AI/06](05_AI/06_AI_Agents_and_Workflows.md) |
+| 156 | GraphQL vs REST for AI APIs? | REST for simple inference endpoints; GraphQL when clients need flexible aggregated AI features. | [§21 GraphQL](01_TechGuide/21_GraphQL_and_Alternative_APIs.md) |
+| 157 | PII in prompts? | Redact before sending to LLM; use on-prem models for sensitive data; audit logs. | [05_AI/11](05_AI/11_AI_Ethics_Safety_Governance.md) |
 
 ## Leadership & Behavioral
 
 | # | Question | Quick Answer | Deep Dive |
 |---|----------|-------------|-----------|
-| 143 | Tell me about a technical decision you led | [STAR: Technical Leadership story — ADR, design reviews, phased delivery] | Section 20 |
-| 144 | How do you handle tech debt? | Track, communicate in business terms, 20% sprint capacity, prevent with standards. | Section 20.8 |
-| 145 | How do you mentor engineers? | Pair programming, stretch assignments, specific feedback, psychological safety. | Section 20.4 |
-| 146 | How do you handle production incidents? | Mitigate → Communicate → RCA → Blameless post-mortem → Action items. | Section 20.5 |
-| 147 | How do you estimate projects? | Three-point (O+4M+P)/6 + buffer for unknowns + track accuracy over time. | Section 20.2 |
-| 148 | How do you make architectural decisions? | Requirements → Options → Trade-off analysis → Team discussion → ADR. | Section 20.1 |
-| 149 | How do you handle disagreements? | Objective criteria + data + team discussion. Disagree-and-commit if needed. | Section 20.9 |
-| 150 | What's your code review approach? | Architecture alignment, design quality, production readiness, teaching moments. | Section 20.3 |
+| 158 | Tell me about a technical decision you led | [STAR: Technical Leadership story — ADR, design reviews, phased delivery] | Section 20 |
+| 159 | How do you handle tech debt? | Track, communicate in business terms, 20% sprint capacity, prevent with standards. | Section 20.8 |
+| 160 | How do you mentor engineers? | Pair programming, stretch assignments, specific feedback, psychological safety. | Section 20.4 |
+| 161 | How do you handle production incidents? | Mitigate → Communicate → RCA → Blameless post-mortem → Action items. | Section 20.5 |
+| 162 | How do you estimate projects? | Three-point (O+4M+P)/6 + buffer for unknowns + track accuracy over time. | Section 20.2 |
+| 163 | How do you make architectural decisions? | Requirements → Options → Trade-off analysis → Team discussion → ADR. | Section 20.1 |
+| 164 | How do you handle disagreements? | Objective criteria + data + team discussion. Disagree-and-commit if needed. | Section 20.9 |
+| 165 | What's your code review approach? | Architecture alignment, design quality, production readiness, teaching moments. | Section 20.3 |
 
 ---
 
@@ -251,21 +282,21 @@
 
 | # | Pattern | Key Technique | When to Use | Section |
 |---|---------|--------------|-------------|---------|
-| 151 | Two Pointers | Left/Right pointers moving inward | Sorted arrays, palindromes, pair sums | 02_DSA |
-| 152 | Sliding Window | Expand/shrink window over array | Subarrays, substrings, max/min in window | 03_CodingPatterns |
-| 153 | Binary Search | Divide search space in half | Sorted data, optimization problems | 02_DSA |
-| 154 | BFS | Level-by-level traversal | Shortest path (unweighted), level order | 02_DSA |
-| 155 | DFS | Go deep first, then backtrack | Path finding, connected components, trees | 02_DSA |
-| 156 | Dynamic Programming | Memoize overlapping subproblems | Optimization, counting, decision problems | 02_DSA |
-| 157 | Backtracking | Try all options, undo bad choices | Permutations, combinations, constraint satisfaction | 02_DSA |
-| 158 | Greedy | Locally optimal → globally optimal | Intervals, scheduling, Huffman coding | 02_DSA |
-| 159 | Union Find | Disjoint set with path compression | Connected components, cycle detection | 02_DSA |
-| 160 | Topological Sort | Order DAG nodes | Task scheduling, dependency resolution | 02_DSA |
-| 161 | Trie | Prefix tree for strings | Autocomplete, spell check, word search | 02_DSA |
-| 162 | Monotonic Stack | Stack maintaining increasing/decreasing order | Next greater element, histogram, stock span | 03_CodingPatterns |
-| 163 | Heap / Priority Queue | Min/Max extraction in O(log n) | Top K, merge K sorted, scheduling | 02_DSA |
-| 164 | Bit Manipulation | XOR, AND, OR, shifts | Single number, power of 2, counting bits | 02_DSA |
-| 165 | Hash Map | O(1) lookup | Frequency count, two sum, anagrams | 02_DSA |
+| 166 | Two Pointers | Left/Right pointers moving inward | Sorted arrays, palindromes, pair sums | 02_DSA |
+| 167 | Sliding Window | Expand/shrink window over array | Subarrays, substrings, max/min in window | 03_CodingPatterns |
+| 168 | Binary Search | Divide search space in half | Sorted data, optimization problems | 02_DSA |
+| 169 | BFS | Level-by-level traversal | Shortest path (unweighted), level order | 02_DSA |
+| 170 | DFS | Go deep first, then backtrack | Path finding, connected components, trees | 02_DSA |
+| 171 | Dynamic Programming | Memoize overlapping subproblems | Optimization, counting, decision problems | 02_DSA |
+| 172 | Backtracking | Try all options, undo bad choices | Permutations, combinations, constraint satisfaction | 02_DSA |
+| 173 | Greedy | Locally optimal → globally optimal | Intervals, scheduling, Huffman coding | 02_DSA |
+| 174 | Union Find | Disjoint set with path compression | Connected components, cycle detection | 02_DSA |
+| 175 | Topological Sort | Order DAG nodes | Task scheduling, dependency resolution | 02_DSA |
+| 176 | Trie | Prefix tree for strings | Autocomplete, spell check, word search | 02_DSA |
+| 177 | Monotonic Stack | Stack maintaining increasing/decreasing order | Next greater element, histogram, stock span | 03_CodingPatterns |
+| 178 | Heap / Priority Queue | Min/Max extraction in O(log n) | Top K, merge K sorted, scheduling | 02_DSA |
+| 179 | Bit Manipulation | XOR, AND, OR, shifts | Single number, power of 2, counting bits | 02_DSA |
+| 180 | Hash Map | O(1) lookup | Frequency count, two sum, anagrams | 02_DSA |
 
 ---
 
@@ -273,16 +304,19 @@
 
 | # | Problem | Key Components | Section |
 |---|---------|---------------|---------|
-| 166 | URL Shortener | Hash → Base62 → KV store → 301 redirect | 04_SystemDesign |
-| 167 | Twitter/News Feed | Fan-out on write vs read, Timeline cache, Social graph | 04_SystemDesign |
-| 168 | Chat System | WebSocket, Message queue, Delivery status, Online/offline | 04_SystemDesign |
-| 169 | Rate Limiter | Token bucket, Redis, Sliding window log | 04_SystemDesign |
-| 170 | Notification System | Channels (push/SMS/email), Priority queue, Template, DLQ | 04_SystemDesign |
-| 171 | Search Autocomplete | Trie, Frequency ranking, Caching, Typeahead | 04_SystemDesign |
-| 172 | Distributed Cache | Consistent hashing, Replication, Eviction policies | 04_SystemDesign |
-| 173 | Payment System | Idempotency, Saga, Reconciliation, Audit trail | 04_SystemDesign |
-| 174 | File Storage (Dropbox) | Chunking, Deduplication, Sync protocol, Metadata service | 04_SystemDesign |
-| 175 | Video Streaming | CDN, Adaptive bitrate, Transcoding, Storage tiers | 04_SystemDesign |
+| 181 | URL Shortener | Hash → Base62 → KV store → 301 redirect | 04_SystemDesign |
+| 182 | Twitter/News Feed | Fan-out on write vs read, Timeline cache, Social graph | 04_SystemDesign |
+| 183 | Chat System | WebSocket, Message queue, Delivery status, Online/offline | 04_SystemDesign |
+| 184 | Rate Limiter | Token bucket, Redis, Sliding window log | 04_SystemDesign |
+| 185 | Notification System | Channels (push/SMS/email), Priority queue, Template, DLQ | 04_SystemDesign |
+| 186 | Search Autocomplete | Trie, Frequency ranking, Caching, Typeahead | [SearchAutocomplete](04_SystemDesign/02_HighLevelDesign/SearchAutocomplete/SearchAutocomplete.md) |
+| 187 | Distributed Cache | Consistent hashing, Replication, Eviction policies | 04_SystemDesign |
+| 188 | Payment System | Idempotency, Saga, Reconciliation, Audit trail | 04_SystemDesign |
+| 189 | File Storage (Dropbox) | Chunking, Deduplication, Sync protocol, Metadata service | [FileStorage](04_SystemDesign/02_HighLevelDesign/FileStorage/FileStorage.md) |
+| 190 | Video Streaming | CDN, Adaptive bitrate, Transcoding, Storage tiers | [VideoStreaming](04_SystemDesign/02_HighLevelDesign/VideoStreaming/VideoStreaming.md) |
+| 191 | WhatsApp (E2EE) | Signal protocol, encrypted envelopes, multi-device, media | [WhatsApp](04_SystemDesign/02_HighLevelDesign/WhatsApp/WhatsApp.md) |
+| 192 | Instagram | Media pipeline, CDN, Stories TTL, fan-out hybrid | [Instagram](04_SystemDesign/02_HighLevelDesign/Instagram/Instagram.md) |
+| 193 | Ticketmaster | Atomic seat holds, Redis TTL, flash sale queue, idempotent payment | [Ticketmaster](04_SystemDesign/02_HighLevelDesign/Ticketmaster/Ticketmaster.md) |
 
 ---
 
@@ -290,29 +324,30 @@
 
 | # | Statement | Answer |
 |---|-----------|--------|
-| 176 | HashMap allows null keys | ✅ True (one null key, multiple null values) |
-| 177 | ConcurrentHashMap allows null keys | ❌ False (throws NPE) |
-| 178 | String is thread-safe | ✅ True (immutable) |
-| 179 | StringBuilder is thread-safe | ❌ False (use StringBuffer for thread safety) |
-| 180 | ArrayList is synchronized | ❌ False (use Collections.synchronizedList or CopyOnWriteArrayList) |
-| 181 | @Transactional works on private methods | ❌ False (proxy can't intercept private methods) |
-| 182 | Spring beans are singleton by default | ✅ True |
-| 183 | HTTP/2 requires TLS | ❌ False (spec allows h2c, but browsers require TLS) |
-| 184 | Kafka guarantees global ordering | ❌ False (only per-partition ordering) |
-| 185 | REST is a protocol | ❌ False (it's an architectural style) |
-| 186 | GraphQL always uses POST | ❌ False (GET for queries is valid, though POST is common) |
-| 187 | Microservices should share databases | ❌ False (database per service is the pattern) |
-| 188 | ZGC has sub-millisecond pauses | ✅ True (as of Java 15+) |
-| 189 | Records can be extended | ❌ False (records are implicitly final) |
-| 190 | Sealed classes work with pattern matching | ✅ True (exhaustive switch) |
-| 191 | Virtual threads should use synchronized | ❌ False (synchronized can pin virtual thread to carrier — use ReentrantLock) |
-| 192 | LinkedHashMap can be used as LRU cache | ✅ True (access-order mode + removeEldestEntry) |
-| 193 | @Async requires @EnableAsync | ✅ True |
-| 194 | StampedLock is reentrant | ❌ False (unlike ReentrantLock, StampedLock is NOT reentrant) |
-| 195 | Kafka consumers pull messages | ✅ True (pull model, unlike RabbitMQ's push) |
-| 196 | CDN caches dynamic content | ❌ False (primarily static; edge compute can handle some dynamic) |
-| 197 | DNS uses TCP | ✅ True (for large responses >512 bytes, zone transfers; UDP for normal queries) |
-| 198 | gRPC uses HTTP/2 | ✅ True |
-| 199 | Event Sourcing requires CQRS | ❌ False (they pair well but are independent patterns) |
-| 200 | A Lead engineer's main job is coding | ❌ False (architecture, mentoring, decisions, communication are equally important) |
+| 194 | HashMap allows null keys | ✅ True (one null key, multiple null values) |
+| 195 | ConcurrentHashMap allows null keys | ❌ False (throws NPE) |
+| 196 | String is thread-safe | ✅ True (immutable) |
+| 197 | StringBuilder is thread-safe | ❌ False (use StringBuffer for thread safety) |
+| 198 | ArrayList is synchronized | ❌ False (use Collections.synchronizedList or CopyOnWriteArrayList) |
+| 199 | @Transactional works on private methods | ❌ False (proxy can't intercept private methods) |
+| 200 | Spring beans are singleton by default | ✅ True |
+| 201 | HTTP/2 requires TLS | ❌ False (spec allows h2c, but browsers require TLS) |
+| 202 | Kafka guarantees global ordering | ❌ False (only per-partition ordering) |
+| 203 | REST is a protocol | ❌ False (it's an architectural style) |
+| 204 | GraphQL always uses POST | ❌ False (GET for queries is valid, though POST is common) |
+| 205 | Microservices should share databases | ❌ False (database per service is the pattern) |
+| 206 | ZGC has sub-millisecond pauses | ✅ True (as of Java 15+) |
+| 207 | Records can be extended | ❌ False (records are implicitly final) |
+| 208 | Sealed classes work with pattern matching | ✅ True (exhaustive switch) |
+| 209 | Virtual threads should use synchronized | ❌ False (synchronized can pin virtual thread to carrier — use ReentrantLock) |
+| 210 | LinkedHashMap can be used as LRU cache | ✅ True (access-order mode + removeEldestEntry) |
+| 211 | @Async requires @EnableAsync | ✅ True |
+| 212 | StampedLock is reentrant | ❌ False (unlike ReentrantLock, StampedLock is NOT reentrant) |
+| 213 | Kafka consumers pull messages | ✅ True (pull model, unlike RabbitMQ's push) |
+| 214 | CDN caches dynamic content | ❌ False (primarily static; edge compute can handle some dynamic) |
+| 215 | DNS uses TCP | ✅ True (for large responses >512 bytes, zone transfers; UDP for normal queries) |
+| 216 | gRPC uses HTTP/2 | ✅ True |
+| 217 | Event Sourcing requires CQRS | ❌ False (they pair well but are independent patterns) |
+| 218 | OWASP 2025 still lists SSRF as standalone A10 | ❌ False (SSRF merged into A01 Broken Access Control) |
+| 219 | A Lead engineer's main job is coding | ❌ False (architecture, mentoring, decisions, communication are equally important) |
 

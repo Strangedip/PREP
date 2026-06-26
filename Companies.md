@@ -2,7 +2,7 @@
 
 > **Target Level**: Lead Software Engineer / SDE-2 / Senior SDE
 > **Focus**: Companies hiring in India (offices in Bangalore, Hyderabad, Pune, Chennai, Gurgaon, Mumbai, Noida, etc.)
-> **Last Updated**: February 2026
+> **Last Updated**: June 2026
 
 ---
 
@@ -371,6 +371,31 @@
 - **Bar Raiser** is the most unpredictable round — this person is not from your team and has veto power
 - System Design: Amazon loves topics like order processing, inventory management, recommendation systems, notification services
 - Coding: Medium-level LeetCode, but must be done fast and clean (25 min for coding, 20 min for LP)
+
+**Amazon Leadership Principles → STAR Story Mapping**
+
+Prepare at least one strong STAR story per LP. Reuse stories across LPs where honest — but emphasize different angles.
+
+| LP | Sample Behavioral Question | STAR Focus (Action + Result) | Story Theme Ideas |
+|----|---------------------------|------------------------------|-------------------|
+| **Customer Obsession** | Time you went above and beyond for a customer | User impact metrics, trade-off you made for customer | On-call fix for customer outage; feature driven by user research |
+| **Ownership** | Something outside your job you owned end-to-end | Scope you took without being asked; long-term fix vs patch | Owned prod incident root cause; cleaned tech debt before launch |
+| **Invent and Simplify** | Simplified a complex system or process | Before/after complexity; automation | Replaced manual deploy with pipeline; simplified API surface |
+| **Are Right, A Lot** | Good judgment under ambiguity | Data you used; when you changed mind | Architecture decision validated by metrics |
+| **Learn and Be Curious** | Learned a new tech to solve a problem | What you learned; how fast | Picked up K8s/Kafka for migration; course + production use |
+| **Hire and Develop the Best** | Mentored someone or improved team bar | Person's growth; hiring decision | Mentee promotion; interview calibration; hiring bar raise |
+| **Insist on Highest Standards** | Raised quality bar when team accepted mediocrity | Standard you enforced; pushback | Code review standards; test coverage gate; SLA improvement |
+| **Think Big** | Bold idea you proposed | Scale of vision; incremental steps | Multi-region design; platform instead of one-off |
+| **Bias for Action** | Decided with incomplete information | Risk managed; speed vs perfection | Ship MVP; rollback plan; 80% data decision |
+| **Frugality** | Delivered more with less | Cost saved; creative resource use | Reduced cloud spend; reused existing service |
+| **Earn Trust** | Built trust after mistake or conflict | Candor; listening; follow-through | Post-mortem ownership; transparent status updates |
+| **Dive Deep** | Found root cause others missed | Details you investigated | Log/trace analysis; metrics drill-down |
+| **Have Backbone; Disagree and Commit** | Disagreed with manager/peer then committed | Respectful dissent; support after decision | Architecture disagreement; supported launch anyway |
+| **Deliver Results** | Hit hard goal despite obstacles | Numbers; timeline; blockers removed | Met deadline; recovered slipped project |
+| **Earth's Best Employer** | Improved team safety, inclusion, or culture | Team health; sustainable pace | On-call rotation fix; psychological safety in reviews |
+| **Success and Scale Bring Broad Responsibility** | Impact at scale; sustainability | Scale of impact; responsibility taken | Privacy at scale; cost of scale; community impact |
+
+**STAR template**: [InterviewPlaybook.md](InterviewPlaybook.md) · Deep behavioral prep: [§14 Leadership](01_TechGuide/14_Leadership_Behavioral_SystemDesign.md)
 
 **Top Topics:**
 - Arrays, Strings, HashMaps

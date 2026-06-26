@@ -610,6 +610,47 @@ public class RecommendationEngine {
 
 ---
 
+### **AI & RAG ↔ Search, Caching, and Data Pipelines**
+
+#### **DSA / ML Concepts**
+- Vector embeddings → high-dimensional nearest neighbor search (like HashMap but approximate)
+- Chunking strategies → similar to array partitioning / sliding window on documents
+- Token limits → buffer size constraints (context window = max batch size)
+- Re-ranking → secondary sort after initial retrieval (like two-phase top-K)
+
+#### **System Design Applications**
+- **RAG Pipeline** → Ingestion (batch) + Retrieval (online) — mirrors Lambda architecture
+- **Vector Database** → Specialized index (HNSW ≈ multi-level graph traversal)
+- **Semantic Cache** → Redis cache keyed by embedding similarity, not exact string match
+- **LLM Gateway** → API Gateway pattern: routing, rate limits, cost controls, fallbacks
+- **AI Agents** → Orchestrator microservice with tool registry (MCP) — like workflow engine
+- **Embedding Pipeline** → Kafka + batch workers — same as data engineering CDC/ELT
+
+**Example Connection:**
+```java
+// DSA: Top K Frequent Elements — heap for ranking
+PriorityQueue<int[]> heap = new PriorityQueue<>((a,b) -> a[1]-b[1]);
+
+// AI System Design: Re-rank retrieved chunks by relevance score
+List<Chunk> reranked = chunks.stream()
+    .sorted((a,b) -> Double.compare(b.score(), a.score()))
+    .limit(topK)
+    .toList();
+```
+
+#### **Cross-Reference Map**
+
+| AI Concept | Analogous DSA / System Pattern | Resource |
+|------------|-------------------------------|----------|
+| Vector search | Graph (HNSW), Heap (top-K) | [05_AI/04](../05_AI/04_Vector_Databases_Embeddings.md) |
+| RAG retrieval | Cache-aside + search index | [05_AI/03](../05_AI/03_RAG_Architecture.md) |
+| Agent tool calling | Command pattern, API Gateway | [05_AI/06](../05_AI/06_AI_Agents_and_Workflows.md) |
+| Prompt injection defense | Input validation, WAF rules | [05_AI/11](../05_AI/11_AI_Ethics_Safety_Governance.md) |
+| LLM cost control | Rate limiter, token bucket | [04_SystemDesign RateLimiter](../04_SystemDesign/02_HighLevelDesign/RateLimiter/RateLimiter.md) |
+| Batch embedding | MapReduce / Spark batch job | [01_TechGuide/25](../01_TechGuide/25_Data_Engineering_Fundamentals.md) |
+
+---
+
 ## 📚 **Cross-Reference Study Method**
 
 ### **For Each DSA Topic:**

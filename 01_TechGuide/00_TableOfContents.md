@@ -2,7 +2,7 @@
 
 > **Covers**: Associate SDE → Mid-Level SDE → Senior SDE → Lead Software Engineer
 > **Tech Stack**: Java 17-21, Spring Boot 3.x, Angular 17+, Microservices, Kubernetes, Cloud-Native
-> **Purpose**: Your lifetime technical reference. Read sections 01 → 20 in order for a top-to-bottom learning path.
+> **Purpose**: Your lifetime technical reference. Read §00 fundamentals first (Associate), then sections 01 → 38 in order for full coverage.
 
 ---
 
@@ -27,6 +27,36 @@ Each section below is tagged with the minimum level where the topic becomes rele
 ---
 
 ## Table of Contents
+
+### [Section 00A: Java OOP Fundamentals](./00_Java_OOP_Fundamentals.md) `ALL`
+
+- **00A.1 OOP Four Pillars**: Encapsulation, Abstraction, Inheritance, Polymorphism
+- **00A.2 Classes, Objects, Memory**: heap vs stack references
+- **00A.3 Inheritance vs Composition**: prefer composition
+- **00A.4 Interfaces vs Abstract Classes**
+- **00A.5 equals(), hashCode(), toString()**: HashMap contract
+- **00A.6 Exception Handling**: checked vs unchecked, try-with-resources
+- **00A.7 Collections Overview**: List, Set, Map, Queue
+
+### [Section 00B: Web & HTTP Fundamentals](./00_Web_Fundamentals.md) `ALL`
+
+- **00B.1 How the Web Works**: DNS, TCP, TLS, HTTPS
+- **00B.2 HTTP Methods & Idempotency**
+- **00B.3 Status Codes**: 200, 401, 403, 404, 429, 500
+- **00B.4 Headers**: Content-Type, Authorization, Cache-Control
+- **00B.5 Authentication Basics**: Session, JWT, OAuth2
+- **00B.6 CORS Preview**
+- **00B.7 REST at a Glance**
+
+### [Section 00C: Computer Science Fundamentals](./00_Computer_Science_Fundamentals.md) `ALL`
+
+- **00C.1 Big-O Complexity**
+- **00C.2 Space Complexity**
+- **00C.3 Core Data Structures**: array, list, stack, queue, hash, tree, heap
+- **00C.4 Recursion Pattern**
+- **00C.5 Sorting Algorithms Summary**
+- **00C.6 Graph Basics**: BFS, DFS, Dijkstra
+- **00C.7 Dynamic Programming Intuition**
 
 ### [Section 1: Modern Java Features (17-21)](./01_Modern_Java_Features.md) `MID+`
 
@@ -227,17 +257,17 @@ Each section below is tagged with the minimum level where the topic becomes rele
 
 ### [Section 12: Application Security, OWASP & Cloud Fundamentals](./12_Security_OWASP_Cloud.md) `SR+`
 
-- **12.1 OWASP Top 10 (2021)**: Complete guide with Spring Boot prevention code
-  - A01 Broken Access Control: IDOR, @PreAuthorize, SecurityFilterChain
-  - A02 Cryptographic Failures: BCrypt, AES-256, TLS 1.3
-  - A03 Injection: SQL injection, XSS, Content Security Policy
-  - A04 Insecure Design: STRIDE threat modeling, security user stories
-  - A05 Security Misconfiguration: Actuator lockdown, Docker non-root, error suppression
-  - A06 Vulnerable Components: OWASP Dependency Check, Snyk, Dependabot
-  - A07 Auth Failures: MFA, rate-limited login, session management
+- **12.1 OWASP Top 10 (2025)**: Complete guide with 2021→2025 mapping and Spring Boot prevention code
+  - A01 Broken Access Control (+ SSRF): IDOR, @PreAuthorize, URL allowlisting for outbound calls
+  - A02 Security Misconfiguration (#2 in 2025): Actuator lockdown, Docker non-root, cloud/K8s hardening
+  - A03 Software Supply Chain Failures: OWASP Dependency Check, Snyk, SBOM, signed images
+  - A04 Cryptographic Failures: BCrypt, AES-256, TLS 1.3
+  - A05 Injection: SQL injection, XSS, Content Security Policy
+  - A06 Insecure Design: STRIDE threat modeling, security user stories
+  - A07 Authentication Failures: MFA, rate-limited login, session management
   - A08 Integrity Failures: Signed commits, CI/CD security, SRI
-  - A09 Logging Failures: Security audit logging, PII masking
-  - A10 SSRF: URL allowlisting, private IP blocking
+  - A09 Logging & Alerting Failures: Security audit logging, PII masking
+  - A10 Mishandling Exceptional Conditions: Fail closed, no stack traces to clients
 - **12.2 JWT Security Deep Dive**: Algorithm confusion, token storage, RS256, refresh rotation
 - **12.3 CORS**: Same-Origin Policy, preflight, Spring Boot configuration
 - **12.4 Cloud Fundamentals for Backend Engineers**: AWS core services, deployment architecture
@@ -366,6 +396,204 @@ Each section below is tagged with the minimum level where the topic becomes rele
 - **20.9 Behavioral Interview — STAR Stories**: 8 prepared story templates for Lead roles
 - **20.10 Interview Quick Reference**: Amazon Leadership Principles, top questions
 
+### [Section 21: GraphQL & Alternative API Styles](./21_GraphQL_and_Alternative_APIs.md) `MID+`
+
+- **21.1 API Style Comparison**: REST vs GraphQL vs gRPC vs WebSocket vs SSE
+- **21.2 GraphQL Fundamentals**: Schema, queries, mutations, resolvers
+- **21.3 Spring GraphQL**: `@QueryMapping`, `@SchemaMapping`, GraphiQL
+- **21.4 N+1 Problem & DataLoader**: Batch loading, request-scoped cache
+- **21.5 GraphQL at Scale**: Persisted queries, field caching, security (depth/complexity limits)
+- **21.6 GraphQL Federation**: Subgraphs, `@key`, gateway stitching
+- **21.7 Interview Quick Reference**: REST vs GraphQL trade-offs, when NOT to use GraphQL
+
+### [Section 22: Kotlin for Java Developers](./22_Kotlin_for_Java_Developers.md) `MID+`
+
+- **22.1 Why Kotlin in 2026**: Android, Spring Boot, gradual adoption
+- **22.2 Kotlin vs Java**: Null safety, data classes, extension functions, SAM
+- **22.3 Coroutines vs Virtual Threads**: When to use each, structured concurrency
+- **22.4 Spring Boot with Kotlin**: kotlin-spring plugin, Jackson module, DTO patterns
+- **22.5 Java Interop**: `@JvmStatic`, companion objects, nullable types from Java
+- **22.6 When to Choose Kotlin vs Java**: Decision guide for teams
+- **22.7 Interview Quick Reference**: Null safety, coroutines, interop pitfalls
+
+### [Section 23: SRE & Reliability Engineering](./23_SRE_Reliability_Engineering.md) `SR+`
+
+- **23.1 SRE vs DevOps vs Platform Engineering**: Role boundaries
+- **23.2 SLI → SLO → SLA → Error Budget**: Framework and examples
+- **23.3 Four Golden Signals**: Latency, Traffic, Errors, Saturation (RED/USE methods)
+- **23.4 Incident Management**: Severity levels, IC roles, mitigation-first response
+- **23.5 Post-Mortems**: Blameless culture, template, action items
+- **23.6 Toil Reduction**: Automation targets, runbooks, self-healing
+- **23.7 Reliability Patterns**: Circuit breaker, canary rollback, chaos engineering
+- **23.8 On-Call Best Practices**: Actionable alerts, escalation, runbooks
+- **23.9 Interview Quick Reference**: Error budgets, golden signals, incident command
+
+### [Section 24: Platform Engineering & IDP](./24_Platform_Engineering_IDP.md) `SR+`
+
+- **24.1 Internal Developer Platforms**: Self-service, cognitive load reduction
+- **24.2 IDP Components**: Backstage, golden paths, GitOps, policy-as-code
+- **24.3 Golden Paths**: Templates for microservices, databases, feature flags
+- **24.4 Backstage Developer Portal**: Catalog, TechDocs, software templates
+- **24.5 Platform Metrics**: DORA metrics, developer satisfaction, self-service rate
+- **24.6 GitOps**: Argo CD, PR-based infra changes
+- **24.7 Security in IDPs**: Image scanning, Kyverno policies, SBOM
+- **24.8 Interview Quick Reference**: Golden paths, thin platform, Backstage, DORA
+
+### [Section 25: Data Engineering Fundamentals](./25_Data_Engineering_Fundamentals.md) `SR+`
+
+- **25.1 Batch vs Stream Processing**: Latency trade-offs, Spark, Flink, Kafka
+- **25.2 ETL vs ELT**: Modern data stack with dbt
+- **25.3 Tools Landscape**: Airflow, Spark, Snowflake, Delta Lake, Debezium
+- **25.4 Lambda vs Kappa Architecture**: Batch + speed layers vs stream-only
+- **25.5 Change Data Capture (CDC)**: Debezium, WAL, event-driven sync
+- **25.6 Warehouse vs Lake vs Lakehouse**: When to use each
+- **25.7 Data Quality & Governance**: Schema evolution, lineage, PII
+- **25.8 Backend Engineer Touchpoints**: Events, CDC, embedding pipelines
+- **25.9 Interview Quick Reference**: ETL/ELT, CDC, lakehouse, data contracts
+
+### [Section 26: PostgreSQL & Relational DB Deep Dive](./26_PostgreSQL_Relational_DB_Deep_Dive.md) `MID+`
+
+- **26.1 Why PostgreSQL**: ACID, JSONB, pgvector, ecosystem
+- **26.2 Transaction Isolation Levels**: READ COMMITTED through SERIALIZABLE
+- **26.3 MVCC**: Tuple visibility, snapshot isolation, no reader-writer blocking
+- **26.4 VACUUM & Bloat**: Dead tuples, autovacuum tuning
+- **26.5 Connection Pooling**: PgBouncer, HikariCP sizing
+- **26.6 Replication & HA**: Streaming replication, sync vs async, failover
+- **26.7 Partitioning**: Range, list, hash — partition pruning
+- **26.8 JSONB, FTS, pgvector**: Modern PostgreSQL features
+- **26.9 Query Planner**: EXPLAIN ANALYZE deep reading
+- **26.10 Interview Quick Reference**: MVCC, WAL, VACUUM, replication lag
+
+### [Section 27: NoSQL Databases Guide](./27_NoSQL_Databases_Guide.md) `SR+`
+
+- **27.1 SQL vs NoSQL Decision Framework**
+- **27.2 NoSQL Categories**: Document, key-value, wide-column, graph
+- **27.3 MongoDB**: Data model, sharding, transactions
+- **27.4 DynamoDB**: Access-pattern-first design, GSI, single-table
+- **27.5 Cassandra**: LSM writes, tunable consistency, QUORUM
+- **27.6 CAP at Database Level**
+- **27.7 Interview Quick Reference**: Partition keys, hot partitions, LSM
+
+### [Section 28: Redis & Distributed Caching](./28_Redis_Distributed_Caching.md) `MID+`
+
+- **28.1 Redis Architecture**: Single-threaded, in-memory
+- **28.2 Data Structures**: Strings, hashes, sorted sets, streams
+- **28.3 Caching Patterns**: Cache-aside, stampede prevention
+- **28.4 Eviction Policies**: LRU, LFU, volatile-lru
+- **28.5 Persistence**: RDB vs AOF
+- **28.6 Redis Cluster**: Hash slots, hash tags
+- **28.7 Distributed Locking**: SET NX EX, Redisson
+- **28.8 Rate Limiting**: Sliding window with sorted sets
+- **28.9 Interview Quick Reference**: Cache-aside, stampede, cluster slots
+
+### [Section 29: Advanced Networking & Infrastructure](./29_Advanced_Networking_Infrastructure.md) `SR+`
+
+- **29.1 IP Addressing & Subnets**: CIDR, private ranges
+- **29.2 VPC Architecture**: Public/private/data tiers, IGW, NAT
+- **29.3 Load Balancers**: L4 vs L7, algorithms
+- **29.4 DNS Production**: GeoDNS, failover, TTL trade-offs
+- **29.5 NAT, Reverse Proxy, Forward Proxy**
+- **29.6 Service Mesh Networking**: Istio, mTLS, traffic splitting
+- **29.7 DDoS & WAF**
+- **29.8 Zero Trust Networking**
+- **29.9 Interview Quick Reference**: SG vs NACL, VPC, L4/L7 LB
+
+### [Section 30: Kubernetes Deep Dive](./30_Kubernetes_Deep_Dive.md) `SR+`
+
+- **30.1 K8s Architecture**: Control plane, kubelet, etcd
+- **30.2 Core Objects**: Pod, Deployment, StatefulSet, Service, Ingress
+- **30.3 Networking**: ClusterIP, Ingress, NetworkPolicy
+- **30.4 Health Probes**: Liveness, readiness, startup
+- **30.5 Resources & HPA**: requests/limits, autoscaling
+- **30.6 Deployment Strategies**: Rolling, blue-green, canary
+- **30.7 Security**: RBAC, pod security, secrets
+- **30.8 Interview Quick Reference**: probes, HPA, etcd, Ingress
+
+### [Section 31: Cloud Computing — AWS, GCP, Azure](./31_Cloud_Computing_AWS_GCP_Azure.md) `MID+`
+
+- **31.1 Service Models**: IaaS, PaaS, SaaS, FaaS
+- **31.2 AWS Core Services Map**
+- **31.3 GCP & Azure Equivalents**
+- **31.4 IAM Least Privilege**
+- **31.5 S3 Deep Dive**: Classes, presigned URLs, events
+- **31.6 Serverless Lambda Patterns**
+- **31.7 Cost Optimization**
+- **31.8 Well-Architected Framework**
+- **31.9 Interview Quick Reference**: S3 vs EBS, SQS vs SNS, IAM roles
+
+### [Section 32: Operating Systems & Linux](./32_Operating_Systems_and_Linux.md) `ALL`
+
+- **32.1 Process vs Thread**
+- **32.2 Linux Process States**
+- **32.3 Essential Commands**: top, strace, lsof, journalctl
+- **32.4 Memory Management**: virtual memory, OOM, swap
+- **32.5 File Descriptors & ulimit**
+- **32.6 I/O Models**: blocking, epoll, io_uring
+- **32.7 Containers & Namespaces**
+- **32.8 Interview Quick Reference**: context switch, OOM, epoll, ulimit
+
+### [Section 33: Git & Engineering Workflow](./33_Git_Version_Control_Workflow.md) `ALL`
+
+- **33.1 Git Fundamentals**: add, commit, push, branch
+- **33.2 Merge vs Rebase**
+- **33.3 Branching Strategies**: trunk-based, Git Flow, GitHub Flow
+- **33.4 Pull Request Best Practices**
+- **33.5 Conflict Resolution**
+- **33.6 Git Internals**: blob, tree, commit objects
+- **33.7 Monorepo vs Polyrepo**
+- **33.8 Interview Quick Reference**: trunk-based, rebase rule, revert vs reset
+
+### [Section 34: Search Engines & Elasticsearch](./34_Search_Engines_Elasticsearch.md) `SR+`
+
+- **34.1 Inverted Index**
+- **34.2 Elasticsearch Architecture**: shards, replicas
+- **34.3 Analysis Pipeline**: tokenizers, analyzers, ngram
+- **34.4 Query Types**: match, term, bool
+- **34.5 BM25 Relevance Scoring**
+- **34.6 Aggregations**: faceted search
+- **34.7 ELK Stack**
+- **34.8 ES vs PostgreSQL Full-Text**
+- **34.9 Interview Quick Reference**: inverted index, BM25, shards
+
+### [Section 35: SQL Fundamentals](./35_SQL_Fundamentals.md) `ALL`
+
+- **35.1 Core SQL Operations**: DDL, DML, TCL
+- **35.2 SELECT Essentials**: execution order
+- **35.3 JOIN Types**: INNER, LEFT, FULL, SELF
+- **35.4 Subqueries vs JOINs**: EXISTS, correlated
+- **35.5 Window Functions**: RANK, LAG, running totals
+- **35.6 CTEs**: recursive hierarchies
+- **35.7 Indexes Basics**
+- **35.8 Normalization vs Denormalization**
+- **35.9 Interview Quick Reference**: JOINs, window functions, HAVING
+
+### [Section 36: Polyglot Interview Prep — Python & Go](./36_Polyglot_Interview_Python_and_Go.md) `MID+`
+
+- **36.1 Why Polyglot Rounds Exist**
+- **36.2 Python DSA Essentials**: dict, deque, BFS/DFS
+- **36.3 Python Concurrency**: asyncio, GIL
+- **36.4 Go DSA Essentials**: slices, maps, sort
+- **36.5 Go Concurrency**: goroutines, channels, WaitGroup
+- **36.6 When to Say "I'd Use Java Here"**
+
+### [Section 37: TypeScript & Frontend Landscape](./37_TypeScript_and_Frontend_Landscape.md) `ALL`
+
+- **37.1 Frontend Stack Landscape**: Angular, React, Vue, Svelte
+- **37.2 TypeScript Essentials**: interfaces, generics, async
+- **37.3 React vs Angular Comparison**
+- **37.4 Modern Frontend Concerns**: SSR, bundling, testing
+- **37.5 Browser Security**: XSS, CSRF, token storage
+
+### [Section 38: Compliance & Regulated Systems](./38_Compliance_and_Regulated_Systems.md) `SR+`
+
+- **38.1 Why Compliance Matters in Interviews**
+- **38.2 Regulations Summary**: GDPR, PCI-DSS, HIPAA, SOC 2
+- **38.3 PII Handling in Architecture**
+- **38.4 GDPR Technical Implementation**
+- **38.5 PCI-DSS for Engineers**
+- **38.6 Audit & Compliance Logging**
+- **38.7 Change Management (SOX)**
+
 ---
 
 ## Quick Reference: Keywords to Use in Interviews
@@ -392,3 +620,14 @@ Each section below is tagged with the minimum level where the topic becomes rele
 | Security | OWASP Top 10, STRIDE, IDOR, JWT Algorithm Confusion, CORS, CSP, HSTS, PCI DSS, SSRF, BCrypt |
 | Cloud/AWS | VPC, Security Groups, IAM Least Privilege, EKS, RDS, S3, SQS, SNS, ALB, CloudWatch |
 | Leadership | STAR Method, Ownership, Data-driven, Trade-offs, ADR, Error Budget |
+| PostgreSQL | MVCC, WAL, VACUUM, Bloat, PgBouncer, Read Replica Lag |
+| NoSQL | Partition Key, Hot Partition, GSI, LSM Tree, QUORUM |
+| Redis | Cache-Aside, Stampede, Sorted Set, Hash Slots, SET NX |
+| Networking Infra | VPC, NAT, Security Group, L4/L7 LB, Zero Trust |
+| Kubernetes | Reconciliation, Readiness Probe, HPA, Ingress, etcd |
+| Cloud | IAM Least Privilege, S3 Presigned URL, Shared Responsibility |
+| Linux | Context Switch, epoll, OOM, ulimit, File Descriptor |
+| SQL | Window Functions, CTE, LEFT JOIN, HAVING vs WHERE |
+| Elasticsearch | Inverted Index, BM25, Shard, Analyzer, Bool Query |
+| Polyglot | Python defaultdict/deque, Go goroutine/channel, GIL |
+| Compliance | GDPR erasure, PCI scope, tokenization, audit trail, data residency |

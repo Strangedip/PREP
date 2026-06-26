@@ -12,7 +12,7 @@ This is your **lifetime reference** for software engineering interviews and dail
 
 | Career Level | What You Need | Where to Find It |
 |-------------|---------------|-----------------|
-| **Associate / Junior SDE** | Core Java, basic DSA, simple Spring Boot, HTML/CSS/JS | 01_TechGuide §01-02, §08 (basics) + 02_DSA Path 1 |
+| **Associate / Junior SDE** | Core Java OOP, CS basics, SQL, basic DSA, HTTP/REST | §00 Fundamentals, §35 SQL, 02_DSA Path 1 |
 | **Mid-Level SDE** | Deep Java, Design Patterns, databases, Medium DSA | 01_TechGuide §01-05 + 02_DSA Path 2 |
 | **Senior SDE** | Microservices, System Design, testing, Angular depth | 01_TechGuide §06-09 + 02_DSA Path 3 + 04_SystemDesign |
 | **Lead / Staff Engineer** | All of the above + Leadership, DevOps, Observability, AI/RAG, Agents, MLOps | Everything in this repo (all 5 sections) |
@@ -25,9 +25,14 @@ This is your **lifetime reference** for software engineering interviews and dail
 PREP/
 │
 ├── README.md                          ← YOU ARE HERE (Master Guide)
+├── MASTER_INDEX.md                    ← Topic → file → round → level (full navigation)
+├── InterviewPlaybook.md               ← 12-week schedule, STAR, round protocols
 │
 ├── 01_TechGuide/                      ← Core Knowledge Base (start here — learn concepts first)
 │   ├── 00_TableOfContents.md          — Full index with career-level indicators
+│   ├── 00_Java_OOP_Fundamentals.md    — OOP, collections intro, exceptions (ASSOC start)
+│   ├── 00_Web_Fundamentals.md         — HTTP, REST, auth basics (ASSOC)
+│   ├── 00_Computer_Science_Fundamentals.md — Big-O, DS overview, recursion (ASSOC)
 │   ├── 01_Modern_Java_Features.md     — Java 17-21: Records, Sealed, Virtual Threads
 │   ├── 02_Advanced_SpringBoot_Java_Internals.md — GC, Concurrency, Bean Lifecycle
 │   ├── 03_Design_Patterns_SOLID_CleanArch.md — SOLID, GoF, Clean Architecture, DDD
@@ -47,14 +52,33 @@ PREP/
 │   ├── 17_Networking_Protocols.md      — HTTP/2/3, TLS, DNS, WebSocket, gRPC, CDN
 │   ├── 18_Performance_Engineering_JVM.md — JVM tuning, GC, JFR, profiling, JMH
 │   ├── 19_Event_Driven_Architecture.md — Kafka deep dive, Event Sourcing, CQRS, Saga, CDC
-│   └── 20_Technical_Leadership_Architecture.md — ADRs, estimation, post-mortems, mentorship
+│   ├── 20_Technical_Leadership_Architecture.md — ADRs, estimation, post-mortems, mentorship
+│   ├── 21_GraphQL_and_Alternative_APIs.md  — GraphQL, Spring GraphQL, N+1, federation
+│   ├── 22_Kotlin_for_Java_Developers.md    — Coroutines vs virtual threads, Spring Kotlin
+│   ├── 23_SRE_Reliability_Engineering.md   — SLI/SLO, error budgets, incident response
+│   ├── 24_Platform_Engineering_IDP.md      — Golden paths, Backstage, GitOps, DORA metrics
+│   ├── 25_Data_Engineering_Fundamentals.md — Batch/stream, CDC, lakehouse, dbt, Spark/Flink
+│   ├── 26_PostgreSQL_Relational_DB_Deep_Dive.md — MVCC, VACUUM, replication, pgvector
+│   ├── 27_NoSQL_Databases_Guide.md         — MongoDB, DynamoDB, Cassandra
+│   ├── 28_Redis_Distributed_Caching.md     — Data structures, cluster, stampede, locks
+│   ├── 29_Advanced_Networking_Infrastructure.md — VPC, LB L4/L7, DNS, zero trust
+│   ├── 30_Kubernetes_Deep_Dive.md          — Pods, Ingress, HPA, probes, security
+│   ├── 31_Cloud_Computing_AWS_GCP_Azure.md   — IAM, S3, Lambda, Well-Architected
+│   ├── 32_Operating_Systems_and_Linux.md     — Processes, debugging, epoll, OOM
+│   ├── 33_Git_Version_Control_Workflow.md    — Trunk-based, merge vs rebase, PRs
+│   ├── 34_Search_Engines_Elasticsearch.md      — Inverted index, BM25, ELK
+│   ├── 35_SQL_Fundamentals.md                — JOINs, window functions, CTEs
+│   ├── 36_Polyglot_Interview_Python_and_Go.md — Python/Go DSA for polyglot rounds
+│   ├── 37_TypeScript_and_Frontend_Landscape.md — TS, React vs Angular breadth
+│   └── 38_Compliance_and_Regulated_Systems.md  — GDPR, PCI, audit trails
 │
 ├── 02_DSA/                            ← 100+ Coding Problems (study top to bottom)
 │   ├── README.md                      — DSA overview and problem index
 │   ├── StudyGuide.md                  — Learning paths by career level
+│   ├── Tier3_Differentiators.md       — Hard patterns for Senior/Staff loops
 │   ├── 01_Arrays_Matrix/              — 16 problems (Two Sum, Merge Intervals, etc.)
 │   ├── 02_Strings/                    — 9 problems (Anagrams, Palindromes, KMP, etc.)
-│   ├── 03_Sorting_Searching/          — 3 problems (Merge Sort, Binary Search, etc.)
+│   ├── 03_Sorting_Searching/          — 4 problems (Merge Sort, Binary Search, Koko Eating Bananas)
 │   ├── 04_Sliding_Window_Two_Pointers/ — 5+ problems (Min Window, Max Subarray, etc.)
 │   ├── 05_Linked_Lists/               — 8 problems (Reverse, Merge, Cycle, etc.)
 │   ├── 06_Stacks_Queues/              — 6 problems (Valid Parentheses, etc.)
@@ -79,8 +103,8 @@ PREP/
 ├── 04_SystemDesign/                   ← LLD + HLD Problems + Templates
 │   ├── README.md                      — System design overview and study guide
 │   ├── 00_Templates/                  — HLD & LLD interview templates
-│   ├── 01_LowLevelDesign/            — 6 OOD problems (ParkingLot, BookMyShow, etc.)
-│   └── 02_HighLevelDesign/           — 9 HLD problems (URL Shortener, Chat, Twitter, Uber, Payment)
+│   ├── 01_LowLevelDesign/            — 9 OOD problems (ParkingLot, ATM, Food Delivery, etc.)
+│   └── 02_HighLevelDesign/           — 18 HLD problems (Chat, Twitter, Web Crawler, YouTube, etc.)
 │
 ├── 05_AI/                             ← AI & Machine Learning for Developers (2026)
 │   ├── README.md                      — Study path, career-level guide
@@ -96,7 +120,7 @@ PREP/
 │   ├── 10_AI_System_Design.md        — AI system design interview problems
 │   └── 11_AI_Ethics_Safety_Governance.md — Responsible AI, bias, PII, compliance
 │
-├── InterviewQuestions.md               ← Top 200 Interview Questions — rapid-fire Q&A
+├── InterviewQuestions.md               ← Top 218 Interview Questions — rapid-fire Q&A
 ├── CodeQuality.md                     ← SOLID, Clean Code, Code Review Checklists
 ├── CrossReferences.md                 ← How DSA concepts map to System Design
 ├── SelfAssessment.md                  ← Topic-by-topic readiness checklists
@@ -113,13 +137,13 @@ You are learning the fundamentals. Focus on understanding, not speed.
 
 | Week | Topic | Resource | Priority |
 |------|-------|----------|----------|
-| 1-2 | Java Basics (OOP, Collections, Streams) | [§01 Modern Java](01_TechGuide/01_Modern_Java_Features.md) (start with basics) | CRITICAL |
-| 3-4 | Spring Boot Basics (DI, REST, Bean Lifecycle) | [§02 Spring Boot](01_TechGuide/02_Advanced_SpringBoot_Java_Internals.md) (Sections 2.3-2.4) | CRITICAL |
+| 1-2 | Java OOP, CS fundamentals, Big-O | [§00A Java OOP](01_TechGuide/00_Java_OOP_Fundamentals.md), [§00C CS](01_TechGuide/00_Computer_Science_Fundamentals.md) | CRITICAL |
+| 3-4 | SQL fundamentals, Web/HTTP basics | [§35 SQL](01_TechGuide/35_SQL_Fundamentals.md), [§00B Web](01_TechGuide/00_Web_Fundamentals.md) | CRITICAL |
 | 5-8 | DSA Core (Arrays, Strings, Lists, Stacks) | [02_DSA/StudyGuide.md — Path 1](02_DSA/StudyGuide.md) | CRITICAL |
 | 9-10 | Trees, Sorting, Binary Search | [02_DSA/StudyGuide.md — Path 1](02_DSA/StudyGuide.md) | HIGH |
-| 11-12 | Basic SQL, REST API design | [§05 Database](01_TechGuide/05_Database_Performance_Tuning.md), [§04 API Design](01_TechGuide/04_API_Design_REST.md) | HIGH |
-| 13-14 | Angular Basics (Components, Routing) | [§08 Angular](01_TechGuide/08_Angular_Frontend_Engineering.md) (basics) | MEDIUM |
-| 15-16 | Basic DP, Greedy, Bit Manipulation | [02_DSA/StudyGuide.md — Path 1](02_DSA/StudyGuide.md) | HIGH |
+| 11-12 | Spring Boot Basics (DI, REST) | [§02 Spring Boot](01_TechGuide/02_Advanced_SpringBoot_Java_Internals.md) (Sections 2.3-2.4) | CRITICAL |
+| 13-14 | REST API design, Angular basics | [§04 API Design](01_TechGuide/04_API_Design_REST.md), [§08 Angular](01_TechGuide/08_Angular_Frontend_Engineering.md) (basics) | HIGH |
+| 15-16 | Basic DP, Greedy + interview playbook | [02_DSA Path 1](02_DSA/StudyGuide.md), [InterviewPlaybook.md](InterviewPlaybook.md) | HIGH |
 
 **Key outcome**: Solve 80% of LeetCode Easy problems. Explain basic Spring Boot and REST.
 
@@ -185,10 +209,13 @@ You own technical direction. Now master everything and lead.
 
 ## Section-by-Section Summary
 
-### TechGuide — What Each Section Covers (read in order 01 → 20)
+### TechGuide — What Each Section Covers (read §00 first for Associate, then 01 → 38)
 
 | # | Section | Key Topics | Relevant From |
 |---|---------|-----------|---------------|
+| 00A | [Java OOP Fundamentals](01_TechGuide/00_Java_OOP_Fundamentals.md) | OOP pillars, equals/hashCode, exceptions, collections intro | All Levels |
+| 00B | [Web & HTTP Fundamentals](01_TechGuide/00_Web_Fundamentals.md) | HTTP methods, status codes, JWT/cookies, REST preview | All Levels |
+| 00C | [CS Fundamentals](01_TechGuide/00_Computer_Science_Fundamentals.md) | Big-O, data structures, recursion, BFS/DFS, DP intuition | All Levels |
 | 01 | [Modern Java (17-21)](01_TechGuide/01_Modern_Java_Features.md) | Records, Sealed Classes, Virtual Threads, Pattern Matching | Mid-Level+ |
 | 02 | [Java & Spring Boot Internals](01_TechGuide/02_Advanced_SpringBoot_Java_Internals.md) | Memory Model, GC (G1GC/ZGC), Concurrency, Bean Lifecycle, OAuth2/JWT | Mid-Level+ |
 | 03 | [Design Patterns & Architecture](01_TechGuide/03_Design_Patterns_SOLID_CleanArch.md) | SOLID, GoF Patterns, CQRS, Clean Architecture, DDD | Mid-Level+ |
@@ -209,6 +236,41 @@ You own technical direction. Now master everything and lead.
 | 18 | [Performance Engineering & JVM](01_TechGuide/18_Performance_Engineering_JVM.md) | JVM tuning, G1/ZGC, JFR, flame graphs, JMH, SLI/SLO | Senior+ |
 | 19 | [Event-Driven Architecture](01_TechGuide/19_Event_Driven_Architecture.md) | Kafka deep dive, Event Sourcing, CQRS, Saga, CDC, Schema Evolution | Senior+ |
 | 20 | [Technical Leadership](01_TechGuide/20_Technical_Leadership_Architecture.md) | ADRs, estimation, post-mortems, code review, mentorship, tech debt | Lead |
+| 21 | [GraphQL & APIs](01_TechGuide/21_GraphQL_and_Alternative_APIs.md) | GraphQL vs REST, Spring GraphQL, DataLoader, federation | Mid-Level+ |
+| 22 | [Kotlin for Java Devs](01_TechGuide/22_Kotlin_for_Java_Developers.md) | Null safety, coroutines, Spring Boot Kotlin, interop | Mid-Level+ |
+| 23 | [SRE & Reliability](01_TechGuide/23_SRE_Reliability_Engineering.md) | SLI/SLO, error budgets, incidents, post-mortems, toil | Senior+ |
+| 24 | [Platform Engineering](01_TechGuide/24_Platform_Engineering_IDP.md) | IDP, golden paths, Backstage, GitOps, DORA | Senior+ |
+| 25 | [Data Engineering](01_TechGuide/25_Data_Engineering_Fundamentals.md) | ETL/ELT, Kafka, Spark, CDC, lakehouse, dbt | Senior+ |
+
+### Databases & Caching (Deep Dives)
+
+| # | Section | Key Topics | Relevant From |
+|---|---------|-----------|---------------|
+| 05 | [Database Performance](01_TechGuide/05_Database_Performance_Tuning.md) | Indexing, N+1, sharding, Redis cache-aside | Mid-Level+ |
+| 26 | [PostgreSQL Deep Dive](01_TechGuide/26_PostgreSQL_Relational_DB_Deep_Dive.md) | MVCC, VACUUM, replication, partitioning, pgvector | Mid-Level+ |
+| 27 | [NoSQL Guide](01_TechGuide/27_NoSQL_Databases_Guide.md) | MongoDB, DynamoDB, Cassandra, CAP | Senior+ |
+| 28 | [Redis Deep Dive](01_TechGuide/28_Redis_Distributed_Caching.md) | Sorted sets, cluster, stampede, distributed locks | Mid-Level+ |
+| 35 | [SQL Fundamentals](01_TechGuide/35_SQL_Fundamentals.md) | JOINs, window functions, CTEs, normalization | All Levels |
+
+### Networking, Cloud & Infrastructure
+
+| # | Section | Key Topics | Relevant From |
+|---|---------|-----------|---------------|
+| 17 | [Networking Protocols](01_TechGuide/17_Networking_Protocols.md) | HTTP/2/3, TLS, DNS, WebSocket, gRPC | Mid-Level+ |
+| 29 | [Advanced Networking](01_TechGuide/29_Advanced_Networking_Infrastructure.md) | VPC, NAT, L4/L7 LB, service mesh, zero trust | Senior+ |
+| 30 | [Kubernetes](01_TechGuide/30_Kubernetes_Deep_Dive.md) | Pods, Ingress, HPA, probes, NetworkPolicy | Senior+ |
+| 31 | [Cloud Computing](01_TechGuide/31_Cloud_Computing_AWS_GCP_Azure.md) | AWS/GCP/Azure, IAM, S3, Lambda, cost optimization | Mid-Level+ |
+| 32 | [OS & Linux](01_TechGuide/32_Operating_Systems_and_Linux.md) | Processes, debugging, epoll, OOM, ulimit | All Levels |
+
+### Engineering Practice & Search
+
+| # | Section | Key Topics | Relevant From |
+|---|---------|-----------|---------------|
+| 33 | [Git & Workflow](01_TechGuide/33_Git_Version_Control_Workflow.md) | Trunk-based, merge vs rebase, PR best practices | All Levels |
+| 34 | [Search & Elasticsearch](01_TechGuide/34_Search_Engines_Elasticsearch.md) | Inverted index, BM25, analyzers, ELK | Senior+ |
+| 36 | [Polyglot Python & Go](01_TechGuide/36_Polyglot_Interview_Python_and_Go.md) | Python/Go DSA syntax, goroutines, GIL | Mid-Level+ |
+| 37 | [TypeScript & Frontend Landscape](01_TechGuide/37_TypeScript_and_Frontend_Landscape.md) | TS types, React vs Angular, SSR, browser security | All Levels |
+| 38 | [Compliance & Regulated Systems](01_TechGuide/38_Compliance_and_Regulated_Systems.md) | GDPR, PCI-DSS, audit trails, PII handling | Senior+ |
 
 ### AI — What Each Section Covers
 
@@ -230,7 +292,9 @@ You own technical direction. Now master everything and lead.
 
 | File | Purpose | When to Use |
 |------|---------|-------------|
-| [InterviewQuestions.md](InterviewQuestions.md) | Top 200 interview questions with one-line answers + section references | Night before interviews |
+| [MASTER_INDEX.md](MASTER_INDEX.md) | Topic → file → round → level — full navigation | Finding any topic quickly |
+| [InterviewPlaybook.md](InterviewPlaybook.md) | 12-week schedule, STAR, coding/SD round protocols | Structured prep plan |
+| [InterviewQuestions.md](InterviewQuestions.md) | Top 218 interview questions with one-line answers + section references | Night before interviews |
 | [CodeQuality.md](CodeQuality.md) | SOLID, Clean Code, naming conventions, anti-patterns, code review checklist | Before any coding round |
 | [CrossReferences.md](CrossReferences.md) | How DSA concepts map to System Design (Arrays → Caches, Trees → DBs, Graphs → Networks) | When connecting DSA to design |
 | [SelfAssessment.md](SelfAssessment.md) | Topic-by-topic readiness checklists with confidence scoring | Weekly self-check |
@@ -253,7 +317,15 @@ Use these keywords in your answers to signal depth to the interviewer.
 | **Cloud / AWS** | VPC, Security Groups, IAM Least Privilege, EKS, RDS, S3, SQS, SNS, ALB, CloudWatch, Secrets Manager |
 | **Resilience** | Cascading Failure, Fail Fast, Exponential Backoff + Jitter, Blast Radius, Circuit Breaker states |
 | **SAGA Pattern** | Compensating Transaction, Orchestration vs Choreography, Outbox Pattern, Idempotency Key |
-| **Database** | Covering Index, Partition Pruning, Leftmost Prefix Rule, N+1 Problem, EXPLAIN ANALYZE |
+| **Database** | Covering Index, Partition Pruning, Leftmost Prefix Rule, N+1 Problem, MVCC, WAL, VACUUM |
+| **NoSQL** | Partition Key, Hot Partition, GSI, LSM Tree, Tunable Consistency, QUORUM |
+| **Redis** | Cache-Aside, Cache Stampede, Sorted Set, Hash Slots, SET NX, AOF |
+| **Networking** | VPC, NAT, Security Group, L4/L7 LB, mTLS, Zero Trust, GeoDNS |
+| **Kubernetes** | Reconciliation Loop, Readiness Probe, HPA, Ingress, NetworkPolicy, etcd |
+| **Cloud** | IAM Least Privilege, S3 Presigned URL, SQS vs SNS, Shared Responsibility |
+| **Linux** | Context Switch, epoll, OOM Killer, ulimit, File Descriptor |
+| **SQL** | Window Functions, CTE, LEFT JOIN, HAVING vs WHERE, Covering Index |
+| **Elasticsearch** | Inverted Index, BM25, Shard, Analyzer, Bool Query |
 | **Caching** | Cache-Aside, Cache Stampede, TTL, Eviction Policy, Near-Cache, Write-Behind |
 | **System Design** | CAP Theorem, PACELC, Consistent Hashing, Strangler Fig, Anti-Corruption Layer |
 | **Kubernetes** | Desired State, Reconciliation Loop, Readiness Probe, HPA, Pod Disruption Budget, Graceful Shutdown |

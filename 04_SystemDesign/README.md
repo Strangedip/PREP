@@ -47,7 +47,10 @@ Use the templates when practicing new problems on your own. They give you a repe
 │   ├── ElevatorSystem/ElevatorSystem.md          # State machine, scheduling algorithms
 │   ├── SnakeAndLadder/SnakeAndLadder.md          # Game design, turn-based mechanics
 │   ├── LibraryManagement/LibraryManagement.md    # Domain modeling, CRUD, Observer
-│   └── VendingMachine/VendingMachine.md          # State pattern, finite automata
+│   ├── VendingMachine/VendingMachine.md          # State pattern, finite automata
+│   ├── ATM/ATM.md                                # State, cash dispense, PIN flow
+│   ├── HotelBooking/HotelBooking.md              # Date inventory, double-booking
+│   └── FoodDelivery/FoodDelivery.md              # Order lifecycle, dispatch
 │
 ├── 02_HighLevelDesign/
 │   ├── URLShortener/URLShortener.md              # Encoding, caching, analytics
@@ -58,7 +61,16 @@ Use the templates when practicing new problems on your own. They give you a repe
 │   ├── DistributedCache/DistributedCache.md      # Consistent hashing, eviction, replication
 │   ├── Twitter/Twitter.md                        # Timeline, fan-out, celebrity problem, search
 │   ├── RideSharing/RideSharing.md                # Geospatial indexing, matching, ETA, surge
-│   └── PaymentSystem/PaymentSystem.md            # ACID, idempotency, reconciliation, fraud
+│   ├── PaymentSystem/PaymentSystem.md            # ACID, idempotency, reconciliation, fraud
+│   ├── SearchAutocomplete/SearchAutocomplete.md  # Trie, ranking, cache
+│   ├── FileStorage/FileStorage.md                # Chunking, dedup, sync
+│   ├── VideoStreaming/VideoStreaming.md          # CDN, transcoding, ABR
+│   ├── WhatsApp/WhatsApp.md                      # E2EE, multi-device
+│   ├── Instagram/Instagram.md                    # Media pipeline, Stories TTL
+│   ├── Ticketmaster/Ticketmaster.md              # Seat locking, flash sales
+│   ├── WebCrawler/WebCrawler.md                  # BFS frontier, politeness, dedup
+│   ├── MetricsMonitoring/MetricsMonitoring.md  # Time-series, alerting
+│   └── YouTube/YouTube.md                        # Upload, transcode, recommendations
 │
 └── 00_Templates/
     ├── LLD_Template/LLD_Template.md              # Step-by-step LLD interview framework
@@ -79,6 +91,9 @@ Use the templates when practicing new problems on your own. They give you a repe
 | 4 | **Snake & Ladder** | Medium | Factory, Builder, Command | Game loop, turn management, board generation | [SnakeAndLadder.md](01_LowLevelDesign/SnakeAndLadder/SnakeAndLadder.md) |
 | 5 | **Library Management** | Medium | Observer, Strategy, Repository | Book tracking, member management, fines | [LibraryManagement.md](01_LowLevelDesign/LibraryManagement/LibraryManagement.md) |
 | 6 | **Vending Machine** | Medium | State, Strategy | Finite state machine, inventory, payment | [VendingMachine.md](01_LowLevelDesign/VendingMachine/VendingMachine.md) |
+| 7 | **ATM** | Medium | State, Strategy, Chain | PIN, cash dispense, transaction audit | [ATM.md](01_LowLevelDesign/ATM/ATM.md) |
+| 8 | **Hotel Booking** | Medium | Strategy, Repository | Date-range inventory, double-booking prevention | [HotelBooking.md](01_LowLevelDesign/HotelBooking/HotelBooking.md) |
+| 9 | **Food Delivery** | Hard | State, Strategy, Observer | Order lifecycle, agent assignment | [FoodDelivery.md](01_LowLevelDesign/FoodDelivery/FoodDelivery.md) |
 
 ### What Interviewers Evaluate in LLD
 
@@ -99,11 +114,14 @@ Use the templates when practicing new problems on your own. They give you a repe
 1. Parking Lot — Strategy and Factory patterns, straightforward requirements
 2. Vending Machine — State pattern, finite state machine
 3. Snake & Ladder — Game design, command pattern
+4. ATM — State machine, transaction flow
 
 **Then advance to** (More complex domains):
-4. Library Management — Domain modeling, multiple interacting entities
-5. BookMyShow — Concurrency, seat locking, real-world complexity
-6. Elevator System — Complex scheduling, state machines, multi-component design
+5. Library Management — Domain modeling, multiple interacting entities
+6. Hotel Booking — Date-range inventory, double-booking prevention
+7. BookMyShow — Concurrency, seat locking, real-world complexity
+8. Food Delivery — Order state machine, assignment strategy
+9. Elevator System — Complex scheduling, state machines, multi-component design
 
 ---
 
@@ -122,6 +140,15 @@ Use the templates when practicing new problems on your own. They give you a repe
 | 7 | **Twitter** | Hard | Fan-out, Timeline, Social Graph | 500M tweets/day | [Twitter.md](02_HighLevelDesign/Twitter/Twitter.md) |
 | 8 | **Ride-Sharing (Uber)** | Hard | Geospatial, Matching, Surge | 20M rides/day | [RideSharing.md](02_HighLevelDesign/RideSharing/RideSharing.md) |
 | 9 | **Payment System** | Hard | ACID, Idempotency, Reconciliation | $1B+ daily volume | [PaymentSystem.md](02_HighLevelDesign/PaymentSystem/PaymentSystem.md) |
+| 10 | **Search Autocomplete** | Hard | Trie, Ranking, Cache | 500K QPS peak | [SearchAutocomplete.md](02_HighLevelDesign/SearchAutocomplete/SearchAutocomplete.md) |
+| 11 | **File Storage (Dropbox)** | Hard | Chunking, Dedup, Sync | 100 PB storage | [FileStorage.md](02_HighLevelDesign/FileStorage/FileStorage.md) |
+| 12 | **Video Streaming** | Hard | CDN, Transcoding, ABR | 100M concurrent | [VideoStreaming.md](02_HighLevelDesign/VideoStreaming/VideoStreaming.md) |
+| 13 | **WhatsApp (E2EE Messaging)** | Hard | Signal protocol, multi-device, encrypted media | 50B msg/day | [WhatsApp.md](02_HighLevelDesign/WhatsApp/WhatsApp.md) |
+| 14 | **Instagram** | Hard | Media pipeline, CDN, Stories TTL, fan-out | 100M photos/day | [Instagram.md](02_HighLevelDesign/Instagram/Instagram.md) |
+| 15 | **Ticketmaster** | Hard | Seat locking, Redis atomic holds, flash sales | 1M users/hour on-sale | [Ticketmaster.md](02_HighLevelDesign/Ticketmaster/Ticketmaster.md) |
+| 16 | **Web Crawler** | Hard | BFS frontier, politeness, dedup, Bloom filter | 1B+ pages | [WebCrawler.md](02_HighLevelDesign/WebCrawler/WebCrawler.md) |
+| 17 | **Metrics & Monitoring** | Hard | Time-series DB, cardinality, alerting | 10M+ metrics/sec | [MetricsMonitoring.md](02_HighLevelDesign/MetricsMonitoring/MetricsMonitoring.md) |
+| 18 | **YouTube** | Hard | Upload, transcode, CDN, recommendations | 500 hrs/min upload | [YouTube.md](02_HighLevelDesign/YouTube/YouTube.md) |
 
 ### What Interviewers Evaluate in HLD
 
@@ -155,6 +182,12 @@ Use the templates when practicing new problems on your own. They give you a repe
 7. Twitter — Social graph, fan-out trade-offs, celebrity problem, search and trends
 8. Ride-Sharing (Uber) — Geospatial indexing, real-time matching, dynamic pricing, ETA
 9. Payment System — Financial transactions, ACID, idempotency, reconciliation, fraud
+10. WhatsApp — E2EE (Signal), multi-device keys, encrypted media, backup
+11. Instagram — Media pipeline, CDN, Stories TTL, hybrid fan-out
+12. Ticketmaster — Atomic seat holds, flash sales, idempotent checkout
+13. Web Crawler — BFS frontier, politeness, dedup at scale
+14. Metrics & Monitoring — Time-series storage, cardinality, alerting
+15. YouTube — Upload pipeline, transcoding, CDN, recommendations
 
 ---
 
@@ -264,17 +297,15 @@ Use these numbers for quick back-of-the-envelope calculations in HLD interviews.
 
 ## Additional HLD Problems to Practice (Not in Repo)
 
-These are common in Lead Engineer interviews. Use the HLD Template to practice them:
+Use the [HLD Template](00_Templates/HLD_Template/HLD_Template.md) for these common Lead-level prompts:
 
-| # | Problem | Key Concepts to Cover |
-|---|---------|----------------------|
-| 1 | **Design YouTube** | Video upload, transcoding, CDN, recommendations |
-| 2 | **Design WhatsApp** | End-to-end encryption, group messaging, media, backup |
-| 3 | **Design Google Drive** | File sync, chunking, dedup, conflict resolution |
-| 4 | **Design Instagram** | Image storage, CDN, news feed, stories, explore |
-| 5 | **Design Typeahead** | Trie, prefix search, ranking, distributed autocomplete |
-| 6 | **Design Web Crawler** | BFS/DFS, politeness, dedup, distributed crawling |
-| 7 | **Design Ticket Master** | Inventory, seat locking, payments, high concurrency |
+| # | Problem | Key Concepts | Related in Repo |
+|---|---------|--------------|-----------------|
+| 1 | **Design Google Drive** | File sync, chunking, dedup, conflict resolution | [FileStorage](02_HighLevelDesign/FileStorage/FileStorage.md) |
+| 2 | **Design Typeahead** | Trie, prefix search, ranking | [SearchAutocomplete](02_HighLevelDesign/SearchAutocomplete/SearchAutocomplete.md) |
+| 3 | **Design Distributed Job Scheduler** | Leader election, task queue, at-least-once | [NotificationSystem](02_HighLevelDesign/NotificationSystem/NotificationSystem.md) |
+
+**Now in repo**: WhatsApp, Instagram, Ticketmaster, **Web Crawler**, **Metrics/Monitoring**, **YouTube** (extends [VideoStreaming](02_HighLevelDesign/VideoStreaming/VideoStreaming.md)).
 
 ---
 
@@ -283,15 +314,14 @@ These are common in Lead Engineer interviews. Use the HLD Template to practice t
 | # | Problem | Key Patterns |
 |---|---------|-------------|
 | 1 | **Design Chess** | State, Strategy, Command, Observer |
-| 2 | **Design ATM** | State, Chain of Responsibility |
-| 3 | **Design Hotel Booking** | Strategy (pricing), Observer, Repository |
-| 4 | **Design File System** | Composite, Iterator |
-| 5 | **Design Tic-Tac-Toe** | State, Strategy (AI), Observer |
-| 6 | **Design Online Shopping Cart** | Strategy (discount), Observer, Factory |
-| 7 | **Design Stack Overflow** | Observer, Strategy (ranking), Repository |
-| 8 | **Design Splitwise** | Strategy, Observer, graph algorithms |
-| 9 | **Design Car Rental** | Strategy (pricing), State, Factory |
-| 10 | **Design Food Delivery** | State, Strategy, Observer, Factory |
+| 2 | **Design File System** | Composite, Iterator |
+| 3 | **Design Tic-Tac-Toe** | State, Strategy (AI), Observer |
+| 4 | **Design Online Shopping Cart** | Strategy (discount), Observer, Factory |
+| 5 | **Design Stack Overflow** | Observer, Strategy (ranking), Repository |
+| 6 | **Design Splitwise** | Strategy, Observer, graph algorithms |
+| 7 | **Design Car Rental** | Strategy (pricing), State, Factory |
+
+**Now in repo**: **ATM**, **Hotel Booking**, **Food Delivery** — plus Parking Lot, BookMyShow, Elevator, Library, Vending Machine, Snake & Ladder.
 
 ---
 

@@ -12,6 +12,27 @@
 
 ---
 
+## Section 0: Fundamentals (Start Here — Associate)
+
+**Guide Reference**: [00_Java_OOP_Fundamentals.md](01_TechGuide/00_Java_OOP_Fundamentals.md), [00_Computer_Science_Fundamentals.md](01_TechGuide/00_Computer_Science_Fundamentals.md), [00_Web_Fundamentals.md](01_TechGuide/00_Web_Fundamentals.md), [35_SQL_Fundamentals.md](01_TechGuide/35_SQL_Fundamentals.md)
+
+| # | Topic | Can You Explain? | Confidence (1-5) |
+|---|-------|-----------------|-------------------|
+| 0.1 | OOP four pillars with Java examples | ☐ | ___ |
+| 0.2 | equals(), hashCode(), and HashMap contract | ☐ | ___ |
+| 0.3 | Big-O: O(1), O(n), O(n log n), O(n²) | ☐ | ___ |
+| 0.4 | Array vs LinkedList trade-offs | ☐ | ___ |
+| 0.5 | HTTP methods and idempotency (GET, POST, PUT, DELETE) | ☐ | ___ |
+| 0.6 | HTTP status codes: 200, 401, 403, 404, 429, 500 | ☐ | ___ |
+| 0.7 | Cookie vs JWT authentication basics | ☐ | ___ |
+| 0.8 | SQL JOINs (INNER, LEFT) and basic WHERE | ☐ | ___ |
+| 0.9 | Recursion: base case and recursive case | ☐ | ___ |
+| 0.10 | BFS vs DFS — when to use each | ☐ | ___ |
+
+**Your Average Score**: ___ / 5
+
+---
+
 ## Section 1: Java Internals & Memory Model
 
 **Guide Reference**: [02_Advanced_SpringBoot_Java_Internals.md](01_TechGuide/02_Advanced_SpringBoot_Java_Internals.md)
@@ -421,7 +442,7 @@
 
 | # | Topic | Can You Explain? | Confidence (1-5) |
 |---|-------|-----------------|-------------------|
-| 20.1 | OWASP Top 10: Can you name and explain all 10 risks | ☐ | ___ |
+| 20.1 | OWASP Top 10 **2025**: Can you name and explain all 10 risks | ☐ | ___ |
 | 20.2 | Broken Access Control: IDOR, horizontal/vertical privilege escalation, prevention | ☐ | ___ |
 | 20.3 | Injection: SQL injection, XSS — parameterized queries, input validation, CSP | ☐ | ___ |
 | 20.4 | JWT Security: algorithm confusion, token storage, RS256 vs HS256, refresh rotation | ☐ | ___ |
@@ -593,10 +614,168 @@
 
 ---
 
+## Section 28: PostgreSQL & Relational DB Deep Dive
+
+**Guide Reference**: [26_PostgreSQL_Relational_DB_Deep_Dive.md](01_TechGuide/26_PostgreSQL_Relational_DB_Deep_Dive.md)
+
+| # | Topic | Can You Explain? | Confidence (1-5) |
+|---|-------|-----------------|-------------------|
+| 28.1 | MVCC: how PostgreSQL handles concurrent reads/writes | ☐ | ___ |
+| 28.2 | VACUUM and bloat — why it matters | ☐ | ___ |
+| 28.3 | Index types: B-tree, GIN, GiST — when to use | ☐ | ___ |
+| 28.4 | Replication: streaming vs logical | ☐ | ___ |
+| 28.5 | Connection pooling (PgBouncer) at scale | ☐ | ___ |
+| 28.6 | pgvector for embeddings / similarity search | ☐ | ___ |
+
+**Your Average Score**: ___ / 5
+
+---
+
+## Section 29: NoSQL Databases
+
+**Guide Reference**: [27_NoSQL_Databases_Guide.md](01_TechGuide/27_NoSQL_Databases_Guide.md)
+
+| # | Topic | Can You Explain? | Confidence (1-5) |
+|---|-------|-----------------|-------------------|
+| 29.1 | When SQL vs NoSQL — decision framework | ☐ | ___ |
+| 29.2 | MongoDB: document model, sharding basics | ☐ | ___ |
+| 29.3 | DynamoDB: partition key, sort key, GSI | ☐ | ___ |
+| 29.4 | Cassandra: wide-column, partition key design | ☐ | ___ |
+| 29.5 | CAP trade-offs in NoSQL systems | ☐ | ___ |
+
+**Your Average Score**: ___ / 5
+
+---
+
+## Section 30: Redis & Distributed Caching
+
+**Guide Reference**: [28_Redis_Distributed_Caching.md](01_TechGuide/28_Redis_Distributed_Caching.md)
+
+| # | Topic | Can You Explain? | Confidence (1-5) |
+|---|-------|-----------------|-------------------|
+| 30.1 | Redis data structures: String, Hash, Set, ZSet, Stream | ☐ | ___ |
+| 30.2 | Cache-aside vs read-through vs write-through | ☐ | ___ |
+| 30.3 | Cache stampede and mitigation (lock, early expiry) | ☐ | ___ |
+| 30.4 | Distributed lock with Redis (Redisson, TTL caveats) | ☐ | ___ |
+| 30.5 | Redis Cluster vs Sentinel | ☐ | ___ |
+
+**Your Average Score**: ___ / 5
+
+---
+
+## Section 31: Advanced Networking & Infrastructure
+
+**Guide Reference**: [29_Advanced_Networking_Infrastructure.md](01_TechGuide/29_Advanced_Networking_Infrastructure.md)
+
+| # | Topic | Can You Explain? | Confidence (1-5) |
+|---|-------|-----------------|-------------------|
+| 31.1 | VPC, subnets, public vs private | ☐ | ___ |
+| 31.2 | Load balancer L4 vs L7 | ☐ | ___ |
+| 31.3 | DNS resolution flow and TTL | ☐ | ___ |
+| 31.4 | Zero trust networking basics | ☐ | ___ |
+
+**Your Average Score**: ___ / 5
+
+---
+
+## Section 32: Kubernetes Deep Dive
+
+**Guide Reference**: [30_Kubernetes_Deep_Dive.md](01_TechGuide/30_Kubernetes_Deep_Dive.md)
+
+| # | Topic | Can You Explain? | Confidence (1-5) |
+|---|-------|-----------------|-------------------|
+| 32.1 | Pod, Deployment, Service, Ingress | ☐ | ___ |
+| 32.2 | Liveness vs readiness probes | ☐ | ___ |
+| 32.3 | HPA and resource requests/limits | ☐ | ___ |
+| 32.4 | ConfigMap vs Secret | ☐ | ___ |
+| 32.5 | Network policies and pod security | ☐ | ___ |
+
+**Your Average Score**: ___ / 5
+
+---
+
+## Section 33: Cloud Computing (AWS/GCP/Azure)
+
+**Guide Reference**: [31_Cloud_Computing_AWS_GCP_Azure.md](01_TechGuide/31_Cloud_Computing_AWS_GCP_Azure.md)
+
+| # | Topic | Can You Explain? | Confidence (1-5) |
+|---|-------|-----------------|-------------------|
+| 33.1 | IAM: users, roles, policies — least privilege | ☐ | ___ |
+| 33.2 | S3 storage classes and lifecycle | ☐ | ___ |
+| 33.3 | Lambda use cases and cold start | ☐ | ___ |
+| 33.4 | Well-Architected pillars (overview) | ☐ | ___ |
+
+**Your Average Score**: ___ / 5
+
+---
+
+## Section 34: Linux & Operating Systems
+
+**Guide Reference**: [32_Operating_Systems_and_Linux.md](01_TechGuide/32_Operating_Systems_and_Linux.md)
+
+| # | Topic | Can You Explain? | Confidence (1-5) |
+|---|-------|-----------------|-------------------|
+| 34.1 | Process vs thread | ☐ | ___ |
+| 34.2 | Debugging high CPU / memory on Linux | ☐ | ___ |
+| 34.3 | File descriptors and epoll (high level) | ☐ | ___ |
+| 34.4 | OOM killer and container limits | ☐ | ___ |
+
+**Your Average Score**: ___ / 5
+
+---
+
+## Section 35: Git & Version Control
+
+**Guide Reference**: [33_Git_Version_Control_Workflow.md](01_TechGuide/33_Git_Version_Control_Workflow.md)
+
+| # | Topic | Can You Explain? | Confidence (1-5) |
+|---|-------|-----------------|-------------------|
+| 35.1 | Merge vs rebase — when to use each | ☐ | ___ |
+| 35.2 | Trunk-based development vs GitFlow | ☐ | ___ |
+| 35.3 | PR best practices and code review | ☐ | ___ |
+| 35.4 | git bisect and revert for incidents | ☐ | ___ |
+
+**Your Average Score**: ___ / 5
+
+---
+
+## Section 36: Search (Elasticsearch)
+
+**Guide Reference**: [34_Search_Engines_Elasticsearch.md](01_TechGuide/34_Search_Engines_Elasticsearch.md)
+
+| # | Topic | Can You Explain? | Confidence (1-5) |
+|---|-------|-----------------|-------------------|
+| 36.1 | Inverted index — how search works | ☐ | ___ |
+| 36.2 | BM25 vs TF-IDF (high level) | ☐ | ___ |
+| 36.3 | ELK stack components | ☐ | ___ |
+| 36.4 | When Elasticsearch vs database full-text | ☐ | ___ |
+
+**Your Average Score**: ___ / 5
+
+---
+
+## Section 37: Polyglot, Frontend & Compliance
+
+**Guide Reference**: [36_Polyglot_Interview_Python_and_Go.md](01_TechGuide/36_Polyglot_Interview_Python_and_Go.md), [37_TypeScript_and_Frontend_Landscape.md](01_TechGuide/37_TypeScript_and_Frontend_Landscape.md), [38_Compliance_and_Regulated_Systems.md](01_TechGuide/38_Compliance_and_Regulated_Systems.md)
+
+| # | Topic | Can You Explain? | Confidence (1-5) |
+|---|-------|-----------------|-------------------|
+| 37.1 | Python DSA: dict, deque, list comprehensions | ☐ | ___ |
+| 37.2 | Go: goroutines, channels, error handling | ☐ | ___ |
+| 37.3 | TypeScript vs Java typing (structural vs nominal) | ☐ | ___ |
+| 37.4 | Angular vs React — trade-offs for enterprise | ☐ | ___ |
+| 37.5 | GDPR erasure — technical implementation | ☐ | ___ |
+| 37.6 | PCI scope reduction (tokenization, hosted fields) | ☐ | ___ |
+
+**Your Average Score**: ___ / 5
+
+---
+
 ## Overall Readiness Score
 
 | Section | Topic | Your Score |
 |---------|-------|------------|
+| 0 | Fundamentals (OOP, CS, Web, SQL basics) | ___ / 5 |
 | 1 | Java Internals & Memory Model | ___ / 5 |
 | 2 | Java Concurrency | ___ / 5 |
 | 3 | Spring Boot Internals | ___ / 5 |
@@ -624,17 +803,27 @@
 | 25 | Performance Engineering & JVM Tuning | ___ / 5 |
 | 26 | Event-Driven Architecture | ___ / 5 |
 | 27 | Technical Leadership & Architecture | ___ / 5 |
-| **TOTAL** | | **___ / 135** |
+| 28 | PostgreSQL Deep Dive | ___ / 5 |
+| 29 | NoSQL Databases | ___ / 5 |
+| 30 | Redis & Distributed Caching | ___ / 5 |
+| 31 | Advanced Networking | ___ / 5 |
+| 32 | Kubernetes Deep Dive | ___ / 5 |
+| 33 | Cloud Computing | ___ / 5 |
+| 34 | Linux & OS | ___ / 5 |
+| 35 | Git & Version Control | ___ / 5 |
+| 36 | Elasticsearch / Search | ___ / 5 |
+| 37 | Polyglot, Frontend & Compliance | ___ / 5 |
+| **TOTAL** | | **___ / 190** |
 
 ### Readiness Interpretation
 
 | Total Score | Readiness Level | Recommendation |
 |-------------|----------------|----------------|
-| **115-135** | Interview-Ready | Schedule interviews with confidence |
-| **95-114** | Almost Ready | Focus on weak sections for 1-2 more weeks |
-| **70-94** | Making Progress | Need 3-4 more weeks of focused study |
-| **50-69** | Building Foundation | Need 6-8 more weeks, follow the learning path |
-| **< 50** | Starting Out | Follow the full 12-week learning path from Phase 1 |
+| **160-190** | Interview-Ready | Schedule interviews with confidence |
+| **130-159** | Almost Ready | Focus on weak sections for 1-2 more weeks |
+| **95-129** | Making Progress | Need 3-4 more weeks of focused study |
+| **65-94** | Building Foundation | Need 6-8 more weeks, follow the learning path |
+| **< 65** | Starting Out | Start §00 fundamentals + DSA Path 1 — see [InterviewPlaybook.md](InterviewPlaybook.md) |
 
 ---
 

@@ -25,6 +25,7 @@ Problems are grouped by data structure/algorithm category. Within each category,
 02_DSA/
 ├── README.md                        # This file — DSA overview and problem index
 ├── StudyGuide.md                    # Learning paths by career level + difficulty progression
+├── Tier3_Differentiators.md         # Hard patterns for Senior/Staff loops
 │
 ├── 01_Arrays_Matrix/                # 16 problems — Two pointers, prefix sums, binary search
 ├── 02_Strings/                      # 9 problems — Sliding window, hashing, pattern matching
@@ -129,6 +130,7 @@ Fundamental algorithms. Understanding these is a prerequisite for many interview
 | [Merge Sort](03_Sorting_Searching/MergeSort/MergeSort.md) | Divide & Conquer | Medium |
 | [Quick Sort](03_Sorting_Searching/QuickSort/QuickSort.md) | Partition | Medium |
 | [Binary Search](03_Sorting_Searching/BinarySearch/BinarySearch.md) | Divide & Conquer | Easy |
+| [Koko Eating Bananas](03_Sorting_Searching/KokoEatingBananas/KokoEatingBananas.md) | Binary Search on Answer | Medium |
 
 ### 04. Sliding Window & Two Pointers (5+ Problems)
 
