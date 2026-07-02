@@ -1,5 +1,9 @@
 # Daily Temperatures
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Monotonic Stack](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-14-monotonic-stack) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Given an array of daily temperatures, return an array where each element represents how many days you have to wait until a warmer temperature. If there is no warmer day, return 0.
 
@@ -20,6 +24,32 @@ Explanation:
 2. **Find first day** with higher temperature
 3. **Calculate waiting days**
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: T=[73,74,75,71,69,72,76,73]"]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: T=[73,74,75,71,69,72,76,73] → [1,1,4,2,1,1,0,0]
+Approach: Brute Force
+
+Enumerate all candidates from example input
+Check validity/optimal condition
+Keep best answer found
+```
+
 ### Time & Space Complexity:
 - **Time:** O(n²) - Nested loops
 - **Space:** O(1) - Only result array
@@ -32,6 +62,33 @@ Explanation:
 3. **Maintain decreasing temperature order** in stack
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: T=[73,74,75,71,69,72,76,73]"]
+    START --> PUSH["Push index / value"]
+    PUSH --> TOP{"Violates monotonic order?"}
+    TOP -->|yes| POP["Pop and resolve"]
+    POP --> TOP
+    TOP -->|no| NEXT{"More input?"}
+    NEXT -->|yes| PUSH
+    NEXT -->|no| DONE["Return answer"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: T=[73,74,75,71,69,72,76,73] → [1,1,4,2,1,1,0,0]
+Approach: Monotonic Stack (Optimal!)
+
+Push indices/values on stack
+Pop when current resolves pending
+Stack top gives next greater / valid match
+```
 ```java
 int[] result = new int[temperatures.length];
 Stack<Integer> stack = new Stack<>(); // Store indices

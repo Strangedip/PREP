@@ -1,5 +1,9 @@
 # Min Stack
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Data Structure Design](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-recognition-decision-tree) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
 
@@ -23,6 +27,33 @@ minStack.getMin(); // return -2
 3. **Sync operations** between both stacks
 
 ### Implementation:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: push(-2), push(0), push(-3), getMin()"]
+    START --> PUSH["Push index / value"]
+    PUSH --> TOP{"Violates monotonic order?"}
+    TOP -->|yes| POP["Pop and resolve"]
+    POP --> TOP
+    TOP -->|no| NEXT{"More input?"}
+    NEXT -->|yes| PUSH
+    NEXT -->|no| DONE["Return answer"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: push(-2), push(0), push(-3), getMin()→-3, pop(), getMin()→-2
+Approach: Two Stacks
+
+Push indices/values on stack
+Pop when current resolves pending
+Stack top gives next greater / valid match
+```
 ```java
 class MinStack {
     private Stack<Integer> stack;
@@ -73,6 +104,33 @@ class MinStack {
 3. **Single stack** with more memory per element
 
 ### Implementation:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: push(-2), push(0), push(-3), getMin()"]
+    START --> PUSH["Push index / value"]
+    PUSH --> TOP{"Violates monotonic order?"}
+    TOP -->|yes| POP["Pop and resolve"]
+    POP --> TOP
+    TOP -->|no| NEXT{"More input?"}
+    NEXT -->|yes| PUSH
+    NEXT -->|no| DONE["Return answer"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: push(-2), push(0), push(-3), getMin()→-3, pop(), getMin()→-2
+Approach: Single Stack with Pairs
+
+Push indices/values on stack
+Pop when current resolves pending
+Stack top gives next greater / valid match
+```
 ```java
 class MinStack {
     private Stack<int[]> stack; // [value, min]
@@ -112,6 +170,33 @@ class MinStack {
 3. **Space optimized** for mostly increasing sequences
 
 ### Implementation:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: push(-2), push(0), push(-3), getMin()"]
+    START --> PUSH["Push index / value"]
+    PUSH --> TOP{"Violates monotonic order?"}
+    TOP -->|yes| POP["Pop and resolve"]
+    POP --> TOP
+    TOP -->|no| NEXT{"More input?"}
+    NEXT -->|yes| PUSH
+    NEXT -->|no| DONE["Return answer"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: push(-2), push(0), push(-3), getMin()→-3, pop(), getMin()→-2
+Approach: Single Stack with Difference
+
+Push indices/values on stack
+Pop when current resolves pending
+Stack top gives next greater / valid match
+```
 ```java
 class MinStack {
     private Stack<Long> stack;

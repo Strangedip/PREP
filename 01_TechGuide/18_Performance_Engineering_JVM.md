@@ -3,6 +3,9 @@
 > **Level**: SENIOR+ to LEAD
 > **Why This Matters**: Lead engineers are expected to diagnose production performance issues, tune JVM settings, profile applications, and set SLAs. This is what separates a coder from an engineer who owns system performance.
 
+> **You are here**: Senior SDE — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [17_Networking_Protocols.md](17_Networking_Protocols.md) | **Next**: [19_Event_Driven_Architecture.md](19_Event_Driven_Architecture.md)
+
 ---
 
 ## 18.1 JVM Architecture — The Runtime

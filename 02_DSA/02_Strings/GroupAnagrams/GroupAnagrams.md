@@ -1,5 +1,9 @@
 # Group Anagrams (LeetCode 49)
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Hash Map / Set](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-1-two-pointers) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given an array of strings `strs`, group the anagrams together. You can return the answer in any order.
@@ -42,6 +46,29 @@ Two strings are anagrams if and only if their sorted forms are identical. For ex
 
 ### Complete Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: strs=["eat","tea","tan","ate","nat","bat"]"]
+    START --> STEP1["Sort Each String as Key: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: strs=["eat","tea","tan","ate","nat","bat"] → [["bat"],["nat","tan"],["ate","eat","tea"]]
+Approach: Sort Each String as Key
+
+Apply Sort Each String as Key on the example input step by step
+Final answer from example: see above
+```
 ```java
 import java.util.*;
 
@@ -99,6 +126,29 @@ Instead of sorting (which costs O(k log k) per string), count the frequency of e
 
 ### Complete Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: strs=["eat","tea","tan","ate","nat","bat"]"]
+    START --> STEP1["Character Count Array as Key (Optimal): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: strs=["eat","tea","tan","ate","nat","bat"] → [["bat"],["nat","tan"],["ate","eat","tea"]]
+Approach: Character Count Array as Key (Optimal)
+
+Apply Character Count Array as Key (Optimal) on the example input step by step
+Final answer from example: see above
+```
 ```java
 import java.util.*;
 
@@ -163,6 +213,34 @@ Without a delimiter, the count array `[1, 12, 3]` and `[11, 2, 3]` would produce
 
 Assign a unique prime number to each letter (a=2, b=3, c=5, d=7, ...). The product of primes for a string is unique for each anagram group (by the Fundamental Theorem of Arithmetic: every integer has a unique prime factorization).
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: strs=["eat","tea","tan","ate","nat","bat"]"]
+    START --> UF["Init Union-Find"]
+    UF --> EDGE["Process each edge"]
+    EDGE --> JOIN{"Same component?"}
+    JOIN -->|no| MERGE["Union sets"]
+    JOIN -->|yes| SKIP["Skip / record bridge"]
+    MERGE --> EDGE
+    SKIP --> EDGE
+    EDGE --> DONE["Return components / cost"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: strs=["eat","tea","tan","ate","nat","bat"] → [["bat"],["nat","tan"],["ate","eat","tea"]]
+Approach: Prime Number Product (Mathematical)
+
+Build adjacency from input
+Union edges or relax distances
+Return components / shortest cost
+```
 ```java
 public List<List<String>> groupAnagrams(String[] strs) {
     int[] primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47,
@@ -253,3 +331,26 @@ Use external sorting: sort each string, write to disk with the original string, 
 3. **Know `computeIfAbsent`**: This one-liner `map.computeIfAbsent(key, k -> new ArrayList<>()).add(str)` is cleaner than the traditional `containsKey` check and demonstrates Java 8+ fluency.
 4. **Mention the delimiter issue**: If you use the count array approach, proactively explain why the delimiter is needed. This shows attention to correctness.
 5. **Be ready for follow-ups**: Unicode handling, streaming input, and memory-constrained scenarios are common follow-up questions.
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: strs=["eat","tea","tan","ate","nat","bat"]"]
+    START --> STEP1["Approach 4: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: strs=["eat","tea","tan","ate","nat","bat"] → [["bat"],["nat","tan"],["ate","eat","tea"]]
+Approach: Approach 4
+
+Apply Approach 4 on the example input step by step
+Final answer from example: see above
+```
+

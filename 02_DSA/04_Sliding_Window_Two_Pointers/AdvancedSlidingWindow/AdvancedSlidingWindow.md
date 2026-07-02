@@ -1,5 +1,9 @@
 # Advanced Sliding Window Patterns
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Sliding Window](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-2-sliding-window) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Advanced sliding window techniques that go beyond basic fixed-size windows, essential for solving complex array/string problems efficiently.
 
@@ -13,6 +17,32 @@ Advanced sliding window techniques that go beyond basic fixed-size windows, esse
 ## Pattern 1: Variable Size Sliding Window
 
 ### Template for "At Most K" Problems:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,3,-1,-3,5,3,6,7], k=3"]
+    START --> INIT["Init left=0, right=end"]
+    INIT --> WINDOW["Adjust window / pointers"]
+    WINDOW --> UPDATE["Update best answer"]
+    UPDATE --> MORE{"More elements?"}
+    MORE -->|yes| WINDOW
+    MORE -->|no| DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,3,-1,-3,5,3,6,7], k=3 → max window sums
+Approach: Fixed Window
+
+Initialize two pointers at boundaries
+Move pointer that improves constraint
+Update best answer each step
+```
 ```java
 public int atMostK(int[] nums, int k) {
     int left = 0, result = 0;
@@ -98,6 +128,32 @@ public int subarraySum(int[] nums, int k) {
 ## Pattern 2: Sliding Window Maximum/Minimum
 
 ### Using Deque for Sliding Window Maximum:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,3,-1,-3,5,3,6,7], k=3"]
+    START --> INIT["Init left=0, right=end"]
+    INIT --> WINDOW["Adjust window / pointers"]
+    WINDOW --> UPDATE["Update best answer"]
+    UPDATE --> MORE{"More elements?"}
+    MORE -->|yes| WINDOW
+    MORE -->|no| DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,3,-1,-3,5,3,6,7], k=3 → max window sums
+Approach: Variable Window
+
+Initialize two pointers at boundaries
+Move pointer that improves constraint
+Update best answer each step
+```
 ```java
 public int[] maxSlidingWindow(int[] nums, int k) {
     int n = nums.length;
@@ -159,6 +215,32 @@ public int[] slidingWindowMinimum(int[] nums, int k) {
 ## Pattern 3: Multiple Sliding Windows
 
 ### Finding All Anagrams:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,3,-1,-3,5,3,6,7], k=3"]
+    START --> INIT["Init left=0, right=end"]
+    INIT --> WINDOW["Adjust window / pointers"]
+    WINDOW --> UPDATE["Update best answer"]
+    UPDATE --> MORE{"More elements?"}
+    MORE -->|yes| WINDOW
+    MORE -->|no| DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,3,-1,-3,5,3,6,7], k=3 → max window sums
+Approach: Deque Window
+
+Initialize two pointers at boundaries
+Move pointer that improves constraint
+Update best answer each step
+```
 ```java
 public List<Integer> findAnagrams(String s, String p) {
     List<Integer> result = new ArrayList<>();
@@ -245,6 +327,32 @@ public String minWindow(String s, String t) {
 ## Pattern 4: Advanced Two Pointers
 
 ### Three Sum Closest:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,3,-1,-3,5,3,6,7], k=3"]
+    START --> INIT["Init left=0, right=end"]
+    INIT --> WINDOW["Adjust window / pointers"]
+    WINDOW --> UPDATE["Update best answer"]
+    UPDATE --> MORE{"More elements?"}
+    MORE -->|yes| WINDOW
+    MORE -->|no| DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,3,-1,-3,5,3,6,7], k=3 → max window sums
+Approach: Deque Window
+
+Initialize two pointers at boundaries
+Move pointer that improves constraint
+Update best answer each step
+```
 ```java
 public int threeSumClosest(int[] nums, int target) {
     Arrays.sort(nums);
@@ -329,6 +437,32 @@ public int trap(int[] height) {
 ## Pattern 5: Sliding Window with Complex Data Structures
 
 ### Sliding Window Median:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,3,-1,-3,5,3,6,7], k=3"]
+    START --> INIT["Init left=0, right=end"]
+    INIT --> WINDOW["Adjust window / pointers"]
+    WINDOW --> UPDATE["Update best answer"]
+    UPDATE --> MORE{"More elements?"}
+    MORE -->|yes| WINDOW
+    MORE -->|no| DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,3,-1,-3,5,3,6,7], k=3 → max window sums
+Approach: Deque Window
+
+Initialize two pointers at boundaries
+Move pointer that improves constraint
+Update best answer each step
+```
 ```java
 public double[] medianSlidingWindow(int[] nums, int k) {
     double[] result = new double[nums.length - k + 1];

@@ -3,6 +3,9 @@
 > **Level**: SR+ (VPC, load balancing, firewalls) to LEAD (multi-region, zero trust, DDoS)
 > **Complements**: [17_Networking_Protocols.md](./17_Networking_Protocols.md) — Section 17 covers protocols (HTTP, TLS, DNS); this section covers **infrastructure networking**.
 
+> **You are here**: Senior SDE — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [28_Redis_Distributed_Caching.md](28_Redis_Distributed_Caching.md) | **Next**: [30_Kubernetes_Deep_Dive.md](30_Kubernetes_Deep_Dive.md)
+
 ---
 
 ## 29.1 IP Addressing & Subnets
@@ -160,3 +163,50 @@ Sidecar proxy (Envoy) on every pod:
 | 10 | Zero trust? | Verify every request; no implicit trust inside network perimeter. |
 
 **Must-say keywords**: VPC, subnet, NAT, IGW, security group, NACL, L4/L7, GeoDNS, mTLS, service mesh, WAF, zero trust.
+
+---
+
+## §29.10 Production & Interview Depth — Multi-AZ India Deployments & Payment Perimeter
+
+Razorpay and PhonePe run in **ap-south-1 (Mumbai)** with DR in **ap-south-2 (Hyderabad)** or cross-region pairs. System design interviews ask how traffic flows during a zone failure while keeping **PCI-scoped subnets** isolated. Networking is not "ops only" — wrong security group on a payment pod is a compliance finding.
+
+### Architecture: Three-Tier VPC for Fintech Checkout
+
+```
+Route 53 (latency routing India) → CloudFront/WAF
+    → ALB (public subnet, TLS 1.3 termination)
+        → EKS worker nodes (private subnet, no public IP)
+            → RDS PostgreSQL (data subnet, SG: only from app SG)
+            → ElastiCache Redis (data subnet)
+NAT Gateway (per AZ) ← outbound PSP webhooks, package pulls
+```
+
+Aligns with [17_Networking_Protocols.md](./17_Networking_Protocols.md) TLS/DNS basics and [30_Kubernetes_Deep_Dive.md](./30_Kubernetes_Deep_Dive.md) for in-cluster `NetworkPolicy`.
+
+### Trade-off: ALB vs NLB vs API Gateway at Festival Edge
+
+| Component | Best for | Cost/latency | Indian sale note |
+|-----------|----------|--------------|------------------|
+| ALB (L7) | Path routing, WAF, OIDC | +2–5ms; rule limits | `/api/checkout` → dedicated target group |
+| NLB (L4) | Millions RPS, static IPs | Lowest latency | gRPC internal, not browser-facing |
+| API Gateway | Throttling, API keys | Higher $ at scale | Partner B2B APIs |
+| CloudFront | Static assets, DDoS absorption | Edge POPs in India | Product images — origin shield in Mumbai |
+
+### Spring Boot Behind ALB: Preserve Client IP & Health
+
+```yaml
+# application.yml — trust X-Forwarded-For from ALB only
+server:
+  forward-headers-strategy: native
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      probes:
+        enabled: true  # K8s liveness/readiness — separate from ALB target health
+```
+
+ALB health check `GET /actuator/health/readiness` — **not** deep DB check (cascade drain during DB blip). Security groups: app tier `ingress 443 from ALB-SG only`; DB tier `ingress 5432 from app-SG only`. Zero-trust extension: Istio mTLS between checkout → payment → ledger services per [06_Microservices_Distributed_Systems.md](./06_Microservices_Distributed_Systems.md). Festival prep: lower DNS TTL to 60s, pre-warm NAT Gateway capacity (avoid SNAT port exhaustion), enable AWS Shield Advanced on public endpoints during high-visibility sales.

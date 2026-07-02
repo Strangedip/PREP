@@ -1,5 +1,9 @@
 # Longest Substring Without Repeating Characters (LeetCode 3)
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Sliding Window](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-2-sliding-window) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given a string `s`, find the length of the longest substring without repeating characters.
@@ -44,6 +48,32 @@ LeetCode #3 is consistently one of the top 5 most-asked problems at Google, Amaz
 
 Check every possible substring and verify it has no repeating characters.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="abcabcbb""]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="abcabcbb" → length 3 ("abc")
+Approach: Brute Force
+
+s="abcabcbb"
+window abc len=3
+shrink at repeat b
+max length = 3
+```
 ```java
 public int lengthOfLongestSubstring(String s) {
     int maxLen = 0;
@@ -84,6 +114,33 @@ Maintain a window `[left, right]` where all characters are unique. Use a HashSet
 
 ### Complete Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="abcabcbb""]
+    START --> BUILD["Build HashMap / Set"]
+    BUILD --> SCAN["Scan input once"]
+    SCAN --> LOOKUP{"Key seen?"}
+    LOOKUP -->|yes| FOUND["Return match"]
+    LOOKUP -->|no| STORE["Store in map"]
+    STORE --> SCAN
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="abcabcbb" → length 3 ("abc")
+Approach: Sliding Window + HashSet
+
+s="abcabcbb"
+window abc len=3
+shrink at repeat b
+max length = 3
+```
 ```java
 import java.util.*;
 
@@ -154,6 +211,33 @@ Instead of removing characters one by one from the left (which can be slow when 
 
 ### Complete Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="abcabcbb""]
+    START --> BUILD["Build HashMap / Set"]
+    BUILD --> SCAN["Scan input once"]
+    SCAN --> LOOKUP{"Key seen?"}
+    LOOKUP -->|yes| FOUND["Return match"]
+    LOOKUP -->|no| STORE["Store in map"]
+    STORE --> SCAN
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="abcabcbb" → length 3 ("abc")
+Approach: Sliding Window + HashMap (Optimized Jump)
+
+s="abcabcbb"
+window abc len=3
+shrink at repeat b
+max length = 3
+```
 ```java
 public int lengthOfLongestSubstring(String s) {
     Map<Character, Integer> charIndex = new HashMap<>();
@@ -231,6 +315,33 @@ right=3: 'a' at 0 (previous), WITHOUT max: left = 0+1 = 1 (WRONG! Goes backward!
 
 If the character set is ASCII (128 characters), use an integer array instead of a HashMap for O(1) lookups.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="abcabcbb""]
+    START --> INIT["Init left=0, right=end"]
+    INIT --> WINDOW["Adjust window / pointers"]
+    WINDOW --> UPDATE["Update best answer"]
+    UPDATE --> MORE{"More elements?"}
+    MORE -->|yes| WINDOW
+    MORE -->|no| DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="abcabcbb" → length 3 ("abc")
+Approach: Sliding Window + Integer Array (Fastest)
+
+s="abcabcbb"
+window abc len=3
+shrink at repeat b
+max length = 3
+```
 ```java
 public int lengthOfLongestSubstring(String s) {
     int[] lastIndex = new int[128];
@@ -274,6 +385,31 @@ This is the fastest approach in practice because array access is faster than Has
 
 This problem is the foundation for a family of sliding window problems:
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="abcabcbb""]
+    START --> STEP1["Approach 5: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="abcabcbb" → length 3 ("abc")
+Approach: Approach 5
+
+s="abcabcbb"
+window abc len=3
+shrink at repeat b
+max length = 3
+```
 ```java
 // Pattern: "Longest/Shortest substring with [constraint]"
 int left = 0, result = 0;

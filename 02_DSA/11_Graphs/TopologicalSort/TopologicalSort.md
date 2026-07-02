@@ -1,5 +1,9 @@
 # Topological Sort
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Topological Sort](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-15-topological-sort) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Given a **directed acyclic graph (DAG)**, return a **topological ordering** of its vertices. A topological ordering is a linear ordering of vertices such that for every directed edge `(u, v)`, vertex `u` comes before `v` in the ordering.
 
@@ -47,6 +51,34 @@ This is a **dependency resolution problem** where we need to find an ordering th
 2. **Record finishing times**: When DFS completes for a vertex, add to result
 3. **Reverse the order**: Later finishing times come first in topological order
 4. **Use stack**: Natural way to reverse the finishing order
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=4, edges=[[1,0],[2,0],[3,1],[3,2]]"]
+    START --> ENQ["Enqueue start node"]
+    ENQ --> Q{"Queue empty?"}
+    Q -->|no| DEQ["Dequeue front"]
+    DEQ --> NEI["Visit unvisited neighbors"]
+    NEI --> ENQ2["Enqueue neighbors"]
+    ENQ2 --> Q
+    Q -->|yes| DONE["Return shortest / order"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=4, edges=[[1,0],[2,0],[3,1],[3,2]] → [0,1,2,3] or [0,2,1,3]
+Approach: DFS-Based Topological Sort
+
+Enqueue start node/level
+Process neighbors level by level
+First reach target = shortest path
+```
 
 #### Time Complexity
 - **O(V + E)** where V = vertices, E = edges
@@ -100,6 +132,34 @@ private void dfs(List<List<Integer>> graph, int vertex, boolean[] visited, Stack
 3. **Process iteratively**: Remove vertex and decrease neighbors' in-degrees
 4. **Add newly zero in-degree vertices**: Continue until queue is empty
 5. **Cycle detection**: If not all vertices processed, cycle exists
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=4, edges=[[1,0],[2,0],[3,1],[3,2]]"]
+    START --> ENQ["Enqueue start node"]
+    ENQ --> Q{"Queue empty?"}
+    Q -->|no| DEQ["Dequeue front"]
+    DEQ --> NEI["Visit unvisited neighbors"]
+    NEI --> ENQ2["Enqueue neighbors"]
+    ENQ2 --> Q
+    Q -->|yes| DONE["Return shortest / order"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=4, edges=[[1,0],[2,0],[3,1],[3,2]] → [0,1,2,3] or [0,2,1,3]
+Approach: Kahn's Algorithm (BFS-Based)
+
+Enqueue start node/level
+Process neighbors level by level
+First reach target = shortest path
+```
 
 #### Time Complexity
 - **O(V + E)** - Each vertex and edge processed once
@@ -159,6 +219,32 @@ public List<Integer> topologicalSortKahn(int numVertices, int[][] edges) {
 3. **Post-order addition**: Add to result only after visiting all descendants
 
 #### Cycle Detection Logic
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=4, edges=[[1,0],[2,0],[3,1],[3,2]]"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=4, edges=[[1,0],[2,0],[3,1],[3,2]] → [0,1,2,3] or [0,2,1,3]
+Approach: DFS with Cycle Detection
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
 ```java
 private boolean hasCycleDFS(List<List<Integer>> graph, int vertex, int[] state, Stack<Integer> stack) {
     state[vertex] = 1;  // Mark as visiting
@@ -187,6 +273,30 @@ private boolean hasCycleDFS(List<List<Integer>> graph, int vertex, int[] state, 
 1. **Replace queue with min-heap**: Always process smallest available vertex
 2. **Same logic as Kahn's**: But with ordered processing
 3. **Guarantees unique result**: Among all valid orderings, returns lexicographically smallest
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=4, edges=[[1,0],[2,0],[3,1],[3,2]]"]
+    START --> STEP1["Lexicographically Smallest Ordering: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=4, edges=[[1,0],[2,0],[3,1],[3,2]] → [0,1,2,3] or [0,2,1,3]
+Approach: Lexicographically Smallest Ordering
+
+Apply Lexicographically Smallest Ordering on the example input step by step
+Final answer from example: see above
+```
 
 #### Time Complexity
 - **O(V log V + E)** due to priority queue operations
@@ -254,6 +364,9 @@ public boolean canFinish(int numCourses, int[][] prerequisites) {
 ```
 
 ### 2. Alien Dictionary (LeetCode 269)
+
+Full repo solution: [AlienDictionary](../AlienDictionary/AlienDictionary.md)
+
 ```java
 public String alienOrder(String[] words) {
     // Build graph from word comparisons
@@ -316,6 +429,29 @@ Find longest path in DAG (scheduling applications).
 5. **Code cleanly**: Clear variable names and logic flow
 
 ### Code Template
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=4, edges=[[1,0],[2,0],[3,1],[3,2]]"]
+    START --> STEP1["Approach 5: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=4, edges=[[1,0],[2,0],[3,1],[3,2]] → [0,1,2,3] or [0,2,1,3]
+Approach: Approach 5
+
+Apply Approach 5 on the example input step by step
+Final answer from example: see above
+```
 ```java
 public List<Integer> topologicalSort(int numVertices, int[][] edges) {
     // 1. Build adjacency list

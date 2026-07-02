@@ -1,5 +1,9 @@
 # Mathematical Algorithms & Number Theory
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Math / Number Theory](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-recognition-decision-tree) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Mathematical algorithms are essential for solving computational problems involving numbers, primes, divisibility, and modular arithmetic. These are increasingly important in advanced interviews and competitive programming.
 
@@ -13,6 +17,29 @@ Mathematical algorithms are essential for solving computational problems involvi
 ## 1. GCD & LCM Algorithms
 
 ### Euclidean Algorithm for GCD:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: gcd(48,18)=6; primes up to 30 via sieve"]
+    START --> STEP1["GCD / Euclidean: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: gcd(48,18)=6; primes up to 30 via sieve
+Approach: GCD / Euclidean
+
+Apply GCD / Euclidean on the example input step by step
+Final answer from example: see above
+```
 ```java
 public int gcd(int a, int b) {
     if (b == 0) {
@@ -72,6 +99,29 @@ public long lcmArray(int[] nums) {
 ## 2. Prime Number Algorithms
 
 ### Primality Testing:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: gcd(48,18)=6; primes up to 30 via sieve"]
+    START --> STEP1["Sieve of Eratosthenes: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: gcd(48,18)=6; primes up to 30 via sieve
+Approach: Sieve of Eratosthenes
+
+Apply Sieve of Eratosthenes on the example input step by step
+Final answer from example: see above
+```
 ```java
 // Basic primality test
 public boolean isPrime(int n) {
@@ -213,6 +263,29 @@ public int countDivisors(int n) {
 ## 3. Modular Arithmetic
 
 ### Fast Exponentiation:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: gcd(48,18)=6; primes up to 30 via sieve"]
+    START --> STEP1["Sieve of Eratosthenes: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: gcd(48,18)=6; primes up to 30 via sieve
+Approach: Sieve of Eratosthenes
+
+Apply Sieve of Eratosthenes on the example input step by step
+Final answer from example: see above
+```
 ```java
 public long modPow(long base, long exp, long mod) {
     long result = 1;
@@ -276,6 +349,29 @@ public class ChineseRemainderTheorem {
 ## 4. Combinatorics
 
 ### Factorial and Combinations:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: gcd(48,18)=6; primes up to 30 via sieve"]
+    START --> STEP1["Sieve of Eratosthenes: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: gcd(48,18)=6; primes up to 30 via sieve
+Approach: Sieve of Eratosthenes
+
+Apply Sieve of Eratosthenes on the example input step by step
+Final answer from example: see above
+```
 ```java
 public class Combinatorics {
     private static final int MOD = 1000000007;
@@ -352,6 +448,29 @@ public long catalanUsingCombination(int n) {
 ## 5. Advanced Number Theory Problems
 
 ### Euler's Totient Function:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: gcd(48,18)=6; primes up to 30 via sieve"]
+    START --> STEP1["Sieve of Eratosthenes: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: gcd(48,18)=6; primes up to 30 via sieve
+Approach: Sieve of Eratosthenes
+
+Apply Sieve of Eratosthenes on the example input step by step
+Final answer from example: see above
+```
 ```java
 public int eulerTotient(int n) {
     int result = n;
@@ -429,6 +548,29 @@ public int sumOfDivisors(int n) {
 ## 6. Practical Applications
 
 ### RSA Key Generation (Simplified):
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: gcd(48,18)=6; primes up to 30 via sieve"]
+    START --> STEP1["Sieve of Eratosthenes: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: gcd(48,18)=6; primes up to 30 via sieve
+Approach: Sieve of Eratosthenes
+
+Apply Sieve of Eratosthenes on the example input step by step
+Final answer from example: see above
+```
 ```java
 public class SimpleRSA {
     public static class KeyPair {

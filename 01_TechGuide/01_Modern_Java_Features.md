@@ -1,5 +1,8 @@
 # Section 1: Modern Java Features (Java 17–21) & Virtual Threads
 
+> **You are here**: SDE2 — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [00_Web_Fundamentals.md](00_Web_Fundamentals.md) | **Next**: [02_Advanced_SpringBoot_Java_Internals.md](02_Advanced_SpringBoot_Java_Internals.md)
+
 ---
 
 ## 1.1 Records, Sealed Classes, and Pattern Matching

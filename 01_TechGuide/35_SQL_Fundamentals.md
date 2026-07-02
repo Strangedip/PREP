@@ -3,6 +3,9 @@
 > **Level**: ALL — Associate to Lead (everyone must know SQL; depth increases with level)
 > **Complements**: [05_Database_Performance_Tuning.md](./05_Database_Performance_Tuning.md) (optimization), [26_PostgreSQL_Relational_DB_Deep_Dive.md](./26_PostgreSQL_Relational_DB_Deep_Dive.md) (internals)
 
+> **You are here**: Fresher — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [34_Search_Engines_Elasticsearch.md](34_Search_Engines_Elasticsearch.md) | **Next**: [36_Polyglot_Interview_Python_and_Go.md](36_Polyglot_Interview_Python_and_Go.md)
+
 ---
 
 ## 35.1 Core SQL Operations
@@ -180,3 +183,65 @@ CREATE INDEX idx_orders_user_date ON orders (user_id, created_at DESC);
 | 10 | Covering index? | Index contains all columns needed — index-only scan, no table fetch. |
 
 **Must-say keywords**: JOIN types, window functions, CTE, execution order, HAVING, covering index, normalization, correlated subquery.
+
+---
+
+## §35.10 Production & Interview Depth — SQL Rounds at Indian Product Companies
+
+PhonePe, CRED, and product SaaS firms run **live SQL screens** on PostgreSQL: ledger balances, cohort retention, funnel drop-off. Java/Spring candidates must write correct SQL without ORM crutches — then explain how JPA would **still N+1** the same query in production ([05_Database_Performance_Tuning.md](./05_Database_Performance_Tuning.md)).
+
+### Window Functions — The #1 Senior Filter
+
+```sql
+-- Monthly active users with MoM growth (classic analytics question)
+WITH monthly AS (
+    SELECT DATE_TRUNC('month', event_time AT TIME ZONE 'Asia/Kolkata') AS month,
+           COUNT(DISTINCT user_id) AS mau
+    FROM app_events
+    WHERE event_time >= '2025-01-01'
+    GROUP BY 1
+)
+SELECT month, mau,
+       mau - LAG(mau) OVER (ORDER BY month) AS absolute_growth,
+       ROUND(100.0 * (mau - LAG(mau) OVER (ORDER BY month))
+             / NULLIF(LAG(mau) OVER (ORDER BY month), 0), 2) AS pct_growth
+FROM monthly
+ORDER BY month;
+```
+
+### JOIN vs Subquery — What Interviewers Listen For
+
+| Approach | Prefer When | Red Flag Answer |
+|----------|-------------|-----------------|
+| **JOIN** | Large tables, optimizer stats exist | Nested correlated subquery "because it's readable" |
+| **EXISTS** | Semi-join existence check | `IN (SELECT ...)` on nullable column |
+| **CTE** | Readable multi-step analytics | CTE as optimization fence (PG <12 myth) |
+| **Window** | Rank, running total, dedupe | Self-join explosion for "latest row per user" |
+
+### Dedupe Pattern (Appearances at Fintech)
+
+```sql
+-- Latest KYC status per user (keep one row per user_id)
+SELECT DISTINCT ON (user_id) user_id, status, updated_at
+FROM kyc_verifications
+ORDER BY user_id, updated_at DESC;
+```
+
+PostgreSQL-specific — mention portability trade-off vs `ROW_NUMBER()` for mixed-DB interviews.
+
+### Spring Data JPA — Bridge to Production
+
+```java
+// Interview follow-up: "How would you fetch this in Java?"
+@Query(value = """
+    SELECT u.id, COUNT(o.id) AS cnt
+    FROM users u JOIN orders o ON u.id = o.user_id
+    WHERE o.created_at >= :since
+    GROUP BY u.id HAVING COUNT(o.id) > :min
+    """, nativeQuery = true)
+List<UserOrderCount> heavyBuyers(@Param("since") Instant since, @Param("min") int min);
+```
+
+Say: *"I'd validate with `EXPLAIN (ANALYZE, BUFFERS)` and a composite index on `(user_id, created_at)` before shipping."* Index depth: [26_PostgreSQL_Relational_DB_Deep_Dive.md](./26_PostgreSQL_Relational_DB_Deep_Dive.md). India tests often use **IST** truncations, Apr–Mar fiscal windows, GST-inclusive amounts, and ledger locking (`SELECT ... FOR UPDATE`) — [38_Compliance_and_Regulated_Systems.md](./38_Compliance_and_Regulated_Systems.md).
+
+**Must-say keywords**: execution order, `DISTINCT ON`, `EXPLAIN ANALYZE`, covering index, window vs GROUP BY, IST timezone in aggregates.

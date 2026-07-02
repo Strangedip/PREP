@@ -1,5 +1,8 @@
 # Search Autocomplete (Typeahead) — High-Level Design
 
+> **You are here**: Senior SDE — System Design (HLD)
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Prerequisites**: [HLD_Template.md](../../00_Templates/HLD_Template/HLD_Template.md)
+
 ## Problem Statement
 
 Design a search autocomplete system that:
@@ -192,6 +195,79 @@ shard = hash(prefix[0:2]) % num_shards
 - **Injection**: Treat query as data, never execute as code
 - **Rate limiting**: Per IP/user — autocomplete is abuse vector for scraping
 - **Do not leak PII**: Never suggest other users' private searches in global suggestions
+
+---
+
+## Spring Boot Reference Sketch
+
+Focused Java 17 / Spring Boot 3.x sketch of the autocomplete read path — not production-complete.
+
+```java
+@RestController
+@RequestMapping("/v1/suggest")
+public class AutocompleteController {
+    private final AutocompleteService autocompleteService;
+
+    public AutocompleteController(AutocompleteService autocompleteService) {
+        this.autocompleteService = autocompleteService;
+    }
+
+    @GetMapping
+    public SuggestResponse suggest(
+            @RequestParam("q") String query,
+            @RequestParam(defaultValue = "10") int limit,
+            @RequestParam(required = false) Long userId) {
+        return autocompleteService.suggest(query, limit, userId);
+    }
+}
+
+public interface TrieRepository {
+    List<Suggestion> findByPrefix(String normalizedPrefix, String locale, int limit);
+}
+
+@Service
+public class AutocompleteService {
+    private static final Duration CACHE_TTL = Duration.ofMinutes(15);
+    private final StringRedisTemplate redis;
+    private final TrieRepository trieRepository;
+
+    public SuggestResponse suggest(String query, int limit, Long userId) {
+        String prefix = normalize(query);
+        if (prefix.length() < 2) return SuggestResponse.empty();
+
+        String cacheKey = "suggest:%s:%s".formatted(prefix, defaultLocale());
+        List<Suggestion> cached = readCache(cacheKey);
+        if (cached != null) return new SuggestResponse(cached, true);
+
+        List<Suggestion> global = trieRepository.findByPrefix(prefix, defaultLocale(), limit);
+        List<Suggestion> merged = mergePersonalization(global, userId, limit);
+
+        redis.opsForValue().set(cacheKey, serialize(merged), CACHE_TTL);
+        return new SuggestResponse(merged, false);
+    }
+
+    private String normalize(String query) {
+        return query.trim().toLowerCase(Locale.ROOT);
+    }
+
+    private List<Suggestion> mergePersonalization(List<Suggestion> global, Long userId, int limit) {
+        if (userId == null) return global.stream().limit(limit).toList();
+        // Async user-history fetch can run in parallel with trie lookup in production
+        return global.stream().limit(limit).toList();
+    }
+
+    private List<Suggestion> readCache(String key) { /* JSON deserialize */ return null; }
+    private String serialize(List<Suggestion> items) { return "[]"; }
+    private String defaultLocale() { return "en-US"; }
+}
+
+public record Suggestion(String text, double score) {}
+public record SuggestResponse(List<Suggestion> suggestions, boolean cacheHit) {
+    static SuggestResponse empty() { return new SuggestResponse(List.of(), false); }
+}
+```
+
+> **Caching / async**: Redis prefix→topK with single-flight on miss; offline trie rebuilds swap atomically. Personalization merge is eventually consistent — stale rankings for minutes are acceptable.
 
 ---
 

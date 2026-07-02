@@ -1,5 +1,9 @@
 # Master Theorem & Divide and Conquer
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Math / Number Theory](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-recognition-decision-tree) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Master Theorem provides a method for solving recurrence relations of the form:
 **T(n) = aT(n/b) + f(n)**
@@ -27,6 +31,29 @@ Where:
 ## Classic Examples
 
 ### Example 1: Merge Sort
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: T(n)=2T(n/2)+O(n)"]
+    START --> STEP1["Recurrence Case Analysis: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: T(n)=2T(n/2)+O(n) → Θ(n log n)
+Approach: Recurrence Case Analysis
+
+Apply Recurrence Case Analysis on the example input step by step
+Final answer from example: see above
+```
 ```java
 // T(n) = 2T(n/2) + O(n)
 // a = 2, b = 2, f(n) = n
@@ -64,6 +91,29 @@ private void merge(int[] arr, int left, int mid, int right) {
 ```
 
 ### Example 2: Binary Search
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: T(n)=2T(n/2)+O(n)"]
+    START --> STEP1["Recurrence Case Analysis: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: T(n)=2T(n/2)+O(n) → Θ(n log n)
+Approach: Recurrence Case Analysis
+
+Apply Recurrence Case Analysis on the example input step by step
+Final answer from example: see above
+```
 ```java
 // T(n) = T(n/2) + O(1)
 // a = 1, b = 2, f(n) = 1
@@ -88,6 +138,29 @@ public int binarySearch(int[] arr, int target, int left, int right) {
 ```
 
 ### Example 3: Strassen's Matrix Multiplication
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: T(n)=2T(n/2)+O(n)"]
+    START --> STEP1["Recurrence Case Analysis: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: T(n)=2T(n/2)+O(n) → Θ(n log n)
+Approach: Recurrence Case Analysis
+
+Apply Recurrence Case Analysis on the example input step by step
+Final answer from example: see above
+```
 ```java
 // T(n) = 7T(n/2) + O(n^2)
 // a = 7, b = 2, f(n) = n^2
@@ -102,6 +175,29 @@ public int binarySearch(int[] arr, int target, int left, int right) {
 ## Advanced Divide and Conquer Algorithms
 
 ### 1. Maximum Subarray (Divide & Conquer)
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: T(n)=2T(n/2)+O(n)"]
+    START --> STEP1["Recurrence Case Analysis: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: T(n)=2T(n/2)+O(n) → Θ(n log n)
+Approach: Recurrence Case Analysis
+
+Apply Recurrence Case Analysis on the example input step by step
+Final answer from example: see above
+```
 ```java
 public int maxSubarrayDC(int[] nums, int left, int right) {
     if (left == right) {
@@ -138,6 +234,29 @@ public int maxSubarrayDC(int[] nums, int left, int right) {
 ```
 
 ### 2. Closest Pair of Points
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: T(n)=2T(n/2)+O(n)"]
+    START --> STEP1["Recurrence Case Analysis: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: T(n)=2T(n/2)+O(n) → Θ(n log n)
+Approach: Recurrence Case Analysis
+
+Apply Recurrence Case Analysis on the example input step by step
+Final answer from example: see above
+```
 ```java
 class Point {
     double x, y;
@@ -193,6 +312,29 @@ private double distance(Point p1, Point p2) {
 ```
 
 ### 3. Inversion Count
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: T(n)=2T(n/2)+O(n)"]
+    START --> STEP1["Recurrence Case Analysis: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: T(n)=2T(n/2)+O(n) → Θ(n log n)
+Approach: Recurrence Case Analysis
+
+Apply Recurrence Case Analysis on the example input step by step
+Final answer from example: see above
+```
 ```java
 // Count number of inversions in array using divide and conquer
 public int countInversions(int[] arr) {
@@ -236,10 +378,79 @@ private int mergeAndCount(int[] arr, int left, int mid, int right) {
 ## Divide and Conquer Design Pattern
 
 ### 1. **Divide:** Break problem into smaller subproblems
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: T(n)=2T(n/2)+O(n)"]
+    START --> STEP1["Recurrence Case Analysis: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: T(n)=2T(n/2)+O(n) → Θ(n log n)
+Approach: Recurrence Case Analysis
+
+Apply Recurrence Case Analysis on the example input step by step
+Final answer from example: see above
+```
+
 ### 2. **Conquer:** Solve subproblems recursively
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: T(n)=2T(n/2)+O(n)"]
+    START --> STEP1["Recurrence Case Analysis: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: T(n)=2T(n/2)+O(n) → Θ(n log n)
+Approach: Recurrence Case Analysis
+
+Apply Recurrence Case Analysis on the example input step by step
+Final answer from example: see above
+```
+
 ### 3. **Combine:** Merge solutions to get final answer
 
 ### Template:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: T(n)=2T(n/2)+O(n)"]
+    START --> STEP1["Recurrence Case Analysis: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: T(n)=2T(n/2)+O(n) → Θ(n log n)
+Approach: Recurrence Case Analysis
+
+Apply Recurrence Case Analysis on the example input step by step
+Final answer from example: see above
+```
 ```java
 public ResultType divideAndConquer(ProblemType problem) {
     // Base case
@@ -287,18 +498,87 @@ public String karatsuba(String num1, String num2) {
 ## When Master Theorem Doesn't Apply
 
 ### 1. Different problem sizes at each level
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: T(n)=2T(n/2)+O(n)"]
+    START --> STEP1["Recurrence Case Analysis: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: T(n)=2T(n/2)+O(n) → Θ(n log n)
+Approach: Recurrence Case Analysis
+
+Apply Recurrence Case Analysis on the example input step by step
+Final answer from example: see above
+```
 ```java
 // T(n) = T(n/3) + T(2n/3) + O(n)
 // Use recursion tree method instead
 ```
 
 ### 2. Varying number of subproblems
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: T(n)=2T(n/2)+O(n)"]
+    START --> STEP1["Recurrence Case Analysis: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: T(n)=2T(n/2)+O(n) → Θ(n log n)
+Approach: Recurrence Case Analysis
+
+Apply Recurrence Case Analysis on the example input step by step
+Final answer from example: see above
+```
 ```java
 // T(n) = T(n-1) + T(n-2) + O(1) (Fibonacci)
 // Use substitution method
 ```
 
 ### 3. Non-polynomial f(n)
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: T(n)=2T(n/2)+O(n)"]
+    START --> STEP1["Recurrence Case Analysis: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: T(n)=2T(n/2)+O(n) → Θ(n log n)
+Approach: Recurrence Case Analysis
+
+Apply Recurrence Case Analysis on the example input step by step
+Final answer from example: see above
+```
 ```java
 // T(n) = 2T(n/2) + O(n log n)
 // Master theorem extended forms needed

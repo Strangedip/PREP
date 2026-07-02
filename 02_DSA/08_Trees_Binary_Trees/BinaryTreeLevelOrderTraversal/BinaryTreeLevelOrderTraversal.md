@@ -1,5 +1,9 @@
 # Binary Tree Level Order Traversal
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [BFS](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-7-bfs-breadth-first-search) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Given the root of a binary tree, return the level order traversal of its nodes' values (i.e., from left to right, level by level).
 
@@ -24,6 +28,33 @@ Tree structure:
 3. **Process all nodes** at current level before moving to next
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[3,9,20,null,null,15,7]"]
+    START --> ENQ["Enqueue start node"]
+    ENQ --> Q{"Queue empty?"}
+    Q -->|no| DEQ["Dequeue front"]
+    DEQ --> NEI["Visit unvisited neighbors"]
+    NEI --> ENQ2["Enqueue neighbors"]
+    ENQ2 --> Q
+    Q -->|yes| DONE["Return shortest / order"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[3,9,20,null,null,15,7] → [[3],[9,20],[15,7]]
+Approach: BFS with Queue
+
+Enqueue start node/level
+Process neighbors level by level
+First reach target = shortest path
+```
 ```java
 List<List<Integer>> result = new ArrayList<>();
 if (root == null) return result;
@@ -63,6 +94,33 @@ return result;
 3. **Add node value** to appropriate level list
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[3,9,20,null,null,15,7]"]
+    START --> ENQ["Enqueue start node"]
+    ENQ --> Q{"Queue empty?"}
+    Q -->|no| DEQ["Dequeue front"]
+    DEQ --> NEI["Visit unvisited neighbors"]
+    NEI --> ENQ2["Enqueue neighbors"]
+    ENQ2 --> Q
+    Q -->|yes| DONE["Return shortest / order"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[3,9,20,null,null,15,7] → [[3],[9,20],[15,7]]
+Approach: DFS with Level Tracking
+
+Enqueue start node/level
+Process neighbors level by level
+First reach target = shortest path
+```
 ```java
 List<List<Integer>> result = new ArrayList<>();
 

@@ -1,5 +1,8 @@
 # Instagram-Style Photo Social Network — High-Level Design
 
+> **You are here**: Senior SDE — System Design (HLD)
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Prerequisites**: [HLD_Template.md](../../00_Templates/HLD_Template/HLD_Template.md)
+
 ## Problem Statement
 
 Design a photo-centric social network like **Instagram**:
@@ -191,6 +194,84 @@ POST   /v1/users/{id}/follow
 | Celebrity fan-out | Fan-out on read + cache celebrity post lists |
 | Like storms | Async counter updates; rate limit per user |
 | Explore ranking | Precompute candidate pools; cache top N per user segment |
+
+---
+
+## Spring Boot Reference Sketch
+
+Focused Java 17 / Spring Boot 3.x sketch of post creation + hybrid feed read — not production-complete.
+
+```java
+@RestController
+@RequestMapping("/v1")
+public class PostController {
+    private final PostService postService;
+    private final FeedService feedService;
+
+    public PostController(PostService postService, FeedService feedService) {
+        this.postService = postService;
+        this.feedService = feedService;
+    }
+
+    @PostMapping("/posts")
+    public PostResponse createPost(@RequestBody CreatePostRequest request) {
+        return postService.createPost(request);
+    }
+
+    @GetMapping("/feed")
+    public FeedPage homeFeed(@RequestParam long userId, @RequestParam(required = false) String cursor) {
+        return feedService.getHomeFeed(userId, cursor, 20);
+    }
+}
+
+public interface FeedCacheRepository {
+    List<Long> getCachedPostIds(long userId, int limit);
+    void pushToFollowerFeeds(long authorId, long postId, Instant createdAt, int followerThreshold);
+    List<Long> getRecentPosts(long celebrityUserId, int limit);
+}
+
+@Service
+public class PostService {
+    private final PostRepository postRepository;
+    private final FeedCacheRepository feedCacheRepository;
+    private final ApplicationEventPublisher events;
+
+    public PostResponse createPost(CreatePostRequest request) {
+        Post post = postRepository.save(new Post(request.userId(), request.caption(), request.mediaKeys()));
+        feedCacheRepository.pushToFollowerFeeds(
+                post.userId(), post.id(), post.createdAt(), 10_000); // fan-out on write below threshold
+        events.publishEvent(new PostCreatedEvent(post.id(), post.userId())); // async media processing
+        return new PostResponse(post.id(), "PROCESSING");
+    }
+}
+
+@Service
+public class FeedService {
+    private static final int CELEBRITY_THRESHOLD = 10_000;
+    private final FeedCacheRepository feedCacheRepository;
+    private final FollowGraphRepository followGraphRepository;
+
+    public FeedPage getHomeFeed(long userId, String cursor, int limit) {
+        List<Long> cached = feedCacheRepository.getCachedPostIds(userId, limit);
+        List<Long> celebrities = followGraphRepository.celebrityFollowees(userId, CELEBRITY_THRESHOLD);
+        List<Long> celebrityPosts = celebrities.stream()
+                .flatMap(id -> feedCacheRepository.getRecentPosts(id, 5).stream())
+                .toList();
+        List<Long> merged = mergeAndRank(cached, celebrityPosts, limit); // hybrid fan-out
+        return new FeedPage(merged, nextCursor(merged));
+    }
+
+    private List<Long> mergeAndRank(List<Long> cached, List<Long> celebrityPosts, int limit) {
+        return Stream.concat(cached.stream(), celebrityPosts.stream()).distinct().limit(limit).toList();
+    }
+
+    private String nextCursor(List<Long> ids) { return ids.isEmpty() ? null : ids.get(ids.size() - 1).toString(); }
+}
+
+public record PostCreatedEvent(long postId, long userId) {}
+```
+
+> **Async / caching**: Media resize/transcode runs async after `PostCreatedEvent`. Redis feed cache is eventually consistent; like counts updated via Kafka consumer.
 
 ---
 

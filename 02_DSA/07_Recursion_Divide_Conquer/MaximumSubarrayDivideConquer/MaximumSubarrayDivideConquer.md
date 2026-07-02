@@ -1,5 +1,9 @@
 # Maximum Subarray — Divide and Conquer
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Sorting](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-recognition-decision-tree) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Find the contiguous subarray within an array that has the largest sum. Solve it using the Divide and Conquer approach (as a contrast to Kadane's Algorithm which uses DP).
@@ -32,6 +36,29 @@ We recursively solve cases 1 and 2, and compute case 3 directly.
 ### Finding the Crossing Subarray
 Starting from `mid`, extend left as far as possible to maximize the left sum. Then extend right as far as possible to maximize the right sum. The crossing sum is `leftMax + rightMax`.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[-2,1,-3,4,-1,2,1,-5,4]"]
+    START --> STEP1[": Divide and Conquer: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[-2,1,-3,4,-1,2,1,-5,4] → 6
+Approach: : Divide and Conquer
+
+Apply : Divide and Conquer on the example input step by step
+Final answer from example: see above
+```
 ```java
 public int maxSubArray(int[] nums) {
     return divideAndConquer(nums, 0, nums.length - 1);

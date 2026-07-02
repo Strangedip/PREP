@@ -1,5 +1,9 @@
 # Clone Graph
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [BFS](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-7-bfs-breadth-first-search) · [DFS](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-8-dfs-depth-first-search) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Given a reference of a node in a **connected undirected graph**, return a **deep copy (clone)** of the graph.
 
@@ -38,6 +42,33 @@ Use a HashMap to track original → clone mapping to avoid cycles and duplicate 
 3. Create new clone node with same value
 4. Store original → clone mapping in HashMap
 5. Recursively clone all neighbors and add to clone's neighbor list
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: adjList=[[2,4],[1,3],[2,4],[1,3]]"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: adjList=[[2,4],[1,3],[2,4],[1,3]] → deep copy
+Approach: Depth-First Search (DFS)
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
 
 #### Time Complexity
 - **O(V + E)** where V = vertices, E = edges
@@ -84,6 +115,34 @@ Use BFS with queue to clone nodes level by level, still using HashMap for tracki
    - Process all its neighbors
    - If neighbor not cloned yet, clone it and add to queue
    - Add cloned neighbor to current clone's neighbor list
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: adjList=[[2,4],[1,3],[2,4],[1,3]]"]
+    START --> ENQ["Enqueue start node"]
+    ENQ --> Q{"Queue empty?"}
+    Q -->|no| DEQ["Dequeue front"]
+    DEQ --> NEI["Visit unvisited neighbors"]
+    NEI --> ENQ2["Enqueue neighbors"]
+    ENQ2 --> Q
+    Q -->|yes| DONE["Return shortest / order"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: adjList=[[2,4],[1,3],[2,4],[1,3]] → deep copy
+Approach: Breadth-First Search (BFS)
+
+Enqueue start node/level
+Process neighbors level by level
+First reach target = shortest path
+```
 
 #### Time Complexity
 - **O(V + E)** - same as DFS
@@ -162,6 +221,32 @@ Graph: 1-2-3 (linear)
 ## Common Pitfalls
 
 ### 1. Infinite Recursion
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: adjList=[[2,4],[1,3],[2,4],[1,3]]"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: adjList=[[2,4],[1,3],[2,4],[1,3]] → deep copy
+Approach: Iterative DFS (Stack)
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
 ```java
 // WRONG - no visited tracking
 Node clone = new Node(node.val);

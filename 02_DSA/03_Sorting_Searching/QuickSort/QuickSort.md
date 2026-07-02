@@ -1,5 +1,9 @@
 # Quick Sort
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Sorting](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-recognition-decision-tree) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Implement the Quick Sort algorithm to sort an array in ascending order. Quick Sort is a divide-and-conquer algorithm that works by selecting a 'pivot' element and partitioning the array around this pivot.
 
@@ -21,6 +25,29 @@ Output: [1,2,3,5]
 ## Approach: Lomuto Partition Scheme
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: arr=[10,7,8,9,1,5]"]
+    START --> STEP1[": Lomuto Partition Scheme: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: arr=[10,7,8,9,1,5] → [1,5,7,8,9,10]
+Approach: : Lomuto Partition Scheme
+
+Apply : Lomuto Partition Scheme on the example input step by step
+Final answer from example: see above
+```
 ```java
 public void quickSort(int[] nums) {
     quickSort(nums, 0, nums.length - 1);

@@ -1,5 +1,8 @@
 # Ticket Booking System (Ticketmaster) — High-Level Design
 
+> **You are here**: Senior SDE — System Design (HLD)
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Prerequisites**: [HLD_Template.md](../../00_Templates/HLD_Template/HLD_Template.md)
+
 ## Problem Statement
 
 Design an event ticket booking platform like **Ticketmaster**:
@@ -12,7 +15,7 @@ Design an event ticket booking platform like **Ticketmaster**:
 - **Payment integration** with idempotent checkout
 - **Scale**: Major stadium release — 100K seats, 1M users attempting in first hour
 
-> **Related LLD**: [BookMyShow](../01_LowLevelDesign/BookMyShow/BookMyShow.md) covers seat locking patterns at OOD level. This HLD focuses on **distributed inventory**, **contention**, and **payment at scale**.
+> **Related LLD**: [BookMyShow](../../01_LowLevelDesign/BookMyShow/BookMyShow.md) covers seat locking patterns at OOD level. This HLD focuses on **distributed inventory**, **contention**, and **payment at scale**.
 
 ---
 
@@ -214,6 +217,82 @@ GET    /v1/users/me/bookings
 - **Idempotency key** = `hold_id` — duplicate checkout requests don't double-charge
 - **Saga pattern**: Payment success → confirm seats; payment fail → release hold
 - **Outbox pattern**: Publish `BookingConfirmed` event for email/notification service
+
+---
+
+## Spring Boot Reference Sketch
+
+Focused Java 17 / Spring Boot 3.x sketch of atomic seat hold + idempotent checkout — not production-complete.
+
+```java
+@RestController
+@RequestMapping("/v1/events")
+public class BookingController {
+    private final BookingService bookingService;
+
+    public BookingController(BookingService bookingService) {
+        this.bookingService = bookingService;
+    }
+
+    @PostMapping("/{eventId}/hold")
+    public HoldResponse holdSeats(@PathVariable long eventId,
+                                  @RequestBody HoldRequest request) {
+        return bookingService.holdSeats(eventId, request.userId(), request.seatIds());
+    }
+
+    @PostMapping("/checkout")
+    public BookingConfirmation checkout(@RequestBody CheckoutRequest request) {
+        return bookingService.confirmBooking(request.holdId(), request.idempotencyKey(), request.paymentToken());
+    }
+}
+
+public interface SeatInventoryRepository {
+    /** Atomic CAS: AVAILABLE → HELD. Returns false if any seat unavailable. */
+    boolean tryHold(long eventId, List<Long> seatIds, long userId, Instant expiresAt);
+    boolean confirmHeldSeats(String holdId, long userId, String orderId);
+    void releaseHold(String holdId);
+}
+
+@Service
+public class BookingService {
+    private static final Duration HOLD_TTL = Duration.ofMinutes(10);
+    private final SeatInventoryRepository seatInventory;
+    private final HoldRepository holdRepository;
+    private final PaymentClient paymentClient;
+
+    public HoldResponse holdSeats(long eventId, long userId, List<Long> seatIds) {
+        Instant expiresAt = Instant.now().plus(HOLD_TTL);
+        boolean acquired = seatInventory.tryHold(eventId, seatIds, userId, expiresAt);
+        if (!acquired) throw new SeatUnavailableException(seatIds);
+
+        String holdId = holdRepository.save(eventId, userId, seatIds, expiresAt);
+        return new HoldResponse(holdId, expiresAt);
+    }
+
+    public BookingConfirmation confirmBooking(String holdId, String idempotencyKey, String paymentToken) {
+        Hold hold = holdRepository.findById(holdId).orElseThrow();
+        if (holdRepository.orderExists(idempotencyKey)) {
+            return holdRepository.findOrderByIdempotencyKey(idempotencyKey); // idempotent retry
+        }
+
+        PaymentResult payment = paymentClient.charge(paymentToken, hold.totalAmount(), idempotencyKey);
+        if (!payment.success()) {
+            seatInventory.releaseHold(holdId);
+            throw new PaymentFailedException(payment.reason());
+        }
+
+        String orderId = UUID.randomUUID().toString();
+        seatInventory.confirmHeldSeats(holdId, hold.userId(), orderId);
+        return holdRepository.persistOrder(orderId, hold, idempotencyKey);
+    }
+}
+
+public record HoldRequest(long userId, List<Long> seatIds) {}
+public record CheckoutRequest(String holdId, String idempotencyKey, String paymentToken) {}
+public record HoldResponse(String holdId, Instant expiresAt) {}
+```
+
+> **Idempotency / TTL**: Redis Lua script or `FOR UPDATE SKIP LOCKED` prevents double booking. `idempotencyKey` (= hold_id) deduplicates checkout retries; holds auto-expire via Redis TTL.
 
 ---
 

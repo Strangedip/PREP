@@ -1,5 +1,8 @@
 # Coding Patterns — Lead Engineer Interview Prep
 
+> **You are here**: SDE1–SDE2 — Patterns
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [Design Patterns](../01_TechGuide/03_Design_Patterns_SOLID_CleanArch.md) | **Next**: [Algorithmic Patterns](02_AlgorithmicPatterns.md)
+
 > **Two types of patterns are covered**: Software Design Patterns (GoF) and Algorithmic Coding Patterns (Interview Problem-Solving).
 
 ---
@@ -8,35 +11,38 @@
 
 | File | Content | When to Study |
 |------|---------|---------------|
-| [02_AlgorithmicPatterns.md](02_AlgorithmicPatterns.md) | 16 algorithmic patterns with templates, complexity, and when-to-use | Before DSA practice — learn patterns, then apply |
+| [Machine_Coding_Round_Guide.md](Machine_Coding_Round_Guide.md) | Timed OOD + Spring Boot (90 min) | Before Flipkart/Swiggy-style machine coding rounds |
+| [02_AlgorithmicPatterns.md](02_AlgorithmicPatterns.md) | 17 algorithmic patterns with templates, complexity, and when-to-use | Before DSA practice — learn patterns, then apply |
 | [01_Patterns.md](01_Patterns.md) | 25 GoF Design Patterns + Spring Boot integration | Before System Design and Machine Coding rounds |
 
 ---
 
-## Algorithmic Patterns (16 Patterns)
+## Algorithmic Patterns (16 in [02_AlgorithmicPatterns.md](02_AlgorithmicPatterns.md))
 
-These patterns cover 90%+ of coding interview problems. Master the pattern, then problems become pattern-matching exercises.
+These patterns cover 90%+ of coding interview problems. Numbering matches the main guide.
 
-| # | Pattern | Key Problems | When to Use |
-|---|---------|-------------|-------------|
-| 1 | Sliding Window | Min Window Substring, Longest Substring | Contiguous subarray/substring optimization |
-| 2 | Two Pointers | Two Sum (sorted), 3Sum, Container With Water | Sorted arrays, pair finding, converging search |
-| 3 | Fast & Slow Pointers | Cycle Detection, Middle of List | Linked list cycle, finding middle |
-| 4 | Merge Intervals | Merge Intervals, Insert Interval | Overlapping intervals |
-| 5 | Cyclic Sort | Find Missing/Duplicate Number | Array with numbers in range [0, n] |
-| 6 | In-Place Linked List Reversal | Reverse List, Reverse K-Group | Reversing linked list sections |
-| 7 | BFS | Level Order, Shortest Path | Level-by-level, unweighted shortest path |
-| 8 | DFS | Path problems, tree traversals | All paths, tree problems, exhaustive search |
-| 9 | Two Heaps | Median from Stream | Running median, stream problems |
-| 10 | Subsets / Backtracking | Subsets, Permutations, N-Queens | Combinatorial problems |
-| 11 | Modified Binary Search | Search Rotated Array, Search Range | Sorted/rotated search spaces |
-| 12 | Top K Elements | Top K Frequent, K Closest | Selection from a large dataset |
-| 13 | K-Way Merge | Merge K Lists, Smallest Range | Multiple sorted sources |
-| 14 | Dynamic Programming | Knapsack, LCS, LIS | Overlapping subproblems + optimal substructure |
-| 15 | Monotonic Stack | Daily Temperatures, Next Greater | Next greater/smaller element |
-| 16 | Union Find | Connected Components, MST | Dynamic connectivity, grouping |
+| # | Pattern | Repo problems | When to use |
+|---|---------|---------------|-------------|
+| 1 | Two Pointers | [Two Sum](../02_DSA/01_Arrays_Matrix/TwoSum/TwoSum.md), [Three Sum](../02_DSA/01_Arrays_Matrix/ThreeSum/ThreeSum.md) | Sorted arrays, pair/triplet search |
+| 2 | Sliding Window | [Longest Substring](../02_DSA/02_Strings/LongestSubstringWithoutRepeating/LongestSubstringWithoutRepeating.md) | Contiguous subarray/substring |
+| 3 | Fast & Slow Pointers | [Linked List Cycle](../02_DSA/05_Linked_Lists/LinkedListCycle/LinkedListCycle.md) | Cycle, middle of list |
+| 4 | Merge Intervals | [Merge Intervals](../02_DSA/01_Arrays_Matrix/MergeIntervals/MergeIntervals.md) | Overlapping ranges |
+| 5 | Cyclic Sort | [Find Duplicate Number](../02_DSA/01_Arrays_Matrix/FindDuplicateNumber/FindDuplicateNumber.md) | Values in range [1, n] |
+| 6 | In-Place LL Reversal | [Reverse Linked List](../02_DSA/05_Linked_Lists/ReverseLinkedList/ReverseLinkedList.md) | Pointer rewiring |
+| 7 | BFS | [Number of Islands](../02_DSA/11_Graphs/NumberOfIslands/NumberOfIslands.md) | Shortest path, levels |
+| 8 | DFS | [Clone Graph](../02_DSA/11_Graphs/CloneGraph/CloneGraph.md) | Paths, trees, exhaustive |
+| 9 | Two Heaps | [Find Median from Stream](../02_DSA/10_Heaps_Priority_Queues/FindMedianFromDataStream/FindMedianFromDataStream.md) | Running median |
+| 10 | Backtracking | [Subsets](../02_DSA/12_Backtracking/Subsets/Subsets.md) | Combinatorial generation |
+| 11 | Modified Binary Search | [Search Rotated Array](../02_DSA/01_Arrays_Matrix/SearchInRotatedSortedArray/SearchInRotatedSortedArray.md) | Rotated / answer space |
+| 12 | Top K Elements | [Top K Frequent](../02_DSA/10_Heaps_Priority_Queues/TopKFrequentElements/TopKFrequentElements.md) | Heap selection |
+| 13 | K-Way Merge | [Merge K Lists](../02_DSA/10_Heaps_Priority_Queues/MergeKSortedLists/MergeKSortedLists.md) | Multiple sorted inputs |
+| 14 | Monotonic Stack | [Daily Temperatures](../02_DSA/06_Stacks_Queues/DailyTemperatures/DailyTemperatures.md) | Next greater/smaller |
+| 15 | Topological Sort | [Course Schedule](../02_DSA/11_Graphs/CourseSchedule/CourseSchedule.md) | Dependencies, ordering |
+| 16 | Dynamic Programming | [Coin Change](../02_DSA/13_Dynamic_Programming/CoinChange/CoinChange.md) | Optimal substructure |
 
-→ **Detailed templates and code in [02_AlgorithmicPatterns.md](02_AlgorithmicPatterns.md)**
+**Related (graph connectivity)**: [Union Find](../02_DSA/11_Graphs/UnionFind/UnionFind.md) — not a separate numbered pattern; used with [Number of Islands](../02_DSA/11_Graphs/NumberOfIslands/NumberOfIslands.md), [Critical Connections](../02_DSA/11_Graphs/CriticalConnections/CriticalConnections.md).
+
+→ **Templates and decision tree**: [02_AlgorithmicPatterns.md](02_AlgorithmicPatterns.md)
 
 ---
 

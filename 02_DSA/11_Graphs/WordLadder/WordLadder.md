@@ -1,5 +1,9 @@
 # Word Ladder
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [BFS](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-7-bfs-breadth-first-search) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 A transformation sequence from word `beginWord` to word `endWord` using a dictionary `wordList` is a sequence of words `beginWord → s1 → s2 → ... → sk` such that:
 
@@ -46,6 +50,34 @@ This is a **shortest path problem** in an **unweighted graph** where:
 3. **Generate neighbors**: Try changing each character to 'a'-'z'
 4. **Check validity**: New word must be in wordList and not visited
 5. **Found target**: Return level when we reach `endWord`
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: beginWord="hit", endWord="cog", wordList=["hot","dot","dog","]
+    START --> ENQ["Enqueue start node"]
+    ENQ --> Q{"Queue empty?"}
+    Q -->|no| DEQ["Dequeue front"]
+    DEQ --> NEI["Visit unvisited neighbors"]
+    NEI --> ENQ2["Enqueue neighbors"]
+    ENQ2 --> Q
+    Q -->|yes| DONE["Return shortest / order"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: beginWord="hit", endWord="cog", wordList=["hot","dot","dog","lot","log","cog"] → 5
+Approach: Standard BFS
+
+Enqueue start node/level
+Process neighbors level by level
+First reach target = shortest path
+```
 
 #### Time Complexity
 - **O(M² × N)** where M = word length, N = number of words
@@ -112,6 +144,34 @@ public int ladderLength(String beginWord, String endWord, List<String> wordList)
 - **Standard BFS**: O(b^d) where b = branching factor, d = depth
 - **Bidirectional**: O(b^(d/2)) = significant improvement for large graphs
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: beginWord="hit", endWord="cog", wordList=["hot","dot","dog","]
+    START --> ENQ["Enqueue start node"]
+    ENQ --> Q{"Queue empty?"}
+    Q -->|no| DEQ["Dequeue front"]
+    DEQ --> NEI["Visit unvisited neighbors"]
+    NEI --> ENQ2["Enqueue neighbors"]
+    ENQ2 --> Q
+    Q -->|yes| DONE["Return shortest / order"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: beginWord="hit", endWord="cog", wordList=["hot","dot","dog","lot","log","cog"] → 5
+Approach: Bidirectional BFS
+
+Enqueue start node/level
+Process neighbors level by level
+First reach target = shortest path
+```
+
 #### Time Complexity
 - **O(M² × N)** same as BFS but **much faster in practice**
 
@@ -164,6 +224,30 @@ public int ladderLengthBidirectional(String beginWord, String endWord, List<Stri
 #### Advantages
 - **Cleaner neighbor generation**: No nested loops for character changes
 - **Better for multiple queries**: Preprocessing amortizes over multiple calls
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: beginWord="hit", endWord="cog", wordList=["hot","dot","dog","]
+    START --> STEP1["Pattern-Based Preprocessing: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: beginWord="hit", endWord="cog", wordList=["hot","dot","dog","lot","log","cog"] → 5
+Approach: Pattern-Based Preprocessing
+
+Apply Pattern-Based Preprocessing on the example input step by step
+Final answer from example: see above
+```
 
 #### Time Complexity
 - **O(M² × N)** for preprocessing + O(M² × N) for BFS

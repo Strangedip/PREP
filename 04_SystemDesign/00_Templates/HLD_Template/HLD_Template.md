@@ -1,5 +1,8 @@
 # High-Level Design Interview Template
 
+> **You are here**: SDE2 — System Design
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Prerequisites**: [01_Patterns.md](../../../03_CodingPatterns/01_Patterns.md)
+
 ## 📋 **Step-by-Step Approach**
 
 Use this systematic methodology for any HLD interview problem:

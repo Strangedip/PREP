@@ -1,5 +1,9 @@
 # Subtree of Another Tree
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Binary Tree](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-8-dfs-depth-first-search) · [DFS](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-8-dfs-depth-first-search) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given the roots of two binary trees `root` and `subRoot`, return `true` if there is a subtree of `root` with the same structure and node values of `subRoot` and `false` otherwise.
@@ -56,6 +60,31 @@ The subtree starting at node 4 has an extra child (0), so it doesn't match.
 3. Recursively check left and right subtrees
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[3,4,5,1,2], subRoot=[4,1,2]"]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[3,4,5,1,2], subRoot=[4,1,2] → true
+Approach: Recursive DFS (Brute Force)
+
+Enumerate all candidates from example input
+Check validity/optimal condition
+Keep best answer found
+```
 ```java
 public boolean isSubtree(TreeNode root, TreeNode subRoot) {
     if (root == null) return false;
@@ -90,6 +119,29 @@ private boolean isSameTree(TreeNode p, TreeNode q) {
 3. Ensures linear time complexity
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[3,4,5,1,2], subRoot=[4,1,2]"]
+    START --> STEP1["String Serialization with KMP: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[3,4,5,1,2], subRoot=[4,1,2] → true
+Approach: String Serialization with KMP
+
+Apply String Serialization with KMP on the example input step by step
+Final answer from example: see above
+```
 ```java
 public boolean isSubtreeKMP(TreeNode root, TreeNode subRoot) {
     String rootStr = serialize(root);
@@ -135,6 +187,32 @@ private boolean kmpSearch(String text, String pattern) {
 3. Check if target hash exists in the set of subtree hashes
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[3,4,5,1,2], subRoot=[4,1,2]"]
+    START --> BUILD["Build HashMap / Set"]
+    BUILD --> SCAN["Scan input once"]
+    SCAN --> LOOKUP{"Key seen?"}
+    LOOKUP -->|yes| FOUND["Return match"]
+    LOOKUP -->|no| STORE["Store in map"]
+    STORE --> SCAN
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[3,4,5,1,2], subRoot=[4,1,2] → true
+Approach: Hash-Based Comparison
+
+Scan input left-to-right
+Store seen keys/values in hash map
+O(1) lookup finds complement or group
+```
 ```java
 public boolean isSubtreeHash(TreeNode root, TreeNode subRoot) {
     Set<String> rootSubtrees = new HashSet<>();
@@ -162,6 +240,32 @@ private String getHash(TreeNode node) {
 3. Handle hash collisions appropriately
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[3,4,5,1,2], subRoot=[4,1,2]"]
+    START --> BUILD["Build HashMap / Set"]
+    BUILD --> SCAN["Scan input once"]
+    SCAN --> LOOKUP{"Key seen?"}
+    LOOKUP -->|yes| FOUND["Return match"]
+    LOOKUP -->|no| STORE["Store in map"]
+    STORE --> SCAN
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[3,4,5,1,2], subRoot=[4,1,2] → true
+Approach: Merkle Hash (Rolling Hash)
+
+Scan input left-to-right
+Store seen keys/values in hash map
+O(1) lookup finds complement or group
+```
 ```java
 private Map<TreeNode, Long> merkleHashes = new HashMap<>();
 private static final long MOD = 1000000007L;
@@ -198,6 +302,32 @@ private long merkleHash(TreeNode node) {
 3. Use iterative tree comparison as well
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[3,4,5,1,2], subRoot=[4,1,2]"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[3,4,5,1,2], subRoot=[4,1,2] → true
+Approach: Iterative DFS
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
 ```java
 public boolean isSubtreeIterative(TreeNode root, TreeNode subRoot) {
     if (root == null) return false;
@@ -230,6 +360,33 @@ public boolean isSubtreeIterative(TreeNode root, TreeNode subRoot) {
 3. Good for finding subtrees that are closer to the root
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[3,4,5,1,2], subRoot=[4,1,2]"]
+    START --> ENQ["Enqueue start node"]
+    ENQ --> Q{"Queue empty?"}
+    Q -->|no| DEQ["Dequeue front"]
+    DEQ --> NEI["Visit unvisited neighbors"]
+    NEI --> ENQ2["Enqueue neighbors"]
+    ENQ2 --> Q
+    Q -->|yes| DONE["Return shortest / order"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[3,4,5,1,2], subRoot=[4,1,2] → true
+Approach: BFS Level Order
+
+Enqueue start node/level
+Process neighbors level by level
+First reach target = shortest path
+```
 ```java
 public boolean isSubtreeBFS(TreeNode root, TreeNode subRoot) {
     if (root == null) return false;

@@ -1,5 +1,8 @@
 # Section 11: Observability — Logging, Metrics & Distributed Tracing
 
+> **You are here**: Senior SDE — Engineering Practices
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [10_DevOps_CICD_Docker.md](10_DevOps_CICD_Docker.md) | **Next**: [12_Security_OWASP_Cloud.md](12_Security_OWASP_Cloud.md)
+
 ---
 
 ## 11.1 The Three Pillars of Observability

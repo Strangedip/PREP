@@ -1,5 +1,9 @@
 # Minimum Size Subarray Sum
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Sliding Window](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-2-sliding-window) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given an array of positive integers `nums` and a positive integer `target`, return the **minimal length** of a contiguous subarray whose sum is greater than or equal to `target`. If there is no such subarray, return 0.
@@ -26,6 +30,31 @@ Output: 0
 
 Check every possible subarray.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[2,3,1,2,4,3], target=7"]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[2,3,1,2,4,3], target=7 → min length 2 ([4,3])
+Approach: Brute Force
+
+Enumerate all candidates from example input
+Check validity/optimal condition
+Keep best answer found
+```
 ```java
 public int minSubArrayLenBrute(int target, int[] nums) {
     int minLength = Integer.MAX_VALUE;
@@ -55,6 +84,32 @@ Since all numbers are positive, expanding the window (moving `right`) increases 
 
 **This is the classic "variable-size sliding window for minimum length" pattern.**
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[2,3,1,2,4,3], target=7"]
+    START --> INIT["Init left=0, right=end"]
+    INIT --> WINDOW["Adjust window / pointers"]
+    WINDOW --> UPDATE["Update best answer"]
+    UPDATE --> MORE{"More elements?"}
+    MORE -->|yes| WINDOW
+    MORE -->|no| DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[2,3,1,2,4,3], target=7 → min length 2 ([4,3])
+Approach: Sliding Window (Optimal)
+
+Initialize two pointers at boundaries
+Move pointer that improves constraint
+Update best answer each step
+```
 ```java
 public int minSubArrayLen(int target, int[] nums) {
     int left = 0;
@@ -100,6 +155,34 @@ Result: 2 (subarray [4,3])
 
 Build a prefix sum array and use binary search to find the smallest window for each starting index.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[2,3,1,2,4,3], target=7"]
+    START --> BOUNDS["lo=0, hi=n-1"]
+    BOUNDS --> MID["mid = (lo+hi)/2"]
+    MID --> CMP{"Compare nums[mid]"}
+    CMP -->|too small| LO["lo = mid+1"]
+    CMP -->|too large| HI["hi = mid-1"]
+    CMP -->|found| DONE["Return mid"]
+    LO --> BOUNDS
+    HI --> BOUNDS
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[2,3,1,2,4,3], target=7 → min length 2 ([4,3])
+Approach: Binary Search on Prefix Sums
+
+Set lo/hi bounds on answer or index
+Compare mid element with target
+Halve search space until found
+```
 ```java
 public int minSubArrayLenBinarySearch(int target, int[] nums) {
     int n = nums.length;

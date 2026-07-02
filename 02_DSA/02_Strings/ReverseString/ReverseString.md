@@ -1,5 +1,9 @@
 # Reverse String
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Two Pointers](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-1-two-pointers) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Write a function that reverses a string. The input string is given as an array of characters `s`. You must do this by modifying the input array **in-place** with O(1) extra memory.
@@ -47,6 +51,32 @@ Output: ["o", "l", "l", "e", "h"]
 
 ### Java Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s=["h","e","l","l","o"]"]
+    START --> INIT["Init left=0, right=end"]
+    INIT --> WINDOW["Adjust window / pointers"]
+    WINDOW --> UPDATE["Update best answer"]
+    UPDATE --> MORE{"More elements?"}
+    MORE -->|yes| WINDOW
+    MORE -->|no| DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s=["h","e","l","l","o"] → ["o","l","l","e","h"]
+Approach: Two Pointers (Optimal)
+
+Initialize two pointers at boundaries
+Move pointer that improves constraint
+Update best answer each step
+```
 ```java
 class Solution {
     public void reverseString(char[] s) {
@@ -96,6 +126,32 @@ class Solution {
 
 This approach is less optimal due to stack space but demonstrates recursion understanding.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s=["h","e","l","l","o"]"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s=["h","e","l","l","o"] → ["o","l","l","e","h"]
+Approach: Recursive
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
 ```java
 class Solution {
     public void reverseString(char[] s) {
@@ -174,6 +230,5 @@ Where n = length of the character array.
 
 ---
 
-**Pattern**: Two Pointers (Opposite Direction)
 **Difficulty**: Easy
 **Must-Know**: Yes (warm-up, fundamental two-pointer technique)

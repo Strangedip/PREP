@@ -3,6 +3,9 @@
 > **Level**: MID+ (Kafka basics) to LEAD (Event Sourcing, CQRS, Schema Evolution, exactly-once)
 > **Why This Matters**: Event-driven architecture is the backbone of modern microservices. Every Lead engineer must understand Kafka deeply, design event schemas, and know when to apply Event Sourcing vs. traditional CRUD.
 
+> **You are here**: Senior SDE — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [18_Performance_Engineering_JVM.md](18_Performance_Engineering_JVM.md) | **Next**: [20_Technical_Leadership_Architecture.md](20_Technical_Leadership_Architecture.md)
+
 ---
 
 ## 19.1 Event-Driven Architecture Patterns

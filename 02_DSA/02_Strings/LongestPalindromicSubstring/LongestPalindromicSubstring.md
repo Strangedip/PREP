@@ -1,5 +1,9 @@
 # Longest Palindromic Substring (LeetCode 5)
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Two Pointers](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-1-two-pointers) · [Dynamic Programming](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-16-dynamic-programming-patterns) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given a string `s`, return the longest palindromic substring in `s`.
@@ -38,6 +42,31 @@ This is one of the most frequently asked string problems at FAANG companies. It 
 
 Check every possible substring and verify if it is a palindrome.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="babad""]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="babad" → "bab" or "aba"
+Approach: Brute Force
+
+Enumerate all candidates from example input
+Check validity/optimal condition
+Keep best answer found
+```
 ```java
 public String longestPalindrome(String s) {
     String result = "";
@@ -79,6 +108,29 @@ For a string of length `n`, there are `2n - 1` possible centers (n characters + 
 
 ### Complete Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="babad""]
+    START --> STEP1["Expand Around Center (Optimal for Interviews): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="babad" → "bab" or "aba"
+Approach: Expand Around Center (Optimal for Interviews)
+
+Apply Expand Around Center (Optimal for Interviews) on the example input step by step
+Final answer from example: see above
+```
 ```java
 public class LongestPalindromicSubstring {
     
@@ -207,6 +259,32 @@ Define `dp[i][j] = true` if the substring `s[i..j]` is a palindrome.
 
 ### Complete Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="babad""]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="babad" → "bab" or "aba"
+Approach: Dynamic Programming
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
 ```java
 public String longestPalindrome(String s) {
     int n = s.length();
@@ -271,6 +349,29 @@ Manacher's algorithm exploits the symmetry of palindromes. If we have already fo
 
 ### Complete Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="babad""]
+    START --> STEP1["Manacher's Algorithm (O(n) — Advanced): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="babad" → "bab" or "aba"
+Approach: Manacher's Algorithm (O(n) — Advanced)
+
+Apply Manacher's Algorithm (O(n) — Advanced) on the example input step by step
+Final answer from example: see above
+```
 ```java
 public String longestPalindrome(String s) {
     if (s == null || s.length() < 2) return s;
@@ -368,6 +469,29 @@ Only mention this algorithm if:
 
 Same approach but count all palindromes instead of tracking the longest:
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="babad""]
+    START --> STEP1["Approach 5: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="babad" → "bab" or "aba"
+Approach: Approach 5
+
+Apply Approach 5 on the example input step by step
+Final answer from example: see above
+```
 ```java
 public int countSubstrings(String s) {
     int count = 0;

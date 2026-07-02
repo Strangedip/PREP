@@ -1,5 +1,9 @@
 # Lowest Common Ancestor of a Binary Tree
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Binary Tree](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-8-dfs-depth-first-search) · [DFS](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-8-dfs-depth-first-search) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given a binary tree, find the lowest common ancestor (LCA) of two given nodes `p` and `q`. The LCA is defined as the lowest node in the tree that has both `p` and `q` as descendants (where we allow a node to be a descendant of itself).
@@ -119,6 +123,32 @@ Answer: 3 ✓ (p and q are in different subtrees of 3)
 
 ### Java Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[3,5,1,6,2,0,8,null,null,7,4], p=5, q=1"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[3,5,1,6,2,0,8,null,null,7,4], p=5, q=1 → 3
+Approach: Recursive DFS (Optimal)
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
 ```java
 class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
@@ -152,6 +182,29 @@ class Solution {
 
 Build a parent map, find the path from p to root, then walk q up to find the first common ancestor.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[3,5,1,6,2,0,8,null,null,7,4], p=5, q=1"]
+    START --> STEP1["Iterative with Parent Pointers: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[3,5,1,6,2,0,8,null,null,7,4], p=5, q=1 → 3
+Approach: Iterative with Parent Pointers
+
+Apply Iterative with Parent Pointers on the example input step by step
+Final answer from example: see above
+```
 ```java
 class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
@@ -270,7 +323,29 @@ Where n = number of nodes, h = height of the tree (h = O(log n) for balanced, O(
 
 ---
 
-**Pattern**: DFS (Post-Order Traversal)
 **Difficulty**: Medium
 **Must-Know**: Yes — Top 25 problem, fundamental tree concept
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[3,5,1,6,2,0,8,null,null,7,4], p=5, q=1"]
+    START --> STEP1["Euler Tour + Sparse Table (For Multiple Queries): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[3,5,1,6,2,0,8,null,null,7,4], p=5, q=1 → 3
+Approach: Euler Tour + Sparse Table (For Multiple Queries)
+
+Apply Euler Tour + Sparse Table (For Multiple Queries) on the example input step by step
+Final answer from example: see above
+```
+
 

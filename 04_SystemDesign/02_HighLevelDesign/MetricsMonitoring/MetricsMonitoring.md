@@ -1,5 +1,8 @@
 # Metrics & Monitoring System — High-Level Design
 
+> **You are here**: Senior SDE — System Design (HLD)
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Prerequisites**: [HLD_Template.md](../../00_Templates/HLD_Template/HLD_Template.md)
+
 ## Problem Statement
 
 Design a metrics and monitoring platform (like Datadog / Prometheus ecosystem at scale) that:
@@ -147,12 +150,91 @@ Dedup: Group alerts by service; throttle repeat notifications
 
 ---
 
+## Spring Boot Reference Sketch
+
+Focused Java 17 / Spring Boot 3.x sketch of metric ingest → Kafka → query — not production-complete.
+
+```java
+@RestController
+@RequestMapping("/v1")
+public class MetricsController {
+    private final MetricIngestionService ingestionService;
+    private final MetricQueryService queryService;
+
+    public MetricsController(MetricIngestionService ingestionService,
+                             MetricQueryService queryService) {
+        this.ingestionService = ingestionService;
+        this.queryService = queryService;
+    }
+
+    @PostMapping("/metrics")
+    public ResponseEntity<Void> ingest(@RequestBody MetricBatch batch) {
+        ingestionService.ingest(batch);
+        return ResponseEntity.accepted().build(); // fail-open: drop under overload, never block caller
+    }
+
+    @GetMapping("/query_range")
+    public QueryResult queryRange(@RequestParam String query,
+                                  @RequestParam Instant start,
+                                  @RequestParam Instant end) {
+        return queryService.queryRange(query, start, end);
+    }
+}
+
+public interface MetricSeriesRepository {
+    void writeBatch(List<MetricPoint> points);
+    List<MetricPoint> readRange(String metricId, Map<String, String> labels, Instant start, Instant end);
+}
+
+@Service
+public class MetricIngestionService {
+    private final CardinalityLimiter cardinalityLimiter;
+    private final KafkaTemplate<String, MetricPoint> kafka;
+
+    public void ingest(MetricBatch batch) {
+        for (MetricPoint point : batch.points()) {
+            if (!cardinalityLimiter.allow(point.metricName(), point.labels())) continue;
+            String shardKey = shardKey(point.metricName(), point.labels());
+            kafka.send("metrics-ingest", shardKey, point); // async buffer before TSDB write
+        }
+    }
+
+    private String shardKey(String name, Map<String, String> labels) {
+        return name + labels.entrySet().stream().sorted(Map.Entry.comparingByKey())
+                .map(e -> e.getKey() + "=" + e.getValue()).collect(Collectors.joining(","));
+    }
+}
+
+@Service
+public class MetricQueryService {
+    private final MetricSeriesRepository seriesRepository;
+    private final Cache<String, QueryResult> queryCache;
+
+    public QueryResult queryRange(String promql, Instant start, Instant end) {
+        String cacheKey = promql + "|" + start + "|" + end;
+        return queryCache.get(cacheKey, () -> {
+            // Parse promql → fan out to TSDB shards, merge aggregates
+            return seriesRepository.readRange("http_duration", Map.of("service", "api"), start, end)
+                    .stream().collect(Collectors.collectingAndThen(Collectors.toList(), QueryResult::new));
+        });
+    }
+}
+
+public record MetricPoint(String metricName, Map<String, String> labels, double value, Instant timestamp) {}
+public record MetricBatch(List<MetricPoint> points) {}
+public record QueryResult(List<MetricPoint> series) {}
+```
+
+> **Async / caching**: Ingest is async via Kafka; TSDB writers batch-flush. Hot dashboard queries cached in Redis; cardinality limiter drops high-cardinality labels like `user_id`.
+
+---
+
 ## Interview Discussion Points
 
 1. **Push vs pull** — Pull: Prometheus scrape. Push: agents for short-lived jobs (Lambda)
 2. **Cardinality** — Why `user_id` as label is dangerous; use logs for high-cardinality debug
 3. **Histogram vs Summary** — Histogram: aggregatable p99 across instances. Summary: pre-computed quantiles, harder to aggregate
-4. **Logs vs metrics vs traces** — Three pillars; this system is metrics layer — see [§11 Observability](../../01_TechGuide/11_Observability.md)
+4. **Logs vs metrics vs traces** — Three pillars; this system is metrics layer — see [§11 Observability](../../../01_TechGuide/11_Observability.md)
 5. **Fail-open on ingest** — Drop samples under overload vs crash the monitored app
 
-**Related**: [§11 Observability](../../01_TechGuide/11_Observability.md), [§23 SRE](../../01_TechGuide/23_SRE_Reliability_Engineering.md)
+**Related**: [§11 Observability](../../../01_TechGuide/11_Observability.md), [§23 SRE](../../../01_TechGuide/23_SRE_Reliability_Engineering.md)

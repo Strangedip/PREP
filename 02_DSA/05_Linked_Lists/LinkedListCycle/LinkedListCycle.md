@@ -1,5 +1,9 @@
 # Linked List Cycle Detection
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Fast & Slow Pointers](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-3-fast-slow-pointers) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Given the head of a linked list, determine if there is a cycle. A cycle exists if a node can be reached again by continuously following the next pointer.
 
@@ -20,6 +24,32 @@ Output: false
 3. **If we reach null**, no cycle
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: head=[3,2,0,-4], pos=1"]
+    START --> BUILD["Build HashMap / Set"]
+    BUILD --> SCAN["Scan input once"]
+    SCAN --> LOOKUP{"Key seen?"}
+    LOOKUP -->|yes| FOUND["Return match"]
+    LOOKUP -->|no| STORE["Store in map"]
+    STORE --> SCAN
+```
+
+**Walkthrough (same example):**
+
+```
+Example: head=[3,2,0,-4], pos=1 → true (cycle at index 1)
+Approach: HashSet (Simple)
+
+Scan input left-to-right
+Store seen keys/values in hash map
+O(1) lookup finds complement or group
+```
 ```java
 Set<ListNode> visited = new HashSet<>();
 ListNode current = head;
@@ -46,6 +76,32 @@ return false; // No cycle
 3. **If no cycle**, fast will reach null
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: head=[3,2,0,-4], pos=1"]
+    START --> INIT["Init left=0, right=end"]
+    INIT --> WINDOW["Adjust window / pointers"]
+    WINDOW --> UPDATE["Update best answer"]
+    UPDATE --> MORE{"More elements?"}
+    MORE -->|yes| WINDOW
+    MORE -->|no| DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: head=[3,2,0,-4], pos=1 → true (cycle at index 1)
+Approach: Floyd's Cycle Detection (Optimal!)
+
+Initialize two pointers at boundaries
+Move pointer that improves constraint
+Update best answer each step
+```
 ```java
 if (head == null || head.next == null) return false;
 

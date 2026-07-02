@@ -1,5 +1,8 @@
 # Section 14: Leadership, Behavioral & System Design Interviews
 
+> **You are here**: Tech Lead — Soft Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [13_Modern_Trends_2026.md](13_Modern_Trends_2026.md) | **Next**: [15_Java_Collections_Concurrency_DeepDive.md](15_Java_Collections_Concurrency_DeepDive.md)
+
 ---
 
 ## 14.1 The STAR Method — Structuring Behavioral Answers

@@ -1,5 +1,9 @@
 # Merge Intervals
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Merge Intervals](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-4-merge-intervals) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given an array of `intervals` where `intervals[i] = [starti, endi]`, merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.
@@ -78,6 +82,31 @@ Step 5: Process [15,18]
         merged = [[1,6],[8,10],[15,18]]
 ```
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: intervals=[[1,3],[2,6],[8,10],[15,18]]"]
+    START --> STEP1["Sort Then Merge (Optimal): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: intervals=[[1,3],[2,6],[8,10],[15,18]] → [[1,6],[8,10],[15,18]]
+Approach: Sort Then Merge (Optimal)
+
+sort: [1,3],[2,6],[8,10],[15,18]
+merge [1,3]+[2,6]->[1,6]
+result [[1,6],[8,10],[15,18]]
+```
+
 ### Code Logic:
 ```java
 // Sort by start time
@@ -116,6 +145,30 @@ for (int i = 1; i < intervals.length; i++) {
 Same sorting approach but with cleaner conditional logic.
 
 ### Key Difference:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: intervals=[[1,3],[2,6],[8,10],[15,18]]"]
+    START --> STEP1["Cleaner Implementation: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: intervals=[[1,3],[2,6],[8,10],[15,18]] → [[1,6],[8,10],[15,18]]
+Approach: Cleaner Implementation
+
+sort: [1,3],[2,6],[8,10],[15,18]
+merge [1,3]+[2,6]->[1,6]
+result [[1,6],[8,10],[15,18]]
+```
 ```java
 for (int[] interval : intervals) {
     if (merged.isEmpty() || merged.get(merged.size() - 1)[1] < interval[0]) {
@@ -148,6 +201,33 @@ Use a stack to keep track of intervals, popping and merging when overlaps are fo
 - When interviewer specifically asks for stack-based solution
 - To demonstrate understanding of different data structures
 - Same time complexity but slightly more space usage
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: intervals=[[1,3],[2,6],[8,10],[15,18]]"]
+    START --> PUSH["Push index / value"]
+    PUSH --> TOP{"Violates monotonic order?"}
+    TOP -->|yes| POP["Pop and resolve"]
+    POP --> TOP
+    TOP -->|no| NEXT{"More input?"}
+    NEXT -->|yes| PUSH
+    NEXT -->|no| DONE["Return answer"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: intervals=[[1,3],[2,6],[8,10],[15,18]] → [[1,6],[8,10],[15,18]]
+Approach: Using Stack
+
+sort: [1,3],[2,6],[8,10],[15,18]
+merge [1,3]+[2,6]->[1,6]
+result [[1,6],[8,10],[15,18]]
+```
+
 
 ## Approach 4: Coordinate Compression (Advanced)
 
@@ -176,11 +256,61 @@ Time 7: count=0, end merged interval [1,6]
 - Advanced interviews requiring sweep line knowledge
 - When dealing with very large numbers of intervals
 - Educational purposes to show algorithmic versatility
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: intervals=[[1,3],[2,6],[8,10],[15,18]]"]
+    START --> STEP1["Coordinate Compression (Advanced): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: intervals=[[1,3],[2,6],[8,10],[15,18]] → [[1,6],[8,10],[15,18]]
+Approach: Coordinate Compression (Advanced)
+
+sort: [1,3],[2,6],[8,10],[15,18]
+merge [1,3]+[2,6]->[1,6]
+result [[1,6],[8,10],[15,18]]
+```
+
 
 ## Approach 5: Brute Force (Educational)
 
 ### How it works:
 For each interval, find all other intervals that overlap with it and merge them iteratively.
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: intervals=[[1,3],[2,6],[8,10],[15,18]]"]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: intervals=[[1,3],[2,6],[8,10],[15,18]] → [[1,6],[8,10],[15,18]]
+Approach: Brute Force (Educational)
+
+sort: [1,3],[2,6],[8,10],[15,18]
+merge [1,3]+[2,6]->[1,6]
+result [[1,6],[8,10],[15,18]]
+```
 
 ### Time Complexity: O(n²)
 - Very inefficient but helps understand the problem

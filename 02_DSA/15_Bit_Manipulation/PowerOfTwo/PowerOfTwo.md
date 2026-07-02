@@ -1,5 +1,9 @@
 # Power of Two (LeetCode 231)
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Bit Manipulation](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-recognition-decision-tree) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given an integer `n`, return `true` if it is a power of two. Otherwise, return `false`.
@@ -78,6 +82,29 @@ Subtracting 1 from a binary number flips all bits from the lowest set bit to the
 
 ### Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=16"]
+    START --> STEP1["n & (n - 1) Trick (Most Common): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=16 → true (10000₂)
+Approach: n & (n - 1) Trick (Most Common)
+
+Apply n & (n - 1) Trick (Most Common) on the example input step by step
+Final answer from example: see above
+```
 ```java
 public boolean isPowerOfTwo(int n) {
     return n > 0 && (n & (n - 1)) == 0;
@@ -111,6 +138,29 @@ n & (-n): = 00000100 = 4 ≠ 12 → Not a power of two ✗
 
 ### Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=16"]
+    START --> STEP1["n & (-n) Trick: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=16 → true (10000₂)
+Approach: n & (-n) Trick
+
+Apply n & (-n) Trick on the example input step by step
+Final answer from example: see above
+```
 ```java
 public boolean isPowerOfTwo(int n) {
     return n > 0 && (n & (-n)) == n;
@@ -125,6 +175,31 @@ public boolean isPowerOfTwo(int n) {
 
 ### Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=16"]
+    START --> ACC["acc = 0"]
+    ACC --> XOR["acc ^= nums[i]"]
+    XOR --> NEXT{"More elements?"}
+    NEXT -->|yes| XOR
+    NEXT -->|no| DONE["Return acc"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=16 → true (10000₂)
+Approach: Integer.bitCount()
+
+XOR accumulates unmatched bits
+Pairs cancel to 0
+Remaining value is unique answer
+```
 ```java
 public boolean isPowerOfTwo(int n) {
     return n > 0 && Integer.bitCount(n) == 1;
@@ -141,6 +216,29 @@ public boolean isPowerOfTwo(int n) {
 
 Repeatedly divide by 2. If the number becomes 1, it was a power of two. If it becomes odd at any point before reaching 1, it was not.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=16"]
+    START --> STEP1["Loop / Divide: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=16 → true (10000₂)
+Approach: Loop / Divide
+
+Apply Loop / Divide on the example input step by step
+Final answer from example: see above
+```
 ```java
 public boolean isPowerOfTwo(int n) {
     if (n <= 0) return false;
@@ -160,6 +258,29 @@ This is correct but slower than the O(1) bit tricks. Mention it only if asked fo
 
 **Time:** O(1), **Space:** O(1)
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=16"]
+    START --> STEP1["Math (Logarithm): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=16 → true (10000₂)
+Approach: Math (Logarithm)
+
+Apply Math (Logarithm) on the example input step by step
+Final answer from example: see above
+```
 ```java
 public boolean isPowerOfTwo(int n) {
     if (n <= 0) return false;
@@ -210,6 +331,29 @@ The `n & (n - 1)` trick is foundational. Here is a complete reference of bit tri
 
 A number is a power of four if it is a power of two AND its single set bit is at an even position (0, 2, 4, 6, ...).
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=16"]
+    START --> STEP1["Approach 6: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=16 → true (10000₂)
+Approach: Approach 6
+
+Apply Approach 6 on the example input step by step
+Final answer from example: see above
+```
 ```java
 public boolean isPowerOfFour(int n) {
     // 0x55555555 = 01010101...01 (bits set at even positions)

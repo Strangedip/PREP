@@ -1,5 +1,9 @@
 # Number of 1 Bits (Hamming Weight)
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Bit Manipulation](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-recognition-decision-tree) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Write a function that takes an **unsigned integer** and returns the number of '1' bits it has (also known as the **Hamming weight**).
 
@@ -36,6 +40,31 @@ Count the number of **set bits** (1s) in the binary representation of an integer
 **Examine each bit position** individually using bit masking.
 
 #### Algorithm
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=11 (1011₂)"]
+    START --> ACC["acc = 0"]
+    ACC --> XOR["acc ^= nums[i]"]
+    XOR --> NEXT{"More elements?"}
+    NEXT -->|yes| XOR
+    NEXT -->|no| DONE["Return acc"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=11 (1011₂) → 3 set bits
+Approach: Check Each Bit
+
+XOR accumulates unmatched bits
+Pairs cancel to 0
+Remaining value is unique answer
+```
 ```java
 public int hammingWeight(int n) {
     int count = 0;
@@ -67,6 +96,29 @@ public int hammingWeight(int n) {
 #### Key Insight
 **Process bits from right to left** by repeatedly checking the rightmost bit.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=11 (1011₂)"]
+    START --> STEP1["Right Shift Method: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=11 (1011₂) → 3 set bits
+Approach: Right Shift Method
+
+Apply Right Shift Method on the example input step by step
+Final answer from example: see above
+```
 ```java
 public int hammingWeightShift(int n) {
     int count = 0;
@@ -93,6 +145,29 @@ public int hammingWeightShift(int n) {
 #### Key Insight
 **Clear the rightmost set bit** in each iteration using `n & (n-1)`.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=11 (1011₂)"]
+    START --> STEP1["Brian Kernighan's Algorithm: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=11 (1011₂) → 3 set bits
+Approach: Brian Kernighan's Algorithm
+
+Apply Brian Kernighan's Algorithm on the example input step by step
+Final answer from example: see above
+```
 ```java
 public int hammingWeightOptimal(int n) {
     int count = 0;
@@ -134,6 +209,31 @@ n&(n-1) = 1000  (rightmost 1 in n is cleared)
 #### Key Insight
 **Count bits in parallel** using SIMD-Within-A-Register techniques.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=11 (1011₂)"]
+    START --> ACC["acc = 0"]
+    ACC --> XOR["acc ^= nums[i]"]
+    XOR --> NEXT{"More elements?"}
+    NEXT -->|yes| XOR
+    NEXT -->|no| DONE["Return acc"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=11 (1011₂) → 3 set bits
+Approach: Parallel Bit Counting (SWAR)
+
+XOR accumulates unmatched bits
+Pairs cancel to 0
+Remaining value is unique answer
+```
 ```java
 public int hammingWeightParallel(int n) {
     // Count bits in pairs
@@ -182,6 +282,29 @@ public int hammingWeightParallel(int n) {
 #### Key Insight
 **Pre-compute results** for small bit patterns and combine.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=11 (1011₂)"]
+    START --> STEP1["Lookup Table: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=11 (1011₂) → 3 set bits
+Approach: Lookup Table
+
+Apply Lookup Table on the example input step by step
+Final answer from example: see above
+```
 ```java
 private static final int[] BIT_COUNT_TABLE = new int[256];
 

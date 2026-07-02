@@ -3,6 +3,9 @@
 > **Goal**: Master the art and science of communicating with LLMs to produce reliable, high-quality output for production applications.
 > **Level**: ALL (Associate through Lead)
 
+> **You are here**: SDE1 — AI / ML
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [01_AI_Fundamentals.md](01_AI_Fundamentals.md) | **Next**: [03_RAG_Architecture.md](03_RAG_Architecture.md)
+
 ---
 
 ## 1. The Anatomy of an LLM API Call

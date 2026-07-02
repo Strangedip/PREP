@@ -1,5 +1,8 @@
 # DSA Study Guide — From Beginner to Lead Engineer
 
+> **You are here**: All levels — DSA curriculum
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [SelfAssessment](../00_Interview_Prep/Core/SelfAssessment.md) Section 0 | **Next**: [DSA README](README.md)
+
 > **This is your single reference for HOW to study DSA**, covering learning paths, difficulty progression, and study methods for every career level.
 
 ---
@@ -205,7 +208,7 @@ Before choosing a path, honestly evaluate yourself:
   - `12_Backtracking/NQueens/` — Complex constraint satisfaction
 
 - [ ] **Week 11**: Greedy + Sliding Window
-  - `14_Greedy_Algorithms/JumpGame/` — Greedy choice
+  - `13_Dynamic_Programming/JumpGame/` — DP + greedy farthest reach (both approaches in one file)
   - `14_Greedy_Algorithms/GasStation/` — Circular greedy
   - `14_Greedy_Algorithms/PartitionLabels/` — Interval greedy
   - `04_Sliding_Window_Two_Pointers/LongestSubstringKDistinct/` — Variable window
@@ -443,7 +446,7 @@ Solve problems WITHOUT looking at previous solutions. If stuck for 20 minutes, p
 After solving a problem, explain it as if teaching a junior developer. If you cannot explain it simply, you do not understand it well enough.
 
 ### Pattern-First Approach
-Before jumping into problems, study the 16 algorithmic patterns in `03_CodingPatterns/02_AlgorithmicPatterns.md`. Then when you see a new problem, your first thought should be: "Which pattern does this match?"
+Before jumping into problems, study the 17 algorithmic patterns in `03_CodingPatterns/02_AlgorithmicPatterns.md`. Then when you see a new problem, your first thought should be: "Which pattern does this match?"
 
 ### Daily Practice Routine
 

@@ -1,5 +1,9 @@
 # Subsets (Power Set)
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Subsets / Backtracking](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-10-subsets-backtracking) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Given an integer array `nums` of **unique elements**, return all possible subsets (the power set).
 
@@ -35,6 +39,32 @@ The **power set** of a set with `n` elements has exactly **2ⁿ subsets** becaus
 **Build subsets incrementally** by making include/exclude decisions for each element.
 
 #### Algorithm
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,2,3]"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,2,3] → [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+Approach: Backtracking
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
 ```java
 public List<List<Integer>> subsets(int[] nums) {
     List<List<Integer>> result = new ArrayList<>();
@@ -71,6 +101,32 @@ private void backtrack(int[] nums, int start, List<Integer> current, List<List<I
 #### Key Insight
 **Explicitly model binary choice** for each element: include or exclude.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,2,3]"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,2,3] → [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+Approach: Include/Exclude Backtracking
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
 ```java
 private void backtrackIncludeExclude(int[] nums, int index, List<Integer> current, List<List<Integer>> result) {
     // Base case: processed all elements
@@ -97,6 +153,31 @@ private void backtrackIncludeExclude(int[] nums, int index, List<Integer> curren
 **Map each subset to a binary number** where bit `i` indicates whether `nums[i]` is included.
 
 #### Algorithm
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,2,3]"]
+    START --> ACC["acc = 0"]
+    ACC --> XOR["acc ^= nums[i]"]
+    XOR --> NEXT{"More elements?"}
+    NEXT -->|yes| XOR
+    NEXT -->|no| DONE["Return acc"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,2,3] → [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+Approach: Bit Manipulation
+
+XOR accumulates unmatched bits
+Pairs cancel to 0
+Remaining value is unique answer
+```
 ```java
 public List<List<Integer>> subsetsBitManipulation(int[] nums) {
     List<List<Integer>> result = new ArrayList<>();
@@ -144,6 +225,29 @@ Mask 7 (111): [1,2,3]
 #### Key Insight
 **Start with empty set**, then for each new element, **double the subsets** by creating copies with the new element added.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,2,3]"]
+    START --> STEP1["Iterative Building: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,2,3] → [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+Approach: Iterative Building
+
+Apply Iterative Building on the example input step by step
+Final answer from example: see above
+```
 ```java
 public List<List<Integer>> subsetsIterative(int[] nums) {
     List<List<Integer>> result = new ArrayList<>();

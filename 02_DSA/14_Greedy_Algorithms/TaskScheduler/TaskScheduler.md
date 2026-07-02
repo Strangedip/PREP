@@ -1,5 +1,9 @@
 # Task Scheduler
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Top K Elements](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-12-top-k-elements) · [Greedy](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-recognition-decision-tree) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 You are given an array of CPU tasks `tasks`, each represented by a character from A to Z, and a cooling interval `n`. Each cycle (or interval), the CPU can complete either one task or be idle. However, identical tasks must be separated by at least `n` intervals.
@@ -110,6 +114,32 @@ Schedule: A → B → C → A → B → C → A → B → C → D → D → E �
 
 ### Java Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: tasks=["A","A","A","B","B","B"], n=2"]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: tasks=["A","A","A","B","B","B"], n=2 → 8 intervals
+Approach: Greedy with Math Formula (Optimal)
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
 ```java
 class Solution {
     public int leastInterval(char[] tasks, int n) {
@@ -157,6 +187,33 @@ This approach simulates the actual scheduling process. It is more intuitive and 
 4. After scheduling, push remaining tasks (with decremented frequency) back into the heap.
 5. If the heap is not empty but we could not fill the frame, the remaining slots are idle.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: tasks=["A","A","A","B","B","B"], n=2"]
+    START --> ENQ["Enqueue start node"]
+    ENQ --> Q{"Queue empty?"}
+    Q -->|no| DEQ["Dequeue front"]
+    DEQ --> NEI["Visit unvisited neighbors"]
+    NEI --> ENQ2["Enqueue neighbors"]
+    ENQ2 --> Q
+    Q -->|yes| DONE["Return shortest / order"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: tasks=["A","A","A","B","B","B"], n=2 → 8 intervals
+Approach: Priority Queue (Max-Heap) Simulation
+
+Enqueue start node/level
+Process neighbors level by level
+First reach target = shortest path
+```
 ```java
 class Solution {
     public int leastInterval(char[] tasks, int n) {
@@ -310,7 +367,6 @@ class Solution {
 
 ---
 
-**Pattern**: Greedy + Math / Priority Queue
 **Difficulty**: Medium
 **Must-Know**: Yes — frequently asked at Meta, Amazon, Google
 

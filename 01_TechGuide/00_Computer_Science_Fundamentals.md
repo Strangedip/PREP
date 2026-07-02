@@ -3,6 +3,9 @@
 > **Level**: ALL — Bridges to DSA and system design
 > **Complements**: [02_DSA](../02_DSA/README.md), [03_CodingPatterns/02_AlgorithmicPatterns.md](../03_CodingPatterns/02_AlgorithmicPatterns.md)
 
+> **You are here**: Fresher — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Next**: [00_Java_OOP_Fundamentals.md](00_Java_OOP_Fundamentals.md)
+
 ---
 
 ## 00C.1 Big-O Complexity

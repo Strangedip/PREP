@@ -1,5 +1,9 @@
 # Three Sum Problem
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Two Pointers](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-1-two-pointers) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given an integer array, find all unique triplets in the array that sum to zero. The triplets must not contain duplicate combinations.
@@ -28,6 +32,32 @@ Think of trying every possible combination of 3 friends and checking if their ag
 1. Try every possible triplet (i, j, k)
 2. Check if nums[i] + nums[j] + nums[k] = 0
 3. Use a Set to avoid duplicate triplets
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[-1,0,1,2,-1,-4]"]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[-1,0,1,2,-1,-4] → [[-1,-1,2],[-1,0,1]]
+Approach: Brute Force (Basic Understanding)
+
+Enumerate all candidates from example input
+Check validity/optimal condition
+Keep best answer found
+```
 
 ### Code Logic:
 ```java
@@ -86,6 +116,33 @@ i=3: anchor = 0, target = 0
      left=4(1), right=4(1): left >= right, continue
 ```
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[-1,0,1,2,-1,-4]"]
+    START --> INIT["Init left=0, right=end"]
+    INIT --> WINDOW["Adjust window / pointers"]
+    WINDOW --> UPDATE["Update best answer"]
+    UPDATE --> MORE{"More elements?"}
+    MORE -->|yes| WINDOW
+    MORE -->|no| DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[-1,0,1,2,-1,-4] → [[-1,-1,2],[-1,0,1]]
+Approach: Sort + Two Pointers (Optimal Solution!)
+
+Initialize two pointers at boundaries
+Move pointer that improves constraint
+Update best answer each step
+```
+
 ### Code Logic:
 ```java
 Arrays.sort(nums);
@@ -120,6 +177,33 @@ for (int i = 0; i < nums.length - 2; i++) {
 
 ### How it works:
 For each pair (i,j), check if the complement -(nums[i] + nums[j]) exists in the remaining array.
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[-1,0,1,2,-1,-4]"]
+    START --> BUILD["Build HashMap / Set"]
+    BUILD --> SCAN["Scan input once"]
+    SCAN --> LOOKUP{"Key seen?"}
+    LOOKUP -->|yes| FOUND["Return match"]
+    LOOKUP -->|no| STORE["Store in map"]
+    STORE --> SCAN
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[-1,0,1,2,-1,-4] → [[-1,-1,2],[-1,0,1]]
+Approach: HashMap Alternative
+
+Scan input left-to-right
+Store seen keys/values in hash map
+O(1) lookup finds complement or group
+```
 
 ### Complexity:
 - **Time:** O(n²)

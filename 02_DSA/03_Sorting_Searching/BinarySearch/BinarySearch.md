@@ -1,5 +1,9 @@
 # Binary Search
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Modified Binary Search](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-11-modified-binary-search) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, return its index. Otherwise, return -1.
 
@@ -21,6 +25,34 @@ Output: -1
 4. **Continue until** target found or range exhausted
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[-1,0,3,5,9,12], target=9"]
+    START --> BOUNDS["lo=0, hi=n-1"]
+    BOUNDS --> MID["mid = (lo+hi)/2"]
+    MID --> CMP{"Compare nums[mid]"}
+    CMP -->|too small| LO["lo = mid+1"]
+    CMP -->|too large| HI["hi = mid-1"]
+    CMP -->|found| DONE["Return mid"]
+    LO --> BOUNDS
+    HI --> BOUNDS
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[-1,0,3,5,9,12], target=9 → index 4
+Approach: : Classic Binary Search
+
+lo=0,hi=5,mid=2 -> 3<9 lo=3
+lo=3,hi=5,mid=4 -> 9 found
+return index 4
+```
 ```java
 public int search(int[] nums, int target) {
     int left = 0;

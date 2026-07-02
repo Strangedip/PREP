@@ -1,5 +1,9 @@
 # Partition Labels
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Greedy](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-recognition-decision-tree) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 You are given a string s. We want to partition this string into as many parts as possible so that each letter appears in at most one part. Return a list of integers representing the size of these parts.
 
@@ -24,6 +28,32 @@ This is a partition so that each letter appears in at most one part.
 4. **Extend partition end** when we see characters with later last occurrences
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="ababcbacadefegdehijhklij""]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="ababcbacadefegdehijhklij" → [9,7,8]
+Approach: : Greedy with Last Occurrence
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
 ```java
 public List<Integer> partitionLabels(String s) {
     // Step 1: Find last occurrence of each character

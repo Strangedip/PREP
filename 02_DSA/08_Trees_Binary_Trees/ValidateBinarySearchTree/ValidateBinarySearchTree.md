@@ -1,5 +1,9 @@
 # Validate Binary Search Tree
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Binary Tree](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-8-dfs-depth-first-search) · [DFS](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-8-dfs-depth-first-search) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Given the root of a binary tree, determine if it is a valid binary search tree (BST). A valid BST is defined as follows:
 - The left subtree contains only nodes with keys less than the node's key
@@ -30,6 +34,32 @@ Explanation: The root node's value is 5 but its right child's value is 4.
 4. **Check if node value** is within its valid range
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[2,1,3]"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[2,1,3] → true
+Approach: Recursive with Min/Max Bounds (Optimal!)
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
 ```java
 public boolean isValidBST(TreeNode root) {
     return validate(root, Long.MIN_VALUE, Long.MAX_VALUE);
@@ -62,6 +92,29 @@ private boolean validate(TreeNode node, long min, long max) {
 3. **Track previous value** during traversal
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[2,1,3]"]
+    START --> STEP1["Inorder Traversal: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[2,1,3] → true
+Approach: Inorder Traversal
+
+Apply Inorder Traversal on the example input step by step
+Final answer from example: see above
+```
 ```java
 private Integer prev = null;
 
@@ -117,6 +170,33 @@ private void inorder(TreeNode node, List<Integer> values) {
 3. **Same logic** as recursive inorder
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[2,1,3]"]
+    START --> PUSH["Push index / value"]
+    PUSH --> TOP{"Violates monotonic order?"}
+    TOP -->|yes| POP["Pop and resolve"]
+    POP --> TOP
+    TOP -->|no| NEXT{"More input?"}
+    NEXT -->|yes| PUSH
+    NEXT -->|no| DONE["Return answer"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[2,1,3] → true
+Approach: Iterative with Stack
+
+Push indices/values on stack
+Pop when current resolves pending
+Stack top gives next greater / valid match
+```
 ```java
 public boolean isValidBST(TreeNode root) {
     Stack<TreeNode> stack = new Stack<>();

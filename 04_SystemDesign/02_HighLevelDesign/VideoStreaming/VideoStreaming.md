@@ -1,5 +1,8 @@
 # Video Streaming (YouTube / Netflix) — High-Level Design
 
+> **You are here**: Senior SDE — System Design (HLD)
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Prerequisites**: [HLD_Template.md](../../00_Templates/HLD_Template/HLD_Template.md)
+
 ## Problem Statement
 
 Design a video streaming platform that:
@@ -161,6 +164,73 @@ Encoder (OBS) → RTMP ingest → Live transcoder → HLS segments to CDN
 - **Geo-blocking**: Rights management per region
 - **DRM**: Widevine/FairPlay for premium content
 - **Content moderation**: ML pipeline on upload (async) before public publish
+
+---
+
+## Spring Boot Reference Sketch
+
+Focused Java 17 / Spring Boot 3.x sketch of upload-complete → playback URL — not production-complete.
+
+```java
+@RestController
+@RequestMapping("/v1/videos")
+public class VideoPlaybackController {
+    private final VideoPlaybackService videoPlaybackService;
+    private final TranscodeService transcodeService;
+
+    public VideoPlaybackController(VideoPlaybackService videoPlaybackService,
+                                   TranscodeService transcodeService) {
+        this.videoPlaybackService = videoPlaybackService;
+        this.transcodeService = transcodeService;
+    }
+
+    @PostMapping("/upload/complete")
+    public ResponseEntity<Void> completeUpload(@RequestBody UploadCompleteRequest request) {
+        transcodeService.enqueueJob(request.videoId(), request.rawObjectKey());
+        return ResponseEntity.accepted().build(); // async GPU workers consume Kafka queue
+    }
+
+    @GetMapping("/{videoId}/playback")
+    public PlaybackResponse playback(@PathVariable String videoId, @RequestParam String clientIp) {
+        return videoPlaybackService.issuePlaybackToken(videoId, clientIp);
+    }
+}
+
+public interface VideoRenditionRepository {
+    Optional<VideoRendition> findBestManifest(String videoId, String preferredCodec);
+}
+
+@Service
+public class VideoPlaybackService {
+    private static final Duration CDN_TOKEN_TTL = Duration.ofMinutes(10);
+    private final VideoRenditionRepository renditionRepository;
+    private final CdnTokenSigner cdnTokenSigner;
+
+    public PlaybackResponse issuePlaybackToken(String videoId, String clientIp) {
+        VideoRendition rendition = renditionRepository
+                .findBestManifest(videoId, "h264")
+                .orElseThrow(() -> new NotFoundException(videoId));
+
+        String signedUrl = cdnTokenSigner.sign(rendition.manifestUrl(), CDN_TOKEN_TTL, clientIp);
+        return new PlaybackResponse(signedUrl, rendition.resolutions(), CDN_TOKEN_TTL.toSeconds());
+    }
+}
+
+@Service
+public class TranscodeService {
+    private final ApplicationEventPublisher events;
+
+    public void enqueueJob(String videoId, String rawObjectKey) {
+        events.publishEvent(new TranscodeRequestedEvent(videoId, rawObjectKey, Instant.now()));
+        // Kafka consumer: split segments, encode renditions, register in VideoRenditionRepository
+    }
+}
+
+public record TranscodeRequestedEvent(String videoId, String rawObjectKey, Instant requestedAt) {}
+public record PlaybackResponse(String manifestUrl, List<String> resolutions, long expiresInSec) {}
+```
+
+> **Async / caching**: Transcoding is fully async — API returns `202 Accepted`. CDN edge caches HLS segments; signed playback URLs are short-lived and non-idempotent by design.
 
 ---
 

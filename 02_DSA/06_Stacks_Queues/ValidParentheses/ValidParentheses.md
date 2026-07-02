@@ -1,5 +1,9 @@
 # Valid Parentheses
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Monotonic Stack](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-14-monotonic-stack) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given a string containing only parentheses characters `()`, `[]`, and `{}`, determine if the string is valid.
@@ -62,6 +66,35 @@ Step 6: c = '}' → closing bracket → check top of stack
 Result: stack is empty → valid!
 ```
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="()[]{}""]
+    START --> PUSH["Push index / value"]
+    PUSH --> TOP{"Violates monotonic order?"}
+    TOP -->|yes| POP["Pop and resolve"]
+    POP --> TOP
+    TOP -->|no| NEXT{"More input?"}
+    NEXT -->|yes| PUSH
+    NEXT -->|no| DONE["Return answer"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="()[]{}" → true
+Approach: Stack (Optimal Solution!)
+
+s="()[]{}"
+push ( [ {
+pop matching pairs
+stack empty -> true
+```
+
 ### Code Logic:
 ```java
 Stack<Character> stack = new Stack<>();
@@ -94,6 +127,34 @@ return stack.isEmpty();  // All brackets should be matched
 ### How it works:
 Use a HashMap to map closing brackets to their corresponding opening brackets for cleaner code.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="()[]{}""]
+    START --> BUILD["Build HashMap / Set"]
+    BUILD --> SCAN["Scan input once"]
+    SCAN --> LOOKUP{"Key seen?"}
+    LOOKUP -->|yes| FOUND["Return match"]
+    LOOKUP -->|no| STORE["Store in map"]
+    STORE --> SCAN
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="()[]{}" → true
+Approach: HashMap for Cleaner Code
+
+s="()[]{}"
+push ( [ {
+pop matching pairs
+stack empty -> true
+```
+
 ### Code Logic:
 ```java
 Map<Character, Character> mapping = new HashMap<>();
@@ -122,6 +183,32 @@ for (char c : s.toCharArray()) {
 
 ### How it works:
 For a single type of bracket (like only parentheses), you can use a simple counter.
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="()[]{}""]
+    START --> STEP1["Counter Method (Limited Use): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="()[]{}" → true
+Approach: Counter Method (Limited Use)
+
+s="()[]{}"
+push ( [ {
+pop matching pairs
+stack empty -> true
+```
 
 ### Code Logic:
 ```java

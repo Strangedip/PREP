@@ -1,5 +1,9 @@
 # Number of Islands
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [BFS](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-7-bfs-breadth-first-search) · [DFS](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-8-dfs-depth-first-search) · [Union Find](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-17-union-find) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Given an `m x n` 2D binary grid which represents a map of '1's (land) and '0's (water), return the number of islands.
 
@@ -29,6 +33,33 @@ When we find a '1' (land), we explore all connected land using DFS and mark them
    - Increment island count
    - Use DFS to mark all connected '1's as '0' (visited)
 3. DFS explores all 4 directions (up, down, left, right)
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: grid=[["1","1","0"],["0","1","0"],["0","0","1"]]"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: grid=[["1","1","0"],["0","1","0"],["0","0","1"]] → 2 islands
+Approach: Depth-First Search (DFS)
+
+DFS from (0,0) marks island 1
+DFS from (2,2) marks island 2
+count = 2
+```
 
 #### Time Complexity
 - **O(m × n)** - We visit each cell at most once
@@ -80,6 +111,34 @@ Instead of recursion, use a queue to explore connected land level by level.
 2. When we find a '1':
    - Increment island count
    - Use BFS with queue to mark all connected '1's as '0'
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: grid=[["1","1","0"],["0","1","0"],["0","0","1"]]"]
+    START --> ENQ["Enqueue start node"]
+    ENQ --> Q{"Queue empty?"}
+    Q -->|no| DEQ["Dequeue front"]
+    DEQ --> NEI["Visit unvisited neighbors"]
+    NEI --> ENQ2["Enqueue neighbors"]
+    ENQ2 --> Q
+    Q -->|yes| DONE["Return shortest / order"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: grid=[["1","1","0"],["0","1","0"],["0","0","1"]] → 2 islands
+Approach: Breadth-First Search (BFS)
+
+DFS from (0,0) marks island 1
+DFS from (2,2) marks island 2
+count = 2
+```
 
 #### Time Complexity
 - **O(m × n)** - Each cell visited once
@@ -134,6 +193,33 @@ Use Union-Find to group connected components. Each island becomes one connected 
 1. Initialize Union-Find with each '1' cell as separate component
 2. For each '1' cell, union it with adjacent '1' cells
 3. Return the number of connected components
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: grid=[["1","1","0"],["0","1","0"],["0","0","1"]]"]
+    START --> BUILD["Build HashMap / Set"]
+    BUILD --> SCAN["Scan input once"]
+    SCAN --> LOOKUP{"Key seen?"}
+    LOOKUP -->|yes| FOUND["Return match"]
+    LOOKUP -->|no| STORE["Store in map"]
+    STORE --> SCAN
+```
+
+**Walkthrough (same example):**
+
+```
+Example: grid=[["1","1","0"],["0","1","0"],["0","0","1"]] → 2 islands
+Approach: Union-Find (Disjoint Set Union)
+
+DFS from (0,0) marks island 1
+DFS from (2,2) marks island 2
+count = 2
+```
 
 #### Time Complexity
 - **O(m × n × α(m × n))** where α is inverse Ackermann function (nearly constant)

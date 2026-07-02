@@ -1,5 +1,8 @@
 # Section 10: DevOps, CI/CD, Docker & Containerization
 
+> **You are here**: Senior SDE — Engineering Practices
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [09_Testing_Strategies.md](09_Testing_Strategies.md) | **Next**: [11_Observability.md](11_Observability.md)
+
 ---
 
 ## 10.1 Docker: Containerization for Java/Angular Applications

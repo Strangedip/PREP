@@ -1,5 +1,8 @@
 # News Feed System — High-Level Design
 
+> **You are here**: Senior SDE — System Design (HLD)
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Prerequisites**: [HLD_Template.md](../../00_Templates/HLD_Template/HLD_Template.md)
+
 ## Problem Statement
 
 Design a social media news feed system (like Facebook, Twitter/X, or LinkedIn) that can:

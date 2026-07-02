@@ -1,5 +1,8 @@
 # Section 3: Design Patterns, SOLID Principles & Clean Architecture
 
+> **You are here**: SDE2 — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [02_Advanced_SpringBoot_Java_Internals.md](02_Advanced_SpringBoot_Java_Internals.md) | **Next**: [04_API_Design_REST.md](04_API_Design_REST.md)
+
 ---
 
 ## 3.1 SOLID Principles — The Foundation of Maintainable Code

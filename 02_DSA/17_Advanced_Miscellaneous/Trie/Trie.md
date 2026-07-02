@@ -1,5 +1,9 @@
 # Trie (Prefix Tree)
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Trie](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-recognition-decision-tree) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 A Trie is a tree-like data structure used to store and search strings efficiently. Each node represents a character, and paths from root to leaves represent complete words.
 
@@ -37,6 +41,33 @@ Trie structure:
 ## Approach 1: Basic Trie Implementation
 
 ### TrieNode Structure:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: insert("apple"), search("app")"]
+    START --> ROOT["Start at root / index 0"]
+    ROOT --> WALK["Traverse structure"]
+    WALK --> QUERY{"Query or update?"}
+    QUERY -->|query| AGG["Aggregate range"]
+    QUERY -->|update| PROP["Propagate to children"]
+    AGG --> DONE["Return result"]
+    PROP --> WALK
+```
+
+**Walkthrough (same example):**
+
+```
+Example: insert("apple"), search("app")→false, startsWith("app")→true
+Approach: Basic Trie Implementation
+
+Traverse from root/index 0
+Query aggregates or update nodes
+Return range sum / structure result
+```
 ```java
 class TrieNode {
     TrieNode[] children;
@@ -101,6 +132,33 @@ class Trie {
 ## Approach 2: Trie with Deletion
 
 ### Enhanced Implementation:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: insert("apple"), search("app")"]
+    START --> ROOT["Start at root / index 0"]
+    ROOT --> WALK["Traverse structure"]
+    WALK --> QUERY{"Query or update?"}
+    QUERY -->|query| AGG["Aggregate range"]
+    QUERY -->|update| PROP["Propagate to children"]
+    AGG --> DONE["Return result"]
+    PROP --> WALK
+```
+
+**Walkthrough (same example):**
+
+```
+Example: insert("apple"), search("app")→false, startsWith("app")→true
+Approach: Trie with Deletion
+
+Traverse from root/index 0
+Query aggregates or update nodes
+Return range sum / structure result
+```
 ```java
 class TrieWithDeletion {
     private TrieNode root;
@@ -154,6 +212,32 @@ class TrieWithDeletion {
 ## Approach 3: HashMap-based Trie (Unicode Support)
 
 ### Flexible Character Set:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: insert("apple"), search("app")"]
+    START --> BUILD["Build HashMap / Set"]
+    BUILD --> SCAN["Scan input once"]
+    SCAN --> LOOKUP{"Key seen?"}
+    LOOKUP -->|yes| FOUND["Return match"]
+    LOOKUP -->|no| STORE["Store in map"]
+    STORE --> SCAN
+```
+
+**Walkthrough (same example):**
+
+```
+Example: insert("apple"), search("app")→false, startsWith("app")→true
+Approach: HashMap-based Trie (Unicode Support)
+
+Scan input left-to-right
+Store seen keys/values in hash map
+O(1) lookup finds complement or group
+```
 ```java
 class TrieHashMap {
     class TrieNode {

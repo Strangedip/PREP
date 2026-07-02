@@ -1,5 +1,8 @@
 # Section 5: Database & Performance Tuning
 
+> **You are here**: SDE2 — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [04_API_Design_REST.md](04_API_Design_REST.md) | **Next**: [06_Microservices_Distributed_Systems.md](06_Microservices_Distributed_Systems.md)
+
 ---
 
 ## 5.1 SQL Optimization: Indexing Strategies, EXPLAIN ANALYZE, and the N+1 Problem

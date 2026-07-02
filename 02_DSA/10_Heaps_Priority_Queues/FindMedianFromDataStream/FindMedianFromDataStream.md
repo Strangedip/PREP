@@ -1,5 +1,9 @@
 # Find Median from Data Stream (LeetCode 295)
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Two Heaps](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-9-two-heaps) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 The median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value, and the median is the mean of the two middle values.
@@ -48,6 +52,31 @@ This is one of the most frequently asked design + algorithm problems at FAANG co
 **addNum:** O(n) — find insertion point and shift elements
 **findMedian:** O(1) — access middle element(s)
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: addNum(1), addNum(2), findMedian()"]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: addNum(1), addNum(2), findMedian()→1.5, addNum(3)→2.0
+Approach: Sorted List (Naive)
+
+Enumerate all candidates from example input
+Check validity/optimal condition
+Keep best answer found
+```
 ```java
 class MedianFinder {
     private List<Integer> sorted = new ArrayList<>();
@@ -99,6 +128,34 @@ This three-step process guarantees both invariants are always satisfied.
 
 ### Complete Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: addNum(1), addNum(2), findMedian()"]
+    START --> HEAP["Init min/max heap"]
+    HEAP --> ADD["Add element"]
+    ADD --> SIZE{"Size > k?"}
+    SIZE -->|yes| REM["Poll root"]
+    SIZE -->|no| MORE{"More input?"}
+    REM --> MORE
+    MORE -->|yes| ADD
+    MORE -->|no| DONE["Return heap top"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: addNum(1), addNum(2), findMedian()→1.5, addNum(3)→2.0
+Approach: Two Heaps (Optimal)
+
+Maintain heap of size k or candidates
+Push each element, pop if over limit
+Root is kth largest or min distance
+```
 ```java
 import java.util.*;
 
@@ -202,6 +259,34 @@ Median = (3 + 5) / 2.0 = 4.0
 
 Use **counting sort / bucket approach**: maintain a count array of size 101 and a total count. Finding the median is O(101) = O(1).
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: addNum(1), addNum(2), findMedian()"]
+    START --> HEAP["Init min/max heap"]
+    HEAP --> ADD["Add element"]
+    ADD --> SIZE{"Size > k?"}
+    SIZE -->|yes| REM["Poll root"]
+    SIZE -->|no| MORE{"More input?"}
+    REM --> MORE
+    MORE -->|yes| ADD
+    MORE -->|no| DONE["Return heap top"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: addNum(1), addNum(2), findMedian()→1.5, addNum(3)→2.0
+Approach: Two Heaps with Follow-Up Optimization
+
+Maintain heap of size k or candidates
+Push each element, pop if over limit
+Root is kth largest or min distance
+```
 ```java
 class MedianFinder {
     private int[] count = new int[101];
@@ -247,6 +332,32 @@ Use buckets for [0, 100] and two overflow lists (one for negatives, one for valu
 
 Use a `TreeMap` (self-balancing BST) that supports order-statistics operations.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: addNum(1), addNum(2), findMedian()"]
+    START --> BUILD["Build HashMap / Set"]
+    BUILD --> SCAN["Scan input once"]
+    SCAN --> LOOKUP{"Key seen?"}
+    LOOKUP -->|yes| FOUND["Return match"]
+    LOOKUP -->|no| STORE["Store in map"]
+    STORE --> SCAN
+```
+
+**Walkthrough (same example):**
+
+```
+Example: addNum(1), addNum(2), findMedian()→1.5, addNum(3)→2.0
+Approach: Balanced BST (TreeMap)
+
+Scan input left-to-right
+Store seen keys/values in hash map
+O(1) lookup finds complement or group
+```
 ```java
 class MedianFinder {
     private TreeMap<Integer, Integer> tree = new TreeMap<>();
@@ -319,6 +430,29 @@ Note: This approach has O(log n) for `findMedian` (not O(1)), so the two-heap ap
 
 In a multi-threaded streaming context, the two-heap approach needs synchronization:
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: addNum(1), addNum(2), findMedian()"]
+    START --> STEP1["Approach 5: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: addNum(1), addNum(2), findMedian()→1.5, addNum(3)→2.0
+Approach: Approach 5
+
+Apply Approach 5 on the example input step by step
+Final answer from example: see above
+```
 ```java
 class ThreadSafeMedianFinder {
     private final PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());

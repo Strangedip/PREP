@@ -1,5 +1,9 @@
 # 4Sum (LeetCode 18)
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Two Pointers](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-1-two-pointers) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given an array `nums` of `n` integers, return an array of all the unique quadruplets `[nums[a], nums[b], nums[c], nums[d]]` such that:
@@ -37,6 +41,31 @@ Output: [[2,2,2,2]]
 
 Iterate through every possible combination of four indices and check if the sum equals the target. Use a Set to avoid duplicate quadruplets.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,0,-1,0,-2,2], target=0"]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,0,-1,0,-2,2], target=0 → [[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]
+Approach: Brute Force (4 Nested Loops)
+
+Enumerate all candidates from example input
+Check validity/optimal condition
+Keep best answer found
+```
 ```java
 public List<List<Integer>> fourSum(int[] nums, int target) {
     Set<List<Integer>> resultSet = new HashSet<>();
@@ -84,6 +113,32 @@ Because `nums[i]` can be up to `10^9` and we are summing four of them, the sum c
 
 ### Complete Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,0,-1,0,-2,2], target=0"]
+    START --> INIT["Init left=0, right=end"]
+    INIT --> WINDOW["Adjust window / pointers"]
+    WINDOW --> UPDATE["Update best answer"]
+    UPDATE --> MORE{"More elements?"}
+    MORE -->|yes| WINDOW
+    MORE -->|no| DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,0,-1,0,-2,2], target=0 → [[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]
+Approach: Sort + Two Pointers (Optimal)
+
+Initialize two pointers at boundaries
+Move pointer that improves constraint
+Update best answer each step
+```
 ```java
 import java.util.*;
 
@@ -200,6 +255,32 @@ This approach is theoretically interesting but harder to implement correctly due
 
 The 4Sum pattern generalizes to kSum. A Lead Engineer should understand this recursive decomposition:
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,0,-1,0,-2,2], target=0"]
+    START --> BUILD["Build HashMap / Set"]
+    BUILD --> SCAN["Scan input once"]
+    SCAN --> LOOKUP{"Key seen?"}
+    LOOKUP -->|yes| FOUND["Return match"]
+    LOOKUP -->|no| STORE["Store in map"]
+    STORE --> SCAN
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,0,-1,0,-2,2], target=0 → [[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]
+Approach: HashMap-Based (Alternative O(n³))
+
+Scan input left-to-right
+Store seen keys/values in hash map
+O(1) lookup finds complement or group
+```
 ```java
 public List<List<Integer>> kSum(int[] nums, long target, int k, int start) {
     List<List<Integer>> result = new ArrayList<>();
@@ -304,3 +385,26 @@ public List<List<Integer>> kSum(int[] nums, long target, int k, int start) {
 4. **Discuss pruning**: The early termination checks show optimization awareness that interviewers value at the Lead level.
 5. **Mention the generalization**: Discussing the recursive kSum decomposition demonstrates depth of understanding beyond just solving the specific problem.
 6. **Time complexity justification**: O(n³) is the best possible for 4Sum because the output can be O(n³) in the worst case (when the array has many valid quadruplets).
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,0,-1,0,-2,2], target=0"]
+    START --> STEP1["Approach 4: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,0,-1,0,-2,2], target=0 → [[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]
+Approach: Approach 4
+
+Apply Approach 4 on the example input step by step
+Final answer from example: see above
+```
+

@@ -1,5 +1,9 @@
 # Reverse Bits
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Bit Manipulation](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-recognition-decision-tree) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Reverse the bits of a given 32-bit unsigned integer.
@@ -20,6 +24,31 @@ Output:   10111111111111111111111111111111  (3221225471)
 
 Extract each bit from the right side of `n` and place it at the corresponding position on the left side of the result.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=43261596 (00000010100101000001111010011100)"]
+    START --> ACC["acc = 0"]
+    ACC --> XOR["acc ^= nums[i]"]
+    XOR --> NEXT{"More elements?"}
+    NEXT -->|yes| XOR
+    NEXT -->|no| DONE["Return acc"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=43261596 (00000010100101000001111010011100) → 964176192
+Approach: Bit-by-Bit Reversal
+
+XOR accumulates unmatched bits
+Pairs cancel to 0
+Remaining value is unique answer
+```
 ```java
 public int reverseBits(int n) {
     int result = 0;
@@ -63,6 +92,29 @@ public int reverseBitsDirect(int n) {
 
 Swap groups of bits in progressively smaller chunks: swap 16-bit halves, then 8-bit quarters, then 4-bit nibbles, then 2-bit pairs, then individual bits.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=43261596 (00000010100101000001111010011100)"]
+    START --> STEP1["Divide and Conquer (Swap halves): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=43261596 (00000010100101000001111010011100) → 964176192
+Approach: Divide and Conquer (Swap halves)
+
+Apply Divide and Conquer (Swap halves) on the example input step by step
+Final answer from example: see above
+```
 ```java
 public int reverseBitsDnC(int n) {
     n = ((n & 0xFFFF0000) >>> 16) | ((n & 0x0000FFFF) << 16); // Swap 16-bit halves
@@ -97,6 +149,29 @@ Result:  00101110 ✓ (reverse of 10110100)
 
 Pre-compute the reverse of every byte (0-255) and use it to reverse 4 bytes.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=43261596 (00000010100101000001111010011100)"]
+    START --> STEP1["Lookup Table (Cache-Optimized): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=43261596 (00000010100101000001111010011100) → 964176192
+Approach: Lookup Table (Cache-Optimized)
+
+Apply Lookup Table (Cache-Optimized) on the example input step by step
+Final answer from example: see above
+```
 ```java
 private static final int[] REVERSE_BYTE = new int[256];
 

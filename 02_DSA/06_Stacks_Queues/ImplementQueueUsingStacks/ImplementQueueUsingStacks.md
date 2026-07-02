@@ -1,5 +1,9 @@
 # Implement Queue Using Stacks
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Data Structure Design](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-recognition-decision-tree) · [Monotonic Stack](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-14-monotonic-stack) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Implement a first-in-first-out (FIFO) queue using only two stacks. The implemented queue should support all functions of a normal queue (push, peek, pop, and empty).
 
@@ -21,6 +25,33 @@ queue.empty();    // returns false
 - **Transfer between stacks** reverses order
 
 ### Implementation:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: push(1), push(2), peek()"]
+    START --> PUSH["Push index / value"]
+    PUSH --> TOP{"Violates monotonic order?"}
+    TOP -->|yes| POP["Pop and resolve"]
+    POP --> TOP
+    TOP -->|no| NEXT{"More input?"}
+    NEXT -->|yes| PUSH
+    NEXT -->|no| DONE["Return answer"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: push(1), push(2), peek()→1, pop()→1, empty()→false
+Approach: : Two Stacks
+
+Push indices/values on stack
+Pop when current resolves pending
+Stack top gives next greater / valid match
+```
 ```java
 class MyQueue {
     private Stack<Integer> inputStack;

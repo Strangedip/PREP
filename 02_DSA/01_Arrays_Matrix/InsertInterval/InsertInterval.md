@@ -1,5 +1,9 @@
 # Insert Interval (LeetCode 57)
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Merge Intervals](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-4-merge-intervals) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 You are given an array of non-overlapping intervals `intervals` where `intervals[i] = [start_i, end_i]` represent the start and the end of the `i`th interval and `intervals` is sorted in ascending order by `start_i`. You are also given an interval `newInterval = [start, end]` that represents the start and end of another interval.
@@ -58,6 +62,29 @@ Two intervals `[a, b]` and `[c, d]` overlap if and only if `a <= d` AND `c <= b`
 
 ### Complete Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: intervals=[[1,3],[6,9]], newInterval=[2,5]"]
+    START --> STEP1[": Three-Phase Linear Scan (Optimal): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: intervals=[[1,3],[6,9]], newInterval=[2,5] → [[1,5],[6,9]]
+Approach: : Three-Phase Linear Scan (Optimal)
+
+Apply : Three-Phase Linear Scan (Optimal) on the example input step by step
+Final answer from example: see above
+```
 ```java
 import java.util.*;
 

@@ -1,5 +1,9 @@
 # Spiral Matrix
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Two Pointers](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-1-two-pointers) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given an `m x n` matrix, return all elements of the matrix in **spiral order**.
@@ -56,6 +60,30 @@ Think of the matrix as concentric rectangles (layers). We traverse each layer co
    - Traverse left column (bottom to top) - if still have columns
 3. Shrink boundaries and repeat
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: matrix=[[1,2,3],[4,5,6],[7,8,9]]"]
+    START --> STEP1["Layer by Layer (Most Intuitive): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: matrix=[[1,2,3],[4,5,6],[7,8,9]] → [1,2,3,6,9,8,7,4,5]
+Approach: Layer by Layer (Most Intuitive)
+
+Apply Layer by Layer (Most Intuitive) on the example input step by step
+Final answer from example: see above
+```
+
 ### Code Logic:
 ```java
 while (top <= bottom && left <= right) {
@@ -111,6 +139,29 @@ Simulate walking through the matrix following the spiral path. Change direction 
 5. Repeat until all cells visited
 
 ### Direction Vectors:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: matrix=[[1,2,3],[4,5,6],[7,8,9]]"]
+    START --> STEP1["Direction Simulation: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: matrix=[[1,2,3],[4,5,6],[7,8,9]] → [1,2,3,6,9,8,7,4,5]
+Approach: Direction Simulation
+
+Apply Direction Simulation on the example input step by step
+Final answer from example: see above
+```
 ```java
 // Direction order: right, down, left, up
 int[] dr = {0, 1, 0, -1};  // row changes
@@ -145,6 +196,33 @@ Recursively process each layer of the spiral from outside to inside.
 - Uses recursion stack space
 - Slightly more complex edge case handling
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: matrix=[[1,2,3],[4,5,6],[7,8,9]]"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: matrix=[[1,2,3],[4,5,6],[7,8,9]] → [1,2,3,6,9,8,7,4,5]
+Approach: Recursive Spiral
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
+
 ### Time & Space Complexity:
 - **Time:** O(m × n) - Visit each element exactly once
 - **Space:** O(min(m, n)) - Recursion depth equals number of layers
@@ -160,6 +238,29 @@ Recursively process each layer of the spiral from outside to inside.
 Similar to Approach 1 but uses total element count to avoid complex boundary checks.
 
 ### Key Optimization:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: matrix=[[1,2,3],[4,5,6],[7,8,9]]"]
+    START --> STEP1["Optimized Boundary Tracking: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: matrix=[[1,2,3],[4,5,6],[7,8,9]] → [1,2,3,6,9,8,7,4,5]
+Approach: Optimized Boundary Tracking
+
+Apply Optimized Boundary Tracking on the example input step by step
+Final answer from example: see above
+```
 ```java
 while (result.size() < totalElements) {
     // Process each direction with size check

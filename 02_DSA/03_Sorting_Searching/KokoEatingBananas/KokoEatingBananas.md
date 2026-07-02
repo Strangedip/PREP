@@ -1,5 +1,9 @@
 # Koko Eating Bananas — LeetCode 875
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Modified Binary Search](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-11-modified-binary-search) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Koko loves bananas. There are `n` piles of bananas; pile `i` has `piles[i]` bananas. The guards return in `h` hours.
@@ -28,6 +32,34 @@ If `hours(k) <= h`, try smaller `k`; else increase `k`.
 
 ### Key Logic
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: piles=[3,6,7,11], h=8"]
+    START --> BOUNDS["lo=0, hi=n-1"]
+    BOUNDS --> MID["mid = (lo+hi)/2"]
+    MID --> CMP{"Compare nums[mid]"}
+    CMP -->|too small| LO["lo = mid+1"]
+    CMP -->|too large| HI["hi = mid-1"]
+    CMP -->|found| DONE["Return mid"]
+    LO --> BOUNDS
+    HI --> BOUNDS
+```
+
+**Walkthrough (same example):**
+
+```
+Example: piles=[3,6,7,11], h=8 → speed k=4
+Approach: : Binary Search on Answer
+
+Set lo/hi bounds on answer or index
+Compare mid element with target
+Halve search space until found
+```
 ```java
 public int minEatingSpeed(int[] piles, int h) {
     int left = 1, right = max(piles);

@@ -1,5 +1,9 @@
 # N-Queens Problem
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Subsets / Backtracking](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-10-subsets-backtracking) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 The **N-Queens puzzle** is the problem of placing `N` chess queens on an `N×N` chessboard so that **no two queens attack each other**.
 
@@ -64,6 +68,32 @@ Queens attack in **4 directions**:
 5. **Base case**: When all queens placed successfully, record solution
 
 #### Conflict Detection
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=4"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=4 → 2 solutions
+Approach: Basic Backtracking
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
 ```java
 private boolean isSafe(char[][] board, int row, int col) {
     // Check column conflicts
@@ -104,6 +134,32 @@ private boolean isSafe(char[][] board, int row, int col) {
 - **O(1) conflict checking** instead of O(N)
 
 #### Algorithm
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=4"]
+    START --> BUILD["Build HashMap / Set"]
+    BUILD --> SCAN["Scan input once"]
+    SCAN --> LOOKUP{"Key seen?"}
+    LOOKUP -->|yes| FOUND["Return match"]
+    LOOKUP -->|no| STORE["Store in map"]
+    STORE --> SCAN
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=4 → 2 solutions
+Approach: Optimized with Sets
+
+Scan input left-to-right
+Store seen keys/values in hash map
+O(1) lookup finds complement or group
+```
 ```java
 private void backtrack(int row, Set<Integer> cols, Set<Integer> diag1, Set<Integer> diag2) {
     if (row == n) {
@@ -153,6 +209,31 @@ private void backtrack(int row, Set<Integer> cols, Set<Integer> diag1, Set<Integ
 - **Available positions**: Use bitwise operations to find valid placements
 
 #### Algorithm
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=4"]
+    START --> ACC["acc = 0"]
+    ACC --> XOR["acc ^= nums[i]"]
+    XOR --> NEXT{"More elements?"}
+    NEXT -->|yes| XOR
+    NEXT -->|no| DONE["Return acc"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=4 → 2 solutions
+Approach: Bitmask Optimization (Advanced)
+
+XOR accumulates unmatched bits
+Pairs cancel to 0
+Remaining value is unique answer
+```
 ```java
 private void backtrack(int row, int cols, int diag1, int diag2) {
     if (row == n) {
@@ -292,6 +373,29 @@ public int totalNQueens(int n) {
 4. **Discuss complexity**: Factorial nature and pruning effects
 
 ### Code Organization
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=4"]
+    START --> STEP1["Approach 4: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=4 → 2 solutions
+Approach: Approach 4
+
+Apply Approach 4 on the example input step by step
+Final answer from example: see above
+```
 ```java
 public List<List<String>> solveNQueens(int n) {
     // 1. Initialize data structures

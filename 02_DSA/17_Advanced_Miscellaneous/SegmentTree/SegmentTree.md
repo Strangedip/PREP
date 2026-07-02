@@ -1,5 +1,9 @@
 # Segment Tree
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Segment Tree](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-recognition-decision-tree) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Segment Tree is a tree data structure used for storing information about array segments. It allows answering range queries and updating array elements efficiently.
 
@@ -32,6 +36,33 @@ Segment Tree:
 ```
 
 ### Implementation:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: arr=[1,3,5,7,9,11], rangeSum(1,3)"]
+    START --> ROOT["Start at root / index 0"]
+    ROOT --> WALK["Traverse structure"]
+    WALK --> QUERY{"Query or update?"}
+    QUERY -->|query| AGG["Aggregate range"]
+    QUERY -->|update| PROP["Propagate to children"]
+    AGG --> DONE["Return result"]
+    PROP --> WALK
+```
+
+**Walkthrough (same example):**
+
+```
+Example: arr=[1,3,5,7,9,11], rangeSum(1,3)→15, update index 2→10
+Approach: Basic Segment Tree (Sum)
+
+Traverse from root/index 0
+Query aggregates or update nodes
+Return range sum / structure result
+```
 ```java
 class SegmentTree {
     private int[] tree;
@@ -115,6 +146,33 @@ class SegmentTree {
 ## Approach 2: Generic Segment Tree
 
 ### Flexible Implementation:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: arr=[1,3,5,7,9,11], rangeSum(1,3)"]
+    START --> ROOT["Start at root / index 0"]
+    ROOT --> WALK["Traverse structure"]
+    WALK --> QUERY{"Query or update?"}
+    QUERY -->|query| AGG["Aggregate range"]
+    QUERY -->|update| PROP["Propagate to children"]
+    AGG --> DONE["Return result"]
+    PROP --> WALK
+```
+
+**Walkthrough (same example):**
+
+```
+Example: arr=[1,3,5,7,9,11], rangeSum(1,3)→15, update index 2→10
+Approach: Generic Segment Tree
+
+Traverse from root/index 0
+Query aggregates or update nodes
+Return range sum / structure result
+```
 ```java
 class SegmentTree<T> {
     private T[] tree;
@@ -150,6 +208,29 @@ class SegmentTree<T> {
 ## Approach 3: Lazy Propagation (Range Updates)
 
 ### For Range Update + Range Query:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: arr=[1,3,5,7,9,11], rangeSum(1,3)"]
+    START --> STEP1["Lazy Propagation (Range Updates): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: arr=[1,3,5,7,9,11], rangeSum(1,3)→15, update index 2→10
+Approach: Lazy Propagation (Range Updates)
+
+Apply Lazy Propagation (Range Updates) on the example input step by step
+Final answer from example: see above
+```
 ```java
 class LazySegmentTree {
     private long[] tree;

@@ -1,5 +1,9 @@
 # Valid Palindrome (LeetCode 125)
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Two Pointers](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-1-two-pointers) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.
@@ -43,6 +47,29 @@ Since an empty string reads the same forward and backward, it is a palindrome.
 1. Build a new string containing only lowercase alphanumeric characters.
 2. Compare the cleaned string with its reverse.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="A man, a plan, a canal: Panama""]
+    START --> STEP1["Clean String Then Compare: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="A man, a plan, a canal: Panama" → true
+Approach: Clean String Then Compare
+
+Apply Clean String Then Compare on the example input step by step
+Final answer from example: see above
+```
 ```java
 public boolean isPalindrome(String s) {
     StringBuilder cleaned = new StringBuilder();
@@ -76,6 +103,32 @@ Use two pointers starting from the beginning and end of the string. Skip non-alp
 
 ### Complete Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="A man, a plan, a canal: Panama""]
+    START --> INIT["Init left=0, right=end"]
+    INIT --> WINDOW["Adjust window / pointers"]
+    WINDOW --> UPDATE["Update best answer"]
+    UPDATE --> MORE{"More elements?"}
+    MORE -->|yes| WINDOW
+    MORE -->|no| DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="A man, a plan, a canal: Panama" → true
+Approach: Two Pointers — In-Place (Optimal)
+
+Initialize two pointers at boundaries
+Move pointer that improves constraint
+Update best answer each step
+```
 ```java
 public class ValidPalindrome {
     
@@ -144,6 +197,32 @@ All characters matched → return true
 
 **Time:** O(n), **Space:** O(n) due to call stack
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="A man, a plan, a canal: Panama""]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="A man, a plan, a canal: Panama" → true
+Approach: Recursive (Less Common)
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
 ```java
 public boolean isPalindrome(String s) {
     String cleaned = s.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
@@ -200,6 +279,29 @@ This approach is not recommended due to O(n) stack space and is slower due to re
 
 Given a string, return `true` if the string can be a palindrome after deleting at most one character. This is a common follow-up question.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="A man, a plan, a canal: Panama""]
+    START --> STEP1["Approach 4: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="A man, a plan, a canal: Panama" → true
+Approach: Approach 4
+
+Apply Approach 4 on the example input step by step
+Final answer from example: see above
+```
 ```java
 public boolean validPalindrome(String s) {
     int left = 0, right = s.length() - 1;

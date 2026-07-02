@@ -1,5 +1,9 @@
 # 0/1 Knapsack Problem
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Dynamic Programming](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-16-dynamic-programming-patterns) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given `n` items, each with a weight `weights[i]` and a value `values[i]`, and a knapsack with capacity `W`, find the maximum total value you can put in the knapsack. Each item can either be included or excluded (you cannot take a fraction of an item).
@@ -41,6 +45,31 @@ If you master 0/1 Knapsack, you can solve this entire family of problems.
 
 For each item, we have two choices: include it or exclude it.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: weights=[1,2,3], values=[6,10,12], capacity=5"]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: weights=[1,2,3], values=[6,10,12], capacity=5 → max value 22
+Approach: Recursion (Brute Force)
+
+Enumerate all candidates from example input
+Check validity/optimal condition
+Keep best answer found
+```
 ```java
 class Solution {
     public int knapsack(int[] weights, int[] values, int W) {
@@ -75,6 +104,32 @@ class Solution {
 
 Cache the results of `(item index, remaining capacity)` pairs.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: weights=[1,2,3], values=[6,10,12], capacity=5"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: weights=[1,2,3], values=[6,10,12], capacity=5 → max value 22
+Approach: Memoization (Top-Down DP)
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
 ```java
 class Solution {
     private int[][] memo;
@@ -143,6 +198,32 @@ Items selected: items 1 and 2 (weights 3+4=7, values 4+5=9)
 
 ### Java Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: weights=[1,2,3], values=[6,10,12], capacity=5"]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: weights=[1,2,3], values=[6,10,12], capacity=5 → max value 22
+Approach: Bottom-Up DP (Tabulation) — Standard
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
 ```java
 class Solution {
     public int knapsack(int[] weights, int[] values, int W) {
@@ -183,6 +264,32 @@ Since each row only depends on the previous row, and we only look left-and-up, w
 
 If we iterate left-to-right, `dp[w - weights[i]]` would use the updated value from the current item (allowing the item to be used multiple times — that is the Unbounded Knapsack). By iterating right-to-left, we ensure we use the previous row's values.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: weights=[1,2,3], values=[6,10,12], capacity=5"]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: weights=[1,2,3], values=[6,10,12], capacity=5 → max value 22
+Approach: Space-Optimized DP (1D Array)
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
 ```java
 class Solution {
     public int knapsack(int[] weights, int[] values, int W) {
@@ -349,7 +456,6 @@ Note: This is pseudo-polynomial time. If W is exponentially large relative to n,
 
 ---
 
-**Pattern**: 0/1 Knapsack (2D Dynamic Programming)
 **Difficulty**: Medium
 **Must-Know**: Yes — the foundational DP problem that unlocks an entire family of problems
 

@@ -1,5 +1,9 @@
 # Merge K Sorted Lists
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [K-Way Merge](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-13-k-way-merge) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Given an array of `k` linked-lists, each sorted in ascending order, merge all the linked-lists into one sorted linked-list and return it.
 
@@ -22,6 +26,34 @@ Use a min heap to always extract the smallest element from all list heads.
    - Extract the minimum node
    - Add it to result list
    - If the extracted node has a next node, add it to heap
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: lists=[[1,4,5],[1,3,4],[2,6]]"]
+    START --> ENQ["Enqueue start node"]
+    ENQ --> Q{"Queue empty?"}
+    Q -->|no| DEQ["Dequeue front"]
+    DEQ --> NEI["Visit unvisited neighbors"]
+    NEI --> ENQ2["Enqueue neighbors"]
+    ENQ2 --> Q
+    Q -->|yes| DONE["Return shortest / order"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: lists=[[1,4,5],[1,3,4],[2,6]] → [1,1,2,3,4,4,5,6]
+Approach: Min Heap (Priority Queue)
+
+Enqueue start node/level
+Process neighbors level by level
+First reach target = shortest path
+```
 
 #### Time Complexity
 - **O(N log k)** where N = total nodes, k = number of lists
@@ -68,6 +100,30 @@ Merge lists in pairs repeatedly until only one list remains.
    - Merge lists in pairs: [l0,l1], [l2,l3], [l4,l5], ...
    - Replace original array with merged results
 2. Return the final merged list
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: lists=[[1,4,5],[1,3,4],[2,6]]"]
+    START --> STEP1["Divide and Conquer: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: lists=[[1,4,5],[1,3,4],[2,6]] → [1,1,2,3,4,4,5,6]
+Approach: Divide and Conquer
+
+Apply Divide and Conquer on the example input step by step
+Final answer from example: see above
+```
 
 #### Time Complexity
 - **O(N log k)** where N = total nodes, k = number of lists

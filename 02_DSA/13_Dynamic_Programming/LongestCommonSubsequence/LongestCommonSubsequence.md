@@ -1,5 +1,9 @@
 # Longest Common Subsequence (LCS)
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Dynamic Programming](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-16-dynamic-programming-patterns) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Given two strings `text1` and `text2`, return the **length of their longest common subsequence**. If there is no common subsequence, return `0`.
 
@@ -59,6 +63,31 @@ This is a **classic 2D Dynamic Programming problem** where we build solutions fo
 3. **Characters don't match**: Try skipping from either string, take maximum
 
 #### Recurrence Relation
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: text1="abcde", text2="ace""]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: text1="abcde", text2="ace" → 3 ("ace")
+Approach: Recursive Solution (Brute Force)
+
+Enumerate all candidates from example input
+Check validity/optimal condition
+Keep best answer found
+```
 ```java
 LCS(i, j) = {
     0                           if i == 0 or j == 0
@@ -100,6 +129,33 @@ private int lcsRecursive(String text1, String text2, int i, int j) {
 2. **Check cache**: Return cached result if available
 3. **Compute and cache**: Calculate result and store in memo table
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: text1="abcde", text2="ace""]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: text1="abcde", text2="ace" → 3 ("ace")
+Approach: Memoization (Top-Down DP)
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
+
 #### Time Complexity
 - **O(m × n)** - Each subproblem computed exactly once
 - **State space**: m × n possible (i,j) pairs
@@ -136,6 +192,33 @@ private int lcsMemo(String text1, String text2, int i, int j, Integer[][] memo) 
 2. **Initialize base cases**: `dp[0][j] = dp[i][0] = 0`
 3. **Fill table**: Use recurrence relation to fill each cell
 4. **Return result**: `dp[m][n]` contains the final answer
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: text1="abcde", text2="ace""]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: text1="abcde", text2="ace" → 3 ("ace")
+Approach: Tabulation (Bottom-Up DP)
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
 
 #### Time Complexity
 - **O(m × n)** - Two nested loops
@@ -183,6 +266,33 @@ public int longestCommonSubsequenceDP(String text1, String text2) {
 2. **Compute row by row**: Fill current row using previous row
 3. **Swap arrays**: Prepare for next iteration
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: text1="abcde", text2="ace""]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: text1="abcde", text2="ace" → 3 ("ace")
+Approach: Space-Optimized DP
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
+
 #### Time Complexity
 - **O(m × n)** - Same as 2D DP
 
@@ -226,6 +336,30 @@ public int longestCommonSubsequenceOptimized(String text1, String text2) {
 1. **Single array**: `dp[j]` represents current computation
 2. **Track diagonal**: Store `dp[i-1][j-1]` value in temporary variable
 3. **Update in correct order**: Ensure dependencies are satisfied
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: text1="abcde", text2="ace""]
+    START --> STEP1["Single Array Optimization (Advanced): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: text1="abcde", text2="ace" → 3 ("ace")
+Approach: Single Array Optimization (Advanced)
+
+Apply Single Array Optimization (Advanced) on the example input step by step
+Final answer from example: see above
+```
 
 #### Time Complexity
 - **O(m × n)** - Same computation
@@ -424,6 +558,29 @@ for (int i = 1; i <= m; i++) {
 5. **Handle variations**: String reconstruction, multiple strings
 
 ### Code Structure
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: text1="abcde", text2="ace""]
+    START --> STEP1["Approach 6: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: text1="abcde", text2="ace" → 3 ("ace")
+Approach: Approach 6
+
+Apply Approach 6 on the example input step by step
+Final answer from example: see above
+```
 ```java
 public int longestCommonSubsequence(String text1, String text2) {
     // 1. Handle edge cases

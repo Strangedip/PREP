@@ -1,5 +1,9 @@
 # Find Minimum in Rotated Sorted Array
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Modified Binary Search](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-11-modified-binary-search) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Suppose an array of length n sorted in ascending order is rotated between 1 and n times. For example, the array `nums = [0,1,2,4,5,6,7]` might become:
@@ -41,6 +45,32 @@ Rotated:  [4, 5, 6, 7, 1, 2, 3]
 
 ### How it works:
 Simply scan the entire array to find the minimum element.
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[3,4,5,1,2]"]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[3,4,5,1,2] → min 1
+Approach: Linear Search (Brute Force)
+
+Enumerate all candidates from example input
+Check validity/optimal condition
+Keep best answer found
+```
 
 ### Code Logic:
 ```java
@@ -90,6 +120,35 @@ Step 3: mid=4, nums[4]=0, nums[5]=1
 Found: nums[4] = 0
 ```
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[3,4,5,1,2]"]
+    START --> BOUNDS["lo=0, hi=n-1"]
+    BOUNDS --> MID["mid = (lo+hi)/2"]
+    MID --> CMP{"Compare nums[mid]"}
+    CMP -->|too small| LO["lo = mid+1"]
+    CMP -->|too large| HI["hi = mid-1"]
+    CMP -->|found| DONE["Return mid"]
+    LO --> BOUNDS
+    HI --> BOUNDS
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[3,4,5,1,2] → min 1
+Approach: Binary Search (Optimal)
+
+Set lo/hi bounds on answer or index
+Compare mid element with target
+Halve search space until found
+```
+
 ### Code Logic:
 ```java
 int left = 0, right = nums.length - 1;
@@ -129,6 +188,34 @@ Similar to Approach 2 but compares with the leftmost element instead of rightmos
 ### When to use:
 - When you want to show alternative thinking
 - As a follow-up if interviewer asks for different implementation
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[3,4,5,1,2]"]
+    START --> BOUNDS["lo=0, hi=n-1"]
+    BOUNDS --> MID["mid = (lo+hi)/2"]
+    MID --> CMP{"Compare nums[mid]"}
+    CMP -->|too small| LO["lo = mid+1"]
+    CMP -->|too large| HI["hi = mid-1"]
+    CMP -->|found| DONE["Return mid"]
+    LO --> BOUNDS
+    HI --> BOUNDS
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[3,4,5,1,2] → min 1
+Approach: Binary Search (Alternative Implementation)
+
+Set lo/hi bounds on answer or index
+Compare mid element with target
+Halve search space until found
+```
+
 
 ## Approach 4: Find Rotation Point (Educational)
 
@@ -214,4 +301,27 @@ Explicitly finds the exact point where rotation occurred by looking for the "bre
 - Handle edge cases proactively
 - Be prepared to code it quickly without bugs
 
-**Remember:** This problem tests your ability to apply binary search to a modified sorted array. The key insight is recognizing that despite rotation, we can still eliminate half the search space in each iteration! 
+**Remember:** This problem tests your ability to apply binary search to a modified sorted array. The key insight is recognizing that despite rotation, we can still eliminate half the search space in each iteration!
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[3,4,5,1,2]"]
+    START --> STEP1["Find Rotation Point (Educational): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[3,4,5,1,2] → min 1
+Approach: Find Rotation Point (Educational)
+
+Apply Find Rotation Point (Educational) on the example input step by step
+Final answer from example: see above
+```
+ 

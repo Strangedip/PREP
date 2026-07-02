@@ -1,5 +1,9 @@
 # Print In Order (LeetCode 1114)
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Concurrency](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-recognition-decision-tree) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Suppose we have a class with three methods: `first()`, `second()`, and `third()`. Three different threads will call these methods concurrently. Design a mechanism to ensure they always execute in the order `first()` → `second()` → `third()`, regardless of which thread starts first.
@@ -32,6 +36,29 @@ A `CountDownLatch` is a one-shot synchronization barrier. A thread calling `awai
 
 ### Java Implementation:
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: threads first/second/third print in order"]
+    START --> STEP1["CountDownLatch (Recommended for Interviews): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: threads first/second/third print in order → 'firstsecondthird'
+Approach: CountDownLatch (Recommended for Interviews)
+
+Apply CountDownLatch (Recommended for Interviews) on the example input step by step
+Final answer from example: see above
+```
 ```java
 import java.util.concurrent.CountDownLatch;
 
@@ -69,6 +96,32 @@ class Foo {
 
 ## Approach 2: Semaphore
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: threads first/second/third print in order"]
+    START --> BUILD["Build HashMap / Set"]
+    BUILD --> SCAN["Scan input once"]
+    SCAN --> LOOKUP{"Key seen?"}
+    LOOKUP -->|yes| FOUND["Return match"]
+    LOOKUP -->|no| STORE["Store in map"]
+    STORE --> SCAN
+```
+
+**Walkthrough (same example):**
+
+```
+Example: threads first/second/third print in order → 'firstsecondthird'
+Approach: Semaphore
+
+Scan input left-to-right
+Store seen keys/values in hash map
+O(1) lookup finds complement or group
+```
 ```java
 import java.util.concurrent.Semaphore;
 
@@ -98,6 +151,29 @@ class Foo {
 
 ## Approach 3: volatile + Spin Wait (Educational, Not Recommended)
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: threads first/second/third print in order"]
+    START --> STEP1["volatile + Spin Wait (Educational, Not Recommended): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: threads first/second/third print in order → 'firstsecondthird'
+Approach: volatile + Spin Wait (Educational, Not Recommended)
+
+Apply volatile + Spin Wait (Educational, Not Recommended) on the example input step by step
+Final answer from example: see above
+```
 ```java
 class Foo {
     private volatile int step = 1;
@@ -130,6 +206,29 @@ class Foo {
 
 ## Approach 4: wait() / notify() (Classic Java)
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: threads first/second/third print in order"]
+    START --> STEP1["wait() / notify() (Classic Java): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: threads first/second/third print in order → 'firstsecondthird'
+Approach: wait() / notify() (Classic Java)
+
+Apply wait() / notify() (Classic Java) on the example input step by step
+Final answer from example: see above
+```
 ```java
 class Foo {
     private int step = 1;

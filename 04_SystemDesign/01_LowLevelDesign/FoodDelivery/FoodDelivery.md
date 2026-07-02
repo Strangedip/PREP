@@ -1,5 +1,8 @@
 # Food Delivery System — Low Level Design
 
+> **You are here**: SDE1–SDE2 — System Design (LLD)
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Prerequisites**: [LLD Template](../../00_Templates/LLD_Template/LLD_Template.md) | **Next**: [RideSharing HLD](../../02_HighLevelDesign/RideSharing/RideSharing.md)
+
 ## Problem Statement
 
 Design the core order flow for a food delivery platform (like DoorDash/Uber Eats):
@@ -113,6 +116,15 @@ public enum OrderStatus {
 ---
 
 ## Delivery Assignment (Strategy)
+
+### Strategy trade-offs
+
+| Strategy | Pros | Cons | When |
+|----------|------|------|------|
+| **Nearest agent** | Simple, low latency | Ignores batching, traffic | LLD default |
+| **Minimize total wait** | Better UX | O(n) per assignment | Medium scale |
+| **Batch multiple orders** | Higher agent utilization | Delayed delivery | Peak dinner rush (HLD) |
+| **Surge zone pricing** | Supply/demand balance | Complex; policy | [RideSharing HLD](../../02_HighLevelDesign/RideSharing/RideSharing.md) |
 
 ```java
 public interface AssignmentStrategy {

@@ -3,6 +3,9 @@
 > **Level**: SR+ (workloads, networking, scaling) to LEAD (operators, multi-cluster, security)
 > **Complements**: [10_DevOps_CICD_Docker.md](./10_DevOps_CICD_Docker.md) — Section 10 covers Docker and IaC basics
 
+> **You are here**: Senior SDE — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [29_Advanced_Networking_Infrastructure.md](29_Advanced_Networking_Infrastructure.md) | **Next**: [31_Cloud_Computing_AWS_GCP_Azure.md](31_Cloud_Computing_AWS_GCP_Azure.md)
+
 ---
 
 ## 30.1 Kubernetes Architecture
@@ -174,3 +177,54 @@ strategy:
 | 10 | Why operators? | Automate complex stateful app lifecycle (CRDs + custom controllers). |
 
 **Must-say keywords**: reconciliation loop, kubelet, etcd, HPA, readiness probe, NetworkPolicy, Ingress, StatefulSet, rolling update, QoS.
+
+---
+
+## §30.10 Production & Interview Depth — Spring Boot Workloads on EKS/GKE
+
+Indian product orgs (Flipkart-scale retail, Razorpay/Paytm fintech, SaaS unicorns) rarely run bare JARs on VMs anymore — **EKS on AWS Mumbai (`ap-south-1`)** or **GKE in asia-south1** is the default for Spring Boot 3.x microservices. Interviewers at SDE2/Senior rounds expect you to connect K8s objects to **JVM behavior**, not recite YAML from memory.
+
+### Probe Design for Java 17–21 Services
+
+Spring Boot 3 exposes separate liveness/readiness groups. A common production mistake: readiness checks DB + Redis while liveness does the same — a brief RDS blip **kills the pod** instead of removing it from the Service.
+
+```yaml
+# deployment snippet — payment-service on EKS
+spec:
+  containers:
+    - name: app
+      image: payment-service:3.2.1
+      env:
+        - name: JAVA_TOOL_OPTIONS
+          value: "-XX:MaxRAMPercentage=75.0 -XX:+UseG1GC"
+      resources:
+        requests: { cpu: "500m", memory: "768Mi" }
+        limits:   { cpu: "1500m", memory: "1Gi" }
+      startupProbe:
+        httpGet: { path: /actuator/health/readiness, port: 8080 }
+        failureThreshold: 30
+        periodSeconds: 10
+      livenessProbe:
+        httpGet: { path: /actuator/health/liveness, port: 8080 }
+      readinessProbe:
+        httpGet: { path: /actuator/health/readiness, port: 8080 }
+```
+
+Pair with [18_Performance_Engineering_JVM.md](./18_Performance_Engineering_JVM.md) for heap sizing — **requests must include JVM overhead**, not just `-Xmx`.
+
+### HPA vs VPA vs Cluster Autoscaler — When to Use What
+
+| Approach | Best For | India Product Trade-off |
+|----------|----------|-------------------------|
+| **HPA** (pod count) | Stateless APIs, diurnal traffic (UPI peaks, sale events) | Fast scale-out; watch **cold JVM** + DB connection storms |
+| **VPA** (right-size requests) | Batch workers, uneven heap usage | Can restart pods — avoid on stateful payment paths without PDB |
+| **Cluster Autoscaler** | Node pool exhaustion during 2 AM deploys | Spot/preemptible nodes save cost; need graceful shutdown + [PDB](https://kubernetes.io/docs/concepts/workloads/pods/disruption-budget/) |
+| **KEDA** (event-driven) | SQS/Kafka lag-based scale | Common in event pipelines — see [19_Event_Driven_Architecture.md](./19_Event_Driven_Architecture.md) |
+
+### Interview Story Template (STAR-Friendly)
+
+*"We ran 40 Spring Boot services on EKS with **maxUnavailable: 0** rolling deploys, **External Secrets Operator** pulling from AWS SM, and **NetworkPolicy** default-deny except ingress from the API gateway namespace. During Big Billion Day-style traffic, HPA scaled checkout from 12→80 pods; we pre-warmed connection pools and used **readiness** to gate traffic until Flyway migrations finished."*
+
+**Cross-links**: CI/CD image promotion → [10_DevOps_CICD_Docker.md](./10_DevOps_CICD_Docker.md); observability for rollout failures → [11_Observability.md](./11_Observability.md); cloud LB + VPC → [31_Cloud_Computing_AWS_GCP_Azure.md](./31_Cloud_Computing_AWS_GCP_Azure.md).
+
+**Must-say keywords**: startupProbe, MaxRAMPercentage, PDB, graceful termination (preStop + `server.shutdown=graceful`), topology spread (zone anti-affinity for ap-south-1a/b/c).

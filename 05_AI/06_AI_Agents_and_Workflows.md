@@ -3,6 +3,9 @@
 > **Goal**: Understand AI agents, tool use, the Model Context Protocol (MCP), and how to build agentic systems with Java/Spring Boot.
 > **Level**: Senior through Lead — This is the cutting edge.
 
+> **You are here**: Tech Lead — AI / ML
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [05_Spring_AI.md](05_Spring_AI.md) | **Next**: [07_AI_Powered_Dev_Tools.md](07_AI_Powered_Dev_Tools.md)
+
 ---
 
 ## 1. What is an AI Agent?

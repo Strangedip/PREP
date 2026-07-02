@@ -3,6 +3,9 @@
 > **Goal**: Build production-quality AI-powered user interfaces with Angular 17+, including streaming chat, markdown rendering, and real-time AI interactions.
 > **Level**: Mid-Level through Lead
 
+> **You are here**: SDE2 — AI / ML
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [05_Spring_AI.md](05_Spring_AI.md) | **Next**: [09_MLOps_AI_in_Production.md](09_MLOps_AI_in_Production.md)
+
 ---
 
 ## 1. AI UI Patterns in 2026

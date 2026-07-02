@@ -1,5 +1,9 @@
 # Symmetric Tree
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Binary Tree](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-8-dfs-depth-first-search) · [DFS](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-8-dfs-depth-first-search) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Given the root of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).
 
@@ -34,6 +38,32 @@ Not symmetric:
 3. **Recursively check** all mirror pairs
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[1,2,2,3,4,4,3]"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[1,2,2,3,4,4,3] → true
+Approach: Recursive (Optimal!)
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
 ```java
 public boolean isSymmetric(TreeNode root) {
     if (root == null) return true;
@@ -66,6 +96,33 @@ private boolean isMirror(TreeNode left, TreeNode right) {
 3. **Check each pair** iteratively
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[1,2,2,3,4,4,3]"]
+    START --> ENQ["Enqueue start node"]
+    ENQ --> Q{"Queue empty?"}
+    Q -->|no| DEQ["Dequeue front"]
+    DEQ --> NEI["Visit unvisited neighbors"]
+    NEI --> ENQ2["Enqueue neighbors"]
+    ENQ2 --> Q
+    Q -->|yes| DONE["Return shortest / order"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[1,2,2,3,4,4,3] → true
+Approach: Iterative with Queue
+
+Enqueue start node/level
+Process neighbors level by level
+First reach target = shortest path
+```
 ```java
 public boolean isSymmetric(TreeNode root) {
     if (root == null) return true;
@@ -109,6 +166,29 @@ public boolean isSymmetric(TreeNode root) {
 3. **Handle null nodes** with special markers
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[1,2,2,3,4,4,3]"]
+    START --> STEP1["Inorder Traversal (Alternative): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[1,2,2,3,4,4,3] → true
+Approach: Inorder Traversal (Alternative)
+
+Apply Inorder Traversal (Alternative) on the example input step by step
+Final answer from example: see above
+```
 ```java
 public boolean isSymmetric(TreeNode root) {
     List<String> normal = new ArrayList<>();

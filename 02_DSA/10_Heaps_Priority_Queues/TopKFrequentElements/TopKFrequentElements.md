@@ -1,5 +1,9 @@
 # Top K Frequent Elements
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Top K Elements](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-12-top-k-elements) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given an integer array `nums` and an integer `k`, return the **k most frequent elements**. You may return the answer in any order.
@@ -49,6 +53,34 @@ Output: [1,2,3] (or any 3 elements since all have same frequency)
 3. For each element, add to heap; if heap size > k, remove minimum
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,1,1,2,2,3], k=2"]
+    START --> HEAP["Init min/max heap"]
+    HEAP --> ADD["Add element"]
+    ADD --> SIZE{"Size > k?"}
+    SIZE -->|yes| REM["Poll root"]
+    SIZE -->|no| MORE{"More input?"}
+    REM --> MORE
+    MORE -->|yes| ADD
+    MORE -->|no| DONE["Return heap top"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,1,1,2,2,3], k=2 → [1,2]
+Approach: Min Heap
+
+Maintain heap of size k or candidates
+Push each element, pop if over limit
+Root is kth largest or min distance
+```
 ```java
 public int[] topKFrequent(int[] nums, int k) {
     // Step 1: Build frequency map
@@ -96,6 +128,29 @@ public int[] topKFrequent(int[] nums, int k) {
 4. Collect top k elements from highest frequency buckets
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,1,1,2,2,3], k=2"]
+    START --> STEP1["Bucket Sort: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,1,1,2,2,3], k=2 → [1,2]
+Approach: Bucket Sort
+
+Apply Bucket Sort on the example input step by step
+Final answer from example: see above
+```
 ```java
 public int[] topKFrequentBucket(int[] nums, int k) {
     Map<Integer, Integer> frequencyMap = new HashMap<>();
@@ -141,6 +196,29 @@ public int[] topKFrequentBucket(int[] nums, int k) {
 3. Partition array so that top k frequent elements are at the end
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,1,1,2,2,3], k=2"]
+    START --> STEP1["Quick Select: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,1,1,2,2,3], k=2 → [1,2]
+Approach: Quick Select
+
+Apply Quick Select on the example input step by step
+Final answer from example: see above
+```
 ```java
 public int[] topKFrequentQuickSelect(int[] nums, int k) {
     Map<Integer, Integer> frequencyMap = new HashMap<>();
@@ -188,6 +266,34 @@ private void quickSelect(int[] nums, int left, int right, int kSmallest,
 3. Extract top k elements
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,1,1,2,2,3], k=2"]
+    START --> HEAP["Init min/max heap"]
+    HEAP --> ADD["Add element"]
+    ADD --> SIZE{"Size > k?"}
+    SIZE -->|yes| REM["Poll root"]
+    SIZE -->|no| MORE{"More input?"}
+    REM --> MORE
+    MORE -->|yes| ADD
+    MORE -->|no| DONE["Return heap top"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,1,1,2,2,3], k=2 → [1,2]
+Approach: Max Heap (Simple but Less Efficient)
+
+Maintain heap of size k or candidates
+Push each element, pop if over limit
+Root is kth largest or min distance
+```
 ```java
 public int[] topKFrequentMaxHeap(int[] nums, int k) {
     Map<Integer, Integer> frequencyMap = new HashMap<>();

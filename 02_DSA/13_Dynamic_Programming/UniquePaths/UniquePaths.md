@@ -1,5 +1,9 @@
 # Unique Paths
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Dynamic Programming](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-16-dynamic-programming-patterns) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 There is a robot on an m x n grid. The robot is initially located at the top-left corner (i.e., grid[0][0]). The robot tries to move to the bottom-right corner (i.e., grid[m-1][n-1]). The robot can only move either down or right at any point in time. Given the two integers m and n, return the number of possible unique paths that the robot can take to reach the bottom-right corner.
 
@@ -24,6 +28,32 @@ Explanation: From top-left corner, there are 3 ways to reach bottom-right corner
 3. **Recurrence:** dp[i][j] = dp[i-1][j] + dp[i][j-1]
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: m=3, n=7"]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: m=3, n=7 → 28 paths
+Approach: Dynamic Programming (2D)
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
 ```java
 public int uniquePaths(int m, int n) {
     int[][] dp = new int[m][n];
@@ -59,6 +89,32 @@ public int uniquePaths(int m, int n) {
 3. **dp[j] represents** paths to current row, column j
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: m=3, n=7"]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: m=3, n=7 → 28 paths
+Approach: Space-Optimized DP (1D)
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
 ```java
 public int uniquePaths(int m, int n) {
     int[] dp = new int[n];
@@ -87,6 +143,29 @@ public int uniquePaths(int m, int n) {
 3. **Combinatorial formula:** (m+n-2)! / ((m-1)! * (n-1)!)
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: m=3, n=7"]
+    START --> STEP1["Mathematical Formula (Optimal!): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: m=3, n=7 → 28 paths
+Approach: Mathematical Formula (Optimal!)
+
+Apply Mathematical Formula (Optimal!) on the example input step by step
+Final answer from example: see above
+```
 ```java
 public int uniquePaths(int m, int n) {
     // Calculate C(m+n-2, min(m-1, n-1)) to avoid large numbers

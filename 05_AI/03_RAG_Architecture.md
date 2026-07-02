@@ -3,6 +3,9 @@
 > **Goal**: Understand and implement RAG end-to-end using Java, Spring Boot, and modern tooling. RAG is the #1 pattern for building AI-powered applications with real-world knowledge.
 > **Level**: Mid-Level through Lead
 
+> **You are here**: SDE2 — AI / ML
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [02_LLM_and_Prompt_Engineering.md](02_LLM_and_Prompt_Engineering.md) | **Next**: [04_Vector_Databases_Embeddings.md](04_Vector_Databases_Embeddings.md)
+
 ---
 
 ## 1. What is RAG and Why Does It Matter?

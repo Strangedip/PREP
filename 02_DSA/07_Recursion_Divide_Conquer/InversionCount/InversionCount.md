@@ -1,5 +1,9 @@
 # Inversion Count — Merge Sort Application
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Sorting](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-recognition-decision-tree) · [Dynamic Programming](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-16-dynamic-programming-patterns) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given an array, count the number of **inversions**. An inversion is a pair `(i, j)` where `i < j` but `nums[i] > nums[j]`. The inversion count measures how far an array is from being sorted.
@@ -27,6 +31,31 @@ Explanation: Already sorted, no inversions.
 
 Check every pair (i, j) where i < j.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: arr=[2,4,1,3,5]"]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: arr=[2,4,1,3,5] → 3 inversions
+Approach: Brute Force
+
+Enumerate all candidates from example input
+Check validity/optimal condition
+Keep best answer found
+```
 ```java
 public int countInversionsBrute(int[] nums) {
     int count = 0;
@@ -54,6 +83,29 @@ During the merge step of merge sort, when we pick an element from the right half
 - When merging, if `left[i] > right[j]`, then all elements from `left[i]` to `left[end]` are also greater than `right[j]` (because the left half is sorted).
 - So we add `(mid - i + 1)` inversions in one step.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: arr=[2,4,1,3,5]"]
+    START --> STEP1["Modified Merge Sort (Optimal): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: arr=[2,4,1,3,5] → 3 inversions
+Approach: Modified Merge Sort (Optimal)
+
+Apply Modified Merge Sort (Optimal) on the example input step by step
+Final answer from example: see above
+```
 ```java
 public int countInversions(int[] nums) {
     int[] temp = new int[nums.length];

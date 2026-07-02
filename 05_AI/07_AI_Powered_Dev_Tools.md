@@ -3,6 +3,9 @@
 > **Goal**: Master the AI tools that 10x your productivity as a developer. Know what exists, how to use them effectively, and what interviewers ask about them.
 > **Level**: ALL (Associate through Lead)
 
+> **You are here**: SDE1 — AI / ML
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [01_AI_Fundamentals.md](01_AI_Fundamentals.md) | **Next**: [08_AI_in_Frontend.md](08_AI_in_Frontend.md)
+
 ---
 
 ## 1. The AI-Powered Development Landscape

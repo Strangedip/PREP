@@ -1,5 +1,8 @@
 # Section 9: Testing Strategies for Lead Engineers
 
+> **You are here**: SDE2 — Engineering Practices
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [08_Angular_Frontend_Engineering.md](08_Angular_Frontend_Engineering.md) | **Next**: [10_DevOps_CICD_Docker.md](10_DevOps_CICD_Docker.md)
+
 ---
 
 ## 9.1 The Testing Pyramid: Unit, Integration, Contract, and E2E Tests

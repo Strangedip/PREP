@@ -1,5 +1,9 @@
 # Minimum Window Substring (LeetCode 76)
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Sliding Window](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-2-sliding-window) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given two strings `s` and `t` of lengths `m` and `n` respectively, return the minimum window substring of `s` such that every character in `t` (including duplicates) is included in the window. If there is no such substring, return the empty string `""`.
@@ -51,6 +55,32 @@ This is one of the hardest and most frequently asked sliding window problems at 
 Check every possible substring of `s` and verify if it contains all characters of `t`. Way too slow for the constraints.
 
 ---
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="ADOBECODEBANC", t="ABC""]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="ADOBECODEBANC", t="ABC" → "BANC"
+Approach: Brute Force
+
+s="ADOBECODEBANC", t="ABC"
+window ADOBEC has ABC
+shrink to BANC
+answer BANC
+```
+
 
 ## Approach 2: Sliding Window + HashMap (Optimal)
 
@@ -69,6 +99,33 @@ Maintain a sliding window `[left, right]` over `s`. Expand `right` until the win
 
 ### Complete Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="ADOBECODEBANC", t="ABC""]
+    START --> BUILD["Build HashMap / Set"]
+    BUILD --> SCAN["Scan input once"]
+    SCAN --> LOOKUP{"Key seen?"}
+    LOOKUP -->|yes| FOUND["Return match"]
+    LOOKUP -->|no| STORE["Store in map"]
+    STORE --> SCAN
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="ADOBECODEBANC", t="ABC" → "BANC"
+Approach: Sliding Window + HashMap (Optimal)
+
+s="ADOBECODEBANC", t="ABC"
+window ADOBEC has ABC
+shrink to BANC
+answer BANC
+```
 ```java
 import java.util.*;
 
@@ -208,6 +265,31 @@ Without `formed`, you would need to check all characters in `targetCount` every 
 
 **Time:** O(m + n), **Space:** O(1) — fixed 128-size arrays
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="ADOBECODEBANC", t="ABC""]
+    START --> STEP1["Optimized with Character Array (Faster): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="ADOBECODEBANC", t="ABC" → "BANC"
+Approach: Optimized with Character Array (Faster)
+
+s="ADOBECODEBANC", t="ABC"
+window ADOBEC has ABC
+shrink to BANC
+answer BANC
+```
 ```java
 public String minWindow(String s, String t) {
     if (s.length() < t.length()) return "";
@@ -263,6 +345,31 @@ public String minWindow(String s, String t) {
 
 **Time:** O(|s| + |t|), but faster in practice when `|s| >> |t|`
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="ADOBECODEBANC", t="ABC""]
+    START --> STEP1["Filtered Characters (Optimization for Large s, Small t): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="ADOBECODEBANC", t="ABC" → "BANC"
+Approach: Filtered Characters (Optimization for Large s, Small t)
+
+s="ADOBECODEBANC", t="ABC"
+window ADOBEC has ABC
+shrink to BANC
+answer BANC
+```
 ```java
 public String minWindow(String s, String t) {
     Map<Character, Integer> targetCount = new HashMap<>();
@@ -372,3 +479,28 @@ This is useful when `s` has millions of characters but only a few match characte
 4. **Test with duplicates**: Make sure your solution handles `t = "AAB"` correctly.
 5. **Mention the filtered optimization**: "If s is much larger than t, I can pre-filter s to only include characters that appear in t, reducing the window operations."
 6. **For Lead-level**: Discuss how this pattern applies to real-world problems — log analysis (finding minimum time window containing all event types), network packet analysis, or text search.
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="ADOBECODEBANC", t="ABC""]
+    START --> STEP1["Approach 5: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="ADOBECODEBANC", t="ABC" → "BANC"
+Approach: Approach 5
+
+s="ADOBECODEBANC", t="ABC"
+window ADOBEC has ABC
+shrink to BANC
+answer BANC
+```
+

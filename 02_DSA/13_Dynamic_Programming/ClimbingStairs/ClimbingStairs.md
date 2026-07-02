@@ -1,5 +1,9 @@
 # Climbing Stairs
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Dynamic Programming](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-16-dynamic-programming-patterns) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 You're climbing a staircase with `n` steps. Each time you can climb either 1 or 2 steps. How many distinct ways can you reach the top?
@@ -31,6 +35,32 @@ This is actually the **Fibonacci sequence in disguise**!
 ### The Big Idea:
 Think recursively: to reach step n, you either came from step (n-1) or step (n-2).
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=5"]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=5 → 8 ways
+Approach: Recursive (Brute Force)
+
+n=5: ways(1)=1, ways(2)=2
+ways(3)=3, ways(4)=5
+ways(5)=8
+```
+
 ### Code Logic:
 ```java
 public int climbStairs(int n) {
@@ -51,6 +81,33 @@ public int climbStairs(int n) {
 
 ### The Optimization:
 Store results of subproblems to avoid recalculation.
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=5"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=5 → 8 ways
+Approach: Memoization (Top-Down DP)
+
+n=5: ways(1)=1, ways(2)=2
+ways(3)=3, ways(4)=5
+ways(5)=8
+```
 
 ### Code Logic:
 ```java
@@ -81,6 +138,33 @@ private int helper(int n, Map<Integer, Integer> memo) {
 ### The Idea:
 Build up the solution from the base cases.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=5"]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=5 → 8 ways
+Approach: Tabulation (Bottom-Up DP)
+
+n=5: ways(1)=1, ways(2)=2
+ways(3)=3, ways(4)=5
+ways(5)=8
+```
+
 ### Code Logic:
 ```java
 public int climbStairs(int n) {
@@ -106,6 +190,31 @@ public int climbStairs(int n) {
 
 ### The Key Insight:
 We only need the last two values to compute the next one.
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=5"]
+    START --> STEP1["Space Optimized (Optimal!): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=5 → 8 ways
+Approach: Space Optimized (Optimal!)
+
+n=5: ways(1)=1, ways(2)=2
+ways(3)=3, ways(4)=5
+ways(5)=8
+```
 
 ### Code Logic:
 ```java

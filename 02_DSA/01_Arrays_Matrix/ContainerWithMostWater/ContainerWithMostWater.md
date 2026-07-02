@@ -1,5 +1,9 @@
 # Container With Most Water
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Two Pointers](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-1-two-pointers) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 You are given an array of heights representing vertical lines. Find two lines that together with the x-axis form a container that can hold the most water.
@@ -26,6 +30,32 @@ Check every possible pair of lines to find the maximum area.
 1. Try every pair of indices (i, j) where i < j
 2. Calculate area = (j - i) × min(height[i], height[j])
 3. Keep track of maximum area
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: height=[1,8,6,2,5,4,8,3,7]"]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: height=[1,8,6,2,5,4,8,3,7] → area 49
+Approach: Brute Force (Understanding the Problem)
+
+Enumerate all candidates from example input
+Check validity/optimal condition
+Keep best answer found
+```
 
 ### Code Logic:
 ```java
@@ -76,6 +106,34 @@ Step 3: left=1(8), right=7(3) → area = 6 × min(8,3) = 6 × 3 = 18
 
 Continue until left >= right...
 Maximum area found: 49
+```
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: height=[1,8,6,2,5,4,8,3,7]"]
+    START --> INIT["Init left=0, right=end"]
+    INIT --> WINDOW["Adjust window / pointers"]
+    WINDOW --> UPDATE["Update best answer"]
+    UPDATE --> MORE{"More elements?"}
+    MORE -->|yes| WINDOW
+    MORE -->|no| DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: height=[1,8,6,2,5,4,8,3,7] → area 49
+Approach: Two Pointers (Optimal!)
+
+l=0,r=8 area=min(1,7)*8=8
+move l (shorter side)
+l=1,r=8 area=7*7=49
+answer = 49
 ```
 
 ### Code Logic:

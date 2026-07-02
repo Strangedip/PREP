@@ -3,6 +3,9 @@
 > **Level**: ALL — Required before REST APIs, Angular, and system design
 > **Complements**: [04_API_Design_REST.md](./04_API_Design_REST.md), [17_Networking_Protocols.md](./17_Networking_Protocols.md)
 
+> **You are here**: Fresher — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [00_TableOfContents.md](00_TableOfContents.md) | **Next**: [01_Modern_Java_Features.md](01_Modern_Java_Features.md)
+
 ---
 
 ## 00B.1 How the Web Works

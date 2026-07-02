@@ -1,5 +1,8 @@
 # Elevator System — Low-Level Design
 
+> **You are here**: SDE1–SDE2 — System Design (LLD)
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Prerequisites**: [LLD_Template.md](../../00_Templates/LLD_Template/LLD_Template.md) | **Next**: [README.md](../../README.md)
+
 ## Problem Statement
 
 Design an elevator system for a building with multiple floors and multiple elevators. The system should:

@@ -1,5 +1,8 @@
 # File Storage System (Dropbox / Google Drive) — High-Level Design
 
+> **You are here**: Senior SDE — System Design (HLD)
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Prerequisites**: [HLD_Template.md](../../00_Templates/HLD_Template/HLD_Template.md)
+
 ## Problem Statement
 
 Design a cloud file storage and sync system that:
@@ -177,6 +180,77 @@ GET    /v1/sync/changes?cursor=X → delta since cursor (sync API)
 - **ACL on every metadata request**: User owns file OR has share permission
 - **Presigned URLs**: Time-limited, scoped to specific chunk
 - **Audit log**: Who accessed/shared which file
+
+---
+
+## Spring Boot Reference Sketch
+
+Focused Java 17 / Spring Boot 3.x sketch of resumable chunked upload — not production-complete.
+
+```java
+@RestController
+@RequestMapping("/v1/files")
+public class FileUploadController {
+    private final FileUploadService fileUploadService;
+
+    public FileUploadController(FileUploadService fileUploadService) {
+        this.fileUploadService = fileUploadService;
+    }
+
+    @PostMapping("/upload/init")
+    public UploadInitResponse initUpload(@RequestBody UploadInitRequest request) {
+        return fileUploadService.initUpload(request.userId(), request.fileName(), request.totalSize());
+    }
+
+    @PostMapping("/upload/complete")
+    public FileMetadataResponse completeUpload(@RequestBody CompleteUploadRequest request) {
+        return fileUploadService.completeUpload(request.uploadId(), request.chunkHashes());
+    }
+}
+
+public interface ChunkRepository {
+    boolean existsByHash(String sha256);
+    void saveChunk(String sha256, long sizeBytes, String storagePath);
+    void incrementRefCount(String sha256);
+}
+
+@Service
+@Transactional
+public class FileUploadService {
+    private final ChunkRepository chunkRepository;
+    private final UploadSessionRepository uploadSessionRepository;
+
+    public UploadInitResponse initUpload(long userId, String fileName, long totalSize) {
+        String uploadId = UUID.randomUUID().toString();
+        uploadSessionRepository.create(uploadId, userId, fileName, totalSize);
+        return new UploadInitResponse(uploadId, presignedChunkUrls(uploadId));
+    }
+
+    public FileMetadataResponse completeUpload(String uploadId, List<String> chunkHashes) {
+        UploadSession session = uploadSessionRepository.findForUpdate(uploadId)
+                .orElseThrow(() -> new NotFoundException(uploadId));
+
+        for (String hash : chunkHashes) {
+            if (!chunkRepository.existsByHash(hash)) {
+                throw new IllegalStateException("Missing chunk: " + hash);
+            }
+            chunkRepository.incrementRefCount(hash); // idempotent — same hash uploaded twice
+        }
+
+        long versionId = uploadSessionRepository.finalizeFile(session, chunkHashes);
+        return new FileMetadataResponse(session.fileId(), versionId, chunkHashes);
+    }
+
+    private List<String> presignedChunkUrls(String uploadId) { return List.of(); }
+}
+
+public record UploadInitRequest(long userId, String fileName, long totalSize) {}
+public record CompleteUploadRequest(String uploadId, List<String> chunkHashes) {}
+public record UploadInitResponse(String uploadId, List<String> chunkUploadUrls) {}
+public record FileMetadataResponse(long fileId, long versionId, List<String> chunkHashes) {}
+```
+
+> **Idempotency / dedup**: `PUT /v1/chunks/{hash}` is idempotent — content-addressable keys mean duplicate chunk uploads are no-ops. Sync cursor API is read-heavy; cache manifests in Redis per device.
 
 ---
 

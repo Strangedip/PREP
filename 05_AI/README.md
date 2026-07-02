@@ -1,6 +1,9 @@
 # AI & Machine Learning for Software Engineers — 2026 Edition
 
-> **Who this is for**: Java/Angular Full-Stack developers (Associate → Lead) who need to understand, integrate, and architect AI-powered features in production systems.
+> **You are here**: All levels — AI curriculum hub
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [Java OOP](../01_TechGuide/00_Java_OOP_Fundamentals.md) | **Next**: [01_AI_Fundamentals.md](01_AI_Fundamentals.md)
+
+> **Who this is for**: Java/Angular developers (Fresher → Principal) building and operating AI-powered features from **India**, for global or India-based product teams.
 > **This is NOT** a data science course. This is AI knowledge from the **software engineer's perspective** — building, deploying, scaling, and designing AI-powered applications.
 
 ---

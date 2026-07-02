@@ -1,5 +1,9 @@
 # Union Find (Disjoint Set Union)
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Union Find](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-17-union-find) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Union Find is a data structure that efficiently handles dynamic connectivity queries. It supports two main operations:
 - **Union(x, y):** Connect elements x and y
@@ -20,6 +24,34 @@ find(0) == find(4): false (different components)
 ## Approach 1: Basic Union Find
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=5, connect(0,1), connect(1,2), connected(0,2)"]
+    START --> UF["Init Union-Find"]
+    UF --> EDGE["Process each edge"]
+    EDGE --> JOIN{"Same component?"}
+    JOIN -->|no| MERGE["Union sets"]
+    JOIN -->|yes| SKIP["Skip / record bridge"]
+    MERGE --> EDGE
+    SKIP --> EDGE
+    EDGE --> DONE["Return components / cost"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=5, connect(0,1), connect(1,2), connected(0,2)→true
+Approach: Basic Union Find
+
+Build adjacency from input
+Union edges or relax distances
+Return components / shortest cost
+```
 ```java
 class UnionFind {
     private int[] parent;
@@ -66,6 +98,34 @@ class UnionFind {
 ## Approach 2: Union Find with Path Compression
 
 ### Key Optimization:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=5, connect(0,1), connect(1,2), connected(0,2)"]
+    START --> UF["Init Union-Find"]
+    UF --> EDGE["Process each edge"]
+    EDGE --> JOIN{"Same component?"}
+    JOIN -->|no| MERGE["Union sets"]
+    JOIN -->|yes| SKIP["Skip / record bridge"]
+    MERGE --> EDGE
+    SKIP --> EDGE
+    EDGE --> DONE["Return components / cost"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=5, connect(0,1), connect(1,2), connected(0,2)→true
+Approach: Union Find with Path Compression
+
+Build adjacency from input
+Union edges or relax distances
+Return components / shortest cost
+```
 ```java
 public int find(int x) {
     if (parent[x] != x) {
@@ -83,6 +143,34 @@ public int find(int x) {
 ## Approach 3: Union by Rank + Path Compression (Optimal!)
 
 ### Complete Implementation:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=5, connect(0,1), connect(1,2), connected(0,2)"]
+    START --> UF["Init Union-Find"]
+    UF --> EDGE["Process each edge"]
+    EDGE --> JOIN{"Same component?"}
+    JOIN -->|no| MERGE["Union sets"]
+    JOIN -->|yes| SKIP["Skip / record bridge"]
+    MERGE --> EDGE
+    SKIP --> EDGE
+    EDGE --> DONE["Return components / cost"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=5, connect(0,1), connect(1,2), connected(0,2)→true
+Approach: Union by Rank + Path Compression (Optimal!)
+
+Build adjacency from input
+Union edges or relax distances
+Return components / shortest cost
+```
 ```java
 class UnionFind {
     private int[] parent;

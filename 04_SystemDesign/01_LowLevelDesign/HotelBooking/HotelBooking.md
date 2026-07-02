@@ -1,5 +1,8 @@
 # Hotel Booking System — Low Level Design
 
+> **You are here**: SDE1–SDE2 — System Design (LLD)
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Prerequisites**: [LLD Template](../../00_Templates/LLD_Template/LLD_Template.md) | **Next**: [BookMyShow](../BookMyShow/BookMyShow.md)
+
 ## Problem Statement
 
 Design a hotel room booking system that:
@@ -77,7 +80,18 @@ Design a hotel room booking system that:
 
 ## Double-Booking Prevention
 
-**Approach 1 — Database constraint (production)**:
+### Approach comparison
+
+| Approach | Consistency | Throughput | Complexity | Best for |
+|----------|-------------|------------|------------|----------|
+| **DB slot rows + UNIQUE constraint** | Strong | Medium | Medium | Production default |
+| **In-memory `synchronized` (LLD)** | Single JVM only | Low | Low | Interview demo |
+| **Redis SETNX per night** | Strong with TTL | High | High | Flash booking / HLD |
+| **Optimistic locking (`version`)** | Strong | Medium under contention | Low | Low-contention hotels |
+
+**Overlap rule**: intervals `[checkIn, checkOut)` overlap iff `start1 < end2 && start2 < end1`.
+
+### Approach 1 — Database constraint (production)
 ```sql
 -- booking_slots: one row per room per night
 INSERT INTO booking_slots (room_id, date, booking_id)

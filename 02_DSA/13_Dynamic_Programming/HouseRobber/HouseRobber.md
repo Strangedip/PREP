@@ -1,5 +1,9 @@
 # House Robber Series
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Dynamic Programming](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-16-dynamic-programming-patterns) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 You are a professional robber planning to rob houses. Each house has a certain amount of money stashed. The constraint is that **adjacent houses have security systems** - if two adjacent houses are robbed on the same night, the police will be alerted.
 
@@ -54,6 +58,33 @@ dp[i] = max(dp[i-1], dp[i-2] + nums[i])
 2. Initialize: `dp[0] = nums[0]`, `dp[1] = max(nums[0], nums[1])`
 3. For each house from 2 to n-1: apply recurrence relation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[2,7,9,3,1]"]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[2,7,9,3,1] → 12 (rob houses 2,9,1)
+Approach: Bottom-Up DP
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
+
 #### Time Complexity
 - **O(n)** - single pass through houses
 
@@ -100,6 +131,32 @@ public int robLinearOptimized(int[] nums) {
 
 ### Approach 2: Top-Down DP (Memoization)
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[2,7,9,3,1]"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[2,7,9,3,1] → 12 (rob houses 2,9,1)
+Approach: Top-Down DP (Memoization)
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
 ```java
 public int robTopDown(int[] nums) {
     int[] memo = new int[nums.length];
@@ -175,6 +232,29 @@ For each node, track two values:
 - Maximum money **with robbing** current node
 
 #### Algorithm
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[2,7,9,3,1]"]
+    START --> STEP1["Return Two States: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[2,7,9,3,1] → 12 (rob houses 2,9,1)
+Approach: Return Two States
+
+Apply Return Two States on the example input step by step
+Final answer from example: see above
+```
 ```java
 public int robTree(TreeNode root) {
     int[] result = robTreeHelper(root);
@@ -198,6 +278,32 @@ private int[] robTreeHelper(TreeNode root) {
 ```
 
 ### Approach 2: Memoization
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[2,7,9,3,1]"]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[2,7,9,3,1] → 12 (rob houses 2,9,1)
+Approach: Memoization
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
 ```java
 public int robTreeMemo(TreeNode root) {
     Map<TreeNode, Integer> memo = new HashMap<>();

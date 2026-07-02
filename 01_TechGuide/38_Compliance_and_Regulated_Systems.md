@@ -3,6 +3,9 @@
 > **Level**: SR+ / LEAD — Finance, healthcare, payments, and enterprise B2B
 > **Complements**: [12_Security_OWASP_Cloud.md](./12_Security_OWASP_Cloud.md), [PaymentSystem HLD](../04_SystemDesign/02_HighLevelDesign/PaymentSystem/PaymentSystem.md)
 
+> **You are here**: Senior SDE — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [37_TypeScript_and_Frontend_Landscape.md](37_TypeScript_and_Frontend_Landscape.md)
+
 ---
 
 ## 38.1 Why This Matters in Interviews
@@ -112,3 +115,64 @@ log.info("Login email={}", email);                 // BAD
 | Audit trail design? | Append-only, actor + action + timestamp, tamper-evident. |
 
 **Related**: [11_AI_Ethics_Safety_Governance.md](../05_AI/11_AI_Ethics_Safety_Governance.md) for AI-specific compliance.
+
+---
+
+## §38.10 Production & Interview Depth — India Regulations (RBI, DPDP, PCI)
+
+Global compliance basics (GDPR, PCI) are table stakes; **India-specific** depth wins Senior+ rounds at Paytm, banks, NBFCs, and healthtech (Practo, pharma SaaS). Interviewers ask how **Spring Boot services in ap-south-1** implement localization, consent, and audit without blocking product velocity.
+
+### India Regulatory Map for Engineers
+
+| Framework | Who It Hits | Engineering Obligation |
+|-----------|-------------|------------------------|
+| **RBI data localization** | Payment aggregators, lenders storing payment data | Store **full payment data** in India; explicit board-approved policy |
+| **DPDP Act 2023** | Any significant data fiduciary | Consent manager, purpose limitation, erasure, grievance officer |
+| **PCI-DSS** | Card flows (even via gateway) | Scope reduction, no PAN in logs — §38.5 |
+| **ABDM / health** | PHR, clinic apps | Consent artifacts, FHIR audit — stricter access logging |
+| **SEBI / SOX-adjacent** | Brokerages, listed SaaS | Immutable audit, change control — [33_Git_Version_Control_Workflow.md](./33_Git_Version_Control_Workflow.md) |
+
+Cloud placement ties to [31_Cloud_Computing_AWS_GCP_Azure.md](./31_Cloud_Computing_AWS_GCP_Azure.md) Mumbai region defaults.
+
+### Consent + Erasure in Spring Boot 3
+
+```java
+@Entity
+@Table(name = "user_consent")
+public class UserConsent {
+    @Id private UUID id;
+    private UUID userId;
+    private String purpose;           // "marketing", "kyc", "credit_check"
+    private String policyVersion;     // "dpdp-v2026-03"
+    private Instant grantedAt;
+    private Instant withdrawnAt;      // nullable
+}
+
+@Service
+@Transactional
+public class DataErasureService {
+    public void eraseUser(UUID userId) {
+        auditLog.append("ERASURE_REQUESTED", userId, actor());
+        userRepository.anonymizePii(userId);      // hash email, strip phone
+        orderRepository.retainLegalFieldsOnly(userId); // GST invoices 7yr
+        cacheEvictor.evictAllForUser(userId);     // Redis — [28_Redis_Distributed_Caching.md](./28_Redis_Distributed_Caching.md)
+        searchIndexer.deleteByUserId(userId);     // ES — [34_Search_Engines_Elasticsearch.md](./34_Search_Engines_Elasticsearch.md)
+        auditLog.append("ERASURE_COMPLETED", userId, actor());
+    }
+}
+```
+
+### Build vs Buy for Compliance Primitives
+
+| Capability | Buy (Typical) | Build | Trade-off |
+|------------|---------------|-------|-----------|
+| **KYC / VKYC** | Hyperverge, Onfido, IDfy | In-house OCR | Buy until volume justifies ML team |
+| **Payments** | Razorpay, PayU, Cashfree | Own PA license | Build is years + RBI — [PaymentSystem HLD](../04_SystemDesign/02_HighLevelDesign/PaymentSystem/PaymentSystem.md) |
+| **Consent UI** | OneTrust, custom CMP | Widget + API | DPDP needs vernacular + withdraw flow |
+| **Audit store** | immudb, CloudTrail + SIEM | Append-only Postgres partition | Tamper-evidence vs query latency |
+
+### Interview STAR Prompt
+
+*"We classified data in Postgres ([26_PostgreSQL_Relational_DB_Deep_Dive.md](./26_PostgreSQL_Relational_DB_Deep_Dive.md)), encrypted PII with KMS, routed payment webhooks through a PCI-scoped VPC, and proved **right to erasure** via playbook that included backup retention legal hold — not delete tax invoices."*
+
+**Must-say keywords**: data fiduciary, purpose limitation, localization ap-south-1, tokenization, immutable audit, legal hold vs erasure, DPDP consent version.

@@ -1,5 +1,9 @@
 # Dijkstra's Shortest Path Algorithm
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Dijkstra / Weighted Graph](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-8-dfs-depth-first-search) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Find the shortest path from a source vertex to all other vertices in a weighted graph with non-negative edge weights.
 
@@ -26,6 +30,33 @@ Paths: 0→0, 0→1, 0→3→2, 0→3
 ## Approach 1: Basic Dijkstra with Priority Queue
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: graph: 0"]
+    START --> ENQ["Enqueue start node"]
+    ENQ --> Q{"Queue empty?"}
+    Q -->|no| DEQ["Dequeue front"]
+    DEQ --> NEI["Visit unvisited neighbors"]
+    NEI --> ENQ2["Enqueue neighbors"]
+    ENQ2 --> Q
+    Q -->|yes| DONE["Return shortest / order"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: graph: 0→(1,4),(2,1); 1→(3,1); 2→(1,2),(3,5); shortest 0→3 = 4
+Approach: Basic Dijkstra with Priority Queue
+
+Enqueue start node/level
+Process neighbors level by level
+First reach target = shortest path
+```
 ```java
 public int[] dijkstra(int[][] graph, int source) {
     int n = graph.length;
@@ -71,6 +102,33 @@ public int[] dijkstra(int[][] graph, int source) {
 ## Approach 2: Dijkstra with Adjacency List
 
 ### More Efficient Implementation:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: graph: 0"]
+    START --> ENQ["Enqueue start node"]
+    ENQ --> Q{"Queue empty?"}
+    Q -->|no| DEQ["Dequeue front"]
+    DEQ --> NEI["Visit unvisited neighbors"]
+    NEI --> ENQ2["Enqueue neighbors"]
+    ENQ2 --> Q
+    Q -->|yes| DONE["Return shortest / order"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: graph: 0→(1,4),(2,1); 1→(3,1); 2→(1,2),(3,5); shortest 0→3 = 4
+Approach: Dijkstra with Adjacency List
+
+Enqueue start node/level
+Process neighbors level by level
+First reach target = shortest path
+```
 ```java
 class Edge {
     int to, weight;
@@ -133,6 +191,33 @@ public class DijkstraGraph {
 ## Approach 3: Dijkstra with Path Reconstruction
 
 ### Track Actual Paths:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: graph: 0"]
+    START --> ENQ["Enqueue start node"]
+    ENQ --> Q{"Queue empty?"}
+    Q -->|no| DEQ["Dequeue front"]
+    DEQ --> NEI["Visit unvisited neighbors"]
+    NEI --> ENQ2["Enqueue neighbors"]
+    ENQ2 --> Q
+    Q -->|yes| DONE["Return shortest / order"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: graph: 0→(1,4),(2,1); 1→(3,1); 2→(1,2),(3,5); shortest 0→3 = 4
+Approach: Dijkstra with Path Reconstruction
+
+Enqueue start node/level
+Process neighbors level by level
+First reach target = shortest path
+```
 ```java
 public class DijkstraWithPath {
     public static class Result {

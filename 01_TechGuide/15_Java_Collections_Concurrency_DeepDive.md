@@ -3,6 +3,9 @@
 > **Level**: MID+ (Collections) to LEAD (Advanced Concurrency)
 > **Why This Matters**: HashMap internals, ConcurrentHashMap, Locks, and Synchronizers are asked in **every** Java interview. A Lead engineer must explain internals, not just usage.
 
+> **You are here**: SDE2 — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [14_Leadership_Behavioral_SystemDesign.md](14_Leadership_Behavioral_SystemDesign.md) | **Next**: [16_Spring_Ecosystem_DeepDive.md](16_Spring_Ecosystem_DeepDive.md)
+
 ---
 
 ## 15.1 Collections Framework Internals

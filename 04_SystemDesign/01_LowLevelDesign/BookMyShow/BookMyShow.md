@@ -1,5 +1,8 @@
 # BookMyShow — Online Movie Ticket Booking System (Low-Level Design)
 
+> **You are here**: SDE1–SDE2 — System Design (LLD)
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Prerequisites**: [LLD_Template.md](../../00_Templates/LLD_Template/LLD_Template.md) | **Next**: [README.md](../../README.md)
+
 ## Problem Statement
 
 Design an online movie ticket booking system (like BookMyShow, Fandango, or AMC Theatres) that allows users to:

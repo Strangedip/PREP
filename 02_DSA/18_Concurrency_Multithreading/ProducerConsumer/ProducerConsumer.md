@@ -1,5 +1,9 @@
 # Producer-Consumer Problem
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Concurrency](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-recognition-decision-tree) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Implement a thread-safe bounded buffer (blocking queue) where:
@@ -17,6 +21,33 @@ This is one of the most fundamental concurrency problems and is directly applica
 
 **The simplest and best approach for production code.**
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: producer puts 1,2; consumer takes 1 then 2 (blocking queue)"]
+    START --> ENQ["Enqueue start node"]
+    ENQ --> Q{"Queue empty?"}
+    Q -->|no| DEQ["Dequeue front"]
+    DEQ --> NEI["Visit unvisited neighbors"]
+    NEI --> ENQ2["Enqueue neighbors"]
+    ENQ2 --> Q
+    Q -->|yes| DONE["Return shortest / order"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: producer puts 1,2; consumer takes 1 then 2 (blocking queue)
+Approach: BlockingQueue (Production-Grade)
+
+Enqueue start node/level
+Process neighbors level by level
+First reach target = shortest path
+```
 ```java
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -72,6 +103,29 @@ public class ProducerConsumerDemo {
 
 This is what interviewers expect you to implement from scratch.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: producer puts 1,2; consumer takes 1 then 2 (blocking queue)"]
+    START --> STEP1["wait() / notify() (Interview Classic): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: producer puts 1,2; consumer takes 1 then 2 (blocking queue)
+Approach: wait() / notify() (Interview Classic)
+
+Apply wait() / notify() (Interview Classic) on the example input step by step
+Final answer from example: see above
+```
 ```java
 import java.util.LinkedList;
 import java.util.Queue;
@@ -160,6 +214,29 @@ while (buffer.isEmpty()) {
 
 Separates the "buffer full" and "buffer empty" conditions into distinct Condition objects for more precise signaling.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: producer puts 1,2; consumer takes 1 then 2 (blocking queue)"]
+    START --> STEP1["ReentrantLock + Condition (More Flexible): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: producer puts 1,2; consumer takes 1 then 2 (blocking queue)
+Approach: ReentrantLock + Condition (More Flexible)
+
+Apply ReentrantLock + Condition (More Flexible) on the example input step by step
+Final answer from example: see above
+```
 ```java
 import java.util.LinkedList;
 import java.util.Queue;

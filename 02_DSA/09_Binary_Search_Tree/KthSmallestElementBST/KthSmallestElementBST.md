@@ -1,5 +1,9 @@
 # Kth Smallest Element in BST
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Binary Tree](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-8-dfs-depth-first-search) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given the root of a binary search tree, and an integer k, return the **kth smallest value** (1-indexed) of all the values of the nodes in the tree.
@@ -62,6 +66,29 @@ Therefore, the kth smallest element is the kth element in the inorder traversal.
 3. Return the kth element (index k-1)
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[3,1,4,null,2], k=1"]
+    START --> STEP1["Complete Inorder Traversal: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[3,1,4,null,2], k=1 → 1
+Approach: Complete Inorder Traversal
+
+Apply Complete Inorder Traversal on the example input step by step
+Final answer from example: see above
+```
 ```java
 public int kthSmallest(TreeNode root, int k) {
     List<Integer> inorder = new ArrayList<>();
@@ -92,6 +119,29 @@ private void inorderTraversal(TreeNode node, List<Integer> result) {
 3. Stop when we reach the kth node
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[3,1,4,null,2], k=1"]
+    START --> STEP1["Optimized Inorder with Early Termination: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[3,1,4,null,2], k=1 → 1
+Approach: Optimized Inorder with Early Termination
+
+Apply Optimized Inorder with Early Termination on the example input step by step
+Final answer from example: see above
+```
 ```java
 private int count = 0;
 private int result = 0;
@@ -130,6 +180,33 @@ private void inorderOptimized(TreeNode node, int k) {
 2. Process nodes one by one until kth element
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[3,1,4,null,2], k=1"]
+    START --> PUSH["Push index / value"]
+    PUSH --> TOP{"Violates monotonic order?"}
+    TOP -->|yes| POP["Pop and resolve"]
+    POP --> TOP
+    TOP -->|no| NEXT{"More input?"}
+    NEXT -->|yes| PUSH
+    NEXT -->|no| DONE["Return answer"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[3,1,4,null,2], k=1 → 1
+Approach: Iterative Inorder with Stack
+
+Push indices/values on stack
+Pop when current resolves pending
+Stack top gives next greater / valid match
+```
 ```java
 public int kthSmallestIterative(TreeNode root, int k) {
     Stack<TreeNode> stack = new Stack<>();
@@ -172,6 +249,29 @@ public int kthSmallestIterative(TreeNode root, int k) {
 2. Temporarily modify tree structure using threading
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[3,1,4,null,2], k=1"]
+    START --> STEP1["Morris Traversal (Constant Space): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[3,1,4,null,2], k=1 → 1
+Approach: Morris Traversal (Constant Space)
+
+Apply Morris Traversal (Constant Space) on the example input step by step
+Final answer from example: see above
+```
 ```java
 public int kthSmallestMorris(TreeNode root, int k) {
     TreeNode current = root;
@@ -226,6 +326,34 @@ public int kthSmallestMorris(TreeNode root, int k) {
 3. Recursively search appropriate subtree
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[3,1,4,null,2], k=1"]
+    START --> BOUNDS["lo=0, hi=n-1"]
+    BOUNDS --> MID["mid = (lo+hi)/2"]
+    MID --> CMP{"Compare nums[mid]"}
+    CMP -->|too small| LO["lo = mid+1"]
+    CMP -->|too large| HI["hi = mid-1"]
+    CMP -->|found| DONE["Return mid"]
+    LO --> BOUNDS
+    HI --> BOUNDS
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[3,1,4,null,2], k=1 → 1
+Approach: Binary Search with Node Counting
+
+Set lo/hi bounds on answer or index
+Compare mid element with target
+Halve search space until found
+```
 ```java
 public int kthSmallestBinarySearch(TreeNode root, int k) {
     int leftCount = countNodes(root.left);
@@ -261,6 +389,29 @@ private int countNodes(TreeNode node) {
 2. Use stored counts for O(H) queries
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[3,1,4,null,2], k=1"]
+    START --> STEP1["Augmented BST (For Frequent Queries): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[3,1,4,null,2], k=1 → 1
+Approach: Augmented BST (For Frequent Queries)
+
+Apply Augmented BST (For Frequent Queries) on the example input step by step
+Final answer from example: see above
+```
 ```java
 class AugmentedTreeNode {
     int val;

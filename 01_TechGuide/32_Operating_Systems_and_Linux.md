@@ -3,6 +3,9 @@
 > **Level**: ALL (basics) to SR+ (performance tuning, debugging production)
 > **Why This Matters**: Every backend runs on Linux in production. Interviews ask about processes, memory, file descriptors, and how you debug a slow server.
 
+> **You are here**: Fresher — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [31_Cloud_Computing_AWS_GCP_Azure.md](31_Cloud_Computing_AWS_GCP_Azure.md) | **Next**: [33_Git_Version_Control_Workflow.md](33_Git_Version_Control_Workflow.md)
+
 ---
 
 ## 32.1 Process vs Thread
@@ -129,4 +132,51 @@ Container is **not a VM** — shares host kernel.
 | 9 | Debug high CPU Java? | `top -H`, `jstack`, async-profiler flame graph. |
 | 10 | Load average? | Average runnable processes — > CPU count means queueing. |
 
-**Must-say keywords**: context switch, file descriptor, OOM, epoll, cgroup, namespace, virtual memory, page fault, ulimit.
+**Must-say keywords**: context switch, file descriptor, OOM, cgroup, namespace, virtual memory, page fault, ulimit.
+
+---
+
+## §32.10 Production & Interview Depth — Debugging Spring Boot on Linux
+
+When a Razorpay-scale API or e-commerce cart service "gets slow at 9 PM IST," you SSH (or `kubectl exec`) into Linux, not IntelliJ. Indian on-call rotations expect **systematic triage**: CPU vs GC vs I/O vs connection exhaustion — often on **t3/c6i** instances or container limits from [30_Kubernetes_Deep_Dive.md](./30_Kubernetes_Deep_Dive.md).
+
+### On-Call Triage Flow
+
+```
+1. kubectl top pod / top -H -p <pid>     → CPU thread?
+2. free -h && cat /proc/<pid>/status     → RSS vs cgroup limit?
+3. ss -s && lsof -p <pid> | wc -l        → FD leak?
+4. dmesg | grep -i oom                   → kernel killed container?
+5. jcmd <pid> GC.heap_info / async-profiler → JVM-specific
+```
+
+### cgroup Memory vs JVM Heap (Classic Interview Trap)
+
+Container `limits.memory: 1Gi` with `-Xmx1024m` **OOMKills** the pod — native memory, metaspace, thread stacks, and direct buffers sit outside heap.
+
+| Symptom | Likely Cause | Fix |
+|---------|--------------|-----|
+| Pod restart every ~30 min | Liveness probe + slow GC | Separate liveness from deep checks; tune G1 |
+| `OOMKilled` in `kubectl describe` | Heap + native > cgroup limit | `-XX:MaxRAMPercentage=70`; raise limit or reduce threads |
+| Load avg >> CPU count, low CPU% | Disk I/O wait (`wa` in top) | RDS latency, EBS throughput — [05_Database_Performance_Tuning.md](./05_Database_Performance_Tuning.md) |
+| `Too many open files` | ulimit 1024 on old AMIs | Raise `nofile`; fix HttpClient leak in Spring |
+
+```bash
+# Inside pod — map Java threads to OS threads
+top -H -p 1 -b -n 1 | head -20
+jstack 1 | grep -A5 "pool-.*-thread"
+
+# cgroup v2 memory current (EKS AL2 / containerd)
+cat /sys/fs/cgroup/memory.current
+cat /sys/fs/cgroup/memory.max
+```
+
+### epoll and Spring Boot 3 (Virtual Threads)
+
+Spring Boot 3.2+ with **virtual threads** (`spring.threads.virtual.enabled=true`) maps many request tasks onto few carrier threads — Linux **epoll** backs NIO. Interview angle: you get C10K-friendly blocking style without thread-per-request explosion; still watch **pinned carriers** on `synchronized` blocks — see [15_Java_Collections_Concurrency_DeepDive.md](./15_Java_Collections_Concurrency_DeepDive.md).
+
+### India Product Context
+
+Peak traffic aligns with **salary day, IPL, festival sales** — load average spikes may be normal if queue depth is healthy. Say: *"I correlate OS metrics with Micrometer dashboards ([11_Observability.md](./11_Observability.md)) and trace IDs before restarting pods."*
+
+**Must-say keywords**: cgroup OOM, RSS vs heap, `top -H`, jstack, epoll, ulimit nofile, I/O wait, virtual thread pinning.

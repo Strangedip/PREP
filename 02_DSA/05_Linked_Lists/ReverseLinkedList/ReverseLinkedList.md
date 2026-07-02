@@ -1,5 +1,9 @@
 # Reverse Linked List
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [In-Place Linked List Reversal](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-6-in-place-linked-list-reversal) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given the `head` of a singly linked list, reverse the list, and return the reversed list.
@@ -87,6 +91,30 @@ Result: 5 → 4 → 3 → 2 → 1 → null ✓
 
 ### Java Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: head=[1,2,3,4,5]"]
+    START --> STEP1["Iterative (Optimal): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: head=[1,2,3,4,5] → [5,4,3,2,1]
+Approach: Iterative (Optimal)
+
+1->2->3->4->5
+reverse pointers iteratively
+result 5->4->3->2->1
+```
 ```java
 /**
  * Definition for singly-linked list.
@@ -163,6 +191,32 @@ Result: 5 → 4 → 3 → 2 → 1 → null
 
 ### Java Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: head=[1,2,3,4,5]"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: head=[1,2,3,4,5] → [5,4,3,2,1]
+Approach: Recursive
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
 ```java
 class Solution {
     public ListNode reverseList(ListNode head) {
@@ -252,6 +306,5 @@ Where n = number of nodes in the linked list.
 
 ---
 
-**Pattern**: In-Place Linked List Reversal
 **Difficulty**: Easy
 **Must-Know**: Yes — this is the #1 most important linked list problem

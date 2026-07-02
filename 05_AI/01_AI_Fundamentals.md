@@ -3,6 +3,9 @@
 > **Goal**: Understand the core concepts of AI, Machine Learning, Deep Learning, and Large Language Models — not as a data scientist, but as a software engineer who builds AI-powered products.
 > **Level**: ALL (Associate through Lead)
 
+> **You are here**: Fresher — AI / ML
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Next**: [02_LLM_and_Prompt_Engineering.md](02_LLM_and_Prompt_Engineering.md)
+
 ---
 
 ## 1. The AI Landscape — What a Developer Must Know

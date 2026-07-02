@@ -1,5 +1,9 @@
 # Rotate Array
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Two Pointers](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-1-two-pointers) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given an integer array `nums`, rotate the array to the right by `k` steps, where `k` is non-negative. You must do this **in-place** with O(1) extra space.
@@ -33,6 +37,31 @@ Output: [3,99,-1,-100]
 
 Copy each element to its new rotated position in a temporary array, then copy back.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,2,3,4,5,6,7], k=3"]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,2,3,4,5,6,7], k=3 → [5,6,7,1,2,3,4]
+Approach: Extra Array (Brute Force)
+
+Enumerate all candidates from example input
+Check validity/optimal condition
+Keep best answer found
+```
 ```java
 class Solution {
     public void rotate(int[] nums, int k) {
@@ -99,6 +128,29 @@ Result:       [5, 6, 7, 1, 2, 3, 4] ✓
 
 ### Java Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,2,3,4,5,6,7], k=3"]
+    START --> STEP1["Reverse Algorithm (Optimal): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,2,3,4,5,6,7], k=3 → [5,6,7,1,2,3,4]
+Approach: Reverse Algorithm (Optimal)
+
+Apply Reverse Algorithm (Optimal) on the example input step by step
+Final answer from example: see above
+```
 ```java
 class Solution {
     public void rotate(int[] nums, int k) {
@@ -132,6 +184,29 @@ class Solution {
 
 Move each element to its final position directly using a cycle. When we place element at index `i` to index `(i + k) % n`, we displace the element that was already there. We continue this chain until we return to the starting index.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,2,3,4,5,6,7], k=3"]
+    START --> STEP1["Cyclic Replacements: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,2,3,4,5,6,7], k=3 → [5,6,7,1,2,3,4]
+Approach: Cyclic Replacements
+
+Apply Cyclic Replacements on the example input step by step
+Final answer from example: see above
+```
 ```java
 class Solution {
     public void rotate(int[] nums, int k) {
@@ -232,6 +307,5 @@ Where n = length of the array. Each approach visits every element exactly once (
 
 ---
 
-**Pattern**: Reverse / Cyclic Replacement
 **Difficulty**: Medium
 **Must-Know**: Yes — the three-reverse trick appears in multiple problems

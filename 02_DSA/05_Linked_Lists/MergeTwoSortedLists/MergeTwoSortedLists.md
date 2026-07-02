@@ -1,5 +1,9 @@
 # Merge Two Sorted Lists
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [K-Way Merge](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-13-k-way-merge) · [Two Pointers](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-1-two-pointers) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Merge two sorted linked lists and return it as a sorted list. The list should be made by splicing together the nodes of the first two lists.
 
@@ -18,6 +22,29 @@ Output: [1,1,2,3,4,4]
 4. **Handle remaining nodes** when one list is exhausted
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: l1=[1,2,4], l2=[1,3,4]"]
+    START --> STEP1["Iterative with Dummy Head: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: l1=[1,2,4], l2=[1,3,4] → [1,1,2,3,4,4]
+Approach: Iterative with Dummy Head
+
+Apply Iterative with Dummy Head on the example input step by step
+Final answer from example: see above
+```
 ```java
 ListNode dummy = new ListNode(0);
 ListNode current = dummy;
@@ -51,6 +78,32 @@ return dummy.next;
 3. **Build result from bottom up**
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: l1=[1,2,4], l2=[1,3,4]"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: l1=[1,2,4], l2=[1,3,4] → [1,1,2,3,4,4]
+Approach: Recursive
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
 ```java
 if (list1 == null) return list2;
 if (list2 == null) return list1;

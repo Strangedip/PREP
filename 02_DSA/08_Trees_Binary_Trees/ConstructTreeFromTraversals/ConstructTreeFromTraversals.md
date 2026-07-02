@@ -1,5 +1,9 @@
 # Construct Binary Tree from Traversals
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Binary Tree](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-8-dfs-depth-first-search) · [DFS](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-8-dfs-depth-first-search) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Build binary trees from combinations of preorder, inorder, and postorder traversals.
@@ -51,6 +55,32 @@ Output: [3,9,20,null,null,15,7]
 4. Split into left/right subtrees recursively
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: preorder=[3,9,20,15,7], inorder=[9,3,15,20,7]"]
+    START --> BUILD["Build HashMap / Set"]
+    BUILD --> SCAN["Scan input once"]
+    SCAN --> LOOKUP{"Key seen?"}
+    LOOKUP -->|yes| FOUND["Return match"]
+    LOOKUP -->|no| STORE["Store in map"]
+    STORE --> SCAN
+```
+
+**Walkthrough (same example):**
+
+```
+Example: preorder=[3,9,20,15,7], inorder=[9,3,15,20,7]
+Approach: Recursive with HashMap
+
+Scan input left-to-right
+Store seen keys/values in hash map
+O(1) lookup finds complement or group
+```
 ```java
 public TreeNode buildTreePreIn(int[] preorder, int[] inorder) {
     Map<Integer, Integer> inorderMap = new HashMap<>();
@@ -91,6 +121,33 @@ private TreeNode buildHelper(int[] preorder, int preStart, int preEnd,
 3. Build tree in preorder sequence
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: preorder=[3,9,20,15,7], inorder=[9,3,15,20,7]"]
+    START --> PUSH["Push index / value"]
+    PUSH --> TOP{"Violates monotonic order?"}
+    TOP -->|yes| POP["Pop and resolve"]
+    POP --> TOP
+    TOP -->|no| NEXT{"More input?"}
+    NEXT -->|yes| PUSH
+    NEXT -->|no| DONE["Return answer"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: preorder=[3,9,20,15,7], inorder=[9,3,15,20,7]
+Approach: Iterative with Stack
+
+Push indices/values on stack
+Pop when current resolves pending
+Stack top gives next greater / valid match
+```
 ```java
 public TreeNode buildTreePreInIterative(int[] preorder, int[] inorder) {
     if (preorder.length == 0) return null;
@@ -139,6 +196,32 @@ public TreeNode buildTreePreInIterative(int[] preorder, int[] inorder) {
 3. Recursively build left and right subtrees
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: preorder=[3,9,20,15,7], inorder=[9,3,15,20,7]"]
+    START --> BUILD["Build HashMap / Set"]
+    BUILD --> SCAN["Scan input once"]
+    SCAN --> LOOKUP{"Key seen?"}
+    LOOKUP -->|yes| FOUND["Return match"]
+    LOOKUP -->|no| STORE["Store in map"]
+    STORE --> SCAN
+```
+
+**Walkthrough (same example):**
+
+```
+Example: preorder=[3,9,20,15,7], inorder=[9,3,15,20,7]
+Approach: Recursive with HashMap
+
+Scan input left-to-right
+Store seen keys/values in hash map
+O(1) lookup finds complement or group
+```
 ```java
 public TreeNode buildTreeInPost(int[] inorder, int[] postorder) {
     Map<Integer, Integer> inorderMap = new HashMap<>();
@@ -188,6 +271,33 @@ private TreeNode buildInPostHelper(int[] inorder, int inStart, int inEnd,
 - Use postorder to find subtree boundaries
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: preorder=[3,9,20,15,7], inorder=[9,3,15,20,7]"]
+    START --> PUSH["Push index / value"]
+    PUSH --> TOP{"Violates monotonic order?"}
+    TOP -->|yes| POP["Pop and resolve"]
+    POP --> TOP
+    TOP -->|no| NEXT{"More input?"}
+    NEXT -->|yes| PUSH
+    NEXT -->|no| DONE["Return answer"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: preorder=[3,9,20,15,7], inorder=[9,3,15,20,7]
+Approach: Iterative with Stack
+
+Push indices/values on stack
+Pop when current resolves pending
+Stack top gives next greater / valid match
+```
 ```java
 public TreeNode buildTreePrePost(int[] preorder, int[] postorder) {
     Map<Integer, Integer> postorderMap = new HashMap<>();

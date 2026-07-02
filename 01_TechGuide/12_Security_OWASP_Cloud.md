@@ -2,6 +2,9 @@
 
 > **Why This Matters for Lead Engineers**: Security is non-negotiable at every level. Lead engineers are expected to design secure systems from the ground up, conduct threat modeling, ensure OWASP Top 10 compliance, and understand cloud infrastructure (AWS/GCP/Azure) enough to make informed architectural decisions. These topics are increasingly asked in system design rounds and leadership discussions.
 
+> **You are here**: Senior SDE — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [11_Observability.md](11_Observability.md) | **Next**: [13_Modern_Trends_2026.md](13_Modern_Trends_2026.md)
+
 ---
 
 ## 12.1 OWASP Top 10 (2025) — Complete Guide

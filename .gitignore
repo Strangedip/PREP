@@ -1,3 +1,9 @@
 .idea
 .vscode
-/out
+/out/
+*.class
+*.iml
+__pycache__/
+*.pyc
+_batch*.json
+/src/

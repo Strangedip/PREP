@@ -3,6 +3,9 @@
 > **Level**: ALL — Associate / Junior SDE (start here before §01 Modern Java)
 > **Purpose**: Core object-oriented programming every Java interview assumes you know.
 
+> **You are here**: Fresher — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [00_Computer_Science_Fundamentals.md](00_Computer_Science_Fundamentals.md) | **Next**: [00_TableOfContents.md](00_TableOfContents.md)
+
 ---
 
 ## 00A.1 OOP Four Pillars

@@ -1,5 +1,9 @@
 # Longest Consecutive Sequence
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Hash Map / Set](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-1-two-pointers) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given an unsorted array of integers `nums`, return the length of the longest consecutive elements sequence. You must write an algorithm that runs in **O(n)** time.
@@ -43,6 +47,31 @@ This is a **top 25 interview problem** because:
 
 Sort the array, then scan for consecutive runs.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[100,4,200,1,3,2]"]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[100,4,200,1,3,2] → length 4 (1,2,3,4)
+Approach: Sorting (Baseline)
+
+Enumerate all candidates from example input
+Check validity/optimal condition
+Keep best answer found
+```
 ```java
 class Solution {
     public int longestConsecutive(int[] nums) {
@@ -127,6 +156,32 @@ Result: 4 ✓
 
 ### Java Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[100,4,200,1,3,2]"]
+    START --> BUILD["Build HashMap / Set"]
+    BUILD --> SCAN["Scan input once"]
+    SCAN --> LOOKUP{"Key seen?"}
+    LOOKUP -->|yes| FOUND["Return match"]
+    LOOKUP -->|no| STORE["Store in map"]
+    STORE --> SCAN
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[100,4,200,1,3,2] → length 4 (1,2,3,4)
+Approach: HashSet — Only Start From Sequence Beginnings (Optimal)
+
+Scan input left-to-right
+Store seen keys/values in hash map
+O(1) lookup finds complement or group
+```
 ```java
 class Solution {
     public int longestConsecutive(int[] nums) {
@@ -171,6 +226,34 @@ class Solution {
 
 For each number, union it with `num + 1` if present. The largest connected component size is the answer.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[100,4,200,1,3,2]"]
+    START --> UF["Init Union-Find"]
+    UF --> EDGE["Process each edge"]
+    EDGE --> JOIN{"Same component?"}
+    JOIN -->|no| MERGE["Union sets"]
+    JOIN -->|yes| SKIP["Skip / record bridge"]
+    MERGE --> EDGE
+    SKIP --> EDGE
+    EDGE --> DONE["Return components / cost"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[100,4,200,1,3,2] → length 4 (1,2,3,4)
+Approach: Union-Find (Alternative O(n))
+
+Build adjacency from input
+Union edges or relax distances
+Return components / shortest cost
+```
 ```java
 class Solution {
     private int[] parent, size;
@@ -271,7 +354,6 @@ class Solution {
 
 ---
 
-**Pattern**: Hash Set + Intelligent Starting Point
 **Difficulty**: Medium
 **Must-Know**: Yes — Top 25 interview problem, demonstrates O(n) thinking beyond sorting
 

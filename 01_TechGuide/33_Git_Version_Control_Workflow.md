@@ -2,6 +2,9 @@
 
 > **Level**: ALL — every engineer uses Git daily; interviews ask about workflows and conflict resolution
 
+> **You are here**: Fresher — Engineering Practices
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [32_Operating_Systems_and_Linux.md](32_Operating_Systems_and_Linux.md) | **Next**: [34_Search_Engines_Elasticsearch.md](34_Search_Engines_Elasticsearch.md)
+
 ---
 
 ## 33.1 Git Fundamentals
@@ -127,3 +130,54 @@ git commit
 | 10 | What is a detached HEAD? | HEAD points to commit not on any branch — checkout branch to fix. |
 
 **Must-say keywords**: trunk-based, feature flag, rebase golden rule, cherry-pick, revert, squash, PR size, monorepo.
+
+---
+
+## §33.10 Production & Interview Depth — Release Workflow in Indian Product Orgs
+
+Flipkart, Swiggy, Zerodha, and post-Series-B SaaS shops converged on **trunk-based development + feature flags** (LaunchDarkly, in-house, or Unleash) rather than long-lived `release/2026-Q2` branches. Interviews at SDE2+ ask how you ship **10–50 deploys/day** without breaking UPI settlements or B2B SLAs.
+
+### Trunk-Based vs Git Flow in Practice
+
+| Pattern | Indian Product Fit | When It Breaks |
+|---------|-------------------|----------------|
+| **Trunk + flags** | Web/mobile backends, microservices | Flag debt — 200 stale flags nobody owns |
+| **Git Flow** | Regulated releases, app store coupling | Slow hotfix path for payment bugs |
+| **Release branches** | Enterprise on-prem with quarterly cadence | Merge hell before "freeze week" |
+| **Monorepo** (Bazel/Nx) | Large platform teams (PhonePe-style) | CI time without remote cache |
+
+Aligns with CI/CD depth in [10_DevOps_CICD_Docker.md](./10_DevOps_CICD_Docker.md) and change controls in [38_Compliance_and_Regulated_Systems.md](./38_Compliance_and_Regulated_Systems.md).
+
+### Hotfix Pattern (Interview Favorite)
+
+```bash
+# Production bug on main — prefer revert-forward over force-push
+git fetch origin
+git checkout main && git pull
+git revert <bad-commit-sha> -m 1    # safe, auditable
+git push origin main                # CI deploys rollback
+
+# Parallel: fix forward on branch
+git checkout -b hotfix/payment-timeout
+# ... minimal fix, tests ...
+git push -u origin hotfix/payment-timeout
+# PR with 2 approvals + expedited CI → merge → delete branch
+```
+
+**Never** `git push --force` to `main` — SOX/BFSI auditors and [38_Compliance_and_Regulated_Systems.md](./38_Compliance_and_Regulated_Systems.md) change-management stories fail instantly.
+
+### PR Hygiene for Java/Spring Monorepos
+
+```text
+PR title: fix(checkout): idempotent refund handler for duplicate webhook
+Size: <400 lines | Ticket: PAY-4821 | Risk: medium
+Rollback: revert commit / disable flag checkout.refund-v2
+```
+
+Squash-merge keeps `main` readable; **cherry-pick** to LTS branch only when supporting on-prem customers — explain trade-off: clean history vs traceability to original commits.
+
+### Conflict Resolution Under Pressure
+
+During monsoon-sale prep, two teams touch `OrderService.java`. Say: *"I rebased daily, split PR into API contract vs implementation, and used module ownership in CODEOWNERS so reviews route to platform team."* Link to microservice boundaries: [06_Microservices_Distributed_Systems.md](./06_Microservices_Distributed_Systems.md).
+
+**Must-say keywords**: revert not reset, squash on merge, feature flag rollback, CODEOWNERS, immutable artifact tag, separation of duties for prod deploy.

@@ -3,6 +3,9 @@
 > **Level**: SR+ (indexing, queries) to LEAD (cluster design, relevance tuning)
 > **Use Cases**: Full-text search, log analytics (ELK), autocomplete, e-commerce catalog search
 
+> **You are here**: Senior SDE — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [33_Git_Version_Control_Workflow.md](33_Git_Version_Control_Workflow.md) | **Next**: [35_SQL_Fundamentals.md](35_SQL_Fundamentals.md)
+
 ---
 
 ## 34.1 How Search Engines Work
@@ -185,3 +188,66 @@ Used for faceted search — "show products by category with counts."
 | 10 | ES vs Solr? | Both Lucene-based. ES: distributed native, REST API. Solr: mature, XML config. |
 
 **Must-say keywords**: inverted index, shard, replica, analyzer, BM25, aggregation, near real-time, bool query, ngram, ELK.
+
+---
+
+## §34.10 Production & Interview Depth — Catalog Search for Indian E-Commerce
+
+Myntra, Amazon India, and B2B marketplaces run **product search** as a tier-0 path: Hindi/English mixed queries, aggressive faceting (size, delivery SLA), and **near real-time** inventory sync from Spring Boot catalog services. Interviewers want **ES + PostgreSQL division of labor**, not "we'd use Elasticsearch for everything."
+
+### PostgreSQL vs Elasticsearch — Production Split
+
+| Concern | PostgreSQL ([26_PostgreSQL_Relational_DB_Deep_Dive.md](./26_PostgreSQL_Relational_DB_Deep_Dive.md)) | Elasticsearch / OpenSearch |
+|---------|------------------------------------------------------------------------------------------------------|----------------------------|
+| **Source of truth** | SKU, price, stock, seller ID | Search-optimized denormalized doc |
+| **Transactional updates** | ACID order reservation | Async index via Kafka/outbox |
+| **Faceted browse** | Possible but painful at scale | Native aggregations |
+| **Hindi transliteration** | Limited | Custom analyzer + phonetic plugins |
+| **Ops cost on AWS India** | RDS already paid for | OpenSearch domain $$$ — justify with QPS |
+
+Pattern from [19_Event_Driven_Architecture.md](./19_Event_Driven_Architecture.md): **transactional outbox** → indexer consumer → bulk API.
+
+### Spring Boot 3 + OpenSearch Client (Indexing Pattern)
+
+```java
+@Service
+@RequiredArgsConstructor
+public class ProductSearchIndexer {
+    private final OpenSearchClient client;
+
+    public void indexProduct(ProductDocument doc) throws IOException {
+        client.index(i -> i
+            .index("products-v2")
+            .id(doc.skuId())
+            .document(doc)
+            .refresh(Refresh.False));  // rely on refresh_interval, not per-doc refresh
+    }
+
+    public SearchResponse<ProductDocument> search(String q, String pincode) {
+        return client.search(s -> s.index("products-v2")
+            .query(qb -> qb.bool(b -> b
+                .must(m -> m.multiMatch(mm -> mm
+                    .query(q).fields("title^3", "brand^2", "description")))
+                .filter(f -> f.term(t -> t.field("serviceable_pincodes").value(pincode)))
+                .filter(f -> f.term(t -> t.field("in_stock").value(true))))),
+            ProductDocument.class);
+    }
+}
+```
+
+### Relevance Tuning Trade-offs
+
+| Technique | Upside | Downside |
+|-----------|--------|----------|
+| **Field boosts** (`title^3`) | Simple win for brand queries | Over-boosts spammy seller titles |
+| **Function score** (popularity, margin) | Business KPI alignment | "Search feels biased" — legal/product review |
+| **Synonyms** ("mobile" = "phone") | Bharat query coverage | Stale synonym files without owner |
+| **Edge n-gram autocomplete** | Fast typeahead | Index size bloat — shard planning critical |
+
+### Interview Story
+
+*"Catalog lived in Postgres; we denormalized to OpenSearch with 5 primary shards, `refresh_interval: 5s`, and **search-as-you-type** only on title. Stock updates used debounced bulk reindex; PDP reads still hit Postgres for price integrity."*
+
+**Cross-links**: SQL reporting on sales → [35_SQL_Fundamentals.md](./35_SQL_Fundamentals.md); cache layer for hot SKUs → [28_Redis_Distributed_Caching.md](./28_Redis_Distributed_Caching.md).
+
+**Must-say keywords**: outbox pattern, bulk API, filter context, refresh interval, analyzer for Indian languages, search vs analytics cluster split.

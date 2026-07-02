@@ -3,6 +3,9 @@
 > **Goal**: Understand the ethical, safety, and governance aspects of building AI-powered systems. As a Lead Engineer, you are responsible for ensuring your AI features are safe, fair, and compliant.
 > **Level**: Senior through Lead
 
+> **You are here**: Senior SDE — AI / ML
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [10_AI_System_Design.md](10_AI_System_Design.md) | **Next**: [README.md](README.md)
+
 ---
 
 ## 1. Why AI Ethics Matters for Engineers

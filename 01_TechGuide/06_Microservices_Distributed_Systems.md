@@ -1,5 +1,8 @@
 # Section 6: Microservices & Distributed Systems (CRITICAL)
 
+> **You are here**: Senior SDE — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [05_Database_Performance_Tuning.md](05_Database_Performance_Tuning.md) | **Next**: [07_System_Design.md](07_System_Design.md)
+
 ---
 
 ## 6.1 Resilience Patterns: Circuit Breaker, Bulkhead, Retry, and Rate Limiting

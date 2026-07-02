@@ -1,5 +1,9 @@
 # Search in Rotated Sorted Array
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Modified Binary Search](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-11-modified-binary-search) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 There is an integer array `nums` sorted in ascending order (with **distinct values**). Prior to being passed to your function, `nums` is **possibly rotated** at an unknown pivot index `k` such that the resulting array is `[nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]]`.
@@ -42,6 +46,32 @@ Rotated:  [4, 5, 6, 7, 0, 1, 2]
 
 ### How it works:
 Simply scan the entire array to find the target element.
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[4,5,6,7,0,1,2], target=0"]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[4,5,6,7,0,1,2], target=0 → index 4
+Approach: Linear Search (Brute Force)
+
+Enumerate all candidates from example input
+Check validity/optimal condition
+Keep best answer found
+```
 
 ### Code Logic:
 ```java
@@ -95,6 +125,35 @@ Step 2: mid=5, nums[5]=1
 
 Step 3: mid=4, nums[4]=0
         Found target! Return 4
+```
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[4,5,6,7,0,1,2], target=0"]
+    START --> BOUNDS["lo=0, hi=n-1"]
+    BOUNDS --> MID["mid = (lo+hi)/2"]
+    MID --> CMP{"Compare nums[mid]"}
+    CMP -->|too small| LO["lo = mid+1"]
+    CMP -->|too large| HI["hi = mid-1"]
+    CMP -->|found| DONE["Return mid"]
+    LO --> BOUNDS
+    HI --> BOUNDS
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[4,5,6,7,0,1,2], target=0 → index 4
+Approach: Binary Search (Optimal)
+
+Set lo/hi bounds on answer or index
+Compare mid element with target
+Halve search space until found
 ```
 
 ### Code Logic:
@@ -152,6 +211,34 @@ A two-step approach:
 - When you want to break down the problem into simpler steps
 - For educational purposes to understand the rotation concept
 - When interviewer asks about finding the rotation point
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[4,5,6,7,0,1,2], target=0"]
+    START --> BOUNDS["lo=0, hi=n-1"]
+    BOUNDS --> MID["mid = (lo+hi)/2"]
+    MID --> CMP{"Compare nums[mid]"}
+    CMP -->|too small| LO["lo = mid+1"]
+    CMP -->|too large| HI["hi = mid-1"]
+    CMP -->|found| DONE["Return mid"]
+    LO --> BOUNDS
+    HI --> BOUNDS
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[4,5,6,7,0,1,2], target=0 → index 4
+Approach: Find Pivot Then Binary Search
+
+Set lo/hi bounds on answer or index
+Compare mid element with target
+Halve search space until found
+```
+
 
 ## Approach 4: Recursive Binary Search
 
@@ -253,4 +340,32 @@ Same logic as Approach 2 but implemented recursively instead of iteratively.
 - Code it efficiently without bugs
 - Be prepared to trace through an example step by step
 
-**Remember:** This problem tests your ability to adapt binary search to a modified array structure. The key insight is recognizing that rotation doesn't break the fundamental property that allows binary search to work - you can still eliminate half the search space in each iteration! 
+**Remember:** This problem tests your ability to adapt binary search to a modified array structure. The key insight is recognizing that rotation doesn't break the fundamental property that allows binary search to work - you can still eliminate half the search space in each iteration!
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[4,5,6,7,0,1,2], target=0"]
+    START --> BOUNDS["lo=0, hi=n-1"]
+    BOUNDS --> MID["mid = (lo+hi)/2"]
+    MID --> CMP{"Compare nums[mid]"}
+    CMP -->|too small| LO["lo = mid+1"]
+    CMP -->|too large| HI["hi = mid-1"]
+    CMP -->|found| DONE["Return mid"]
+    LO --> BOUNDS
+    HI --> BOUNDS
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[4,5,6,7,0,1,2], target=0 → index 4
+Approach: Recursive Binary Search
+
+Set lo/hi bounds on answer or index
+Compare mid element with target
+Halve search space until found
+```
+ 

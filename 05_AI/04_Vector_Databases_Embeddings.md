@@ -3,6 +3,9 @@
 > **Goal**: Understand how vector databases work, how to choose one, and how to use pgvector (the most practical choice for Java developers).
 > **Level**: Mid-Level through Lead
 
+> **You are here**: SDE2 — AI / ML
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [03_RAG_Architecture.md](03_RAG_Architecture.md) | **Next**: [05_Spring_AI.md](05_Spring_AI.md)
+
 ---
 
 ## 1. What is a Vector Database?

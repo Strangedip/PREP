@@ -1,5 +1,9 @@
 # Add Two Numbers (LeetCode 2)
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [In-Place Linked List Reversal](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-6-in-place-linked-list-reversal) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
@@ -80,6 +84,29 @@ Since the digits are stored in reverse order, the least significant digit is at 
 
 ### Complete Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: l1=[2,4,3], l2=[5,6,4]"]
+    START --> STEP1[": Elementary Math with Carry: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: l1=[2,4,3], l2=[5,6,4] → [7,0,8] (342+465=807)
+Approach: : Elementary Math with Carry
+
+Apply : Elementary Math with Carry on the example input step by step
+Final answer from example: see above
+```
 ```java
 public class AddTwoNumbers {
     
@@ -217,6 +244,33 @@ In this variant, the most significant digit comes first (forward order). You can
 
 ### Approach: Stack-Based
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: l1=[2,4,3], l2=[5,6,4]"]
+    START --> PUSH["Push index / value"]
+    PUSH --> TOP{"Violates monotonic order?"}
+    TOP -->|yes| POP["Pop and resolve"]
+    POP --> TOP
+    TOP -->|no| NEXT{"More input?"}
+    NEXT -->|yes| PUSH
+    NEXT -->|no| DONE["Return answer"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: l1=[2,4,3], l2=[5,6,4] → [7,0,8] (342+465=807)
+Approach: : Stack-Based
+
+Push indices/values on stack
+Pop when current resolves pending
+Stack top gives next greater / valid match
+```
 ```java
 public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
     Stack<Integer> s1 = new Stack<>();
@@ -300,3 +354,26 @@ public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 4. **Be ready for the forward-order variant**: LeetCode 445 is a common follow-up. Know the stack-based approach.
 5. **Mention the pattern**: "This is the same addition-with-carry pattern used in Add Binary and Add Strings. The only difference is the data structure."
 6. **Test with carry propagation**: Walk through `[9,9,9] + [1] = [0,0,0,1]` to show you handle the final carry.
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: l1=[2,4,3], l2=[5,6,4]"]
+    START --> STEP1["Approach 3: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: l1=[2,4,3], l2=[5,6,4] → [7,0,8] (342+465=807)
+Approach: Approach 3
+
+Apply Approach 3 on the example input step by step
+Final answer from example: see above
+```
+

@@ -1,5 +1,9 @@
 # Coin Change
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Dynamic Programming](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-16-dynamic-programming-patterns) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 You are given an integer array `coins` representing coins of different denominations and an integer `amount` representing a total amount of money.
 
@@ -42,6 +46,34 @@ Build solution iteratively from smaller amounts to target amount.
    - Try each coin that's ≤ current amount
    - Update minimum: `dp[i] = min(dp[i], dp[i-coin] + 1)`
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: coins=[1,2,5], amount=11"]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: coins=[1,2,5], amount=11 → 3 coins (5+5+1)
+Approach: Bottom-Up DP (Tabulation)
+
+dp[0]=0
+dp[5]=1 (coin 5)
+dp[10]=2 (5+5)
+dp[11]=3 (5+5+1)
+```
+
 #### Time Complexity
 - **O(amount × coins.length)** - nested loops
 
@@ -77,6 +109,34 @@ Use recursion with memoization to compute minimum coins recursively.
 2. If already computed, return memoized result
 3. Try each coin, recursively compute minimum for remaining amount
 4. Return minimum across all coin choices
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: coins=[1,2,5], amount=11"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: coins=[1,2,5], amount=11 → 3 coins (5+5+1)
+Approach: Top-Down DP (Memoization)
+
+dp[0]=0
+dp[5]=1 (coin 5)
+dp[10]=2 (5+5)
+dp[11]=3 (5+5+1)
+```
 
 #### Time Complexity
 - **O(amount × coins.length)** - each amount computed once
@@ -124,6 +184,35 @@ Treat as shortest path problem: each coin use = one step, find shortest path to 
 2. Each level represents using one more coin
 3. For each current amount, try adding each coin
 4. First time we reach target amount = minimum coins
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: coins=[1,2,5], amount=11"]
+    START --> ENQ["Enqueue start node"]
+    ENQ --> Q{"Queue empty?"}
+    Q -->|no| DEQ["Dequeue front"]
+    DEQ --> NEI["Visit unvisited neighbors"]
+    NEI --> ENQ2["Enqueue neighbors"]
+    ENQ2 --> Q
+    Q -->|yes| DONE["Return shortest / order"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: coins=[1,2,5], amount=11 → 3 coins (5+5+1)
+Approach: BFS (Creative Alternative)
+
+dp[0]=0
+dp[5]=1 (coin 5)
+dp[10]=2 (5+5)
+dp[11]=3 (5+5+1)
+```
 
 #### Time Complexity
 - **O(amount × coins.length)** - similar to DP

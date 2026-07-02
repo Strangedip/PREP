@@ -1,5 +1,8 @@
 # Section 7: System Design (SDE-2/Lead Level)
 
+> **You are here**: Senior SDE — System Design
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [06_Microservices_Distributed_Systems.md](06_Microservices_Distributed_Systems.md) | **Next**: [08_Angular_Frontend_Engineering.md](08_Angular_Frontend_Engineering.md)
+
 ---
 
 ## 7.1 Scalability Concepts: Vertical vs. Horizontal Scaling, CAP Theorem, Load Balancers

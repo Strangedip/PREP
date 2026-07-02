@@ -3,6 +3,9 @@
 > **Level**: MID+ (when to choose GraphQL) to SR+ (federation, N+1, caching at scale)
 > **Why This Matters**: REST remains the default, but GraphQL, gRPC, and event-driven APIs are standard in modern stacks. Senior interviews expect you to compare styles and justify choices — not just default to REST.
 
+> **You are here**: SDE2 — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [20_Technical_Leadership_Architecture.md](20_Technical_Leadership_Architecture.md) | **Next**: [22_Kotlin_for_Java_Developers.md](22_Kotlin_for_Java_Developers.md)
+
 ---
 
 ## 21.1 API Style Comparison — Decision Matrix
@@ -188,3 +191,51 @@ Gateway          →  stitches subgraphs into unified schema
 | 10 | Partial errors? | GraphQL returns `data` + `errors` — some fields succeed, others fail. |
 
 **Must-say keywords**: DataLoader, N+1, persisted queries, federation, resolver, over-fetching, schema evolution, query complexity.
+
+---
+
+## §21.10 Production & Interview Depth — BFF, Federation & Festival Traffic
+
+Indian product orgs rarely adopt GraphQL as the **only** API style. Flipkart and Swiggy-style stacks typically run **REST/gRPC internally** and expose GraphQL (or a thin BFF) only where mobile bandwidth and screen-specific aggregation justify the operational cost. During Big Billion Days or IPL flash sales, a poorly bounded GraphQL gateway becomes a fan-out amplifier — one client query can trigger 15 downstream calls.
+
+### Architecture Pattern: BFF + GraphQL Gateway
+
+```
+Mobile App → GraphQL BFF (Spring GraphQL) → gRPC/REST microservices
+                │                              ├── Catalog (REST)
+                │                              ├── Inventory (gRPC)
+                └── DataLoader batching          └── Pricing (REST)
+```
+
+The BFF owns the schema for **one client surface** (consumer app vs seller dashboard). Domain services stay REST/gRPC — see [04_API_Design_REST.md](./04_API_Design_REST.md) and [06_Microservices_Distributed_Systems.md](./06_Microservices_Distributed_Systems.md). Razorpay-style dashboards often skip GraphQL entirely and use REST with field filtering via `?fields=` — simpler to cache at CDN.
+
+### Trade-off: GraphQL Gateway vs REST BFF at Scale
+
+| Dimension | GraphQL BFF (Spring GraphQL) | REST BFF (Spring MVC) |
+|-----------|------------------------------|------------------------|
+| Mobile payload | Client picks fields — wins on 4G | Over-fetch unless DTOs per screen |
+| Caching at edge | Needs APQ/persisted queries | HTTP cache + CDN trivial |
+| N+1 risk | High without DataLoader | One endpoint = one query plan |
+| Team ownership | Schema governance across squads | Per-endpoint ownership — clearer |
+| Festival load | Query complexity limits mandatory | Rate limit per endpoint — familiar ops |
+
+### Production Guardrails (Spring Boot 3.x)
+
+```java
+@Configuration
+public class GraphQLSecurityConfig {
+
+    @Bean
+    public Instrumentation maxQueryDepthInstrumentation() {
+        return new MaxQueryDepthInstrumentation(8);  // block depth-10 cart→item→seller chains
+    }
+
+    @Bean
+    public DataLoader<Long, Inventory> inventoryLoader(InventoryClient client) {
+        return DataLoader.newMappedDataLoader(skus ->
+            client.batchGetInventory(skus));  // 1 gRPC call, not N
+    }
+}
+```
+
+Pair with [28_Redis_Distributed_Caching.md](./28_Redis_Distributed_Caching.md) for entity-level resolver caching (`product:42` TTL 30s) during catalog spikes. Interview framing: *"GraphQL where the client team needs shape flexibility; gRPC between services for p99 latency; REST for public partner APIs with CDN."* For subscriptions (live order tracking), prefer WebSocket BFF over GraphQL subscriptions unless the team already operates a federation mesh — see [19_Event_Driven_Architecture.md](./19_Event_Driven_Architecture.md).

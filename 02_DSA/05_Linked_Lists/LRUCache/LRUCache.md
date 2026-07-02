@@ -1,5 +1,9 @@
 # LRU Cache Implementation
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Data Structure Design](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-recognition-decision-tree) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Design a data structure that follows the constraints of a **Least Recently Used (LRU) cache**.
 
@@ -59,6 +63,33 @@ lruCache.get(4);      // return 4
    - Check capacity: O(1)
    - If at capacity: Remove tail node and its HashMap entry: O(1)
    - Create new node, add to head and HashMap: O(1)
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: capacity=2: put(1,1), put(2,2), get(1)"]
+    START --> BUILD["Build HashMap / Set"]
+    BUILD --> SCAN["Scan input once"]
+    SCAN --> LOOKUP{"Key seen?"}
+    LOOKUP -->|yes| FOUND["Return match"]
+    LOOKUP -->|no| STORE["Store in map"]
+    STORE --> SCAN
+```
+
+**Walkthrough (same example):**
+
+```
+Example: capacity=2: put(1,1), put(2,2), get(1)→1, put(3,3) evicts key 2
+Approach: HashMap + Doubly Linked List
+
+put(1,1), put(2,2)
+get(1)->1 (move to front)
+put(3,3) evicts key 2
+```
 
 ### Time & Space Complexity:
 - **Time Complexity**: O(1) for both get and put operations
@@ -140,13 +171,13 @@ Python's OrderedDict provides similar functionality with built-in ordering.
 - **Compiler Optimization**: Register allocation
 
 ## Related Problems:
-- LFU (Least Frequently Used) Cache
+- [LFU Cache](../LFUCache/LFUCache.md) — frequency-based eviction (Staff Tier 3)
 - LRU Cache with TTL
-- Multi-level cache systems
+- Multi-level cache systems — [Distributed Cache HLD](../../../04_SystemDesign/02_HighLevelDesign/DistributedCache/DistributedCache.md)
 - Cache replacement algorithms
 
 ## LeetCode Similar Problems:
-- [460. LFU Cache](https://leetcode.com/problems/lfu-cache/)
+- [460. LFU Cache](https://leetcode.com/problems/lfu-cache/) — repo: [LFUCache](../LFUCache/LFUCache.md)
 - [146. LRU Cache](https://leetcode.com/problems/lru-cache/) (this problem)
 - [432. All O`one Data Structure](https://leetcode.com/problems/all-oone-data-structure/)
 - [380. Insert Delete GetRandom O(1)](https://leetcode.com/problems/insert-delete-getrandom-o1/)

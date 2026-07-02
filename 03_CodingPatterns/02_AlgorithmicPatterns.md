@@ -1,8 +1,10 @@
 # Algorithmic Coding Patterns — The Complete Interview Playbook
 
-> **Purpose**: Master the 16 fundamental coding patterns that solve 95% of FAANG DSA interview questions.
-> **Approach**: Each pattern includes the mental model, the template, when to recognize it, complete code, and a problem mapping.
-> **Target Level**: Lead Software Engineer (SDE-2/SDE-3)
+> **You are here**: SDE1–SDE2 — DSA patterns
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [DSA StudyGuide](../02_DSA/StudyGuide.md) | **Next**: [Two Sum](../02_DSA/01_Arrays_Matrix/TwoSum/TwoSum.md)
+
+> **Purpose**: Master the 17 fundamental coding patterns that solve 95% of interview DSA questions.
+> **Bidirectional links**: Each `02_DSA/*/Problem.md` has a `**Pattern**` line pointing here; see [Repo Problem Index](#repo-problem-index-bidirectional-with-02_dsa) below.
 
 ---
 
@@ -21,14 +23,14 @@ The difference between solving 500 LeetCode problems randomly and being intervie
 |---|---------|------------|-----------|
 | 1 | [Two Pointers](#pattern-1-two-pointers) | Sorted array/string, pair/triplet finding | Easy-Medium |
 | 2 | [Sliding Window](#pattern-2-sliding-window) | Contiguous subarray/substring optimization | Medium |
-| 3 | [Fast & Slow Pointers](#pattern-3-fast--slow-pointers) | Cycle detection, middle finding | Medium |
+| 3 | [Fast & Slow Pointers](#pattern-3-fast-slow-pointers) | Cycle detection, middle finding | Medium |
 | 4 | [Merge Intervals](#pattern-4-merge-intervals) | Overlapping intervals, scheduling | Medium |
 | 5 | [Cyclic Sort](#pattern-5-cyclic-sort) | Array with values in range [0, n] or [1, n] | Easy-Medium |
 | 6 | [In-Place Linked List Reversal](#pattern-6-in-place-linked-list-reversal) | Reverse linked list or sublist | Medium |
 | 7 | [BFS (Breadth-First Search)](#pattern-7-bfs-breadth-first-search) | Shortest path, level-order, minimum steps | Medium |
 | 8 | [DFS (Depth-First Search)](#pattern-8-dfs-depth-first-search) | Tree paths, graph exploration, exhaustive search | Medium |
 | 9 | [Two Heaps](#pattern-9-two-heaps) | Median finding, scheduling with two groups | Hard |
-| 10 | [Subsets / Backtracking](#pattern-10-subsets--backtracking) | Permutations, combinations, power set | Medium-Hard |
+| 10 | [Subsets / Backtracking](#pattern-10-subsets-backtracking) | Permutations, combinations, power set | Medium-Hard |
 | 11 | [Modified Binary Search](#pattern-11-modified-binary-search) | Sorted/rotated array, search space reduction | Medium |
 | 12 | [Top K Elements](#pattern-12-top-k-elements) | K largest/smallest/frequent elements | Medium |
 | 13 | [K-Way Merge](#pattern-13-k-way-merge) | Merge K sorted lists/arrays | Hard |
@@ -608,7 +610,7 @@ public List<Integer> findDuplicates(int[] nums) {
 |---------|---------|----------|
 | Missing Number | [0, n] range | After sort, check nums[i] != i |
 | Find All Numbers Disappeared | [1, n] range | After sort, collect mismatches |
-| Find the Duplicate Number | [1, n] range | After sort, find nums[i] != i+1 |
+| Find the Duplicate Number | [1, n] range | [FindDuplicateNumber](../02_DSA/01_Arrays_Matrix/FindDuplicateNumber/FindDuplicateNumber.md) — cyclic sort or Floyd |
 | Find All Duplicates | [1, n] range | Collect elements at wrong positions |
 | First Missing Positive | [1, n] range | Ignore negatives and > n |
 | Set Mismatch | [1, n] range | Find both duplicate and missing |
@@ -1946,6 +1948,53 @@ public int rob(int[] nums) {
 
 ---
 
+## Pattern 17: Union Find (Disjoint Set Union)
+
+### Mental Model
+Track connected components dynamically with `parent[]` and `rank[]` (or size). **Union** merges two sets; **Find** returns representative with path compression.
+
+### When to Recognize
+- Dynamic connectivity, "are A and B connected?"
+- Counting connected components in undirected graph
+- Kruskal's MST (with Min Cost to Connect Points)
+- Alternative to DFS for [Number of Islands](../02_DSA/11_Graphs/NumberOfIslands/NumberOfIslands.md) when only connectivity counts
+
+### Template
+
+```java
+class UnionFind {
+    int[] parent, rank;
+    UnionFind(int n) {
+        parent = new int[n];
+        rank = new int[n];
+        for (int i = 0; i < n; i++) parent[i] = i;
+    }
+    int find(int x) {
+        if (parent[x] != x) parent[x] = find(parent[x]);
+        return parent[x];
+    }
+    boolean union(int a, int b) {
+        int ra = find(a), rb = find(b);
+        if (ra == rb) return false;
+        if (rank[ra] < rank[rb]) { parent[ra] = rb; }
+        else if (rank[ra] > rank[rb]) { parent[rb] = ra; }
+        else { parent[rb] = ra; rank[ra]++; }
+        return true;
+    }
+}
+```
+
+### Problem Mapping (this repo)
+
+| Problem | Key idea |
+|---------|----------|
+| [Union Find](../02_DSA/11_Graphs/UnionFind/UnionFind.md) | Template + connected components |
+| [Number of Islands](../02_DSA/11_Graphs/NumberOfIslands/NumberOfIslands.md) | UF vs DFS trade-off |
+| [Min Cost to Connect Points](../02_DSA/11_Graphs/MinCostToConnectPoints/MinCostToConnectPoints.md) | Kruskal MST with UF |
+| [Critical Connections](../02_DSA/11_Graphs/CriticalConnections/CriticalConnections.md) | Bridges — use Tarjan DFS, not UF |
+
+---
+
 ## Pattern Recognition Decision Tree
 
 Use this flowchart when you encounter a new problem:
@@ -2011,6 +2060,227 @@ Does it ask for optimal/count/possible?
 ```
 
 ---
+
+---
+
+## Repo Problem Index (bidirectional with `02_DSA`)
+
+Every problem file includes `> **Pattern**:` linking here. Use this index to jump from pattern → problem.
+
+### Pattern 1: Two Pointers
+
+- [BestTimeToBuyAndSellStock](../02_DSA/01_Arrays_Matrix/BestTimeToBuyAndSellStock/BestTimeToBuyAndSellStock.md)
+- [ContainerWithMostWater](../02_DSA/01_Arrays_Matrix/ContainerWithMostWater/ContainerWithMostWater.md)
+- [FourSum](../02_DSA/01_Arrays_Matrix/FourSum/FourSum.md)
+- [LongestPalindromicSubstring](../02_DSA/02_Strings/LongestPalindromicSubstring/LongestPalindromicSubstring.md)
+- [MoveZeroes](../02_DSA/01_Arrays_Matrix/MoveZeroes/MoveZeroes.md)
+- [ProductOfArrayExceptSelf](../02_DSA/01_Arrays_Matrix/ProductOfArrayExceptSelf/ProductOfArrayExceptSelf.md)
+- [RemoveDuplicatesFromSortedArray](../02_DSA/04_Sliding_Window_Two_Pointers/RemoveDuplicatesFromSortedArray/RemoveDuplicatesFromSortedArray.md)
+- [ReverseString](../02_DSA/02_Strings/ReverseString/ReverseString.md)
+- [RotateArray](../02_DSA/01_Arrays_Matrix/RotateArray/RotateArray.md)
+- [SetMatrixZeroes](../02_DSA/01_Arrays_Matrix/SetMatrixZeroes/SetMatrixZeroes.md)
+- [SpiralMatrix](../02_DSA/01_Arrays_Matrix/SpiralMatrix/SpiralMatrix.md)
+- [ThreeSum](../02_DSA/01_Arrays_Matrix/ThreeSum/ThreeSum.md)
+- [TrappingRainWater](../02_DSA/01_Arrays_Matrix/TrappingRainWater/TrappingRainWater.md)
+- [TwoSum](../02_DSA/01_Arrays_Matrix/TwoSum/TwoSum.md)
+- [ValidPalindrome](../02_DSA/02_Strings/ValidPalindrome/ValidPalindrome.md)
+
+### Pattern 2: Sliding Window
+
+- [AdvancedSlidingWindow](../02_DSA/04_Sliding_Window_Two_Pointers/AdvancedSlidingWindow/AdvancedSlidingWindow.md)
+- [LongestSubstringKDistinct](../02_DSA/04_Sliding_Window_Two_Pointers/LongestSubstringKDistinct/LongestSubstringKDistinct.md)
+- [LongestSubstringWithoutRepeating](../02_DSA/02_Strings/LongestSubstringWithoutRepeating/LongestSubstringWithoutRepeating.md)
+- [MinimumSizeSubarraySum](../02_DSA/04_Sliding_Window_Two_Pointers/MinimumSizeSubarraySum/MinimumSizeSubarraySum.md)
+- [MinimumWindowSubstring](../02_DSA/02_Strings/MinimumWindowSubstring/MinimumWindowSubstring.md)
+- [ShortestSubarraySumAtLeastK](../02_DSA/04_Sliding_Window_Two_Pointers/ShortestSubarraySumAtLeastK/ShortestSubarraySumAtLeastK.md)
+- [SlidingWindowMaximum](../02_DSA/04_Sliding_Window_Two_Pointers/SlidingWindowMaximum/SlidingWindowMaximum.md)
+
+### Pattern 3: Fast & Slow Pointers
+
+- [FindMiddleNode](../02_DSA/05_Linked_Lists/FindMiddleNode/FindMiddleNode.md)
+- [LinkedListCycle](../02_DSA/05_Linked_Lists/LinkedListCycle/LinkedListCycle.md)
+- [RemoveNthNodeFromEnd](../02_DSA/05_Linked_Lists/RemoveNthNodeFromEnd/RemoveNthNodeFromEnd.md)
+
+### Pattern 4: Merge Intervals
+
+- [InsertInterval](../02_DSA/01_Arrays_Matrix/InsertInterval/InsertInterval.md)
+- [MergeIntervals](../02_DSA/01_Arrays_Matrix/MergeIntervals/MergeIntervals.md)
+
+### Pattern 5: Cyclic Sort
+
+- [FindDuplicateNumber](../02_DSA/01_Arrays_Matrix/FindDuplicateNumber/FindDuplicateNumber.md)
+
+### Pattern 6: In-Place Linked List Reversal
+
+- [AddTwoNumbers](../02_DSA/05_Linked_Lists/AddTwoNumbers/AddTwoNumbers.md)
+- [ReorderList](../02_DSA/05_Linked_Lists/ReorderList/ReorderList.md)
+- [ReverseLinkedList](../02_DSA/05_Linked_Lists/ReverseLinkedList/ReverseLinkedList.md)
+
+### Pattern 7: BFS
+
+- [BinaryTreeLevelOrderTraversal](../02_DSA/08_Trees_Binary_Trees/BinaryTreeLevelOrderTraversal/BinaryTreeLevelOrderTraversal.md)
+- [CloneGraph](../02_DSA/11_Graphs/CloneGraph/CloneGraph.md)
+- [NumberOfIslands](../02_DSA/11_Graphs/NumberOfIslands/NumberOfIslands.md)
+- [WordLadder](../02_DSA/11_Graphs/WordLadder/WordLadder.md)
+- [WordLadderII](../02_DSA/11_Graphs/WordLadderII/WordLadderII.md)
+
+### Pattern 8: DFS
+
+- [CriticalConnections](../02_DSA/11_Graphs/CriticalConnections/CriticalConnections.md)
+
+### Pattern 9: Two Heaps
+
+- [FindMedianFromDataStream](../02_DSA/10_Heaps_Priority_Queues/FindMedianFromDataStream/FindMedianFromDataStream.md)
+
+### Pattern 10: Subsets / Backtracking
+
+- [GenerateParentheses](../02_DSA/12_Backtracking/GenerateParentheses/GenerateParentheses.md)
+- [NQueens](../02_DSA/12_Backtracking/NQueens/NQueens.md)
+- [Permutations](../02_DSA/12_Backtracking/Permutations/Permutations.md)
+- [Subsets](../02_DSA/12_Backtracking/Subsets/Subsets.md)
+- [SudokuSolver](../02_DSA/12_Backtracking/SudokuSolver/SudokuSolver.md)
+
+### Pattern 11: Modified Binary Search
+
+- [BinarySearch](../02_DSA/03_Sorting_Searching/BinarySearch/BinarySearch.md)
+- [CapacityToShipPackages](../02_DSA/03_Sorting_Searching/CapacityToShipPackages/CapacityToShipPackages.md)
+- [FindMinimumInRotatedSortedArray](../02_DSA/01_Arrays_Matrix/FindMinimumInRotatedSortedArray/FindMinimumInRotatedSortedArray.md)
+- [KokoEatingBananas](../02_DSA/03_Sorting_Searching/KokoEatingBananas/KokoEatingBananas.md)
+- [MedianOfTwoSortedArrays](../02_DSA/03_Sorting_Searching/MedianOfTwoSortedArrays/MedianOfTwoSortedArrays.md)
+- [SearchInRotatedSortedArray](../02_DSA/01_Arrays_Matrix/SearchInRotatedSortedArray/SearchInRotatedSortedArray.md)
+- [SplitArrayLargestSum](../02_DSA/03_Sorting_Searching/SplitArrayLargestSum/SplitArrayLargestSum.md)
+
+### Pattern 12: Top K Elements
+
+- [KthLargestElementInArray](../02_DSA/10_Heaps_Priority_Queues/KthLargestElementInArray/KthLargestElementInArray.md)
+- [TaskScheduler](../02_DSA/14_Greedy_Algorithms/TaskScheduler/TaskScheduler.md)
+- [TopKFrequentElements](../02_DSA/10_Heaps_Priority_Queues/TopKFrequentElements/TopKFrequentElements.md)
+
+### Pattern 13: K-Way Merge
+
+- [MergeKSortedLists](../02_DSA/10_Heaps_Priority_Queues/MergeKSortedLists/MergeKSortedLists.md)
+- [MergeTwoSortedLists](../02_DSA/05_Linked_Lists/MergeTwoSortedLists/MergeTwoSortedLists.md)
+
+### Pattern 14: Monotonic Stack
+
+- [DailyTemperatures](../02_DSA/06_Stacks_Queues/DailyTemperatures/DailyTemperatures.md)
+- [EvaluateReversePolishNotation](../02_DSA/06_Stacks_Queues/EvaluateReversePolishNotation/EvaluateReversePolishNotation.md)
+- [NextGreaterElement](../02_DSA/06_Stacks_Queues/NextGreaterElement/NextGreaterElement.md)
+- [ValidParentheses](../02_DSA/06_Stacks_Queues/ValidParentheses/ValidParentheses.md)
+
+### Pattern 15: Topological Sort
+
+- [AlienDictionary](../02_DSA/11_Graphs/AlienDictionary/AlienDictionary.md)
+- [CourseSchedule](../02_DSA/11_Graphs/CourseSchedule/CourseSchedule.md)
+- [TopologicalSort](../02_DSA/11_Graphs/TopologicalSort/TopologicalSort.md)
+
+### Pattern 16: Dynamic Programming
+
+- [AdvancedDP](../02_DSA/13_Dynamic_Programming/AdvancedDP/AdvancedDP.md)
+- [BurstBalloons](../02_DSA/13_Dynamic_Programming/BurstBalloons/BurstBalloons.md)
+- [CherryPickup](../02_DSA/13_Dynamic_Programming/CherryPickup/CherryPickup.md)
+- [ClimbingStairs](../02_DSA/13_Dynamic_Programming/ClimbingStairs/ClimbingStairs.md)
+- [CoinChange](../02_DSA/13_Dynamic_Programming/CoinChange/CoinChange.md)
+- [ConstrainedSubsequenceSum](../02_DSA/13_Dynamic_Programming/ConstrainedSubsequenceSum/ConstrainedSubsequenceSum.md)
+- [DistinctSubsequences](../02_DSA/13_Dynamic_Programming/DistinctSubsequences/DistinctSubsequences.md)
+- [EditDistance](../02_DSA/13_Dynamic_Programming/EditDistance/EditDistance.md)
+- [HouseRobber](../02_DSA/13_Dynamic_Programming/HouseRobber/HouseRobber.md)
+- [ImplementStrStr](../02_DSA/02_Strings/ImplementStrStr/ImplementStrStr.md)
+- [JumpGame](../02_DSA/13_Dynamic_Programming/JumpGame/JumpGame.md)
+- [LongestCommonSubsequence](../02_DSA/13_Dynamic_Programming/LongestCommonSubsequence/LongestCommonSubsequence.md)
+- [LongestIncreasingSubsequence](../02_DSA/13_Dynamic_Programming/LongestIncreasingSubsequence/LongestIncreasingSubsequence.md)
+- [MaximumSubarray](../02_DSA/01_Arrays_Matrix/MaximumSubarray/MaximumSubarray.md)
+- [PalindromicSubstrings](../02_DSA/13_Dynamic_Programming/PalindromicSubstrings/PalindromicSubstrings.md)
+- [RegularExpressionMatching](../02_DSA/02_Strings/RegularExpressionMatching/RegularExpressionMatching.md)
+- [UniquePaths](../02_DSA/13_Dynamic_Programming/UniquePaths/UniquePaths.md)
+- [WordBreak](../02_DSA/13_Dynamic_Programming/WordBreak/WordBreak.md)
+- [ZeroOneKnapsack](../02_DSA/13_Dynamic_Programming/ZeroOneKnapsack/ZeroOneKnapsack.md)
+
+### Pattern 17: Union Find
+
+- [UnionFind](../02_DSA/11_Graphs/UnionFind/UnionFind.md)
+
+### Greedy
+
+- [GasStation](../02_DSA/14_Greedy_Algorithms/GasStation/GasStation.md)
+- [IntegerToRoman](../02_DSA/02_Strings/IntegerToRoman/IntegerToRoman.md)
+- [PartitionLabels](../02_DSA/14_Greedy_Algorithms/PartitionLabels/PartitionLabels.md)
+
+### Bit Manipulation
+
+- [CountingBits](../02_DSA/15_Bit_Manipulation/CountingBits/CountingBits.md)
+- [NumberOf1Bits](../02_DSA/15_Bit_Manipulation/NumberOf1Bits/NumberOf1Bits.md)
+- [PowerOfTwo](../02_DSA/15_Bit_Manipulation/PowerOfTwo/PowerOfTwo.md)
+- [ReverseBits](../02_DSA/15_Bit_Manipulation/ReverseBits/ReverseBits.md)
+- [SingleNumber](../02_DSA/15_Bit_Manipulation/SingleNumber/SingleNumber.md)
+
+### Data Structure Design
+
+- [ImplementQueueUsingStacks](../02_DSA/06_Stacks_Queues/ImplementQueueUsingStacks/ImplementQueueUsingStacks.md)
+- [LFUCache](../02_DSA/05_Linked_Lists/LFUCache/LFUCache.md)
+- [LRUCache](../02_DSA/05_Linked_Lists/LRUCache/LRUCache.md)
+- [MinStack](../02_DSA/06_Stacks_Queues/MinStack/MinStack.md)
+- [RandomizedSet](../02_DSA/17_Advanced_Miscellaneous/RandomizedSet/RandomizedSet.md)
+
+### Sorting
+
+- [InversionCount](../02_DSA/07_Recursion_Divide_Conquer/InversionCount/InversionCount.md)
+- [MaximumSubarrayDivideConquer](../02_DSA/07_Recursion_Divide_Conquer/MaximumSubarrayDivideConquer/MaximumSubarrayDivideConquer.md)
+- [MergeSort](../02_DSA/03_Sorting_Searching/MergeSort/MergeSort.md)
+- [QuickSort](../02_DSA/03_Sorting_Searching/QuickSort/QuickSort.md)
+
+### Binary Tree
+
+- [BSTOperations](../02_DSA/09_Binary_Search_Tree/BSTOperations/BSTOperations.md)
+- [BalancedBSTCheck](../02_DSA/09_Binary_Search_Tree/BalancedBSTCheck/BalancedBSTCheck.md)
+- [ConstructTreeFromTraversals](../02_DSA/08_Trees_Binary_Trees/ConstructTreeFromTraversals/ConstructTreeFromTraversals.md)
+- [InvertBinaryTree](../02_DSA/08_Trees_Binary_Trees/InvertBinaryTree/InvertBinaryTree.md)
+- [KthSmallestElementBST](../02_DSA/09_Binary_Search_Tree/KthSmallestElementBST/KthSmallestElementBST.md)
+- [LowestCommonAncestor](../02_DSA/08_Trees_Binary_Trees/LowestCommonAncestor/LowestCommonAncestor.md)
+- [LowestCommonAncestorBST](../02_DSA/09_Binary_Search_Tree/LowestCommonAncestorBST/LowestCommonAncestorBST.md)
+- [MaximumDepth](../02_DSA/08_Trees_Binary_Trees/MaximumDepth/MaximumDepth.md)
+- [SerializeDeserializeBinaryTree](../02_DSA/08_Trees_Binary_Trees/SerializeDeserializeBinaryTree/SerializeDeserializeBinaryTree.md)
+- [SubtreeOfAnotherTree](../02_DSA/08_Trees_Binary_Trees/SubtreeOfAnotherTree/SubtreeOfAnotherTree.md)
+- [SymmetricTree](../02_DSA/08_Trees_Binary_Trees/SymmetricTree/SymmetricTree.md)
+- [ValidateBinarySearchTree](../02_DSA/08_Trees_Binary_Trees/ValidateBinarySearchTree/ValidateBinarySearchTree.md)
+
+### Concurrency
+
+- [PrintInOrder](../02_DSA/18_Concurrency_Multithreading/PrintInOrder/PrintInOrder.md)
+- [ProducerConsumer](../02_DSA/18_Concurrency_Multithreading/ProducerConsumer/ProducerConsumer.md)
+- [ReadWriteLock](../02_DSA/18_Concurrency_Multithreading/ReadWriteLock/ReadWriteLock.md)
+
+### Math / Number Theory
+
+- [MasterTheorem](../02_DSA/07_Recursion_Divide_Conquer/MasterTheorem/MasterTheorem.md)
+- [NumberTheory](../02_DSA/16_Math_Algorithms/NumberTheory/NumberTheory.md)
+
+### Trie
+
+- [Trie](../02_DSA/17_Advanced_Miscellaneous/Trie/Trie.md)
+
+### Segment Tree
+
+- [SegmentTree](../02_DSA/17_Advanced_Miscellaneous/SegmentTree/SegmentTree.md)
+
+### Fenwick Tree
+
+- [FenwickTree](../02_DSA/17_Advanced_Miscellaneous/FenwickTree/FenwickTree.md)
+
+### Dijkstra / Weighted Graph
+
+- [DijkstraAlgorithm](../02_DSA/11_Graphs/DijkstraAlgorithm/DijkstraAlgorithm.md)
+- [NetworkDelayTime](../02_DSA/11_Graphs/NetworkDelayTime/NetworkDelayTime.md)
+
+### Minimum Spanning Tree
+
+- [MinCostToConnectPoints](../02_DSA/11_Graphs/MinCostToConnectPoints/MinCostToConnectPoints.md)
+
+### Hash Map / Set
+
+- [GroupAnagrams](../02_DSA/02_Strings/GroupAnagrams/GroupAnagrams.md)
+- [LongestConsecutiveSequence](../02_DSA/01_Arrays_Matrix/LongestConsecutiveSequence/LongestConsecutiveSequence.md)
+- [ValidAnagram](../02_DSA/02_Strings/ValidAnagram/ValidAnagram.md)
 
 ## Practice Schedule: 4-Week Pattern Mastery Plan
 

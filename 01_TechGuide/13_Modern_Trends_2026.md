@@ -1,5 +1,8 @@
 # Section 13: Modern Trends (2026 Focus)
 
+> **You are here**: Tech Lead — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [12_Security_OWASP_Cloud.md](12_Security_OWASP_Cloud.md) | **Next**: [14_Leadership_Behavioral_SystemDesign.md](14_Leadership_Behavioral_SystemDesign.md)
+
 ---
 
 ## 13.1 AI Integration: RAG (Retrieval-Augmented Generation) with Spring Boot & Vector DBs

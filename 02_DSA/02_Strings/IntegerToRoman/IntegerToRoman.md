@@ -1,5 +1,9 @@
 # Integer to Roman (LeetCode 12)
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Greedy](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-recognition-decision-tree) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Roman numerals are represented by seven symbols: I, V, X, L, C, D, and M.
@@ -58,6 +62,32 @@ The key insight is that Roman numerals are a greedy representation. You always u
 
 ### Complete Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: num=1994"]
+    START --> BUILD["Build HashMap / Set"]
+    BUILD --> SCAN["Scan input once"]
+    SCAN --> LOOKUP{"Key seen?"}
+    LOOKUP -->|yes| FOUND["Return match"]
+    LOOKUP -->|no| STORE["Store in map"]
+    STORE --> SCAN
+```
+
+**Walkthrough (same example):**
+
+```
+Example: num=1994 → MCMXCIV
+Approach: Greedy with Value-Symbol Mapping (Optimal)
+
+Scan input left-to-right
+Store seen keys/values in hash map
+O(1) lookup finds complement or group
+```
 ```java
 public class IntegerToRoman {
     
@@ -131,6 +161,29 @@ Roman numerals are designed so that the greedy approach always produces the corr
 
 Since the input is constrained to 1-3999, we can create separate lookup tables for thousands, hundreds, tens, and units. Extract each digit and look up its Roman representation directly.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: num=1994"]
+    START --> STEP1["Hardcoded Lookup Table: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: num=1994 → MCMXCIV
+Approach: Hardcoded Lookup Table
+
+Apply Hardcoded Lookup Table on the example input step by step
+Final answer from example: see above
+```
 ```java
 public String intToRoman(int num) {
     String[] thousands = {"", "M", "MM", "MMM"};
@@ -177,6 +230,29 @@ This approach is extremely fast (no loops at all, just array lookups and arithme
 
 This is the inverse problem and a very common companion question. The key insight is: if a smaller value appears before a larger value, subtract it; otherwise, add it.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: num=1994"]
+    START --> STEP1["Approach 3: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: num=1994 → MCMXCIV
+Approach: Approach 3
+
+Apply Approach 3 on the example input step by step
+Final answer from example: see above
+```
 ```java
 public int romanToInt(String s) {
     Map<Character, Integer> map = Map.of(

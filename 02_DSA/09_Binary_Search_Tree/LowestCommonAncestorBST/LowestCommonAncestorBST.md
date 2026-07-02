@@ -1,5 +1,9 @@
 # Lowest Common Ancestor in Binary Search Tree
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Binary Tree](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-8-dfs-depth-first-search) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given a binary search tree (BST), find the lowest common ancestor (LCA) of two given nodes in the BST.
@@ -70,6 +74,32 @@ LCA of 3 and 5 is 4 (their immediate parent)
 3. If nodes are on different sides, current node is LCA
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[6,2,8,0,4,7,9,null,null,3,5], p=2, q=8"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[6,2,8,0,4,7,9,null,null,3,5], p=2, q=8 → 6
+Approach: Recursive Solution
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
 ```java
 public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
     if (root == null) return null;
@@ -103,6 +133,29 @@ public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
 3. Stop when nodes are on different sides
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[6,2,8,0,4,7,9,null,null,3,5], p=2, q=8"]
+    START --> STEP1["Iterative Solution: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[6,2,8,0,4,7,9,null,null,3,5], p=2, q=8 → 6
+Approach: Iterative Solution
+
+Apply Iterative Solution on the example input step by step
+Final answer from example: see above
+```
 ```java
 public TreeNode lowestCommonAncestorIterative(TreeNode root, TreeNode p, TreeNode q) {
     TreeNode current = root;
@@ -136,6 +189,29 @@ public TreeNode lowestCommonAncestorIterative(TreeNode root, TreeNode p, TreeNod
 2. Compare paths to find last common node
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[6,2,8,0,4,7,9,null,null,3,5], p=2, q=8"]
+    START --> STEP1["Path-Based Solution: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[6,2,8,0,4,7,9,null,null,3,5], p=2, q=8 → 6
+Approach: Path-Based Solution
+
+Apply Path-Based Solution on the example input step by step
+Final answer from example: see above
+```
 ```java
 public TreeNode lowestCommonAncestorWithPath(TreeNode root, TreeNode p, TreeNode q) {
     List<TreeNode> pathToP = findPath(root, p.val);
@@ -185,6 +261,29 @@ private List<TreeNode> findPath(TreeNode root, int target) {
 2. Useful when you only have values
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[6,2,8,0,4,7,9,null,null,3,5], p=2, q=8"]
+    START --> STEP1["Value-Based Solution: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[6,2,8,0,4,7,9,null,null,3,5], p=2, q=8 → 6
+Approach: Value-Based Solution
+
+Apply Value-Based Solution on the example input step by step
+Final answer from example: see above
+```
 ```java
 public TreeNode lowestCommonAncestorByValue(TreeNode root, int pVal, int qVal) {
     if (root == null) return null;

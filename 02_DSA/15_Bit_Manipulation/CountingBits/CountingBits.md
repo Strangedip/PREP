@@ -1,5 +1,9 @@
 # Counting Bits
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Bit Manipulation](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-recognition-decision-tree) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given an integer `n`, return an array `ans` of length `n + 1` such that for each `i` (0 ≤ i ≤ n), `ans[i]` is the **number of 1's** in the binary representation of `i`.
@@ -22,6 +26,31 @@ Explanation:
 
 ## Approach 1: Brute Force (Count bits for each number)
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=5"]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=5 → [0,1,1,2,1,2]
+Approach: Brute Force (Count bits for each number)
+
+Enumerate all candidates from example input
+Check validity/optimal condition
+Keep best answer found
+```
 ```java
 public int[] countBitsBrute(int n) {
     int[] result = new int[n + 1];
@@ -50,6 +79,32 @@ private int popcount(int x) {
 ### Key Insight
 `n & (n - 1)` removes the lowest set bit from `n`. So `countBits(n) = countBits(n & (n-1)) + 1`.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=5"]
+    START --> BUILD["Build HashMap / Set"]
+    BUILD --> SCAN["Scan input once"]
+    SCAN --> LOOKUP{"Key seen?"}
+    LOOKUP -->|yes| FOUND["Return match"]
+    LOOKUP -->|no| STORE["Store in map"]
+    STORE --> SCAN
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=5 → [0,1,1,2,1,2]
+Approach: DP with Last Set Bit (n & (n-1))
+
+Scan input left-to-right
+Store seen keys/values in hash map
+O(1) lookup finds complement or group
+```
 ```java
 public int[] countBits(int n) {
     int[] dp = new int[n + 1];
@@ -81,6 +136,32 @@ So: countBits(12) = countBits(8) + 1
 ### Key Insight
 `countBits(n) = countBits(n >> 1) + (n & 1)`. Shifting right divides by 2, and we add 1 if the last bit is set.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=5"]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=5 → [0,1,1,2,1,2]
+Approach: DP with Right Shift
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
 ```java
 public int[] countBitsShift(int n) {
     int[] dp = new int[n + 1];
@@ -110,6 +191,32 @@ countBits(5) = countBits(5 >> 1) + (5 & 1)
 ### Key Insight
 If `i` has the most significant bit at position `p`, then `countBits(i) = 1 + countBits(i - 2^p)`.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=5"]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=5 → [0,1,1,2,1,2]
+Approach: DP with Most Significant Bit
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
 ```java
 public int[] countBitsMSB(int n) {
     int[] dp = new int[n + 1];

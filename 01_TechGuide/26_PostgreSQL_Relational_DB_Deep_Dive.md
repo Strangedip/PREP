@@ -3,6 +3,9 @@
 > **Level**: MID+ (SQL, indexes) to SR+ (MVCC, replication, partitioning, tuning)
 > **Complements**: [05_Database_Performance_Tuning.md](./05_Database_Performance_Tuning.md) — Section 5 covers indexing and caching; this section covers PostgreSQL internals and production operations.
 
+> **You are here**: SDE2 — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [25_Data_Engineering_Fundamentals.md](25_Data_Engineering_Fundamentals.md) | **Next**: [27_NoSQL_Databases_Guide.md](27_NoSQL_Databases_Guide.md)
+
 ---
 
 ## 26.1 Why PostgreSQL in 2026
@@ -189,3 +192,41 @@ SELECT * FROM orders WHERE customer_id = 42 AND status = 'PENDING';
 | 10 | Deadlock? | Two transactions wait on each other — PG detects and aborts one. |
 
 **Must-say keywords**: MVCC, WAL, VACUUM, bloat, snapshot isolation, PgBouncer, read replica lag, partition pruning, EXPLAIN ANALYZE.
+
+---
+
+## §26.10 Production & Interview Depth — Order DB Under Festival Load
+
+PostgreSQL is the backbone for Razorpay ledgers, Zomato orders, and catalog metadata at many Indian unicorns. The interview deep-dive: *"Checkout spikes 20× — what breaks first?"* Usually **connection exhaustion**, then **lock contention on hot rows** (inventory), then **replica lag** making post-order reads stale.
+
+### Trade-off: PgBouncer + Hikari vs RDS Proxy
+
+| Layer | Role | Flipkart-scale note |
+|-------|------|---------------------|
+| HikariCP (per pod) | 10–20 conns × 200 pods = still too many | Tune `maximumPoolSize`; avoid `threads = connections` |
+| PgBouncer (transaction mode) | Multiplex thousands → ~100 DB conns | Required for microservices storm |
+| RDS Proxy / Cloud SQL Auth | IAM auth, failover smoothing | Managed option on AWS/GCP India regions |
+| Read replica | Offload reports, order history | Accept 1–5s lag; never read-your-writes for payment status |
+
+### Pattern: Partitioned Orders + Optimistic Inventory
+
+```sql
+-- Monthly partitions — drop/archive old festivals without full-table VACUUM pain
+CREATE TABLE orders_2026_10 PARTITION OF orders
+    FOR VALUES FROM ('2026-10-01') TO ('2026-11-01');
+
+CREATE INDEX CONCURRENTLY idx_orders_user_created
+    ON orders (user_id, created_at DESC);
+```
+
+```java
+@Transactional
+public boolean reserveInventory(long skuId, int qty) {
+    int updated = jdbcTemplate.update(
+        "UPDATE inventory SET stock = stock - ? WHERE sku_id = ? AND stock >= ?",
+        qty, skuId, qty);
+    return updated == 1;  // optimistic — no SELECT FOR UPDATE on hot SKU row
+}
+```
+
+Pair indexing strategy with [05_Database_Performance_Tuning.md](./05_Database_Performance_Tuning.md). For Big Billion Days prep: run `EXPLAIN (ANALYZE, BUFFERS)` on top 10 queries, verify **index-only scans** on `order_id` lookups, tune `autovacuum` on high-churn tables before sale week. Async inventory sync to Redis for display — authoritative stock stays in PG — see [28_Redis_Distributed_Caching.md](./28_Redis_Distributed_Caching.md). SERIALIZABLE isolation for wallet debits only; default READ COMMITTED for order inserts.

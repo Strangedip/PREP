@@ -1,5 +1,9 @@
 # Sudoku Solver
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Subsets / Backtracking](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-10-subsets-backtracking) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Write a program to solve a **Sudoku puzzle** by filling the empty cells.
 
@@ -71,6 +75,32 @@ This is a **constraint satisfaction problem** solved using **backtracking**:
 5. **Backtrack**: Remove digit and try next if no solution found
 
 #### Constraint Checking
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: 9x9 board with some blanks"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: 9x9 board with some blanks → valid completed grid
+Approach: Basic Backtracking
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
 ```java
 private boolean isValidPlacement(char[][] board, int row, int col, char digit) {
     // Check row constraint
@@ -115,6 +145,29 @@ private boolean isValidPlacement(char[][] board, int row, int col, char digit) {
 - **O(1) constraint checking** instead of O(27) scanning
 
 #### Data Structures
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: 9x9 board with some blanks"]
+    START --> STEP1["Optimized with Constraint Tracking: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: 9x9 board with some blanks → valid completed grid
+Approach: Optimized with Constraint Tracking
+
+Apply Optimized with Constraint Tracking on the example input step by step
+Final answer from example: see above
+```
 ```java
 Set<Character>[] rows = new HashSet[9];    // rows[i] = digits used in row i
 Set<Character>[] cols = new HashSet[9];    // cols[i] = digits used in col i  
@@ -172,6 +225,29 @@ private boolean backtrack(int index, List<int[]> emptyCells) {
 - **Early failure detection**: If any cell has 0 possibilities, backtrack immediately
 
 #### Algorithm
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: 9x9 board with some blanks"]
+    START --> STEP1["Most Constrained Variable (MCV) Heuristic: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: 9x9 board with some blanks → valid completed grid
+Approach: Most Constrained Variable (MCV) Heuristic
+
+Apply Most Constrained Variable (MCV) Heuristic on the example input step by step
+Final answer from example: see above
+```
 ```java
 private int[] findMostConstrainedCell(char[][] board) {
     int[] bestCell = null;
@@ -214,6 +290,29 @@ private int[] findMostConstrainedCell(char[][] board) {
 - **Reduced search space**: Fewer cells for backtracking
 
 #### Algorithm
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: 9x9 board with some blanks"]
+    START --> STEP1["Preprocessing with Naked Singles: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: 9x9 board with some blanks → valid completed grid
+Approach: Preprocessing with Naked Singles
+
+Apply Preprocessing with Naked Singles on the example input step by step
+Final answer from example: see above
+```
 ```java
 private boolean fillNakedSingles(char[][] board) {
     boolean progress = false;
@@ -359,6 +458,29 @@ Check if a partially filled board is valid.
 4. **Code cleanly**: Clear structure and meaningful names
 
 ### Code Organization
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: 9x9 board with some blanks"]
+    START --> STEP1["Approach 5: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: 9x9 board with some blanks → valid completed grid
+Approach: Approach 5
+
+Apply Approach 5 on the example input step by step
+Final answer from example: see above
+```
 ```java
 public void solveSudoku(char[][] board) {
     // 1. Input validation

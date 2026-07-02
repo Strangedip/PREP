@@ -3,6 +3,9 @@
 > **Goal**: Master Spring AI, the official Spring framework for building AI-powered applications with Java and Spring Boot.
 > **Level**: Mid-Level through Lead
 
+> **You are here**: SDE2 — AI / ML
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [04_Vector_Databases_Embeddings.md](04_Vector_Databases_Embeddings.md) | **Next**: [06_AI_Agents_and_Workflows.md](06_AI_Agents_and_Workflows.md)
+
 ---
 
 ## 1. What is Spring AI?

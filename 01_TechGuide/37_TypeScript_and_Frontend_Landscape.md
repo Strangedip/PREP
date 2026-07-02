@@ -3,6 +3,9 @@
 > **Level**: ALL — Complements [08_Angular_Frontend_Engineering.md](./08_Angular_Frontend_Engineering.md)
 > **Purpose**: Speak confidently about modern frontend even when your primary role is backend/Java
 
+> **You are here**: Fresher — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [36_Polyglot_Interview_Python_and_Go.md](36_Polyglot_Interview_Python_and_Go.md) | **Next**: [38_Compliance_and_Regulated_Systems.md](38_Compliance_and_Regulated_Systems.md)
+
 ---
 
 ## 37.1 Frontend Stack Landscape
@@ -106,5 +109,58 @@ Deep dive: [12_Security_OWASP_Cloud.md](./12_Security_OWASP_Cloud.md).
 | SSR vs CSR? | SSR: server renders HTML (SEO, fast FCP). CSR: client renders after JS loads. |
 | Monorepo frontend? | Nx, Turborepo — shared libs, one CI pipeline. |
 | Micro-frontends? | Module Federation, single-spa — team-owned deployable UIs. |
+
+---
+
+## §37.10 Production & Interview Depth — Backend Engineer Frontend Literacy
+
+Indian product companies (Freshworks, Postman, enterprise B2B) expect backend/Java hires to **review Angular or React PRs**, debug CORS in staging, and design BFF APIs. You are not becoming a frontend lead — you are passing **cross-functional** rounds and shipping safer contracts to [08_Angular_Frontend_Engineering.md](./08_Angular_Frontend_Engineering.md) teams.
+
+### BFF Pattern for Spring Boot 3 + SPA
+
+```
+Browser → CloudFront → Angular/React SPA
+              ↓ API calls (JSON)
+         Spring Boot BFF (/api/v1/*)
+              ↓ internal
+    Microservices (orders, catalog, payments)
+```
+
+| Approach | Pros | Cons |
+|----------|------|------|
+| **SPA talks direct to microservices** | Fewer hops | CORS chaos, multiple auth flows, DTO leakage |
+| **BFF per client** (web vs mobile) | Tailored payloads, hides domain | BFF obesity without ownership |
+| **GraphQL gateway** | Flexible queries | N+1 resolvers, cache complexity — [21_GraphQL_and_Alternative_APIs.md](./21_GraphQL_and_Alternative_APIs.md) |
+| **Server-driven UI** (niche) | Thin client | Not default in 2026 product shops |
+
+### TypeScript API Contract (What Backend Should Publish)
+
+```typescript
+// Generated from OpenAPI — keep in sync with Springdoc
+export interface OrderSummary {
+  orderId: string;
+  status: 'CREATED' | 'PAID' | 'SHIPPED' | 'DELIVERED';
+  amountPaise: number;  // India: store money as integer paise in JSON
+  placedAt: string;     // ISO-8601 UTC; UI formats to IST
+}
+
+export type ApiResult<T> =
+  | { ok: true; data: T }
+  | { ok: false; error: { code: string; message: string } };
+```
+
+Spring side: consistent error envelope in [04_API_Design_REST.md](./04_API_Design_REST.md); never return stack traces to the browser — [12_Security_OWASP_Cloud.md](./12_Security_OWASP_Cloud.md).
+
+### Auth in Indian Consumer Apps
+
+- **OTP login** + short-lived access token in memory; refresh via httpOnly cookie
+- **UPI / payment redirects**: frontend handles return URL; backend verifies signature — see [PaymentSystem HLD](../04_SystemDesign/02_HighLevelDesign/PaymentSystem/PaymentSystem.md)
+- **CORS**: explicit allowed origins for `*.yourcompany.in` staging vs prod
+
+### Interview One-Liner
+
+*"I'm backend-first but I read TypeScript interfaces, validate OpenAPI breaking changes in CI, and pair with frontend on pagination and error shapes — Angular Signals vs RxJS is their call, I own the API contract."*
+
+**Must-say keywords**: BFF, OpenAPI codegen, paise integer money, httpOnly refresh, CORS preflight, CSP for XSS.
 
 **Next**: Deep Angular → [08_Angular_Frontend_Engineering.md](./08_Angular_Frontend_Engineering.md).

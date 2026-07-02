@@ -1,5 +1,9 @@
 # Two Sum Problem
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Two Pointers](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-1-two-pointers) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given an array of integers and a target sum, find two numbers in the array that add up to the target. Return the **indices** (positions) of these two numbers.
@@ -25,6 +29,26 @@ Think of this like checking every possible pair of friends to see if their ages 
 2. Check them with every other person after them
 3. If their ages add up to target, we found our answer!
 4. If not, pick the next person and repeat
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["nums=[2,7,11,15], target=9"] --> I0["i=0, nums[0]=2"]
+    I0 --> J["j=1..3: try pairs"]
+    J --> C{"2+7=9?"}
+    C -->|yes| OUT["return [0,1]"]
+```
+
+**Walkthrough (same example):**
+
+```
+nums=[2,7,11,15], target=9
+i=0,j=1: 2+7=9 OK -> return [0,1]
+```
 
 ### Code Logic:
 ```java
@@ -69,6 +93,26 @@ Step 2: number = 7, complement = 9-7 = 2
         Return [0, 1]
 ```
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["nums=[2,7,11,15], target=9"] --> I0["i=0: map={}, need=7"]
+    I0 --> M0["map={2:0}"]
+    M0 --> I1["i=1: need=2 found at 0"]
+    I1 --> OUT["return [0,1]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Pass 1: i=0 val=2 → store {2:0}
+Pass 2: i=1 val=7 → need 2 found idx 0 → [0,1]
+```
+
 ### Code Logic:
 ```java
 Map<Integer, Integer> map = new HashMap<>();
@@ -97,6 +141,30 @@ Like two people walking towards each other from opposite ends of a sorted line. 
 
 ### Important Note:
 This approach **changes the original indices** due to sorting, so we need to track original positions if indices are required.
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["sorted pairs by value"] --> L["l=0, r=3"]
+    L --> S{"sum=2+15=17>9"}
+    S -->|yes| R["r--"]
+    R --> L2["l=0,r=2 sum=13>9"]
+    L2 --> R2["r--"]
+    R2 --> FOUND["2+7=9 → [0,1]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Two pointers on sorted values:
+(0,3):17>9 r--
+(0,2):13>9 r--
+(0,1):9 OK -> indices [0,1]
+```
 
 ### Time & Space Complexity:
 - **Time:** O(n log n) due to sorting

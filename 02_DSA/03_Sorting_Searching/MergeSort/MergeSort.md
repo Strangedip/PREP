@@ -1,5 +1,9 @@
 # Merge Sort Algorithm
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Sorting](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-recognition-decision-tree) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Implement the Merge Sort algorithm to sort an array of integers in ascending order.
 
@@ -45,6 +49,32 @@ Merge back up:
 ## Implementation Variations
 
 ### 1. Classic Top-Down Approach
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: arr=[38,27,43,3,9,10,20]"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: arr=[38,27,43,3,9,10,20] → [3,9,10,20,27,38,43]
+Approach: Top-Down Recursive
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
 ```java
 public void mergeSortClassic(int[] arr) {
     if (arr.length <= 1) return;
@@ -60,6 +90,32 @@ public void mergeSortClassic(int[] arr) {
 ```
 
 ### 2. Bottom-Up Iterative Approach
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: arr=[38,27,43,3,9,10,20]"]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: arr=[38,27,43,3,9,10,20] → [3,9,10,20,27,38,43]
+Approach: Bottom-Up Iterative
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
 ```java
 public void mergeSortBottomUp(int[] arr) {
     for (int size = 1; size < arr.length; size *= 2) {
@@ -83,6 +139,29 @@ public void mergeSortBottomUp(int[] arr) {
 
 The core of merge sort is the **merge operation**:
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: arr=[38,27,43,3,9,10,20]"]
+    START --> STEP1["Optimized Merge: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: arr=[38,27,43,3,9,10,20] → [3,9,10,20,27,38,43]
+Approach: Optimized Merge
+
+Apply Optimized Merge on the example input step by step
+Final answer from example: see above
+```
 ```java
 private void merge(int[] arr, int[] temp, int left, int mid, int right) {
     // Copy to temporary array
@@ -153,10 +232,56 @@ private void merge(int[] arr, int[] temp, int left, int mid, int right) {
 - Time complexity becomes O(n log² n)
 - More complex implementation
 - Rarely used in practice
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: arr=[38,27,43,3,9,10,20]"]
+    START --> STEP1["Optimized Merge: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: arr=[38,27,43,3,9,10,20] → [3,9,10,20,27,38,43]
+Approach: Optimized Merge
+
+Apply Optimized Merge on the example input step by step
+Final answer from example: see above
+```
+
 
 ### 2. Natural Merge Sort
 - Takes advantage of existing runs in data
 - Better performance on partially sorted data
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: arr=[38,27,43,3,9,10,20]"]
+    START --> STEP1["Optimized Merge: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: arr=[38,27,43,3,9,10,20] → [3,9,10,20,27,38,43]
+Approach: Optimized Merge
+
+Apply Optimized Merge on the example input step by step
+Final answer from example: see above
+```
+
 
 ### 3. Parallel Merge Sort
 - Uses multiple threads/cores
@@ -188,4 +313,27 @@ private void merge(int[] arr, int[] temp, int left, int mid, int right) {
 - Merge K Sorted Lists
 - Count Inversions in Array
 - Sort Linked List
-- External Sorting Algorithms 
+- External Sorting Algorithms
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: arr=[38,27,43,3,9,10,20]"]
+    START --> STEP1["Optimized Merge: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: arr=[38,27,43,3,9,10,20] → [3,9,10,20,27,38,43]
+Approach: Optimized Merge
+
+Apply Optimized Merge on the example input step by step
+Final answer from example: see above
+```
+ 

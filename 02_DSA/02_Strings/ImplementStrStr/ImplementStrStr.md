@@ -1,5 +1,9 @@
 # Implement strStr() / Find the Index of the First Occurrence in a String (LeetCode 28)
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Dynamic Programming](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-16-dynamic-programming-patterns) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given two strings `haystack` and `needle`, return the index of the first occurrence of `needle` in `haystack`, or `-1` if `needle` is not part of `haystack`.
@@ -35,6 +39,31 @@ Try every possible starting position in the haystack. For each starting position
 
 ### Complete Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: haystack="sadbutsad", needle="sad""]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: haystack="sadbutsad", needle="sad" → 0
+Approach: Brute Force (Naive String Matching)
+
+Enumerate all candidates from example input
+Check validity/optimal condition
+Keep best answer found
+```
 ```java
 public class ImplementStrStr {
     
@@ -106,6 +135,29 @@ LPS:    0  0  1  2  3  0
 
 ### Complete Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: haystack="sadbutsad", needle="sad""]
+    START --> STEP1["KMP Algorithm (Knuth-Morris-Pratt): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: haystack="sadbutsad", needle="sad" → 0
+Approach: KMP Algorithm (Knuth-Morris-Pratt)
+
+Apply KMP Algorithm (Knuth-Morris-Pratt) on the example input step by step
+Final answer from example: see above
+```
 ```java
 public class KMPSearch {
     
@@ -215,6 +267,32 @@ Compute a hash of the needle. Then slide a window of size `m` across the haystac
 
 ### Complete Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: haystack="sadbutsad", needle="sad""]
+    START --> BUILD["Build HashMap / Set"]
+    BUILD --> SCAN["Scan input once"]
+    SCAN --> LOOKUP{"Key seen?"}
+    LOOKUP -->|yes| FOUND["Return match"]
+    LOOKUP -->|no| STORE["Store in map"]
+    STORE --> SCAN
+```
+
+**Walkthrough (same example):**
+
+```
+Example: haystack="sadbutsad", needle="sad" → 0
+Approach: Rabin-Karp (Rolling Hash)
+
+Scan input left-to-right
+Store seen keys/values in hash map
+O(1) lookup finds complement or group
+```
 ```java
 public class RabinKarp {
     
@@ -284,6 +362,29 @@ To slide window from "abc" to "bcd":
 
 ## Approach 4: Built-in Methods
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: haystack="sadbutsad", needle="sad""]
+    START --> STEP1["Built-in Methods: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: haystack="sadbutsad", needle="sad" → 0
+Approach: Built-in Methods
+
+Apply Built-in Methods on the example input step by step
+Final answer from example: see above
+```
 ```java
 // Java
 return haystack.indexOf(needle);
@@ -362,3 +463,26 @@ Boyer-Moore achieves O(n/m) average time (sublinear!) for long patterns with lar
 3. **Know the complexity of Java's `indexOf`**: Java's `String.indexOf()` uses a brute force O(n × m) approach internally (not KMP), so there is no "cheating" by using it.
 4. **Mention Rabin-Karp for follow-ups**: If the interviewer asks about searching for multiple patterns, pivot to Rabin-Karp with a hash set.
 5. **For Lead-level**: Be prepared to discuss Boyer-Moore, the choice of string matching algorithm in production systems (grep, text editors, search engines), and the trade-offs between preprocessing time and search time.
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: haystack="sadbutsad", needle="sad""]
+    START --> STEP1["Approach 5: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: haystack="sadbutsad", needle="sad" → 0
+Approach: Approach 5
+
+Apply Approach 5 on the example input step by step
+Final answer from example: see above
+```
+

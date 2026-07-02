@@ -1,5 +1,8 @@
 # WhatsApp-Style Messaging — High-Level Design
 
+> **You are here**: Senior SDE — System Design (HLD)
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Prerequisites**: [HLD_Template.md](../../00_Templates/HLD_Template/HLD_Template.md)
+
 ## Problem Statement
 
 Design a messaging platform like **WhatsApp** with capabilities beyond a generic chat system:
@@ -207,6 +210,86 @@ POST   /v1/backup/upload          — encrypted backup blob
 - **Blocked users**: Stop routing envelopes server-side
 - **Report abuse**: Limited metadata for moderation (E2EE limits server-side content moderation)
 - **SSRF**: Validate media upload URLs; block internal fetches (OWASP A01:2025)
+
+---
+
+## Spring Boot Reference Sketch
+
+Focused Java 17 / Spring Boot 3.x sketch of encrypted envelope routing — server never sees plaintext.
+
+```java
+@RestController
+@RequestMapping("/v1/messages")
+public class MessageController {
+    private final MessageRoutingService messageRoutingService;
+
+    public MessageController(MessageRoutingService messageRoutingService) {
+        this.messageRoutingService = messageRoutingService;
+    }
+
+    @PostMapping
+    public ResponseEntity<MessageAck> send(@RequestBody SendMessageRequest request) {
+        MessageAck ack = messageRoutingService.routeEnvelope(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(ack);
+    }
+
+    @GetMapping("/pending")
+    public List<EncryptedEnvelope> pending(@RequestParam long recipientUserId,
+                                           @RequestParam String deviceId) {
+        return messageRoutingService.fetchPending(recipientUserId, deviceId);
+    }
+}
+
+public interface EncryptedMessageRepository {
+    void save(EncryptedEnvelope envelope);
+    List<EncryptedEnvelope> findPending(long recipientUserId, String deviceId, int limit);
+    boolean existsByClientMessageId(String clientMessageId);
+}
+
+@Service
+public class MessageRoutingService {
+    private final EncryptedMessageRepository messageRepository;
+    private final DeviceRegistry deviceRegistry;
+    private final PushNotificationService pushService;
+
+    public MessageAck routeEnvelope(SendMessageRequest request) {
+        // Idempotent retry: client supplies stable clientMessageId
+        if (messageRepository.existsByClientMessageId(request.clientMessageId())) {
+            return MessageAck.duplicate(request.clientMessageId());
+        }
+
+        List<String> targetDevices = deviceRegistry.activeDeviceIds(request.recipientUserId());
+        EncryptedEnvelope envelope = new EncryptedEnvelope(
+                request.clientMessageId(),
+                request.senderDeviceId(),
+                request.recipientUserId(),
+                request.encryptedPayload(), // opaque blob — server cannot decrypt
+                Instant.now()
+        );
+        messageRepository.save(envelope);
+
+        if (targetDevices.isEmpty()) {
+            pushService.sendGenericAlert(request.recipientUserId()); // no message content in push
+        }
+        return MessageAck.accepted(request.clientMessageId());
+    }
+
+    public List<EncryptedEnvelope> fetchPending(long recipientUserId, String deviceId) {
+        return messageRepository.findPending(recipientUserId, deviceId, 100);
+    }
+}
+
+public record SendMessageRequest(String clientMessageId, String senderDeviceId,
+                                 long recipientUserId, byte[] encryptedPayload) {}
+public record EncryptedEnvelope(String clientMessageId, String senderDeviceId,
+                                long recipientUserId, byte[] encryptedPayload, Instant sentAt) {}
+public record MessageAck(String clientMessageId, String status) {
+    static MessageAck accepted(String id) { return new MessageAck(id, "ACCEPTED"); }
+    static MessageAck duplicate(String id) { return new MessageAck(id, "DUPLICATE"); }
+}
+```
+
+> **Idempotency / async**: `clientMessageId` deduplicates retries. Offline delivery stores envelopes until WebSocket pull; push is async and content-free for privacy.
 
 ---
 

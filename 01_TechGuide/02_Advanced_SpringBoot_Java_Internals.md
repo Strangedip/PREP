@@ -1,5 +1,8 @@
 # Section 2: Advanced Spring Boot & Java Internals
 
+> **You are here**: SDE1–SDE2 — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [01_Modern_Java_Features.md](01_Modern_Java_Features.md) | **Next**: [03_Design_Patterns_SOLID_CleanArch.md](03_Design_Patterns_SOLID_CleanArch.md)
+
 ---
 
 ## 2.1 Java Memory Model: Heap vs. Stack, Garbage Collection, and Debugging Memory Leaks

@@ -1,5 +1,9 @@
 # Trapping Rain Water
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Two Pointers](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-1-two-pointers) · [Monotonic Stack](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-14-monotonic-stack) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Given `n` non-negative integers representing an elevation map where the width of each bar is `1`, compute how much **water can be trapped** after raining.
 
@@ -39,6 +43,32 @@ Water can be trapped at position `i` if there are **higher bars on both left and
 2. **Calculate water level**: `min(leftMax, rightMax)`
 3. **Trapped water**: `max(0, waterLevel - height[i])`
 4. **Sum all positions**: Total trapped water
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: height=[0,1,0,2,1,0,1,3,2,1,2,1]"]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: height=[0,1,0,2,1,0,1,3,2,1,2,1] → 6 units
+Approach: Brute Force
+
+Enumerate all candidates from example input
+Check validity/optimal condition
+Keep best answer found
+```
 
 #### Time Complexity
 - **O(n²)** - For each position, scan left and right
@@ -84,6 +114,33 @@ public int trapBruteForce(int[] height) {
 1. **Left max array**: `leftMax[i]` = maximum height from index `0` to `i`
 2. **Right max array**: `rightMax[i]` = maximum height from index `i` to `n-1`
 3. **Calculate water**: For each position, use pre-computed values
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: height=[0,1,0,2,1,0,1,3,2,1,2,1]"]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: height=[0,1,0,2,1,0,1,3,2,1,2,1] → 6 units
+Approach: Dynamic Programming
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
 
 #### Time Complexity
 - **O(n)** - Three linear passes
@@ -136,6 +193,33 @@ public int trapDP(int[] height) {
 - If `leftMax < rightMax`, then water at left pointer is limited by `leftMax`
 - We don't need to know the exact `rightMax` at left position, just that it's ≥ `leftMax`
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: height=[0,1,0,2,1,0,1,3,2,1,2,1]"]
+    START --> INIT["Init left=0, right=end"]
+    INIT --> WINDOW["Adjust window / pointers"]
+    WINDOW --> UPDATE["Update best answer"]
+    UPDATE --> MORE{"More elements?"}
+    MORE -->|yes| WINDOW
+    MORE -->|no| DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: height=[0,1,0,2,1,0,1,3,2,1,2,1] → 6 units
+Approach: Two Pointers
+
+Initialize two pointers at boundaries
+Move pointer that improves constraint
+Update best answer each step
+```
+
 #### Time Complexity
 - **O(n)** - Single pass
 
@@ -182,6 +266,34 @@ public int trapTwoPointers(int[] height) {
 2. **Pop when higher found**: When current height > stack top
 3. **Calculate trapped water**: Between the popped element and current height
 4. **Width calculation**: Distance between boundaries
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: height=[0,1,0,2,1,0,1,3,2,1,2,1]"]
+    START --> PUSH["Push index / value"]
+    PUSH --> TOP{"Violates monotonic order?"}
+    TOP -->|yes| POP["Pop and resolve"]
+    POP --> TOP
+    TOP -->|no| NEXT{"More input?"}
+    NEXT -->|yes| PUSH
+    NEXT -->|no| DONE["Return answer"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: height=[0,1,0,2,1,0,1,3,2,1,2,1] → 6 units
+Approach: Stack-Based Solution
+
+Push indices/values on stack
+Pop when current resolves pending
+Stack top gives next greater / valid match
+```
 
 #### Time Complexity
 - **O(n)** - Each element pushed and popped at most once
@@ -266,6 +378,29 @@ Water calculated incrementally as pointers move inward
 4. **Mention stack approach**: For completeness (if time permits)
 
 ### Code Structure
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: height=[0,1,0,2,1,0,1,3,2,1,2,1]"]
+    START --> STEP1["Approach 5: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: height=[0,1,0,2,1,0,1,3,2,1,2,1] → 6 units
+Approach: Approach 5
+
+Apply Approach 5 on the example input step by step
+Final answer from example: see above
+```
 ```java
 public int trap(int[] height) {
     if (height.length < 3) return 0;

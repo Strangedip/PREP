@@ -1,5 +1,9 @@
 # Invert Binary Tree
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Binary Tree](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-8-dfs-depth-first-search) · [DFS](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-8-dfs-depth-first-search) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given the root of a binary tree, invert the tree, and return its root.
@@ -44,6 +48,32 @@ Output: []
 3. Recursively invert left and right subtrees
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[4,2,7,1,3,6,9]"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[4,2,7,1,3,6,9] → [4,7,2,9,6,3,1]
+Approach: Recursive (DFS) - Recommended
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
 ```java
 public TreeNode invertTreeRecursive(TreeNode root) {
     if (root == null) {
@@ -74,6 +104,33 @@ public TreeNode invertTreeRecursive(TreeNode root) {
 3. Add children to queue for further processing
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[4,2,7,1,3,6,9]"]
+    START --> ENQ["Enqueue start node"]
+    ENQ --> Q{"Queue empty?"}
+    Q -->|no| DEQ["Dequeue front"]
+    DEQ --> NEI["Visit unvisited neighbors"]
+    NEI --> ENQ2["Enqueue neighbors"]
+    ENQ2 --> Q
+    Q -->|yes| DONE["Return shortest / order"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[4,2,7,1,3,6,9] → [4,7,2,9,6,3,1]
+Approach: Iterative BFS (Level Order)
+
+Enqueue start node/level
+Process neighbors level by level
+First reach target = shortest path
+```
 ```java
 public TreeNode invertTreeBFS(TreeNode root) {
     if (root == null) return null;
@@ -108,6 +165,32 @@ public TreeNode invertTreeBFS(TreeNode root) {
 2. For each node, swap children and push them to stack
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[4,2,7,1,3,6,9]"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[4,2,7,1,3,6,9] → [4,7,2,9,6,3,1]
+Approach: Iterative DFS (Using Stack)
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
 ```java
 public TreeNode invertTreeDFS(TreeNode root) {
     if (root == null) return null;
@@ -142,6 +225,32 @@ public TreeNode invertTreeDFS(TreeNode root) {
 2. Then swap the inverted subtrees
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[4,2,7,1,3,6,9]"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[4,2,7,1,3,6,9] → [4,7,2,9,6,3,1]
+Approach: Recursive Post-order
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
 ```java
 public TreeNode invertTreePostOrder(TreeNode root) {
     if (root == null) return null;

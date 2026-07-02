@@ -3,6 +3,9 @@
 > **Level**: SR+ (batch vs stream overview) to LEAD (lakehouse architecture, CDC, data platform design)
 > **Why This Matters**: Every backend engineer touches data pipelines — event streams, analytics, CDC into warehouses. System design interviews include "design a metrics pipeline" or "sync data across services." You don't need to be a data scientist, but you must speak the language.
 
+> **You are here**: Senior SDE — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [24_Platform_Engineering_IDP.md](24_Platform_Engineering_IDP.md) | **Next**: [26_PostgreSQL_Relational_DB_Deep_Dive.md](26_PostgreSQL_Relational_DB_Deep_Dive.md)
+
 ---
 
 ## 25.1 Data Engineering vs Data Science vs ML Engineering
@@ -139,3 +142,47 @@ PostgreSQL WAL → Debezium → Kafka topic → Consumer (warehouse, cache, sear
 | 10 | Data contract? | Agreement between producer and consumer on schema and SLAs. |
 
 **Must-say keywords**: ETL/ELT, CDC, Debezium, lakehouse, dbt, batch vs stream, Kafka, schema evolution, data lineage, Kappa.
+
+---
+
+## §25.10 Production & Interview Depth — Event Pipelines for Sale Analytics
+
+Backend engineers at Flipkart or Meesho own the **producer side** of data pipelines: order events, clickstream, inventory deltas. The interview scenario: *"Design real-time GMV dashboard during a 6-hour sale without hammering PostgreSQL."* Answer: CDC + Kafka + stream aggregation — not nightly batch.
+
+### Architecture: Outbox → Kafka → Flink → Warehouse
+
+```
+Order Service (Spring Boot) → outbox table → Debezium CDC → Kafka "orders.v1"
+    → Flink (5-min tumbling GMV) → Pinot/ClickHouse dashboard
+    → S3 Parquet (Iceberg) → dbt daily reconciliation
+```
+
+Aligns with [19_Event_Driven_Architecture.md](./19_Event_Driven_Architecture.md) outbox pattern and [26_PostgreSQL_Relational_DB_Deep_Dive.md](./26_PostgreSQL_Relational_DB_Deep_Dive.md) WAL-based CDC. Never run heavy analytics queries on the primary order DB during peak — analysts get **replica or lake** data.
+
+### Trade-off: Stream vs Micro-Batch for Indian Sale Dashboards
+
+| Pattern | Latency | Ops complexity | Accuracy | When to pick |
+|---------|---------|----------------|----------|--------------|
+| Flink streaming | 5–30s | High — state, checkpoints | Exact with event-time | Fraud, live GMV ticker |
+| Spark Structured Streaming | 1–5 min | Medium — team knows Spark | Micro-batch windows | BI team already on Databricks |
+| CDC → warehouse ELT | 15–60 min | Low — dbt SQL | Batch-correct | Executive daily reports |
+| Dual-write to analytics DB | "Real-time" | Deceptively simple | **Dangerous** — drift | Never in interview |
+
+### Spring Boot Producer: Domain Event with Schema Registry
+
+```java
+@Service
+public class OrderEventPublisher {
+
+    private final KafkaTemplate<String, OrderPlacedEvent> kafka;
+    private final OutboxRepository outbox;  // same TX as order insert
+
+    @Transactional
+    public void placeOrder(Order order) {
+        orderRepository.save(order);
+        outbox.save(new OutboxEvent("orders.v1", order.toEvent()));  // relay job publishes
+    }
+}
+```
+
+Use Avro + Schema Registry for **schema evolution** when Diwali campaign adds `coupon_code` field — old consumers keep working. Data contract SLAs: *"orders.v1 events visible in lake < 10 min p99."* Cross-link cache invalidation path via [28_Redis_Distributed_Caching.md](./28_Redis_Distributed_Caching.md) when CDC also feeds search indexes.

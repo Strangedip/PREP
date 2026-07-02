@@ -3,6 +3,9 @@
 > **Goal**: Practice designing AI-powered systems at scale. These are the types of system design questions asked at Lead/Staff level interviews in 2026.
 > **Level**: Lead Engineer
 
+> **You are here**: Tech Lead — AI / ML
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [09_MLOps_AI_in_Production.md](09_MLOps_AI_in_Production.md) | **Next**: [11_AI_Ethics_Safety_Governance.md](11_AI_Ethics_Safety_Governance.md)
+
 ---
 
 ## 1. How AI Changes System Design Interviews

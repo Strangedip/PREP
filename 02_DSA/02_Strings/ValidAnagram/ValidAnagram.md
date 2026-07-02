@@ -1,5 +1,9 @@
 # Valid Anagram
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Hash Map / Set](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-1-two-pointers) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Given two strings s and t, return true if t is an anagram of s, and false otherwise. An anagram is formed by rearranging letters of another word.
 
@@ -20,6 +24,29 @@ Output: false
 3. **If equal, they are anagrams**
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="anagram", t="nagaram""]
+    START --> STEP1["Sorting (Simple): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="anagram", t="nagaram" → true
+Approach: Sorting (Simple)
+
+Apply Sorting (Simple) on the example input step by step
+Final answer from example: see above
+```
 ```java
 char[] sChars = s.toCharArray();
 char[] tChars = t.toCharArray();
@@ -40,6 +67,29 @@ return Arrays.equals(sChars, tChars);
 3. **If counts match, they are anagrams**
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="anagram", t="nagaram""]
+    START --> STEP1["Character Count (Optimal): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="anagram", t="nagaram" → true
+Approach: Character Count (Optimal)
+
+Apply Character Count (Optimal) on the example input step by step
+Final answer from example: see above
+```
 ```java
 if (s.length() != t.length()) return false;
 
@@ -68,6 +118,32 @@ return true;
 - **General character sets**
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="anagram", t="nagaram""]
+    START --> BUILD["Build HashMap / Set"]
+    BUILD --> SCAN["Scan input once"]
+    SCAN --> LOOKUP{"Key seen?"}
+    LOOKUP -->|yes| FOUND["Return match"]
+    LOOKUP -->|no| STORE["Store in map"]
+    STORE --> SCAN
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="anagram", t="nagaram" → true
+Approach: HashMap (For Unicode)
+
+Scan input left-to-right
+Store seen keys/values in hash map
+O(1) lookup finds complement or group
+```
 ```java
 Map<Character, Integer> count = new HashMap<>();
 for (char c : s.toCharArray()) {

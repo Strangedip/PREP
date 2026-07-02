@@ -1,5 +1,9 @@
 # Jump Game
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Dynamic Programming](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-16-dynamic-programming-patterns) · [Greedy](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-recognition-decision-tree) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 You are given an integer array nums. You are initially positioned at the array's first index, and each element in the array represents your maximum jump length at that position. Return true if you can reach the last index, and false otherwise.
 
@@ -23,6 +27,32 @@ Explanation: You will always arrive at index 3. Its max jump length is 0, which 
 4. **If farthest >= last index**, we can reach the end
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[2,3,1,1,4]"]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[2,3,1,1,4] → true (reach index 4)
+Approach: Greedy (Optimal!)
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
 ```java
 public boolean canJump(int[] nums) {
     int farthest = 0;
@@ -58,6 +88,32 @@ public boolean canJump(int[] nums) {
 3. **For each reachable position**, mark all positions within jump range as reachable
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[2,3,1,1,4]"]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[2,3,1,1,4] → true (reach index 4)
+Approach: Dynamic Programming
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
 ```java
 public boolean canJump(int[] nums) {
     boolean[] dp = new boolean[nums.length];
@@ -88,6 +144,32 @@ public boolean canJump(int[] nums) {
 3. **Work backwards** to first position
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[2,3,1,1,4]"]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[2,3,1,1,4] → true (reach index 4)
+Approach: Backward DP
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
 ```java
 public boolean canJump(int[] nums) {
     boolean[] dp = new boolean[nums.length];

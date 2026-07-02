@@ -1,5 +1,9 @@
 # Palindromic Substrings
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Dynamic Programming](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-16-dynamic-programming-patterns) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Given a string `s`, return the **number of palindromic substrings** in it.
 
@@ -48,6 +52,32 @@ This is a **palindrome detection problem** where we need to count all contiguous
 2. **Check palindrome**: For each substring, verify if it's a palindrome
 3. **Count valid ones**: Increment counter for each palindromic substring
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="abc""]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="abc" → 3 palindromes ("a","b","c")
+Approach: Brute Force
+
+Enumerate all candidates from example input
+Check validity/optimal condition
+Keep best answer found
+```
+
 #### Time Complexity
 - **O(n³)** - O(n²) substrings × O(n) palindrome check
 
@@ -94,6 +124,30 @@ private boolean isPalindrome(String s, int left, int right) {
 2. **Expand outward**: From each center, expand while characters match
 3. **Count as you expand**: Each successful expansion is a palindrome
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="abc""]
+    START --> STEP1["Expand Around Centers: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="abc" → 3 palindromes ("a","b","c")
+Approach: Expand Around Centers
+
+Apply Expand Around Centers on the example input step by step
+Final answer from example: see above
+```
+
 #### Time Complexity
 - **O(n²)** - n centers × O(n) expansion per center
 
@@ -139,6 +193,33 @@ private int expandAroundCenter(String s, int left, int right) {
 2. **Base cases**: Single characters and adjacent character pairs
 3. **Build up**: Use smaller palindromes to determine larger ones
 4. **Count**: Every `true` entry in DP table represents a palindrome
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="abc""]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="abc" → 3 palindromes ("a","b","c")
+Approach: Dynamic Programming
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
 
 #### Time Complexity
 - **O(n²)** - Fill n×n table
@@ -192,6 +273,33 @@ public int countSubstringsDP(String s) {
 2. **Length by length**: Process palindromes in order of increasing length
 3. **Space reuse**: Reuse arrays for different lengths
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="abc""]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="abc" → 3 palindromes ("a","b","c")
+Approach: Space-Optimized DP
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
+
 #### Time Complexity
 - **O(n²)** - Same computation as full DP
 
@@ -208,6 +316,30 @@ public int countSubstringsDP(String s) {
 2. **Radius array**: Track radius of palindrome centered at each position
 3. **Reuse information**: Use previously computed palindromes to avoid redundant work
 4. **Count palindromes**: Extract count from radius information
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="abc""]
+    START --> STEP1["Manacher's Algorithm (Advanced): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="abc" → 3 palindromes ("a","b","c")
+Approach: Manacher's Algorithm (Advanced)
+
+Apply Manacher's Algorithm (Advanced) on the example input step by step
+Final answer from example: see above
+```
 
 #### Time Complexity
 - **O(n)** - Linear time due to no redundant character comparisons
@@ -360,6 +492,29 @@ for (int len = 1; len <= n; len++) {          // Length of substring
 5. **Handle edge cases**: Empty string, single character
 
 ### Code Structure
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="abc""]
+    START --> STEP1["Approach 6: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="abc" → 3 palindromes ("a","b","c")
+Approach: Approach 6
+
+Apply Approach 6 on the example input step by step
+Final answer from example: see above
+```
 ```java
 public int countSubstrings(String s) {
     int count = 0;

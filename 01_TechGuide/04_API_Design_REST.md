@@ -1,5 +1,8 @@
 # Section 4: API Design & REST Best Practices
 
+> **You are here**: SDE1–SDE2 — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [03_Design_Patterns_SOLID_CleanArch.md](03_Design_Patterns_SOLID_CleanArch.md) | **Next**: [05_Database_Performance_Tuning.md](05_Database_Performance_Tuning.md)
+
 ---
 
 ## 4.1 RESTful API Design Principles

@@ -1,5 +1,9 @@
 # Generate Parentheses
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Subsets / Backtracking](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-10-subsets-backtracking) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Given `n` pairs of parentheses, write a function to generate **all combinations of well-formed parentheses**.
 
@@ -46,6 +50,32 @@ Track the count of opening and closing parentheses used so far. Make choices bas
 3. **Backtrack**: When current path leads to complete valid string
 
 #### Algorithm
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=3"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=3 → ["((()))","(()())","(())()","()(())","()()()"]
+Approach: Backtracking with Open/Close Count
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
 ```java
 public List<String> generateParentheses(int n) {
     List<String> result = new ArrayList<>();
@@ -83,6 +113,29 @@ private void backtrack(List<String> result, String current, int open, int close,
 #### Key Insight
 Use StringBuilder to avoid string concatenation overhead and demonstrate explicit backtracking.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=3"]
+    START --> STEP1["StringBuilder Optimization: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=3 → ["((()))","(()())","(())()","()(())","()()()"]
+Approach: StringBuilder Optimization
+
+Apply StringBuilder Optimization on the example input step by step
+Final answer from example: see above
+```
 ```java
 private void backtrackWithStringBuilder(List<String> result, StringBuilder sb, int open, int close, int n) {
     if (sb.length() == 2 * n) {
@@ -115,6 +168,32 @@ Use mathematical recurrence: Every valid parentheses string can be written as:
 ```
 
 #### Algorithm
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=3"]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=3 → ["((()))","(()())","(())()","()(())","()()()"]
+Approach: Dynamic Programming / Closure Number
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
 ```java
 public List<String> generateParenthesesDP(int n) {
     List<List<String>> dp = new ArrayList<>();
@@ -151,6 +230,33 @@ This is exactly the **Catalan number recurrence**!
 #### Key Insight
 Build solutions level by level using a queue, treating each character addition as a level.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: n=3"]
+    START --> ENQ["Enqueue start node"]
+    ENQ --> Q{"Queue empty?"}
+    Q -->|no| DEQ["Dequeue front"]
+    DEQ --> NEI["Visit unvisited neighbors"]
+    NEI --> ENQ2["Enqueue neighbors"]
+    ENQ2 --> Q
+    Q -->|yes| DONE["Return shortest / order"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: n=3 → ["((()))","(()())","(())()","()(())","()()()"]
+Approach: BFS (Iterative)
+
+Enqueue start node/level
+Process neighbors level by level
+First reach target = shortest path
+```
 ```java
 public List<String> generateParenthesesBFS(int n) {
     Queue<Node> queue = new LinkedList<>();

@@ -1,5 +1,9 @@
 # Edit Distance (Levenshtein Distance)
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Dynamic Programming](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-16-dynamic-programming-patterns) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given two strings `word1` and `word2`, return the minimum number of operations required to convert `word1` to `word2`. You have the following three operations permitted on a word:
@@ -58,6 +62,32 @@ Compare characters from the end of both strings:
   - **Delete**: Delete `word1[i]`, then solve `dp(i-1, j)`.
   - **Insert**: Insert `word2[j]` into word1, then solve `dp(i, j-1)`.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: word1="horse", word2="ros""]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: word1="horse", word2="ros" → 3 edits
+Approach: Recursion with Memoization (Top-Down DP)
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
 ```java
 class Solution {
     private int[][] memo;
@@ -140,6 +170,32 @@ How to read the table:
 
 ### Java Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: word1="horse", word2="ros""]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: word1="horse", word2="ros" → 3 edits
+Approach: Bottom-Up DP (Tabulation) — Optimal
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
 ```java
 class Solution {
     public int minDistance(String word1, String word2) {
@@ -183,6 +239,32 @@ class Solution {
 
 Since each row only depends on the current and previous row, we can use two 1D arrays.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: word1="horse", word2="ros""]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: word1="horse", word2="ros" → 3 edits
+Approach: Space-Optimized DP
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
 ```java
 class Solution {
     public int minDistance(String word1, String word2) {
@@ -294,7 +376,6 @@ Where m = length of word1, n = length of word2.
 
 ---
 
-**Pattern**: 2D Dynamic Programming (String DP)
 **Difficulty**: Medium-Hard
 **Must-Know**: Yes — canonical DP problem, tests fundamental DP skills
 

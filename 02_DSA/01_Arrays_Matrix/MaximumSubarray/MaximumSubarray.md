@@ -1,5 +1,9 @@
 # Maximum Subarray Problem (Kadane's Algorithm)
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Dynamic Programming](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-16-dynamic-programming-patterns) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given an integer array, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
@@ -25,6 +29,32 @@ Check every possible contiguous subarray and find the one with maximum sum.
 2. For each start, try all ending positions (j >= i)  
 3. Calculate sum of subarray from i to j
 4. Keep track of maximum sum seen
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[-2,1,-3,4,-1,2,1,-5,4]"]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[-2,1,-3,4,-1,2,1,-5,4] → 6 (subarray [4,-1,2,1])
+Approach: Brute Force (Understanding the Problem)
+
+Enumerate all candidates from example input
+Check validity/optimal condition
+Keep best answer found
+```
 
 ### Code Logic:
 ```java
@@ -52,6 +82,32 @@ for (int i = 0; i < n; i++) {
 ### How it works:
 Instead of recalculating sums, extend the current subarray.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[-2,1,-3,4,-1,2,1,-5,4]"]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[-2,1,-3,4,-1,2,1,-5,4] → 6 (subarray [4,-1,2,1])
+Approach: Optimized Brute Force
+
+Enumerate all candidates from example input
+Check validity/optimal condition
+Keep best answer found
+```
+
 ### Code Logic:
 ```java
 for (int i = 0; i < n; i++) {
@@ -77,6 +133,29 @@ Imagine you're walking through a path where each step gives you money (positive)
 **Key Insight:** If your current sum becomes negative, it's better to start fresh from the next element rather than carrying the negative baggage.
 
 ### The Algorithm:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[-2,1,-3,4,-1,2,1,-5,4]"]
+    START --> STEP1["Kadane's Algorithm (Optimal!): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[-2,1,-3,4,-1,2,1,-5,4] → 6 (subarray [4,-1,2,1])
+Approach: Kadane's Algorithm (Optimal!)
+
+Apply Kadane's Algorithm (Optimal!) on the example input step by step
+Final answer from example: see above
+```
 ```java
 int maxSum = nums[0];      // Best sum found so far  
 int currentSum = nums[0];  // Best sum ending at current position
@@ -142,6 +221,30 @@ If current sum becomes negative, reset to 0
 3. Find max subarray in right half
 4. Find max subarray crossing the middle
 5. Return maximum of the three
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[-2,1,-3,4,-1,2,1,-5,4]"]
+    START --> STEP1["Divide and Conquer: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[-2,1,-3,4,-1,2,1,-5,4] → 6 (subarray [4,-1,2,1])
+Approach: Divide and Conquer
+
+Apply Divide and Conquer on the example input step by step
+Final answer from example: see above
+```
 
 ### Complexity:
 - **Time:** O(n log n)

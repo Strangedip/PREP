@@ -4,6 +4,9 @@
 > **Scope**: Both Low-Level Design (OOD) and High-Level Design (Distributed Systems)
 > **Approach**: Every problem is a complete, interview-ready walkthrough — requirements, design, code, trade-offs
 
+> **You are here**: Senior SDE — System Design
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [07_System_Design.md](../01_TechGuide/07_System_Design.md)
+
 ---
 
 ## How to Use This Section

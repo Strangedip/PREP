@@ -3,6 +3,9 @@
 > **Level**: MID+ (interop basics) to SR+ (coroutines vs virtual threads, Spring Boot Kotlin)
 > **Why This Matters**: Kotlin is the default for Android and increasingly common in backend (Spring Boot, Ktor). Java-heavy teams adopt Kotlin for new services. Interviewers ask when you'd choose Kotlin and how it interoperates with Java.
 
+> **You are here**: SDE2 — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [21_GraphQL_and_Alternative_APIs.md](21_GraphQL_and_Alternative_APIs.md) | **Next**: [23_SRE_Reliability_Engineering.md](23_SRE_Reliability_Engineering.md)
+
 ---
 
 ## 22.1 Why Kotlin in 2026?
@@ -151,3 +154,44 @@ data class UserResponse(val id: Long, val name: String, val email: String)
 | 10 | Why Kotlin for backend? | Null safety, coroutines, less boilerplate, full Java interop. |
 
 **Must-say keywords**: null safety, coroutines, `suspend`, data class, interop, `@JvmStatic`, virtual threads comparison, Spring Kotlin plugin.
+
+---
+
+## §22.10 Production & Interview Depth — Gradual Kotlin Adoption in Java Shops
+
+Most Indian backend teams (PhonePe, Razorpay, Zomato) run **Java 17–21 Spring Boot 3.x** monoliths or microservices. Kotlin enters as **new services** or **high-churn modules** — payment validation DSLs, notification templating, Android-adjacent shared DTO modules — not a big-bang rewrite. Interviewers want a migration story with risk controls, not "Kotlin is better."
+
+### Trade-off: Kotlin Coroutines vs Java 21 Virtual Threads in Spring
+
+| Factor | Kotlin + Coroutines | Java 21 + Virtual Threads |
+|--------|---------------------|---------------------------|
+| Team skill | Android/Ktor engineers onboard fast | Zero new syntax for Java-heavy squads |
+| Spring integration | `suspend` controllers need care; use `kotlinx-coroutines` | `spring.threads.virtual.enabled=true` — JDBC works |
+| Debugging | Stack traces cross suspend boundaries | Familiar thread dumps in JFR |
+| Interop with legacy Java | Seamless — same JAR | N/A — already Java |
+| Razorpay-scale I/O | Great for fan-out to 5+ PSP APIs | Same throughput with less learning curve |
+
+**2026 pragmatic rule**: Greenfield Kotlin microservice in a Kotlin-fluent pod; keep payment ledger on Java + virtual threads until the team proves coroutine discipline (no `runBlocking` on Tomcat threads).
+
+### Pattern: Kotlin Module Inside Java Monolith
+
+```
+payments-core/          (Java 21 — ledger, idempotency)
+payments-rules/         (Kotlin — rule engine, data classes)
+payments-api/           (Java or Kotlin — shared contracts)
+```
+
+```kotlin
+// Kotlin service called from Java — keep API surface Java-friendly
+@Service
+class FraudScoringService(private val rules: List<FraudRule>) {
+
+    @JvmOverloads
+    fun score(txn: TransactionDto, strict: Boolean = true): RiskScore {
+        return rules.filter { it.applies(txn) }
+            .fold(RiskScore.LOW) { acc, rule -> acc.merge(rule.evaluate(txn)) }
+    }
+}
+```
+
+Use `@JvmOverloads` and nullable types annotated for Java callers. Cross-link: concurrency deep dive in [15_Java_Collections_Concurrency_DeepDive.md](./15_Java_Collections_Concurrency_DeepDive.md); Spring specifics in [16_Spring_Ecosystem_DeepDive.md](./16_Spring_Ecosystem_DeepDive.md). For festival-scale payment routing, prefer **immutable `data class` DTOs** at service boundaries — reduces null-safety incidents when Java and Kotlin teams share Kafka events per [19_Event_Driven_Architecture.md](./19_Event_Driven_Architecture.md).

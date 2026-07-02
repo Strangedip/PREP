@@ -1,5 +1,9 @@
 # Product of Array Except Self
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Two Pointers](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-1-two-pointers) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given an integer array, return an array where each element is the product of all elements in the original array except the element at that position.
@@ -24,6 +28,32 @@ Explanation:
 
 ### How it works:
 For each position, multiply all other elements.
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,2,3,4]"]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,2,3,4] → [24,12,8,6]
+Approach: Brute Force
+
+Enumerate all candidates from example input
+Check validity/optimal condition
+Keep best answer found
+```
 
 ### Code Logic:
 ```java
@@ -51,6 +81,30 @@ If division were allowed, we could multiply all elements and divide by current e
 1. Division operator is explicitly forbidden
 2. Zeros in array cause division by zero
 3. Floating point precision issues
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,2,3,4]"]
+    START --> STEP1["Using Division (Not Allowed): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,2,3,4] → [24,12,8,6]
+Approach: Using Division (Not Allowed)
+
+Apply Using Division (Not Allowed) on the example input step by step
+Final answer from example: see above
+```
 
 ### Code Logic:
 ```java
@@ -95,6 +149,30 @@ right = [24,12,4,1]
 Final result:
 result[i] = left[i] × right[i]
 result = [1×24, 1×12, 2×4, 6×1] = [24,12,8,6]
+```
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,2,3,4]"]
+    START --> STEP1["Left and Right Products (Intuitive Solution): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,2,3,4] → [24,12,8,6]
+Approach: Left and Right Products (Intuitive Solution)
+
+Apply Left and Right Products (Intuitive Solution) on the example input step by step
+Final answer from example: see above
 ```
 
 ### Code Logic:
@@ -156,6 +234,30 @@ i=1: result[1] = 1×12 = 12, rightProduct = 12×2 = 24
 i=0: result[0] = 1×24 = 24, rightProduct = 24×1 = 24
 
 Final result = [24,12,8,6]
+```
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,2,3,4]"]
+    START --> STEP1["Space Optimized (Optimal!): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,2,3,4] → [24,12,8,6]
+Approach: Space Optimized (Optimal!)
+
+Apply Space Optimized (Optimal!) on the example input step by step
+Final answer from example: see above
 ```
 
 ### Code Logic:

@@ -1,5 +1,9 @@
 # Serialize and Deserialize Binary Tree
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Binary Tree](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-8-dfs-depth-first-search) · [DFS](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-8-dfs-depth-first-search) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 **Serialization** is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer, or transmitted across a network connection link to be reconstructed later in the same or another computer environment.
@@ -48,6 +52,32 @@ Output: [1]
 3. **Deserialize:** Reconstruct tree using preorder sequence
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[1,2,3,null,null,4,5]"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[1,2,3,null,null,4,5] → '1,2,#,#,3,4,#,#,5,#,#'
+Approach: Preorder Traversal (DFS)
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
 ```java
 public class Codec {
     private static final String NULL_MARKER = "#";
@@ -110,6 +140,33 @@ Serialized: "1,2,#,#,3,4,#,#,5,#,#,"
 3. **Deserialize:** Reconstruct level by level
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[1,2,3,null,null,4,5]"]
+    START --> ENQ["Enqueue start node"]
+    ENQ --> Q{"Queue empty?"}
+    Q -->|no| DEQ["Dequeue front"]
+    DEQ --> NEI["Visit unvisited neighbors"]
+    NEI --> ENQ2["Enqueue neighbors"]
+    ENQ2 --> Q
+    Q -->|yes| DONE["Return shortest / order"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[1,2,3,null,null,4,5] → '1,2,#,#,3,4,#,#,5,#,#'
+Approach: Level Order Traversal (BFS)
+
+Enqueue start node/level
+Process neighbors level by level
+First reach target = shortest path
+```
 ```java
 public class Codec {
     public String serialize(TreeNode root) {
@@ -183,6 +240,29 @@ Serialized: "1,2,3,null,null,4,5,null,null,null,null,"
 2. **Deserialize:** Build tree from right to left
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[1,2,3,null,null,4,5]"]
+    START --> STEP1["Postorder Traversal: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[1,2,3,null,null,4,5] → '1,2,#,#,3,4,#,#,5,#,#'
+Approach: Postorder Traversal
+
+Apply Postorder Traversal on the example input step by step
+Final answer from example: see above
+```
 ```java
 public class Codec {
     public String serialize(TreeNode root) {
@@ -234,6 +314,29 @@ public class Codec {
 2. **Space Efficient:** No delimiter characters needed
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[1,2,3,null,null,4,5]"]
+    START --> STEP1["Compact Encoding (No Delimiters): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[1,2,3,null,null,4,5] → '1,2,#,#,3,4,#,#,5,#,#'
+Approach: Compact Encoding (No Delimiters)
+
+Apply Compact Encoding (No Delimiters) on the example input step by step
+Final answer from example: see above
+```
 ```java
 public class Codec {
     public String serialize(TreeNode root) {
@@ -296,6 +399,29 @@ Serialized: "111121313X"
 2. **Human Readable:** Easy to understand format
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[1,2,3,null,null,4,5]"]
+    START --> STEP1["Bracket Representation: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[1,2,3,null,null,4,5] → '1,2,#,#,3,4,#,#,5,#,#'
+Approach: Bracket Representation
+
+Apply Bracket Representation on the example input step by step
+Final answer from example: see above
+```
 ```java
 public class Codec {
     public String serialize(TreeNode root) {
@@ -343,6 +469,29 @@ Serialized: "1(2)(3)"
 2. **Deserialize:** Iteratively build tree
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: root=[1,2,3,null,null,4,5]"]
+    START --> STEP1["Iterative (No Recursion): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: root=[1,2,3,null,null,4,5] → '1,2,#,#,3,4,#,#,5,#,#'
+Approach: Iterative (No Recursion)
+
+Apply Iterative (No Recursion) on the example input step by step
+Final answer from example: see above
+```
 ```java
 public class Codec {
     public String serialize(TreeNode root) {

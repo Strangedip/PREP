@@ -1,5 +1,9 @@
 # Binary Search Tree Operations
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Binary Tree](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-8-dfs-depth-first-search) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Implement fundamental Binary Search Tree (BST) operations:
@@ -62,6 +66,29 @@ Delete 2 from BST [4,2,7,1,3]:
 4. If value equals current node, don't insert (no duplicates)
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: insert 5, search 3, delete 3 in BST [5,3,7]"]
+    START --> STEP1["Search: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: insert 5, search 3, delete 3 in BST [5,3,7]
+Approach: Search
+
+Apply Search on the example input step by step
+Final answer from example: see above
+```
 ```java
 public TreeNode insertBST(TreeNode root, int val) {
     if (root == null) {
@@ -92,6 +119,29 @@ public TreeNode insertBST(TreeNode root, int val) {
 2. Insert new node as left or right child
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: insert 5, search 3, delete 3 in BST [5,3,7]"]
+    START --> STEP1["Insert: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: insert 5, search 3, delete 3 in BST [5,3,7]
+Approach: Insert
+
+Apply Insert on the example input step by step
+Final answer from example: see above
+```
 ```java
 public TreeNode insertBSTIterative(TreeNode root, int val) {
     TreeNode newNode = new TreeNode(val);
@@ -134,6 +184,29 @@ public TreeNode insertBSTIterative(TreeNode root, int val) {
 4. If value > current node, search right subtree
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: insert 5, search 3, delete 3 in BST [5,3,7]"]
+    START --> STEP1["Delete: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: insert 5, search 3, delete 3 in BST [5,3,7]
+Approach: Delete
+
+Apply Delete on the example input step by step
+Final answer from example: see above
+```
 ```java
 public boolean searchBST(TreeNode root, int val) {
     if (root == null) return false;
@@ -154,6 +227,29 @@ public boolean searchBST(TreeNode root, int val) {
 #### Approach 2: Iterative Search ⭐ (More Efficient)
 
 **Implementation:**
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: insert 5, search 3, delete 3 in BST [5,3,7]"]
+    START --> STEP1["Inorder Traversal: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: insert 5, search 3, delete 3 in BST [5,3,7]
+Approach: Inorder Traversal
+
+Apply Inorder Traversal on the example input step by step
+Final answer from example: see above
+```
 ```java
 public boolean searchBSTIterative(TreeNode root, int val) {
     TreeNode current = root;

@@ -1,5 +1,9 @@
 # Set Matrix Zeroes
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Two Pointers](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-1-two-pointers) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given an `m x n` integer matrix, if an element is **0**, set its entire **row and column** to **0's**.
@@ -45,6 +49,30 @@ Store the indices of rows and columns that need to be zeroed, then apply the cha
 ### Algorithm Steps:
 1. First pass: Scan matrix and record which rows/columns have zeros
 2. Second pass: Set entire rows/columns to zero based on recorded indices
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: matrix=[[1,1,1],[1,0,1],[1,1,1]]"]
+    START --> STEP1["Extra Space (Straightforward): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: matrix=[[1,1,1],[1,0,1],[1,1,1]] → [[1,0,1],[0,0,0],[1,0,1]]
+Approach: Extra Space (Straightforward)
+
+Apply Extra Space (Straightforward) on the example input step by step
+Final answer from example: see above
+```
 
 ### Code Logic:
 ```java
@@ -108,6 +136,30 @@ Step 2: Mark matrix[1][0]=0 and matrix[0][1]=0
 Step 3: Process based on markers
 ```
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: matrix=[[1,1,1],[1,0,1],[1,1,1]]"]
+    START --> STEP1["Constant Space Using First Row/Column: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: matrix=[[1,1,1],[1,0,1],[1,1,1]] → [[1,0,1],[0,0,0],[1,0,1]]
+Approach: Constant Space Using First Row/Column
+
+Apply Constant Space Using First Row/Column on the example input step by step
+Final answer from example: see above
+```
+
 ### Code Logic:
 ```java
 // Check if first row/column originally have zeros
@@ -161,6 +213,29 @@ Similar to Approach 2 but uses `matrix[0][0]` cleverly to handle both first row 
 - When you want to show optimization skills
 - To minimize the number of variables used
 - Advanced implementation for experienced developers
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: matrix=[[1,1,1],[1,0,1],[1,1,1]]"]
+    START --> STEP1["Optimized Constant Space: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: matrix=[[1,1,1],[1,0,1],[1,1,1]] → [[1,0,1],[0,0,0],[1,0,1]]
+Approach: Optimized Constant Space
+
+Apply Optimized Constant Space on the example input step by step
+Final answer from example: see above
+```
+
 
 ## Approach 4: Sentinel Values (Alternative)
 
@@ -259,6 +334,29 @@ Use a special value (sentinel) to mark cells that should become zero, then conve
 ## Implementation Tips
 
 ### Code Structure:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: matrix=[[1,1,1],[1,0,1],[1,1,1]]"]
+    START --> STEP1["Sentinel Values (Alternative): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: matrix=[[1,1,1],[1,0,1],[1,1,1]] → [[1,0,1],[0,0,0],[1,0,1]]
+Approach: Sentinel Values (Alternative)
+
+Apply Sentinel Values (Alternative) on the example input step by step
+Final answer from example: see above
+```
 ```java
 public void setZeroes(int[][] matrix) {
     // 1. Input validation

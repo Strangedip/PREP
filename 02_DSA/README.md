@@ -1,5 +1,8 @@
 # Data Structures & Algorithms — Lead Engineer Interview Prep
 
+> **You are here**: All levels — DSA index
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [StudyGuide](StudyGuide.md) | **Next**: [Algorithmic Patterns](../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 > **Target**: SDE-2 / Lead Software Engineer at FAANG-level companies
 > **Strategy**: Pattern recognition over brute-force memorization. Solve by category, then mix.
 > **What interviewers expect at this level**: Clean code, optimal complexity, clear communication of trade-offs, and the ability to handle follow-up questions without hesitation.
@@ -27,17 +30,17 @@ Problems are grouped by data structure/algorithm category. Within each category,
 ├── StudyGuide.md                    # Learning paths by career level + difficulty progression
 ├── Tier3_Differentiators.md         # Hard patterns for Senior/Staff loops
 │
-├── 01_Arrays_Matrix/                # 16 problems — Two pointers, prefix sums, binary search
+├── 01_Arrays_Matrix/                # 17 problems — Two pointers, prefix sums, binary search
 ├── 02_Strings/                      # 9 problems — Sliding window, hashing, pattern matching
-├── 03_Sorting_Searching/            # 3 problems — Merge sort, quick sort, binary search
+├── 03_Sorting_Searching/            # 4 problems — Merge sort, quick sort, binary search
 ├── 04_Sliding_Window_Two_Pointers/  # 5+ problems — Variable window, deque, complex constraints
 ├── 05_Linked_Lists/                 # 8 problems — Pointer manipulation, fast/slow, reversal
 ├── 06_Stacks_Queues/                # 6 problems — Monotonic stack, simulation
 ├── 07_Recursion_Divide_Conquer/     # Master Theorem + classic divide-and-conquer
-├── 08_Trees_Binary_Trees/           # 8 problems — DFS, BFS, construction, serialization
+├── 08_Trees_Binary_Trees/           # 9 problems — DFS, BFS, construction, serialization
 ├── 09_Binary_Search_Tree/           # 4 problems — BST properties, validation, search
 ├── 10_Heaps_Priority_Queues/        # 4 problems — Top K, merge K, median finding
-├── 11_Graphs/                       # 7 problems — BFS, DFS, Dijkstra, Union Find, Topo Sort
+├── 11_Graphs/                       # 9 problems — BFS, DFS, Dijkstra, Union Find, Topo, Alien Dict, Bridges
 ├── 12_Backtracking/                 # 5 problems — Subsets, permutations, constraint satisfaction
 ├── 13_Dynamic_Programming/          # 10+ problems — Knapsack, LCS, LIS, grid, string, interval
 ├── 14_Greedy_Algorithms/            # 4 problems — Jump game, gas station, task scheduler
@@ -80,7 +83,7 @@ At the Lead/SDE-2 level, interviewers evaluate more than just "can you solve it.
 
 ## Category Deep Dive
 
-### 01. Arrays & Matrix (16 Problems)
+### 01. Arrays & Matrix (17 Problems)
 
 The most frequently tested category. Every FAANG interview has at least one array problem.
 
@@ -102,6 +105,8 @@ The most frequently tested category. Every FAANG interview has at least one arra
 | [Find Minimum in Rotated Sorted Array](01_Arrays_Matrix/FindMinimumInRotatedSortedArray/FindMinimumInRotatedSortedArray.md) | Binary Search | Medium | Yes |
 | [Set Matrix Zeroes](01_Arrays_Matrix/SetMatrixZeroes/SetMatrixZeroes.md) | In-place marking | Medium | Nice-to-have |
 | [Spiral Matrix](01_Arrays_Matrix/SpiralMatrix/SpiralMatrix.md) | Simulation | Medium | Nice-to-have |
+| [Longest Consecutive Sequence](01_Arrays_Matrix/LongestConsecutiveSequence/LongestConsecutiveSequence.md) | HashSet | Medium | Yes |
+| [Find Duplicate Number](01_Arrays_Matrix/FindDuplicateNumber/FindDuplicateNumber.md) | Cyclic sort / Floyd | Medium | Yes |
 
 **Key patterns in this category**: Two Pointers, Sliding Window, Prefix Sum, Binary Search, Kadane's Algorithm, Sort + Merge.
 
@@ -141,8 +146,10 @@ Key technique for subarray/substring problems. Master the variable-window templa
 | [Longest Substring K Distinct](04_Sliding_Window_Two_Pointers/LongestSubstringKDistinct/LongestSubstringKDistinct.md) | Sliding Window | Medium |
 | [Sliding Window Maximum](04_Sliding_Window_Two_Pointers/SlidingWindowMaximum/SlidingWindowMaximum.md) | Monotonic Deque | Hard |
 | [Minimum Size Subarray Sum](04_Sliding_Window_Two_Pointers/MinimumSizeSubarraySum/MinimumSizeSubarraySum.md) | Sliding Window | Medium |
+| [Remove Duplicates From Sorted Array](04_Sliding_Window_Two_Pointers/RemoveDuplicatesFromSortedArray/RemoveDuplicatesFromSortedArray.md) | Two Pointers | Easy |
+| [Advanced Sliding Window](04_Sliding_Window_Two_Pointers/AdvancedSlidingWindow/AdvancedSlidingWindow.md) | Pattern catalog | Hard |
 
-### 05. Linked Lists (8 Problems)
+### 05. Linked Lists (9 Problems)
 
 Tests pointer manipulation, fast/slow pointers, and in-place reversal.
 
@@ -152,6 +159,7 @@ Tests pointer manipulation, fast/slow pointers, and in-place reversal.
 | [Linked List Cycle](05_Linked_Lists/LinkedListCycle/LinkedListCycle.md) | Fast & Slow Pointers | Easy | Yes |
 | [Merge Two Sorted Lists](05_Linked_Lists/MergeTwoSortedLists/MergeTwoSortedLists.md) | Two Pointers Merge | Easy | Yes |
 | [LRU Cache](05_Linked_Lists/LRUCache/LRUCache.md) | HashMap + DLL | Hard | Yes (design) |
+| [LFU Cache](05_Linked_Lists/LFUCache/LFUCache.md) | HashMap + freq buckets | Hard | Yes (Staff design) |
 | [Reorder List](05_Linked_Lists/ReorderList/ReorderList.md) | Middle + Reverse + Merge | Medium | Yes |
 | [Remove Nth Node From End](05_Linked_Lists/RemoveNthNodeFromEnd/RemoveNthNodeFromEnd.md) | Two Pointers with Gap | Medium | Yes |
 | [Add Two Numbers](05_Linked_Lists/AddTwoNumbers/AddTwoNumbers.md) | Simulation | Medium | Yes |
@@ -178,7 +186,7 @@ Foundation for Trees, Backtracking, and DP. Master the Master Theorem.
 | [Max Subarray (D&C)](07_Recursion_Divide_Conquer/MaximumSubarrayDivideConquer/MaximumSubarrayDivideConquer.md) | Classic D&C | 
 | [Inversion Count](07_Recursion_Divide_Conquer/InversionCount/InversionCount.md) | Modified Merge Sort |
 
-### 08. Trees & Binary Trees (8 Problems)
+### 08. Trees & Binary Trees (9 Problems)
 
 | Problem | Pattern | Difficulty |
 |---------|---------|-----------|
@@ -190,6 +198,7 @@ Foundation for Trees, Backtracking, and DP. Master the Master Theorem.
 | [Subtree of Another Tree](08_Trees_Binary_Trees/SubtreeOfAnotherTree/SubtreeOfAnotherTree.md) | DFS + comparison | Medium |
 | [Construct Tree From Traversals](08_Trees_Binary_Trees/ConstructTreeFromTraversals/ConstructTreeFromTraversals.md) | Divide and Conquer | Medium |
 | [Serialize/Deserialize Binary Tree](08_Trees_Binary_Trees/SerializeDeserializeBinaryTree/SerializeDeserializeBinaryTree.md) | BFS/DFS | Hard |
+| [Lowest Common Ancestor](08_Trees_Binary_Trees/LowestCommonAncestor/LowestCommonAncestor.md) | Post-order DFS | Medium |
 
 ### 09. Binary Search Tree (4 Problems)
 
@@ -209,7 +218,7 @@ Foundation for Trees, Backtracking, and DP. Master the Master Theorem.
 | [Merge K Sorted Lists](10_Heaps_Priority_Queues/MergeKSortedLists/MergeKSortedLists.md) | K-Way Merge | Hard |
 | [Find Median from Data Stream](10_Heaps_Priority_Queues/FindMedianFromDataStream/FindMedianFromDataStream.md) | Two Heaps | Hard |
 
-### 11. Graphs (7 Problems)
+### 11. Graphs (9 Problems)
 
 | Problem | Pattern | Difficulty |
 |---------|---------|-----------|
@@ -220,6 +229,8 @@ Foundation for Trees, Backtracking, and DP. Master the Master Theorem.
 | [Word Ladder](11_Graphs/WordLadder/WordLadder.md) | BFS Shortest Path | Hard |
 | [Dijkstra's Algorithm](11_Graphs/DijkstraAlgorithm/DijkstraAlgorithm.md) | Priority Queue + Greedy | Hard |
 | [Union Find](11_Graphs/UnionFind/UnionFind.md) | Path Compression + Rank | Medium |
+| [Alien Dictionary](11_Graphs/AlienDictionary/AlienDictionary.md) | Topo sort on char graph | Hard |
+| [Critical Connections](11_Graphs/CriticalConnections/CriticalConnections.md) | Tarjan bridges | Hard |
 
 ### 12. Backtracking (5 Problems)
 
@@ -244,13 +255,14 @@ Foundation for Trees, Backtracking, and DP. Master the Master Theorem.
 | [Word Break](13_Dynamic_Programming/WordBreak/WordBreak.md) | String DP | Medium |
 | [Palindromic Substrings](13_Dynamic_Programming/PalindromicSubstrings/PalindromicSubstrings.md) | Interval DP | Medium |
 | [Jump Game](13_Dynamic_Programming/JumpGame/JumpGame.md) | Greedy/DP | Medium |
+| [Edit Distance](13_Dynamic_Programming/EditDistance/EditDistance.md) | 2D DP | Hard |
+| [Zero-One Knapsack](13_Dynamic_Programming/ZeroOneKnapsack/ZeroOneKnapsack.md) | Knapsack DP | Medium |
 | [Advanced DP Patterns](13_Dynamic_Programming/AdvancedDP/AdvancedDP.md) | Interval, Bitmask, Tree, Digit, Probability | Hard |
 
 ### 14. Greedy Algorithms (4 Problems)
 
 | Problem | Pattern | Difficulty |
 |---------|---------|-----------|
-| [Jump Game](14_Greedy_Algorithms/JumpGame/JumpGame.md) | Greedy reachability | Medium |
 | [Gas Station](14_Greedy_Algorithms/GasStation/GasStation.md) | Circular greedy | Medium |
 | [Partition Labels](14_Greedy_Algorithms/PartitionLabels/PartitionLabels.md) | Two Pointers + Greedy | Medium |
 | [Task Scheduler](14_Greedy_Algorithms/TaskScheduler/TaskScheduler.md) | Max Heap + Greedy | Medium |
@@ -373,7 +385,7 @@ These are the problems you must solve in your sleep:
 
 | Need to study... | Go to... |
 |-----------------|---------|
-| 16 Algorithmic Pattern Templates | [02_AlgorithmicPatterns.md](../03_CodingPatterns/02_AlgorithmicPatterns.md) |
+| 17 Algorithmic Pattern Templates | [02_AlgorithmicPatterns.md](../03_CodingPatterns/02_AlgorithmicPatterns.md) |
 | GoF Design Patterns | [01_Patterns.md](../03_CodingPatterns/01_Patterns.md) |
-| System Design (uses DSA concepts) | [CrossReferences.md](../CrossReferences.md) |
+| System Design (uses DSA concepts) | [CrossReferences.md](../00_Interview_Prep/Core/CrossReferences.md) |
 | Study Paths + Difficulty Progression | [StudyGuide.md](StudyGuide.md) |

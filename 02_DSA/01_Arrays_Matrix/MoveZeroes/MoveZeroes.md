@@ -1,5 +1,9 @@
 # Move Zeroes
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Two Pointers](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-1-two-pointers) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given an integer array, move all zeros to the end while maintaining the relative order of non-zero elements. The operation must be done in-place without making a copy of the array.
@@ -25,6 +29,32 @@ Create a new structure to separate non-zero and zero elements.
 2. Count the number of zeros
 3. Copy non-zeros back to original array
 4. Fill remaining positions with zeros
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[0,1,0,3,12]"]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[0,1,0,3,12] → [1,3,12,0,0]
+Approach: Brute Force (Not In-Place)
+
+Enumerate all candidates from example input
+Check validity/optimal condition
+Keep best answer found
+```
 
 ### Code Logic:
 ```java
@@ -78,6 +108,33 @@ Array after moving non-zeros: [1,3,12,3,12]
 Fill positions 3,4 with zeros: [1,3,12,0,0]
 ```
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[0,1,0,3,12]"]
+    START --> INIT["Init left=0, right=end"]
+    INIT --> WINDOW["Adjust window / pointers"]
+    WINDOW --> UPDATE["Update best answer"]
+    UPDATE --> MORE{"More elements?"}
+    MORE -->|yes| WINDOW
+    MORE -->|no| DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[0,1,0,3,12] → [1,3,12,0,0]
+Approach: Two Pointers (Optimal!)
+
+Initialize two pointers at boundaries
+Move pointer that improves constraint
+Update best answer each step
+```
+
 ### Code Logic:
 ```java
 int insertPos = 0;
@@ -111,6 +168,30 @@ while (insertPos < nums.length) {
 ### How it works:
 Instead of overwriting, swap non-zero elements with elements at the correct position.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[0,1,0,3,12]"]
+    START --> STEP1["Swap Method: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[0,1,0,3,12] → [1,3,12,0,0]
+Approach: Swap Method
+
+Apply Swap Method on the example input step by step
+Final answer from example: see above
+```
+
 ### Code Logic:
 ```java
 int insertPos = 0;
@@ -134,6 +215,30 @@ for (int i = 0; i < nums.length; i++) {
 
 ### How it works:
 Only perform swaps when positions are different to avoid swapping element with itself.
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[0,1,0,3,12]"]
+    START --> STEP1["Optimized Swap (Avoid Unnecessary Swaps): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[0,1,0,3,12] → [1,3,12,0,0]
+Approach: Optimized Swap (Avoid Unnecessary Swaps)
+
+Apply Optimized Swap (Avoid Unnecessary Swaps) on the example input step by step
+Final answer from example: see above
+```
 
 ### Code Logic:
 ```java

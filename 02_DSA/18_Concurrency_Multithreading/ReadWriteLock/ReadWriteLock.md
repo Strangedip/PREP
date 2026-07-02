@@ -1,5 +1,9 @@
 # Read-Write Lock
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Concurrency](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-recognition-decision-tree) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Design a synchronization mechanism where:
@@ -24,6 +28,29 @@ This is critical for systems with read-heavy workloads (caches, configuration st
 
 ## Approach 1: ReentrantReadWriteLock (Standard Library)
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: multiple readers concurrent; writer exclusive"]
+    START --> STEP1["ReentrantReadWriteLock (Standard Library): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: multiple readers concurrent; writer exclusive
+Approach: ReentrantReadWriteLock (Standard Library)
+
+Apply ReentrantReadWriteLock (Standard Library) on the example input step by step
+Final answer from example: see above
+```
 ```java
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -136,6 +163,29 @@ public class ThreadSafeCache<K, V> {
 
 This is what interviewers expect you to implement to demonstrate deep understanding.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: multiple readers concurrent; writer exclusive"]
+    START --> STEP1["Custom Read-Write Lock from Scratch: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: multiple readers concurrent; writer exclusive
+Approach: Custom Read-Write Lock from Scratch
+
+Apply Custom Read-Write Lock from Scratch on the example input step by step
+Final answer from example: see above
+```
 ```java
 /**
  * Custom Read-Write Lock implementation using wait/notify.
@@ -230,6 +280,29 @@ public class SharedResource {
 
 `StampedLock` provides a third mode: **optimistic read**, which does not block writers. This is ideal for scenarios where reads are extremely frequent and writes are rare.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: multiple readers concurrent; writer exclusive"]
+    START --> STEP1["StampedLock (Java 8+, Optimistic Reads): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: multiple readers concurrent; writer exclusive
+Approach: StampedLock (Java 8+, Optimistic Reads)
+
+Apply StampedLock (Java 8+, Optimistic Reads) on the example input step by step
+Final answer from example: see above
+```
 ```java
 import java.util.concurrent.locks.StampedLock;
 

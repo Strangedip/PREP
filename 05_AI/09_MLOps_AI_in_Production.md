@@ -3,6 +3,9 @@
 > **Goal**: Understand how to take AI features from prototype to production, including deployment, monitoring, cost control, and scaling strategies.
 > **Level**: Senior through Lead — This is what separates demo projects from production systems.
 
+> **You are here**: Senior SDE — AI / ML
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [05_Spring_AI.md](05_Spring_AI.md) | **Next**: [10_AI_System_Design.md](10_AI_System_Design.md)
+
 ---
 
 ## 1. Why Production AI is Hard

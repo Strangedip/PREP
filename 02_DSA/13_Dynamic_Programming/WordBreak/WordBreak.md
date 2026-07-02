@@ -1,5 +1,9 @@
 # Word Break
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Dynamic Programming](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-16-dynamic-programming-patterns) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Given a string `s` and a dictionary of strings `wordDict`, return `true` if `s` can be **segmented into a space-separated sequence** of one or more dictionary words.
 
@@ -50,6 +54,32 @@ This is a **classic Dynamic Programming problem** where we determine if a string
 3. **Recursive call**: If prefix is valid, recursively check remaining suffix
 4. **Backtrack**: Try next possible prefix if current path fails
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="leetcode", wordDict=["leet","code"]"]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="leetcode", wordDict=["leet","code"] → true
+Approach: Recursive Brute Force
+
+Enumerate all candidates from example input
+Check validity/optimal condition
+Keep best answer found
+```
+
 #### Time Complexity
 - **O(2^n)** - Exponential due to overlapping subproblems
 - **Branching factor**: Up to n choices at each step
@@ -89,6 +119,33 @@ private boolean canBreak(String s, int start, Set<String> wordSet) {
 1. **Memoization table**: `memo[i]` stores result for substring starting at index `i`
 2. **Check cache**: Return cached result if available
 3. **Compute and cache**: Calculate result and store in memo table
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="leetcode", wordDict=["leet","code"]"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="leetcode", wordDict=["leet","code"] → true
+Approach: Memoization (Top-Down DP)
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
 
 #### Time Complexity
 - **O(n³)** - n subproblems, each taking O(n²) for substring operations
@@ -132,6 +189,33 @@ private boolean canBreakMemo(String s, int start, Set<String> wordSet, Boolean[]
 3. **Fill table**: For each position, check all possible word endings
 4. **Final answer**: `dp[n]` contains the result
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="leetcode", wordDict=["leet","code"]"]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="leetcode", wordDict=["leet","code"] → true
+Approach: Bottom-Up DP (Tabulation)
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
+
 #### Time Complexity
 - **O(n³)** - Two nested loops + substring operation
 
@@ -168,6 +252,33 @@ public boolean wordBreakDP(String s, List<String> wordDict) {
 1. **Precompute word lengths**: Extract all unique word lengths from dictionary
 2. **Length-based checking**: Only check substrings with valid lengths
 3. **Reduced iterations**: Skip impossible substring lengths
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="leetcode", wordDict=["leet","code"]"]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="leetcode", wordDict=["leet","code"] → true
+Approach: Optimized DP with Length Filtering
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
 
 #### Time Complexity
 - **O(n² × k)** where k = number of unique word lengths (usually much smaller than n)
@@ -212,6 +323,34 @@ public boolean wordBreakOptimized(String s, List<String> wordDict) {
 2. **Explore neighbors**: For each position, find all valid word extensions
 3. **Avoid cycles**: Use visited set to prevent revisiting positions
 4. **Target reached**: Return true if we reach the end of string
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="leetcode", wordDict=["leet","code"]"]
+    START --> ENQ["Enqueue start node"]
+    ENQ --> Q{"Queue empty?"}
+    Q -->|no| DEQ["Dequeue front"]
+    DEQ --> NEI["Visit unvisited neighbors"]
+    NEI --> ENQ2["Enqueue neighbors"]
+    ENQ2 --> Q
+    Q -->|yes| DONE["Return shortest / order"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="leetcode", wordDict=["leet","code"] → true
+Approach: BFS Solution
+
+Enqueue start node/level
+Process neighbors level by level
+First reach target = shortest path
+```
 
 #### Time Complexity
 - **O(n³)** - Similar to DP but with BFS traversal
@@ -328,6 +467,29 @@ Always convert `wordDict` to `HashSet` for O(1) lookup instead of O(n).
 5. **Handle variations**: Word Break II, minimum breaks
 
 ### Code Structure
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="leetcode", wordDict=["leet","code"]"]
+    START --> STEP1["Approach 6: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="leetcode", wordDict=["leet","code"] → true
+Approach: Approach 6
+
+Apply Approach 6 on the example input step by step
+Final answer from example: see above
+```
 ```java
 public boolean wordBreak(String s, List<String> wordDict) {
     // 1. Convert to HashSet for O(1) lookup

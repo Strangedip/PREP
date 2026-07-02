@@ -1,5 +1,9 @@
 # Next Greater Element I
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Monotonic Stack](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-14-monotonic-stack) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Given two distinct arrays nums1 and nums2, where nums1 is a subset of nums2, find all the next greater elements for nums1's elements in nums2.
 
@@ -22,6 +26,32 @@ Explanation:
 4. **Build answer** by looking up nums1 elements
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums1=[4,1,2], nums2=[1,3,4,2]"]
+    START --> BUILD["Build HashMap / Set"]
+    BUILD --> SCAN["Scan input once"]
+    SCAN --> LOOKUP{"Key seen?"}
+    LOOKUP -->|yes| FOUND["Return match"]
+    LOOKUP -->|no| STORE["Store in map"]
+    STORE --> SCAN
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums1=[4,1,2], nums2=[1,3,4,2] → [-1,3,-1]
+Approach: : Monotonic Stack + HashMap
+
+Scan input left-to-right
+Store seen keys/values in hash map
+O(1) lookup finds complement or group
+```
 ```java
 // Step 1: Build next greater mapping for nums2
 Map<Integer, Integer> nextGreater = new HashMap<>();

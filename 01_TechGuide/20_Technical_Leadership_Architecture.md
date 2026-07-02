@@ -3,6 +3,9 @@
 > **Level**: LEAD (this section is specifically for the Lead Engineer role)
 > **Why This Matters**: The Lead Engineer interview isn't just about coding — it's about demonstrating that you can own technical decisions, mentor teams, drive architecture, and communicate with stakeholders. This section covers everything beyond the code.
 
+> **You are here**: Tech Lead — Soft Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [19_Event_Driven_Architecture.md](19_Event_Driven_Architecture.md) | **Next**: [21_GraphQL_and_Alternative_APIs.md](21_GraphQL_and_Alternative_APIs.md)
+
 ---
 
 ## 20.1 Architecture Decision Records (ADRs)

@@ -1,5 +1,9 @@
 # Permutations
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Subsets / Backtracking](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-10-subsets-backtracking) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Given an array `nums` of **distinct integers**, return all the possible permutations. You can return the answer in any order.
 
@@ -40,6 +44,32 @@ A **permutation** is an arrangement of elements where **order matters**. For `n`
 **Track which elements are already used** in the current permutation using a boolean array.
 
 #### Algorithm
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,2,3]"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,2,3] → 6 permutations
+Approach: Backtracking with Used Array
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
 ```java
 public List<List<Integer>> permute(int[] nums) {
     List<List<Integer>> result = new ArrayList<>();
@@ -85,6 +115,32 @@ private void backtrack(int[] nums, boolean[] used, List<Integer> current, List<L
 **Generate permutations in-place** by swapping elements instead of using extra space to track used elements.
 
 #### Algorithm
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,2,3]"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,2,3] → 6 permutations
+Approach: Backtracking with Swapping
+
+Visit current node/state
+Recurse on valid next choices
+Backtrack and try alternatives
+```
 ```java
 public List<List<Integer>> permuteSwapping(int[] nums) {
     List<List<Integer>> result = new ArrayList<>();
@@ -125,6 +181,29 @@ private void backtrackSwap(int[] nums, int start, List<List<Integer>> result) {
 **Build permutations incrementally** by inserting each new element at all possible positions in existing permutations.
 
 #### Algorithm
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,2,3]"]
+    START --> STEP1["Iterative Building: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,2,3] → 6 permutations
+Approach: Iterative Building
+
+Apply Iterative Building on the example input step by step
+Final answer from example: see above
+```
 ```java
 public List<List<Integer>> permuteIterative(int[] nums) {
     List<List<Integer>> result = new ArrayList<>();
@@ -167,6 +246,29 @@ Add 3:   [[3,2,1], [2,3,1], [2,1,3], [3,1,2], [1,3,2], [1,2,3]]
 2. Repeatedly find next lexicographic permutation
 3. Stop when no next permutation exists
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,2,3]"]
+    START --> STEP1["Lexicographic Generation: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,2,3] → 6 permutations
+Approach: Lexicographic Generation
+
+Apply Lexicographic Generation on the example input step by step
+Final answer from example: see above
+```
 ```java
 public List<List<Integer>> permuteLexicographic(int[] nums) {
     List<List<Integer>> result = new ArrayList<>();

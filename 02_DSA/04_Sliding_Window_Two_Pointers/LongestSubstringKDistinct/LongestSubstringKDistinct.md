@@ -1,5 +1,9 @@
 # Longest Substring with At Most K Distinct Characters (LeetCode 340)
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Sliding Window](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-2-sliding-window) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given a string `s` and an integer `k`, return the length of the longest substring of `s` that contains at most `k` distinct characters.
@@ -39,6 +43,31 @@ Explanation: The substring is "cbebebe" with length 7.
 
 Check every possible substring and count the number of distinct characters. Track the longest substring with at most `k` distinct characters. This is too slow for an interview but establishes the baseline.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="eceba", k=2"]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="eceba", k=2 → length 3 ("ece")
+Approach: Brute Force
+
+Enumerate all candidates from example input
+Check validity/optimal condition
+Keep best answer found
+```
 ```java
 public int lengthOfLongestSubstringKDistinct(String s, int k) {
     int maxLen = 0;
@@ -75,6 +104,32 @@ This is a classic sliding window problem. The window represents the current subs
 
 ### Complete Implementation
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="eceba", k=2"]
+    START --> BUILD["Build HashMap / Set"]
+    BUILD --> SCAN["Scan input once"]
+    SCAN --> LOOKUP{"Key seen?"}
+    LOOKUP -->|yes| FOUND["Return match"]
+    LOOKUP -->|no| STORE["Store in map"]
+    STORE --> SCAN
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="eceba", k=2 → length 3 ("ece")
+Approach: Sliding Window with HashMap (Optimal)
+
+Scan input left-to-right
+Store seen keys/values in hash map
+O(1) lookup finds complement or group
+```
 ```java
 import java.util.*;
 
@@ -150,6 +205,32 @@ This is the key insight that makes sliding window O(n) instead of O(n²).
 
 If the character set is limited (ASCII or lowercase English), use a fixed-size array instead of a HashMap for faster access. Maintain a separate counter for the number of distinct characters.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="eceba", k=2"]
+    START --> INIT["Init left=0, right=end"]
+    INIT --> WINDOW["Adjust window / pointers"]
+    WINDOW --> UPDATE["Update best answer"]
+    UPDATE --> MORE{"More elements?"}
+    MORE -->|yes| WINDOW
+    MORE -->|no| DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="eceba", k=2 → length 3 ("ece")
+Approach: Sliding Window with Array (Faster for ASCII)
+
+Initialize two pointers at boundaries
+Move pointer that improves constraint
+Update best answer each step
+```
 ```java
 public int lengthOfLongestSubstringKDistinct(String s, int k) {
     if (s == null || s.length() == 0 || k == 0) return 0;
@@ -201,6 +282,32 @@ public int lengthOfLongestSubstringKDistinct(String s, int k) {
 
 Instead of shrinking the window one character at a time, use a `LinkedHashMap` (or `TreeMap`) to track the rightmost position of each character. When we need to shrink, we can jump directly to the leftmost character's last position + 1.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="eceba", k=2"]
+    START --> BUILD["Build HashMap / Set"]
+    BUILD --> SCAN["Scan input once"]
+    SCAN --> LOOKUP{"Key seen?"}
+    LOOKUP -->|yes| FOUND["Return match"]
+    LOOKUP -->|no| STORE["Store in map"]
+    STORE --> SCAN
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="eceba", k=2 → length 3 ("ece")
+Approach: Sliding Window with Ordered Map (Leftmost Removal)
+
+Scan input left-to-right
+Store seen keys/values in hash map
+O(1) lookup finds complement or group
+```
 ```java
 public int lengthOfLongestSubstringKDistinct(String s, int k) {
     if (s == null || s.length() == 0 || k == 0) return 0;
@@ -253,6 +360,29 @@ This approach is more complex but avoids the inner `while` loop entirely, making
 
 This problem follows the classic **Variable-Size Sliding Window** pattern:
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: s="eceba", k=2"]
+    START --> STEP1["Approach 5: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: s="eceba", k=2 → length 3 ("ece")
+Approach: Approach 5
+
+Apply Approach 5 on the example input step by step
+Final answer from example: see above
+```
 ```java
 // Template for "longest substring with at most K [constraint]"
 int left = 0, maxLen = 0;

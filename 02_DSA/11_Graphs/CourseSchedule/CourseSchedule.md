@@ -1,5 +1,9 @@
 # Course Schedule
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Topological Sort](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-15-topological-sort) · [DFS](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-8-dfs-depth-first-search) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 There are a total of `numCourses` courses you have to take, labeled from `0` to `numCourses - 1`.
 
@@ -45,6 +49,34 @@ Use DFS with three states to detect back edges (cycles):
 2. For each unvisited course, run DFS
 3. In DFS: mark as visiting(1) → explore neighbors → mark as visited(2)
 4. If we encounter a node in visiting(1) state → cycle detected!
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: numCourses=2, prerequisites=[[1,0]]"]
+    START --> VISIT["Visit current state"]
+    VISIT --> CHOICE{"More choices?"}
+    CHOICE -->|yes| RECUR["Recurse / backtrack"]
+    RECUR --> UNDO["Undo choice"]
+    UNDO --> CHOICE
+    CHOICE -->|no| DONE["Return / collect result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: numCourses=2, prerequisites=[[1,0]] → true
+Approach: DFS Cycle Detection
+
+graph: 0<-1
+indegree[1]=1,indegree[0]=0
+process 0 then 1
+all courses OK
+```
 
 #### Time Complexity
 - **O(V + E)** where V = courses, E = prerequisites
@@ -106,6 +138,35 @@ Use BFS with in-degree counting. If we can process all courses → no cycle exis
    - Remove course and decrease in-degree of dependent courses
    - Add courses with in-degree 0 to queue
 4. If processed courses = total courses → no cycle
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: numCourses=2, prerequisites=[[1,0]]"]
+    START --> ENQ["Enqueue start node"]
+    ENQ --> Q{"Queue empty?"}
+    Q -->|no| DEQ["Dequeue front"]
+    DEQ --> NEI["Visit unvisited neighbors"]
+    NEI --> ENQ2["Enqueue neighbors"]
+    ENQ2 --> Q
+    Q -->|yes| DONE["Return shortest / order"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: numCourses=2, prerequisites=[[1,0]] → true
+Approach: Topological Sort (Kahn's Algorithm)
+
+graph: 0<-1
+indegree[1]=1,indegree[0]=0
+process 0 then 1
+all courses OK
+```
 
 #### Time Complexity
 - **O(V + E)** - same as DFS

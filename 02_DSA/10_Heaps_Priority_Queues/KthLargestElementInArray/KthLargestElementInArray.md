@@ -1,5 +1,9 @@
 # Kth Largest Element in an Array
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Top K Elements](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-12-top-k-elements) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Given an integer array `nums` and an integer `k`, return the kth largest element in the array.
 
@@ -24,6 +28,35 @@ Maintain a min heap of size k containing the k largest elements seen so far.
 2. Add each element to min heap
 3. If heap size > k, remove the smallest element (heap root)
 4. Return heap root (smallest among k largest = kth largest)
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[3,2,1,5,6,4], k=2"]
+    START --> HEAP["Init min/max heap"]
+    HEAP --> ADD["Add element"]
+    ADD --> SIZE{"Size > k?"}
+    SIZE -->|yes| REM["Poll root"]
+    SIZE -->|no| MORE{"More input?"}
+    REM --> MORE
+    MORE -->|yes| ADD
+    MORE -->|no| DONE["Return heap top"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[3,2,1,5,6,4], k=2 → 5
+Approach: Min Heap of Size K
+
+Maintain heap of size k or candidates
+Push each element, pop if over limit
+Root is kth largest or min distance
+```
 
 #### Time Complexity
 - **O(n log k)** - Each of n elements: O(log k) to add/remove from heap of size k
@@ -53,6 +86,35 @@ public int findKthLargestMinHeap(int[] nums, int k) {
 2. Extract k-1 largest elements
 3. Return the next largest (kth largest)
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[3,2,1,5,6,4], k=2"]
+    START --> HEAP["Init min/max heap"]
+    HEAP --> ADD["Add element"]
+    ADD --> SIZE{"Size > k?"}
+    SIZE -->|yes| REM["Poll root"]
+    SIZE -->|no| MORE{"More input?"}
+    REM --> MORE
+    MORE -->|yes| ADD
+    MORE -->|no| DONE["Return heap top"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[3,2,1,5,6,4], k=2 → 5
+Approach: Max Heap
+
+Maintain heap of size k or candidates
+Push each element, pop if over limit
+Root is kth largest or min distance
+```
+
 #### Time Complexity
 - **O(n + k log n)** - Building heap: O(n), extracting k elements: O(k log n)
 
@@ -69,6 +131,35 @@ Use quicksort partitioning to find kth largest without fully sorting.
 2. Use partition to find position where all left elements are smaller
 3. If partition index equals target, return element
 4. Otherwise, recursively search left or right half
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[3,2,1,5,6,4], k=2"]
+    START --> BOUNDS["lo=0, hi=n-1"]
+    BOUNDS --> MID["mid = (lo+hi)/2"]
+    MID --> CMP{"Compare nums[mid]"}
+    CMP -->|too small| LO["lo = mid+1"]
+    CMP -->|too large| HI["hi = mid-1"]
+    CMP -->|found| DONE["Return mid"]
+    LO --> BOUNDS
+    HI --> BOUNDS
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[3,2,1,5,6,4], k=2 → 5
+Approach: QuickSelect
+
+Set lo/hi bounds on answer or index
+Compare mid element with target
+Halve search space until found
+```
 
 #### Time Complexity
 - **O(n)** average case, **O(n²)** worst case
@@ -102,6 +193,30 @@ private int quickSelect(int[] nums, int left, int right, int kSmallest) {
 #### Algorithm
 1. Sort the entire array
 2. Return element at position `n-k`
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[3,2,1,5,6,4], k=2"]
+    START --> STEP1["Simple Sorting: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[3,2,1,5,6,4], k=2 → 5
+Approach: Simple Sorting
+
+Apply Simple Sorting on the example input step by step
+Final answer from example: see above
+```
 
 #### Time Complexity
 - **O(n log n)** - Due to sorting

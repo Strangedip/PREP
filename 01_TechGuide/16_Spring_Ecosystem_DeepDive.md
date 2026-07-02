@@ -3,6 +3,9 @@
 > **Level**: MID+ (Spring Data, Profiles) to LEAD (WebFlux, Cloud, Batch, AOP internals)
 > **Why This Matters**: Lead engineers own the full Spring Boot stack. Interviewers expect you to go beyond `@RestController` — into JPA internals, reactive programming, cloud-native patterns, and custom AOP.
 
+> **You are here**: SDE2 — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [15_Java_Collections_Concurrency_DeepDive.md](15_Java_Collections_Concurrency_DeepDive.md) | **Next**: [17_Networking_Protocols.md](17_Networking_Protocols.md)
+
 ---
 
 ## 16.1 Spring Data JPA — Beyond Basics

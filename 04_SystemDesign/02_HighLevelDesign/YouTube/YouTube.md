@@ -1,5 +1,8 @@
 # YouTube — High-Level Design
 
+> **You are here**: Senior SDE — System Design (HLD)
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Prerequisites**: [HLD_Template.md](../../00_Templates/HLD_Template/HLD_Template.md)
+
 ## Problem Statement
 
 Design a video platform like YouTube that supports:
@@ -140,6 +143,88 @@ subscriptions (subscriber_id, channel_id)
 | GET | `/v1/videos/{id}/stream` | Redirect to CDN signed URL |
 | GET | `/v1/feed/home` | Personalized feed |
 | GET | `/v1/search?q=` | Search videos |
+
+---
+
+## Spring Boot Reference Sketch
+
+Focused Java 17 / Spring Boot 3.x sketch of resumable upload + async transcode + playback — not production-complete.
+
+```java
+@RestController
+@RequestMapping("/v1")
+public class YouTubeController {
+    private final UploadService uploadService;
+    private final VideoService videoService;
+
+    public YouTubeController(UploadService uploadService, VideoService videoService) {
+        this.uploadService = uploadService;
+        this.videoService = videoService;
+    }
+
+    @PostMapping("/uploads")
+    public UploadSessionResponse startUpload(@RequestBody StartUploadRequest request) {
+        return uploadService.createSession(request.userId(), request.title(), request.totalBytes());
+    }
+
+    @PostMapping("/uploads/{sessionId}/complete")
+    public VideoResponse completeUpload(@PathVariable String sessionId) {
+        return uploadService.completeAndEnqueueTranscode(sessionId);
+    }
+
+    @GetMapping("/videos/{videoId}/stream")
+    public StreamResponse stream(@PathVariable String videoId) {
+        return videoService.issueCdnPlaybackUrl(videoId);
+    }
+}
+
+public interface VideoRepository {
+    Video save(Video video);
+    Optional<Video> findById(String videoId);
+    void updateStatus(String videoId, VideoStatus status, String manifestUrl);
+}
+
+@Service
+public class UploadService {
+    private final UploadSessionRepository sessions;
+    private final VideoRepository videoRepository;
+    private final ApplicationEventPublisher events;
+
+    public UploadSessionResponse createSession(long userId, String title, long totalBytes) {
+        String sessionId = UUID.randomUUID().toString();
+        sessions.create(sessionId, userId, title, totalBytes);
+        return new UploadSessionResponse(sessionId, sessions.presignedChunkUrls(sessionId));
+    }
+
+    public VideoResponse completeAndEnqueueTranscode(String sessionId) {
+        UploadSession session = sessions.markComplete(sessionId);
+        Video video = videoRepository.save(new Video(session.userId(), session.title(), VideoStatus.PROCESSING));
+        events.publishEvent(new TranscodeJobEvent(video.id(), session.rawObjectKey()));
+        return new VideoResponse(video.id(), video.status());
+    }
+}
+
+@Service
+public class VideoService {
+    private final VideoRepository videoRepository;
+    private final ViewCounter viewCounter; // Redis INCR, flushed async to DB
+
+    public StreamResponse issueCdnPlaybackUrl(String videoId) {
+        Video video = videoRepository.findById(videoId)
+                .filter(v -> v.status() == VideoStatus.READY)
+                .orElseThrow(() -> new NotFoundException(videoId));
+        viewCounter.incrementAsync(videoId); // approximate, at-least-once
+        return new StreamResponse(signCdnUrl(video.manifestUrl()), Duration.ofMinutes(15));
+    }
+
+    private String signCdnUrl(String manifestUrl) { return manifestUrl + "?token=..."; }
+}
+
+public record TranscodeJobEvent(String videoId, String rawObjectKey) {}
+public enum VideoStatus { PROCESSING, READY, FAILED }
+```
+
+> **Async / idempotency**: Chunk uploads to object storage are idempotent by part number. Transcode workers consume `TranscodeJobEvent` asynchronously; view counts are eventually consistent via Redis.
 
 ---
 

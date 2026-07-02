@@ -1,5 +1,8 @@
 # **Complete List of Design Patterns Explained So Far**
 
+> **You are here**: SDE2 — Technical Skills (GoF patterns)
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [Design Patterns & SOLID](../01_TechGuide/03_Design_Patterns_SOLID_CleanArch.md) | **Next**: [Parking Lot LLD](../04_SystemDesign/01_LowLevelDesign/ParkingLot/ParkingLot.md)
+
 Here is the **updated** list of all design patterns I have explained, along with **why and when to use them**:
 
 ---

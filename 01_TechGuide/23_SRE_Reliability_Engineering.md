@@ -3,6 +3,9 @@
 > **Level**: SR+ (SLI/SLO basics) to LEAD (error budgets, incident command, toil reduction)
 > **Why This Matters**: Lead engineers own reliability, not just features. Google-style SRE practices are standard at FAANG and product companies. You must connect observability metrics to business outcomes and incident response.
 
+> **You are here**: Senior SDE — Engineering Practices
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [22_Kotlin_for_Java_Developers.md](22_Kotlin_for_Java_Developers.md) | **Next**: [24_Platform_Engineering_IDP.md](24_Platform_Engineering_IDP.md)
+
 ---
 
 ## 23.1 SRE vs DevOps vs Platform Engineering
@@ -154,3 +157,43 @@ Detect (alert) → Triage → Mitigate → Resolve → Post-mortem (within 5 bus
 | 10 | SRE vs DevOps? | SRE applies software engineering to operations problems with measurable SLOs. |
 
 **Must-say keywords**: SLI, SLO, error budget, golden signals, incident commander, blameless post-mortem, toil, mitigation, runbook, canary rollback.
+
+---
+
+## §23.10 Production & Interview Depth — SLOs for Indian Festival Scale
+
+Flipkart Big Billion Days and Paytm UPI peaks are the Indian equivalent of Prime Day — traffic jumps 10–50× for 72 hours. SRE interviews at product companies ask how you'd **protect payment SLOs** while product insists on feature flags for sale banners. The answer ties SLIs to revenue, not just HTTP 200.
+
+### SLI Design for Payments (Razorpay / PhonePe Context)
+
+| SLI | Measurement | SLO (typical internal) | Why it matters |
+|-----|-------------|------------------------|----------------|
+| Payment success rate | `successful_captures / initiated` (exclude user abort) | 99.95% | Direct GMV impact |
+| p99 auth latency | Gateway → PSP round-trip | < 800ms at p99 | UPI timeout = user retries = double load |
+| Webhook delivery | Delivered within 30s / enqueued | 99.9% | Merchant reconciliation |
+| Queue lag | Kafka consumer offset lag | < 5s p99 | Settlement pipeline backlog |
+
+Error budget burn during a sale: if payment SLO drops below 99.9% in the first 6 hours, **freeze non-critical deploys** and scale checkout pods — see [11_Observability.md](./11_Observability.md) for RED metrics wiring.
+
+### Spring Boot Production Pattern: SLO-Aware Circuit Breaking
+
+```java
+@RestController
+public class PaymentController {
+
+    private final CircuitBreaker pspBreaker = CircuitBreaker.of("razorpay-psp",
+        CircuitBreakerConfig.custom()
+            .failureRateThreshold(50)
+            .waitDurationInOpenState(Duration.ofSeconds(30))
+            .slidingWindowSize(100)
+            .build());
+
+    @PostMapping("/pay")
+    public PaymentResponse pay(@RequestBody PaymentRequest req) {
+        return pspBreaker.executeSupplier(() -> pspClient.charge(req));
+        // fallback: queue for async retry + graceful "try again" UX
+    }
+}
+```
+
+Use Resilience4j (pairs with [06_Microservices_Distributed_Systems.md](./06_Microservices_Distributed_Systems.md)). Incident command during SEV1: IC owns comms to business ("₹X GMV at risk"), ops lead scales HPA and toggles feature flags, scribe captures timeline for blameless post-mortem within 5 days. **Mitigate first** — route to backup PSP, enable cached product catalog from [28_Redis_Distributed_Caching.md](./28_Redis_Distributed_Caching.md) — root-cause JDBC pool exhaustion can wait until traffic subsides.

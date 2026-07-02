@@ -1,5 +1,9 @@
 # Sliding Window Maximum
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Sliding Window](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-2-sliding-window) · [Monotonic Stack](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-14-monotonic-stack) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 Given an array of integers `nums` and a sliding window of size `k`, find the maximum element in each window position as the window slides from left to right.
@@ -27,6 +31,31 @@ Window position                Max
 
 For each window position, scan all k elements to find the maximum.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,3,-1,-3,5,3,6,7], k=3"]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,3,-1,-3,5,3,6,7], k=3 → [3,3,5,5,6,7]
+Approach: Brute Force
+
+Enumerate all candidates from example input
+Check validity/optimal condition
+Keep best answer found
+```
 ```java
 public int[] maxSlidingWindowBrute(int[] nums, int k) {
     int n = nums.length;
@@ -64,6 +93,33 @@ Maintain a deque (double-ended queue) that stores **indices** of elements in dec
    - **Add current**: Push `i` to the back of the deque.
    - **Record result**: Once we've processed at least `k` elements, `nums[deque.peekFirst()]` is the window maximum.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,3,-1,-3,5,3,6,7], k=3"]
+    START --> PUSH["Push index / value"]
+    PUSH --> TOP{"Violates monotonic order?"}
+    TOP -->|yes| POP["Pop and resolve"]
+    POP --> TOP
+    TOP -->|no| NEXT{"More input?"}
+    NEXT -->|yes| PUSH
+    NEXT -->|no| DONE["Return answer"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,3,-1,-3,5,3,6,7], k=3 → [3,3,5,5,6,7]
+Approach: Monotonic Deque (Optimal)
+
+Push indices/values on stack
+Pop when current resolves pending
+Stack top gives next greater / valid match
+```
 ```java
 public int[] maxSlidingWindow(int[] nums, int k) {
     int n = nums.length;
@@ -117,6 +173,33 @@ i=7: deque=[7]           → 7 > 6; add 7 → result[5]=nums[7]=7
 
 Use a max-heap to always get the maximum. Lazy deletion: only remove elements from the heap when they appear at the top and are outside the window.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[1,3,-1,-3,5,3,6,7], k=3"]
+    START --> ENQ["Enqueue start node"]
+    ENQ --> Q{"Queue empty?"}
+    Q -->|no| DEQ["Dequeue front"]
+    DEQ --> NEI["Visit unvisited neighbors"]
+    NEI --> ENQ2["Enqueue neighbors"]
+    ENQ2 --> Q
+    Q -->|yes| DONE["Return shortest / order"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[1,3,-1,-3,5,3,6,7], k=3 → [3,3,5,5,6,7]
+Approach: Max Heap (Priority Queue)
+
+Enqueue start node/level
+Process neighbors level by level
+First reach target = shortest path
+```
 ```java
 public int[] maxSlidingWindowHeap(int[] nums, int k) {
     int n = nums.length;
@@ -178,8 +261,8 @@ public int[] maxSlidingWindowHeap(int[] nums, int k) {
 4. **Follow-up**: "How would you handle a sliding window minimum?" → Same approach, but maintain an increasing deque instead of decreasing.
 
 ## Related Problems
-- [Sliding Window Minimum](same approach, increasing deque)
-- [Longest Subarray with Limit](deque for max and min)
-- [Max Value of Equation](deque optimization)
-- [Constrained Subsequence Sum](DP + deque optimization)
+- Sliding Window Minimum — same deque pattern (increasing deque)
+- Longest Subarray with Limit — deque for max and min
+- Max Value of Equation — deque optimization
+- [Constrained Subsequence Sum](../../13_Dynamic_Programming/ConstrainedSubsequenceSum/ConstrainedSubsequenceSum.md) — DP + monotonic deque
 

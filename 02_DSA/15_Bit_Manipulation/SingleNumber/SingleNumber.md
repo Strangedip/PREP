@@ -1,5 +1,9 @@
 # Single Number Series
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Bit Manipulation](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-recognition-decision-tree) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Given a non-empty array of integers `nums`, every element appears twice except for one. Find that single one.
 
@@ -36,6 +40,32 @@ If we XOR all numbers: `a ⊕ b ⊕ a ⊕ c ⊕ b`
 
 #### Approach: XOR All Elements ⭐
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[4,1,2,1,2]"]
+    START --> ACC["acc = 0"]
+    ACC --> XOR["acc ^= nums[i]"]
+    XOR --> NEXT{"More elements?"}
+    NEXT -->|yes| XOR
+    NEXT -->|no| DONE["Return acc"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[4,1,2,1,2] → 4
+Approach: XOR All Elements
+
+acc=4^1=5
+5^2=7
+7^1=6
+6^2=4 -> answer 4
+```
 ```java
 public int singleNumber(int[] nums) {
     int result = 0;
@@ -61,6 +91,32 @@ One element appears **once**, all others appear **three times**.
 
 #### Approach 1: State Machine ⭐ (Advanced)
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[4,1,2,1,2]"]
+    START --> BUILD["Build HashMap / Set"]
+    BUILD --> SCAN["Scan input once"]
+    SCAN --> LOOKUP{"Key seen?"}
+    LOOKUP -->|yes| FOUND["Return match"]
+    LOOKUP -->|no| STORE["Store in map"]
+    STORE --> SCAN
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[4,1,2,1,2] → 4
+Approach: HashMap Frequency
+
+Scan input left-to-right
+Store seen keys/values in hash map
+O(1) lookup finds complement or group
+```
 ```java
 public int singleNumberII(int[] nums) {
     int ones = 0, twos = 0;
@@ -96,6 +152,31 @@ State 10 (2 times) + bit → State 00 (0 times, reset)
 
 #### Approach 2: Bit Counting (More Intuitive)
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[4,1,2,1,2]"]
+    START --> ACC["acc = 0"]
+    ACC --> XOR["acc ^= nums[i]"]
+    XOR --> NEXT{"More elements?"}
+    NEXT -->|yes| XOR
+    NEXT -->|no| DONE["Return acc"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[4,1,2,1,2] → 4
+Approach: Bit Counting (mod 3)
+
+XOR accumulates unmatched bits
+Pairs cancel to 0
+Remaining value is unique answer
+```
 ```java
 public int singleNumberIIBitCount(int[] nums) {
     int result = 0;
@@ -133,6 +214,31 @@ public int singleNumberIIBitCount(int[] nums) {
 
 #### Approach: XOR + Bit Separation ⭐
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[4,1,2,1,2]"]
+    START --> ACC["acc = 0"]
+    ACC --> XOR["acc ^= nums[i]"]
+    XOR --> NEXT{"More elements?"}
+    NEXT -->|yes| XOR
+    NEXT -->|no| DONE["Return acc"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[4,1,2,1,2] → 4
+Approach: Bit Counting (mod 3)
+
+XOR accumulates unmatched bits
+Pairs cancel to 0
+Remaining value is unique answer
+```
 ```java
 public int[] singleNumberIII(int[] nums) {
     // Step 1: XOR all numbers → gets a ⊕ b

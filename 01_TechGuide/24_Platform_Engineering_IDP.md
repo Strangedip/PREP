@@ -3,6 +3,9 @@
 > **Level**: SR+ (golden paths) to LEAD (IDP strategy, developer experience metrics)
 > **Why This Matters**: "Platform Engineering" replaced "DevOps team" at many companies. Lead engineers design internal platforms that let 100 developers ship safely without each team rebuilding CI/CD, K8s, and observability from scratch.
 
+> **You are here**: Staff Engineer — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [23_SRE_Reliability_Engineering.md](23_SRE_Reliability_Engineering.md) | **Next**: [25_Data_Engineering_Fundamentals.md](25_Data_Engineering_Fundamentals.md)
+
 ---
 
 ## 24.1 What is Platform Engineering?
@@ -131,3 +134,47 @@ Developer pushes → Git repo (manifests) → Argo CD / Flux watches → K8s clu
 | 10 | When to build a platform? | When 10+ teams repeat same infra work — consolidate into reusable abstractions. |
 
 **Must-say keywords**: IDP, golden path, Backstage, GitOps, self-service, cognitive load, DORA, developer experience, thin platform.
+
+---
+
+## §24.10 Production & Interview Depth — IDP Rollout in 200+ Engineer Orgs
+
+Swiggy and Flipkart-scale engineering orgs don't build a platform team of 40 on day one. They start with **two golden paths** — "new Spring Boot microservice on EKS" and "expose REST API behind internal gateway" — and measure self-service rate. Interviewers ask how you'd avoid becoming a **ticket queue** while enforcing PCI-ish standards for payment-adjacent services.
+
+### Trade-off: Backstage Portal vs Lightweight Templates
+
+| Approach | Pros | Cons | Indian org fit |
+|----------|------|------|----------------|
+| Full Backstage IDP | Service catalog, TechDocs, plugin ecosystem | 6–12 month rollout, dedicated team | 150+ engineers, multi-BU |
+| Cookiecutter + GitHub Actions | Ship in weeks, low ops burden | No unified catalog | Startups → mid-size (Razorpay early IDP) |
+| Harness/Port SaaS | Faster time-to-value | Vendor cost, less customization | Teams without platform headcount |
+| Terraform modules only | Infra consistency | Devs still wire CI/observability manually | Platform v0.1 |
+
+### Golden Path: Spring Boot 3.x Service Template
+
+```
+backstage-create → repo with:
+  ├── pom.xml (Java 21, Spring Boot 3.3, OTel agent)
+  ├── Dockerfile + Helm chart (values: dev/stage/prod)
+  ├── .github/workflows/deploy.yml → Argo CD
+  ├── dashboards/ (Grafana RED — from 11_Observability)
+  └── catalog-info.yaml (owner, tier, dependencies)
+```
+
+Product team runs `create-microservice --name=order-pricing --tier=1`; platform guarantees **Pod Security Standards**, **Kyverno** resource limits, and **pre-wired** Prometheus scrape — see [30_Kubernetes_Deep_Dive.md](./30_Kubernetes_Deep_Dive.md). Platform success metric: **< 10% of deploys need platform-team Slack ping** during festival prep.
+
+```yaml
+# catalog-info.yaml — every service declares SLO tier
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: checkout-service
+  annotations:
+    prep.io/slo-tier: "tier-1"  # payment path — stricter canary gates
+spec:
+  type: service
+  lifecycle: production
+  owner: team-checkout
+```
+
+Cross-link reliability gates to [23_SRE_Reliability_Engineering.md](./23_SRE_Reliability_Engineering.md): tier-1 services get mandatory canary analysis and error-budget checks in the deploy pipeline. Thin platform beats grand vision — expand paths only when three squads repeat the same pain (CDC setup → add Debezium golden path from [25_Data_Engineering_Fundamentals.md](./25_Data_Engineering_Fundamentals.md)).

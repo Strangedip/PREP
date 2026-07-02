@@ -1,5 +1,9 @@
 # Best Time to Buy and Sell Stock
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Two Pointers](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-1-two-pointers) · [Greedy](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-recognition-decision-tree) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 
 You have an array representing stock prices on different days. Find the maximum profit you can make by buying on one day and selling on a later day. If no profit is possible, return 0.
@@ -25,6 +29,33 @@ Check every possible buy-sell combination to find the maximum profit.
 2. For each future day, consider selling 
 3. Calculate profit = sell_price - buy_price
 4. Keep track of maximum profit
+
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: prices=[7,1,5,3,6,4]"]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: prices=[7,1,5,3,6,4] → max profit 5 (buy 1, sell 6)
+Approach: Brute Force (Understanding the Problem)
+
+day0 buy7/sell->0
+day1 buy1/sell->0
+day4 buy1/sell6->5
+max profit = 5
+```
 
 ### Code Logic:
 ```java
@@ -69,6 +100,32 @@ Day 5: price=4, minPrice=1, profit=3, maxProfit=5
 Result: 5
 ```
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: prices=[7,1,5,3,6,4]"]
+    START --> STEP1["Track Minimum Price (Optimal!): step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: prices=[7,1,5,3,6,4] → max profit 5 (buy 1, sell 6)
+Approach: Track Minimum Price (Optimal!)
+
+min=7
+min=1 at day1
+day4: 6-1=5 profit
+answer = 5
+```
+
 ### Code Logic:
 ```java
 int minPrice = prices[0];
@@ -103,6 +160,31 @@ Think of two states at each day:
 - **Sold:** Maximum profit when you don't own stock
 
 ### State Transitions:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: prices=[7,1,5,3,6,4]"]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: prices=[7,1,5,3,6,4] → max profit 5 (buy 1, sell 6)
+Approach: Dynamic Programming Perspective
+
+Track best profit ending each day
+final max = 5
+```
 ```java
 // At each day, we can:
 buy = max(previous_buy, -current_price)     // Buy today or keep previous
@@ -258,4 +340,27 @@ This problem teaches you to recognize:
 
 **Golden Pattern:** This problem establishes the "track optimal state so far" pattern that appears in many other problems. The technique of maintaining a running minimum/maximum while processing an array is fundamental!
 
-**Remember:** This is often a warm-up question that leads to more complex stock problems. Master this first, then tackle the variations! 
+**Remember:** This is often a warm-up question that leads to more complex stock problems. Master this first, then tackle the variations!
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: prices=[7,1,5,3,6,4]"]
+    START --> STEP1["Kadane's Algorithm Connection: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: prices=[7,1,5,3,6,4] → max profit 5 (buy 1, sell 6)
+Approach: Kadane's Algorithm Connection
+
+Track best profit ending each day
+final max = 5
+```
+ 

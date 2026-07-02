@@ -1,5 +1,9 @@
 # Advanced Dynamic Programming Patterns
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Dynamic Programming](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-16-dynamic-programming-patterns) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Advanced DP patterns that go beyond basic 1D/2D DP and are essential for solving complex optimization problems at SDE2+ level.
 
@@ -16,6 +20,29 @@ Advanced DP patterns that go beyond basic 1D/2D DP and are essential for solving
 
 **Core Insight:** For interval [i, j], optimal solution depends on optimal solutions of sub-intervals.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: state-compression TSP on 4 cities"]
+    START --> STEP1["State Compression: step 1"]
+    STEP1 --> STEP2["Process data"]
+    STEP2 --> STEP3["Update state"]
+    STEP3 --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: state-compression TSP on 4 cities → min tour cost
+Approach: State Compression
+
+Apply State Compression on the example input step by step
+Final answer from example: see above
+```
 ```java
 public int matrixChainMultiplication(int[] dims) {
     int n = dims.length - 1; // Number of matrices
@@ -83,6 +110,32 @@ public int minCut(String s) {
 
 **Core Insight:** Use bitmask to represent visited cities, DP state is (current_city, visited_mask).
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: state-compression TSP on 4 cities"]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: state-compression TSP on 4 cities → min tour cost
+Approach: Digit DP
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
 ```java
 public int tsp(int[][] dist) {
     int n = dist.length;
@@ -167,6 +220,32 @@ public int assignmentProblem(int[][] cost) {
 
 **Core Insight:** For each node, compute max path passing through it vs max path in its subtree.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: state-compression TSP on 4 cities"]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: state-compression TSP on 4 cities → min tour cost
+Approach: Interval DP
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
 ```java
 class TreeDP {
     private int maxSum = Integer.MIN_VALUE;
@@ -239,6 +318,32 @@ class Solution {
 
 **Core Insight:** Build number digit by digit with constraints.
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: state-compression TSP on 4 cities"]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: state-compression TSP on 4 cities → min tour cost
+Approach: Interval DP
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
 ```java
 public int countNumbersWithSum(int n, int k) {
     int[][][] memo = new int[n + 1][k + 1][2];
@@ -275,6 +380,32 @@ private int digitDP(int pos, int sum, int tight, int[][][] memo) {
 
 ### Problem: Expected Steps to Reach Target
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: state-compression TSP on 4 cities"]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: state-compression TSP on 4 cities → min tour cost
+Approach: Interval DP
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
 ```java
 public double expectedSteps(int target) {
     // dp[i] = expected steps to reach target from position i

@@ -3,6 +3,9 @@
 > **Level**: MID+ (HTTP, DNS basics) to LEAD (HTTP/2 internals, TLS, gRPC, connection pooling)
 > **Why This Matters**: System Design interviews require deep networking knowledge. You can't design a chat system without understanding WebSockets, or a CDN without understanding DNS and TLS. This is the invisible foundation of every distributed system.
 
+> **You are here**: SDE2 — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [16_Spring_Ecosystem_DeepDive.md](16_Spring_Ecosystem_DeepDive.md) | **Next**: [18_Performance_Engineering_JVM.md](18_Performance_Engineering_JVM.md)
+
 ---
 
 ## 17.1 OSI Model & TCP/IP — Quick Reference

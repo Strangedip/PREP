@@ -1,5 +1,9 @@
 # Gas Station
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Greedy](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-recognition-decision-tree) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 There are n gas stations along a circular route, where the amount of gas at the ith station is gas[i]. You have a car with an unlimited gas tank and it costs cost[i] of gas to travel from the ith station to its next (i+1)th station. You begin the journey with an empty tank at one of the gas stations. Given two integer arrays gas and cost, return the starting gas station's index if you can travel around the circuit once in the clockwise direction, otherwise return -1.
 
@@ -30,6 +34,32 @@ You arrive at station 3, the starting point. You can complete the journey.
 3. **When tank becomes negative**, start from next station
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: gas=[1,2,3,4,5], cost=[3,4,5,1,2]"]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: gas=[1,2,3,4,5], cost=[3,4,5,1,2] → start index 3
+Approach: Greedy Algorithm (Optimal!)
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
 ```java
 public int canCompleteCircuit(int[] gas, int[] cost) {
     int totalTank = 0;      // Total gas - total cost
@@ -65,6 +95,31 @@ public int canCompleteCircuit(int[] gas, int[] cost) {
 3. **Return first valid** starting station
 
 ### Key Logic:
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: gas=[1,2,3,4,5], cost=[3,4,5,1,2]"]
+    START --> LOOP["Try all combinations"]
+    LOOP --> CHECK{"Valid / optimal?"}
+    CHECK -->|no| LOOP
+    CHECK -->|yes| OUT["Record best answer"]
+    OUT --> DONE["Return result"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: gas=[1,2,3,4,5], cost=[3,4,5,1,2] → start index 3
+Approach: Brute Force (For Understanding)
+
+Enumerate all candidates from example input
+Check validity/optimal condition
+Keep best answer found
+```
 ```java
 public int canCompleteCircuit(int[] gas, int[] cost) {
     int n = gas.length;

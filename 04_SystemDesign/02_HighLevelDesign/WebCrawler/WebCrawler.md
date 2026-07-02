@@ -1,5 +1,8 @@
 # Web Crawler — High-Level Design
 
+> **You are here**: Senior SDE — System Design (HLD)
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Prerequisites**: [HLD_Template.md](../../00_Templates/HLD_Template/HLD_Template.md)
+
 ## Problem Statement
 
 Design a distributed web crawler that:
@@ -157,6 +160,78 @@ crawl_log (url_hash, fetched_at, http_status, content_hash)
 
 ---
 
+## Spring Boot Reference Sketch
+
+Focused Java 17 / Spring Boot 3.x sketch of frontier enqueue + polite fetch worker — not production-complete.
+
+```java
+@RestController
+@RequestMapping("/crawl")
+public class CrawlAdminController {
+    private final CrawlOrchestrator crawlOrchestrator;
+
+    public CrawlAdminController(CrawlOrchestrator crawlOrchestrator) {
+        this.crawlOrchestrator = crawlOrchestrator;
+    }
+
+    @PostMapping("/seeds")
+    public ResponseEntity<Void> addSeeds(@RequestBody SeedRequest request) {
+        crawlOrchestrator.enqueueSeeds(request.urls(), request.priority());
+        return ResponseEntity.accepted().build();
+    }
+}
+
+public interface UrlFrontierRepository {
+    boolean markSeenIfAbsent(String urlHash, String normalizedUrl, String domain, int priority);
+    Optional<FrontierEntry> pollNextForDomain(String domain);
+    void requeueWithDelay(FrontierEntry entry, Duration delay);
+}
+
+@Service
+public class CrawlOrchestrator {
+    private final UrlFrontierRepository frontier;
+    private final DomainRateLimiter rateLimiter;
+    private final RobotsTxtCache robotsTxtCache;
+    private final PageFetcher pageFetcher;
+    private final LinkExtractor linkExtractor;
+
+    @Async
+    public void processUrl(FrontierEntry entry) {
+        String domain = entry.domain();
+        if (!rateLimiter.tryAcquire(domain)) {
+            frontier.requeueWithDelay(entry, Duration.ofSeconds(1));
+            return;
+        }
+        if (!robotsTxtCache.isAllowed(domain, entry.path())) {
+            return; // honor robots.txt — cached 24h per domain
+        }
+
+        FetchResult result = pageFetcher.fetch(entry.normalizedUrl());
+        if (!result.success()) return;
+
+        pageFetcher.storeContent(entry.urlHash(), result.body());
+        linkExtractor.extract(result.body(), entry.normalizedUrl()).forEach(link ->
+                frontier.markSeenIfAbsent(sha256(link), link, extractDomain(link), entry.priority())
+        );
+    }
+
+    public void enqueueSeeds(List<String> urls, int priority) {
+        urls.forEach(url -> frontier.markSeenIfAbsent(sha256(url), normalize(url), extractDomain(url), priority));
+    }
+
+    private String sha256(String url) { return Integer.toHexString(url.hashCode()); }
+    private String normalize(String url) { return url.toLowerCase(); }
+    private String extractDomain(String url) { return URI.create(url).getHost(); }
+}
+
+public record SeedRequest(List<String> urls, int priority) {}
+public record FrontierEntry(String urlHash, String normalizedUrl, String domain, String path, int priority) {}
+```
+
+> **Idempotency / async**: `markSeenIfAbsent` makes at-least-once queue delivery safe. Per-domain token buckets enforce politeness; Bloom filter can short-circuit before DB dedup.
+
+---
+
 ## Interview Discussion Points
 
 1. **BFS vs priority** — BFS for discovery; priority for recrawl and important sites
@@ -165,4 +240,4 @@ crawl_log (url_hash, fetched_at, http_status, content_hash)
 4. **Distributed crawling** — Consistent hashing on domain for worker assignment
 5. **Relation to search** — Crawler feeds indexer (Elasticsearch) — see Search Autocomplete HLD
 
-**Related**: [SearchAutocomplete](SearchAutocomplete/SearchAutocomplete.md), [DistributedCache](DistributedCache/DistributedCache.md)
+**Related**: [SearchAutocomplete](../SearchAutocomplete/SearchAutocomplete.md), [DistributedCache](../DistributedCache/DistributedCache.md)

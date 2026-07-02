@@ -1,5 +1,8 @@
 # Section 8: Angular & Frontend Engineering (Full-Stack Lead Critical)
 
+> **You are here**: SDE1–SDE2 — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [07_System_Design.md](07_System_Design.md) | **Next**: [09_Testing_Strategies.md](09_Testing_Strategies.md)
+
 ---
 
 ## 8.1 Angular Architecture: Modules, Standalone Components, Signals, and Change Detection

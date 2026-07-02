@@ -1,21 +1,28 @@
-# Software Engineer Interview Preparation — Associate to Lead
+# Developer Master Book — Fresher to Principal
 
-> **Your Career Level Journey**: Associate SDE → Mid-Level SDE → Senior SDE → Lead Software Engineer
-> **Tech Stack**: Java 17-21, Spring Boot 3.x, Angular 17+, Microservices, Kubernetes, Cloud-Native
-> **Purpose**: One repo, all levels. Study it when you need to crack any engineering role.
+> **Career ladder**: Fresher → SDE1 → SDE2 → Senior SDE → Tech Lead → Staff Engineer → Principal / Architect
+> **Audience**: Developers based in **India**; companies include **global firms hiring into India** (GCC, remote-for-India, India offices) — not limited to Indian HQ companies.
+> **Tech stack**: Java 17–21, Spring Boot 3.x, Angular 17+, Microservices, Kubernetes, Cloud-Native, AI/RAG
+>
+> **Start here**: [ROADMAP.md](ROADMAP.md) — map your level on the linear ladder, then follow the checklist
 
 ---
 
 ## What This Repository Covers
 
-This is your **lifetime reference** for software engineering interviews and daily revision. It is structured so that whether you are preparing for your first job or your tenth, you will find what you need.
+One self-contained repo: follow [ROADMAP.md](ROADMAP.md) level-by-level. Each topic file holds full depth for that subject — no hopping across folders for the same concept.
 
-| Career Level | What You Need | Where to Find It |
-|-------------|---------------|-----------------|
-| **Associate / Junior SDE** | Core Java OOP, CS basics, SQL, basic DSA, HTTP/REST | §00 Fundamentals, §35 SQL, 02_DSA Path 1 |
-| **Mid-Level SDE** | Deep Java, Design Patterns, databases, Medium DSA | 01_TechGuide §01-05 + 02_DSA Path 2 |
-| **Senior SDE** | Microservices, System Design, testing, Angular depth | 01_TechGuide §06-09 + 02_DSA Path 3 + 04_SystemDesign |
-| **Lead / Staff Engineer** | All of the above + Leadership, DevOps, Observability, AI/RAG, Agents, MLOps | Everything in this repo (all 5 sections) |
+| Level | What You Need | Where to Start in ROADMAP |
+|-------|---------------|---------------------------|
+| **Fresher** | CS/Java basics, SQL, Easy DSA, OA prep | [Fresher](ROADMAP.md#fresher) |
+| **SDE1** | Spring REST, intro Medium DSA, LLD | [SDE1](ROADMAP.md#sde1) |
+| **SDE2** | Patterns, DB tuning, Medium DSA, light HLD | [SDE2](ROADMAP.md#sde2) |
+| **Senior SDE** | Distributed systems, flagship HLD, Hard DSA | [Senior SDE](ROADMAP.md#senior-sde) |
+| **Tech Lead** | Behavioral, team SD, AI product design | [Tech Lead](ROADMAP.md#tech-lead) |
+| **Staff Engineer** | Platform, Tier 3 DSA, cross-team architecture | [Staff](ROADMAP.md#staff-engineer) |
+| **Principal** | Vision, org design, DR, exec comms | [Principal](ROADMAP.md#principal-architect) |
+
+**Mid-career?** Use [Where am I?](ROADMAP.md#where-am-i-map-yourself-on-the-ladder) — pick the level matching your scope, not years alone.
 
 ---
 
@@ -24,114 +31,47 @@ This is your **lifetime reference** for software engineering interviews and dail
 ```
 PREP/
 │
-├── README.md                          ← YOU ARE HERE (Master Guide)
-├── MASTER_INDEX.md                    ← Topic → file → round → level (full navigation)
-├── InterviewPlaybook.md               ← 12-week schedule, STAR, round protocols
+├── README.md                    ← You are here (overview)
+├── ROADMAP.md                   ← START HERE — level checklist (Fresher → Principal)
+├── MASTER_INDEX.md              ← Topic → file → round → level lookup
+├── Tracking_Iron_Protocol.xlsx  ← Daily prep tracker (generate: python tools/tracker_generator.py)
 │
-├── 01_TechGuide/                      ← Core Knowledge Base (start here — learn concepts first)
-│   ├── 00_TableOfContents.md          — Full index with career-level indicators
-│   ├── 00_Java_OOP_Fundamentals.md    — OOP, collections intro, exceptions (ASSOC start)
-│   ├── 00_Web_Fundamentals.md         — HTTP, REST, auth basics (ASSOC)
-│   ├── 00_Computer_Science_Fundamentals.md — Big-O, DS overview, recursion (ASSOC)
-│   ├── 01_Modern_Java_Features.md     — Java 17-21: Records, Sealed, Virtual Threads
-│   ├── 02_Advanced_SpringBoot_Java_Internals.md — GC, Concurrency, Bean Lifecycle
-│   ├── 03_Design_Patterns_SOLID_CleanArch.md — SOLID, GoF, Clean Architecture, DDD
-│   ├── 04_API_Design_REST.md          — RESTful APIs, Versioning, Pagination, HATEOAS
-│   ├── 05_Database_Performance_Tuning.md — Indexing, Sharding, Caching, Redis
-│   ├── 06_Microservices_Distributed_Systems.md — Resilience, SAGA, Kafka, gRPC
-│   ├── 07_System_Design.md            — Scalability, CAP, Load Balancing concepts
-│   ├── 08_Angular_Frontend_Engineering.md — Signals, Standalone, RxJS, State
-│   ├── 09_Testing_Strategies.md       — Test Pyramid, Testcontainers, WireMock
-│   ├── 10_DevOps_CICD_Docker.md       — Docker, CI/CD, GitOps, Blue-Green, Canary
-│   ├── 11_Observability.md            — Logs, Metrics, Traces, OpenTelemetry
-│   ├── 12_Security_OWASP_Cloud.md     — OWASP Top 10, AWS, IAM, VPC
-│   ├── 13_Modern_Trends_2026.md       — Latest industry trends
-│   ├── 14_Leadership_Behavioral_SystemDesign.md — STAR, ADRs, Estimation
-│   ├── 15_Java_Collections_Concurrency_DeepDive.md — HashMap, ConcurrentHashMap, Locks, Streams
-│   ├── 16_Spring_Ecosystem_DeepDive.md — JPA, WebFlux, Cloud, Batch, AOP, Events
-│   ├── 17_Networking_Protocols.md      — HTTP/2/3, TLS, DNS, WebSocket, gRPC, CDN
-│   ├── 18_Performance_Engineering_JVM.md — JVM tuning, GC, JFR, profiling, JMH
-│   ├── 19_Event_Driven_Architecture.md — Kafka deep dive, Event Sourcing, CQRS, Saga, CDC
-│   ├── 20_Technical_Leadership_Architecture.md — ADRs, estimation, post-mortems, mentorship
-│   ├── 21_GraphQL_and_Alternative_APIs.md  — GraphQL, Spring GraphQL, N+1, federation
-│   ├── 22_Kotlin_for_Java_Developers.md    — Coroutines vs virtual threads, Spring Kotlin
-│   ├── 23_SRE_Reliability_Engineering.md   — SLI/SLO, error budgets, incident response
-│   ├── 24_Platform_Engineering_IDP.md      — Golden paths, Backstage, GitOps, DORA metrics
-│   ├── 25_Data_Engineering_Fundamentals.md — Batch/stream, CDC, lakehouse, dbt, Spark/Flink
-│   ├── 26_PostgreSQL_Relational_DB_Deep_Dive.md — MVCC, VACUUM, replication, pgvector
-│   ├── 27_NoSQL_Databases_Guide.md         — MongoDB, DynamoDB, Cassandra
-│   ├── 28_Redis_Distributed_Caching.md     — Data structures, cluster, stampede, locks
-│   ├── 29_Advanced_Networking_Infrastructure.md — VPC, LB L4/L7, DNS, zero trust
-│   ├── 30_Kubernetes_Deep_Dive.md          — Pods, Ingress, HPA, probes, security
-│   ├── 31_Cloud_Computing_AWS_GCP_Azure.md   — IAM, S3, Lambda, Well-Architected
-│   ├── 32_Operating_Systems_and_Linux.md     — Processes, debugging, epoll, OOM
-│   ├── 33_Git_Version_Control_Workflow.md    — Trunk-based, merge vs rebase, PRs
-│   ├── 34_Search_Engines_Elasticsearch.md      — Inverted index, BM25, ELK
-│   ├── 35_SQL_Fundamentals.md                — JOINs, window functions, CTEs
-│   ├── 36_Polyglot_Interview_Python_and_Go.md — Python/Go DSA for polyglot rounds
-│   ├── 37_TypeScript_and_Frontend_Landscape.md — TS, React vs Angular breadth
-│   └── 38_Compliance_and_Regulated_Systems.md  — GDPR, PCI, audit trails
+├── 00_Interview_Prep/           ← Career, mocks, companies, level guides, Principal strategy
+│   ├── README.md                ← Hub for all interview-prep markdown (not DSA/SD)
+│   ├── Career/                  ← Resume & portfolio (Fresher)
+│   ├── Core/                    ← Playbook, SelfAssessment, Companies, CodeQuality, CrossRefs
+│   ├── Mock/                    ← Mock interview rubric
+│   ├── Levels/                  ← SDE2 → Staff failure modes, loops, comp, ARF
+│   └── Principal/               ← EA frameworks, vision, org design, DR, integration, exec comms
 │
-├── 02_DSA/                            ← 100+ Coding Problems (study top to bottom)
-│   ├── README.md                      — DSA overview and problem index
-│   ├── StudyGuide.md                  — Learning paths by career level
-│   ├── Tier3_Differentiators.md       — Hard patterns for Senior/Staff loops
-│   ├── 01_Arrays_Matrix/              — 16 problems (Two Sum, Merge Intervals, etc.)
-│   ├── 02_Strings/                    — 9 problems (Anagrams, Palindromes, KMP, etc.)
-│   ├── 03_Sorting_Searching/          — 4 problems (Merge Sort, Binary Search, Koko Eating Bananas)
-│   ├── 04_Sliding_Window_Two_Pointers/ — 5+ problems (Min Window, Max Subarray, etc.)
-│   ├── 05_Linked_Lists/               — 8 problems (Reverse, Merge, Cycle, etc.)
-│   ├── 06_Stacks_Queues/              — 6 problems (Valid Parentheses, etc.)
-│   ├── 07_Recursion_Divide_Conquer/   — Master Theorem + problems
-│   ├── 08_Trees_Binary_Trees/         — 8 problems (Traversal, LCA, Serialize, etc.)
-│   ├── 09_Binary_Search_Tree/         — 4 problems (Validate, Kth Smallest, etc.)
-│   ├── 10_Heaps_Priority_Queues/      — 4 problems (Top K, Median, Merge K, etc.)
-│   ├── 11_Graphs/                     — 7 problems (BFS, DFS, Dijkstra, Union Find)
-│   ├── 12_Backtracking/               — 5 problems (N-Queens, Permutations, etc.)
-│   ├── 13_Dynamic_Programming/        — 10+ problems (Knapsack, LIS, Edit Distance)
-│   ├── 14_Greedy_Algorithms/          — 4 problems (Task Scheduler, Jump Game, etc.)
-│   ├── 15_Bit_Manipulation/           — 5 problems (Power of Two, Counting Bits)
-│   ├── 16_Math_Algorithms/            — Number Theory (GCD, Primes, Modular Arith)
-│   ├── 17_Advanced_Miscellaneous/     — Trie, Segment Tree
-│   └── 18_Concurrency_Multithreading/ — Print In Order, Producer-Consumer, RW Lock
+├── 01_TechGuide/                ← Java, Spring, distributed systems, platform (§00–§38)
+├── 02_DSA/                      ← 125+ problems + StudyGuide + Tier3
+├── 03_CodingPatterns/           ← GoF patterns + algorithmic patterns + machine coding
+├── 04_SystemDesign/             ← LLD + HLD + templates
+├── 05_AI/                       ← RAG, agents, MLOps, AI system design
 │
-├── 03_CodingPatterns/                 ← Design Patterns + Algorithmic Patterns
-│   ├── README.md                      — Pattern overview and study order
-│   ├── 01_Patterns.md                — 25 GoF Design Patterns with Spring Boot examples
-│   └── 02_AlgorithmicPatterns.md     — 16 coding interview patterns with templates
-│
-├── 04_SystemDesign/                   ← LLD + HLD Problems + Templates
-│   ├── README.md                      — System design overview and study guide
-│   ├── 00_Templates/                  — HLD & LLD interview templates
-│   ├── 01_LowLevelDesign/            — 9 OOD problems (ParkingLot, ATM, Food Delivery, etc.)
-│   └── 02_HighLevelDesign/           — 18 HLD problems (Chat, Twitter, Web Crawler, YouTube, etc.)
-│
-├── 05_AI/                             ← AI & Machine Learning for Developers (2026)
-│   ├── README.md                      — Study path, career-level guide
-│   ├── 01_AI_Fundamentals.md         — Core ML/DL/LLM/Transformer concepts
-│   ├── 02_LLM_and_Prompt_Engineering.md — API calls, prompting, guardrails
-│   ├── 03_RAG_Architecture.md        — RAG end-to-end with Spring Boot
-│   ├── 04_Vector_Databases_Embeddings.md — pgvector, Pinecone, HNSW, similarity search
-│   ├── 05_Spring_AI.md               — ChatClient, embedding, function calling, streaming
-│   ├── 06_AI_Agents_and_Workflows.md — Agentic AI, MCP, ReAct, multi-agent
-│   ├── 07_AI_Powered_Dev_Tools.md    — Copilot, Cursor, CodeRabbit, AI in SDLC
-│   ├── 08_AI_in_Frontend.md          — AI-powered Angular UIs, streaming chat
-│   ├── 09_MLOps_AI_in_Production.md  — Deploy, monitor, scale, cost-control AI
-│   ├── 10_AI_System_Design.md        — AI system design interview problems
-│   └── 11_AI_Ethics_Safety_Governance.md — Responsible AI, bias, PII, compliance
-│
-├── InterviewQuestions.md               ← Top 218 Interview Questions — rapid-fire Q&A
-├── CodeQuality.md                     ← SOLID, Clean Code, Code Review Checklists
-├── CrossReferences.md                 ← How DSA concepts map to System Design
-├── SelfAssessment.md                  ← Topic-by-topic readiness checklists
-└── Companies.md                       ← Company-specific interview guides & tips
+└── tools/
+    └── tracker_generator.py     ← Regenerates Tracking_Iron_Protocol.xlsx
 ```
+
+### How to navigate
+
+| Step | Action |
+|------|--------|
+| 1 | Open [ROADMAP.md](ROADMAP.md) → find your level → work the checklist |
+| 2 | Theory gaps → [01_TechGuide/](01_TechGuide/) |
+| 3 | Coding → [02_DSA/StudyGuide.md](02_DSA/StudyGuide.md) |
+| 4 | Interview process, companies, mocks → [00_Interview_Prep/README.md](00_Interview_Prep/README.md) |
+| 5 | System design → [04_SystemDesign/README.md](04_SystemDesign/README.md) |
+| 6 | Can't find a topic → [MASTER_INDEX.md](MASTER_INDEX.md) |
 
 ---
 
 ## Learning Path by Career Level
 
 ### Associate / Junior SDE — Weeks 1-16
+
+> **ROADMAP level**: [Fresher](ROADMAP.md#fresher) → [SDE1](ROADMAP.md#sde1)
 
 You are learning the fundamentals. Focus on understanding, not speed.
 
@@ -143,13 +83,15 @@ You are learning the fundamentals. Focus on understanding, not speed.
 | 9-10 | Trees, Sorting, Binary Search | [02_DSA/StudyGuide.md — Path 1](02_DSA/StudyGuide.md) | HIGH |
 | 11-12 | Spring Boot Basics (DI, REST) | [§02 Spring Boot](01_TechGuide/02_Advanced_SpringBoot_Java_Internals.md) (Sections 2.3-2.4) | CRITICAL |
 | 13-14 | REST API design, Angular basics | [§04 API Design](01_TechGuide/04_API_Design_REST.md), [§08 Angular](01_TechGuide/08_Angular_Frontend_Engineering.md) (basics) | HIGH |
-| 15-16 | Basic DP, Greedy + interview playbook | [02_DSA Path 1](02_DSA/StudyGuide.md), [InterviewPlaybook.md](InterviewPlaybook.md) | HIGH |
+| 15-16 | Basic DP, Greedy + interview playbook | [02_DSA Path 1](02_DSA/StudyGuide.md), [InterviewPlaybook.md](00_Interview_Prep/Core/InterviewPlaybook.md) | HIGH |
 
 **Key outcome**: Solve 80% of LeetCode Easy problems. Explain basic Spring Boot and REST.
 
 ---
 
 ### Mid-Level SDE — Weeks 1-16
+
+> **ROADMAP level**: [SDE2](ROADMAP.md#sde2)
 
 You know the basics. Now build depth and pattern recognition.
 
@@ -161,13 +103,15 @@ You know the basics. Now build depth and pattern recognition.
 | 9-10 | Database Indexing, SQL Optimization | [§05 Database](01_TechGuide/05_Database_Performance_Tuning.md) | HIGH |
 | 11-12 | Spring Boot Security (JWT, OAuth2) | [§02 Spring Boot](01_TechGuide/02_Advanced_SpringBoot_Java_Internals.md) (Section 2.4) | HIGH |
 | 13-14 | Angular State Management, RxJS | [§08 Angular](01_TechGuide/08_Angular_Frontend_Engineering.md) (Sections 8.2-8.3) | HIGH |
-| 15-16 | Code Quality, Testing | [CodeQuality.md](CodeQuality.md), [§09 Testing](01_TechGuide/09_Testing_Strategies.md) | HIGH |
+| 15-16 | Code Quality, Testing | [CodeQuality.md](00_Interview_Prep/Core/CodeQuality.md), [§09 Testing](01_TechGuide/09_Testing_Strategies.md) | HIGH |
 
 **Key outcome**: Solve 70% of LeetCode Medium problems. Design clean APIs with proper patterns.
 
 ---
 
 ### Senior SDE — Weeks 1-12
+
+> **ROADMAP level**: [Senior SDE](ROADMAP.md#senior-sde)
 
 You build production systems. Now learn to design them at scale.
 
@@ -184,7 +128,9 @@ You build production systems. Now learn to design them at scale.
 
 ---
 
-### Lead / Staff Engineer — Weeks 1-12
+### Tech Lead / Staff — Weeks 1-12
+
+> **ROADMAP levels**: [Tech Lead](ROADMAP.md#tech-lead) and [Staff Engineer](ROADMAP.md#staff-engineer)
 
 You own technical direction. Now master everything and lead.
 
@@ -292,13 +238,14 @@ You own technical direction. Now master everything and lead.
 
 | File | Purpose | When to Use |
 |------|---------|-------------|
+| [00_Interview_Prep/README.md](00_Interview_Prep/README.md) | Hub for career, mocks, level guides, Principal strategy | Interview process & meta prep |
 | [MASTER_INDEX.md](MASTER_INDEX.md) | Topic → file → round → level — full navigation | Finding any topic quickly |
-| [InterviewPlaybook.md](InterviewPlaybook.md) | 12-week schedule, STAR, coding/SD round protocols | Structured prep plan |
-| [InterviewQuestions.md](InterviewQuestions.md) | Top 218 interview questions with one-line answers + section references | Night before interviews |
-| [CodeQuality.md](CodeQuality.md) | SOLID, Clean Code, naming conventions, anti-patterns, code review checklist | Before any coding round |
-| [CrossReferences.md](CrossReferences.md) | How DSA concepts map to System Design (Arrays → Caches, Trees → DBs, Graphs → Networks) | When connecting DSA to design |
-| [SelfAssessment.md](SelfAssessment.md) | Topic-by-topic readiness checklists with confidence scoring | Weekly self-check |
-| [Companies.md](Companies.md) | Google, Amazon, Meta, Microsoft, Flipkart, Apple interview guides | Before company-specific prep |
+| [InterviewPlaybook.md](00_Interview_Prep/Core/InterviewPlaybook.md) | 12-week schedule, STAR, coding/SD round protocols | Structured prep plan |
+| [InterviewQuestions.md](00_Interview_Prep/Core/InterviewQuestions.md) | Top 218 interview questions with one-line answers + section references | Night before interviews |
+| [CodeQuality.md](00_Interview_Prep/Core/CodeQuality.md) | SOLID, Clean Code, naming conventions, anti-patterns, code review checklist | Before any coding round |
+| [CrossReferences.md](00_Interview_Prep/Core/CrossReferences.md) | How DSA concepts map to System Design (Arrays → Caches, Trees → DBs, Graphs → Networks) | When connecting DSA to design |
+| [SelfAssessment.md](00_Interview_Prep/Core/SelfAssessment.md) | Topic-by-topic readiness checklists with confidence scoring | Weekly self-check |
+| [Companies.md](00_Interview_Prep/Core/Companies.md) | Google, Amazon, Meta, Microsoft, Flipkart, Apple interview guides | Before company-specific prep |
 | [02_DSA/StudyGuide.md](02_DSA/StudyGuide.md) | Learning paths by career level + difficulty progression per category | When planning DSA study |
 
 ---

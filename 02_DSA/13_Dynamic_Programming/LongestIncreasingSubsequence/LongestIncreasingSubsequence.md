@@ -1,5 +1,9 @@
 # Longest Increasing Subsequence (LIS)
 
+> **You are here**: DSA — see [ROADMAP](../../../ROADMAP.md) for level assignment
+> **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Study path**: [StudyGuide](../../StudyGuide.md)
+> **Pattern**: [Dynamic Programming](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-16-dynamic-programming-patterns) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
+
 ## Problem Statement
 Given an integer array `nums`, return the length of the **longest strictly increasing subsequence**.
 
@@ -18,6 +22,32 @@ Explanation: The longest increasing subsequence is [2,3,7,18], length = 4.
 **Time Complexity:** O(n²)  
 **Space Complexity:** O(n)
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[10,9,2,5,3,7,101,18]"]
+    START --> INIT["Init DP table / memo"]
+    INIT --> FILL["Fill states in order"]
+    FILL --> TRANS["Apply transition"]
+    TRANS --> MORE{"More states?"}
+    MORE -->|yes| FILL
+    MORE -->|no| DONE["Return dp[target]"]
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[10,9,2,5,3,7,101,18] → length 4
+Approach: O(n²) DP
+
+Define subproblem table
+Fill base cases
+Apply recurrence to reach target state
+```
 ```java
 public int lengthOfLISDP(int[] nums) {
     int[] dp = new int[nums.length];
@@ -41,6 +71,34 @@ public int lengthOfLISDP(int[] nums) {
 **Time Complexity:** O(n log n)  
 **Space Complexity:** O(n)
 
+
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[10,9,2,5,3,7,101,18]"]
+    START --> BOUNDS["lo=0, hi=n-1"]
+    BOUNDS --> MID["mid = (lo+hi)/2"]
+    MID --> CMP{"Compare nums[mid]"}
+    CMP -->|too small| LO["lo = mid+1"]
+    CMP -->|too large| HI["hi = mid-1"]
+    CMP -->|found| DONE["Return mid"]
+    LO --> BOUNDS
+    HI --> BOUNDS
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[10,9,2,5,3,7,101,18] → length 4
+Approach: Patience Sorting + Binary Search
+
+Set lo/hi bounds on answer or index
+Compare mid element with target
+Halve search space until found
+```
 ```java
 public int lengthOfLISOptimal(int[] nums) {
     List<Integer> tails = new ArrayList<>();
@@ -106,15 +164,127 @@ Final length: 4
 
 ### 1. Reconstruct Actual LIS
 Keep parent pointers to backtrack and build the actual subsequence.
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[10,9,2,5,3,7,101,18]"]
+    START --> BOUNDS["lo=0, hi=n-1"]
+    BOUNDS --> MID["mid = (lo+hi)/2"]
+    MID --> CMP{"Compare nums[mid]"}
+    CMP -->|too small| LO["lo = mid+1"]
+    CMP -->|too large| HI["hi = mid-1"]
+    CMP -->|found| DONE["Return mid"]
+    LO --> BOUNDS
+    HI --> BOUNDS
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[10,9,2,5,3,7,101,18] → length 4
+Approach: Patience Sorting + Binary Search
+
+Set lo/hi bounds on answer or index
+Compare mid element with target
+Halve search space until found
+```
+
 
 ### 2. Count Number of LIS
 Track count of ways to form LIS of each length.
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[10,9,2,5,3,7,101,18]"]
+    START --> BOUNDS["lo=0, hi=n-1"]
+    BOUNDS --> MID["mid = (lo+hi)/2"]
+    MID --> CMP{"Compare nums[mid]"}
+    CMP -->|too small| LO["lo = mid+1"]
+    CMP -->|too large| HI["hi = mid-1"]
+    CMP -->|found| DONE["Return mid"]
+    LO --> BOUNDS
+    HI --> BOUNDS
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[10,9,2,5,3,7,101,18] → length 4
+Approach: Patience Sorting + Binary Search
+
+Set lo/hi bounds on answer or index
+Compare mid element with target
+Halve search space until found
+```
+
 
 ### 3. Longest Non-Decreasing Subsequence
 Allow equal elements: change `>` to `>=` in comparison.
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[10,9,2,5,3,7,101,18]"]
+    START --> BOUNDS["lo=0, hi=n-1"]
+    BOUNDS --> MID["mid = (lo+hi)/2"]
+    MID --> CMP{"Compare nums[mid]"}
+    CMP -->|too small| LO["lo = mid+1"]
+    CMP -->|too large| HI["hi = mid-1"]
+    CMP -->|found| DONE["Return mid"]
+    LO --> BOUNDS
+    HI --> BOUNDS
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[10,9,2,5,3,7,101,18] → length 4
+Approach: Patience Sorting + Binary Search
+
+Set lo/hi bounds on answer or index
+Compare mid element with target
+Halve search space until found
+```
+
 
 ### 4. Longest Decreasing Subsequence
 Change condition to find decreasing subsequence.
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[10,9,2,5,3,7,101,18]"]
+    START --> BOUNDS["lo=0, hi=n-1"]
+    BOUNDS --> MID["mid = (lo+hi)/2"]
+    MID --> CMP{"Compare nums[mid]"}
+    CMP -->|too small| LO["lo = mid+1"]
+    CMP -->|too large| HI["hi = mid-1"]
+    CMP -->|found| DONE["Return mid"]
+    LO --> BOUNDS
+    HI --> BOUNDS
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[10,9,2,5,3,7,101,18] → length 4
+Approach: Patience Sorting + Binary Search
+
+Set lo/hi bounds on answer or index
+Compare mid element with target
+Halve search space until found
+```
+
 
 ### 5. LIS with Specific Constraints
 - Maximum difference between consecutive elements
@@ -172,4 +342,32 @@ Change condition to find decreasing subsequence.
 2. Learn the binary search optimization
 3. Practice reconstruction variants
 4. Solve related problems to reinforce patterns
-5. Understand why greedy choice works in this context 
+5. Understand why greedy choice works in this context
+#### Example Flow
+
+**Step flow (mermaid):**
+
+```mermaid
+flowchart TD
+    START["Input: nums=[10,9,2,5,3,7,101,18]"]
+    START --> BOUNDS["lo=0, hi=n-1"]
+    BOUNDS --> MID["mid = (lo+hi)/2"]
+    MID --> CMP{"Compare nums[mid]"}
+    CMP -->|too small| LO["lo = mid+1"]
+    CMP -->|too large| HI["hi = mid-1"]
+    CMP -->|found| DONE["Return mid"]
+    LO --> BOUNDS
+    HI --> BOUNDS
+```
+
+**Walkthrough (same example):**
+
+```
+Example: nums=[10,9,2,5,3,7,101,18] → length 4
+Approach: Patience Sorting + Binary Search
+
+Set lo/hi bounds on answer or index
+Compare mid element with target
+Halve search space until found
+```
+ 

@@ -3,6 +3,9 @@
 > **Level**: MID+ (when to use NoSQL) to SR+ (partitioning, consistency models, production tuning)
 > **Complements**: [05_Database_Performance_Tuning.md](./05_Database_Performance_Tuning.md) Section 5.2 (sharding concepts)
 
+> **You are here**: Senior SDE — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [26_PostgreSQL_Relational_DB_Deep_Dive.md](26_PostgreSQL_Relational_DB_Deep_Dive.md) | **Next**: [28_Redis_Distributed_Caching.md](28_Redis_Distributed_Caching.md)
+
 ---
 
 ## 27.1 SQL vs NoSQL — Decision Framework
@@ -158,3 +161,42 @@ Client → any node (coordinator) → write to commit log + memtable → SSTable
 | 10 | Neo4j use case? | Graph traversals — friends-of-friends, shortest path, fraud detection. |
 
 **Must-say keywords**: partition key, shard key, LSM tree, SSTable, GSI, tunable consistency, QUORUM, access pattern first, hot partition.
+
+---
+
+## §27.10 Production & Interview Depth — Catalog, Sessions & Time-Series
+
+Indian e-commerce interviews love: *"Why MongoDB for product catalog but PostgreSQL for orders?"* Meesho/Flipkart-style catalogs need **flexible attributes** (saree fabric, phone RAM) and high read QPS; orders need **ACID**. NoSQL enters after measured pain — not as a default.
+
+### Trade-off: MongoDB vs DynamoDB vs Cassandra (India SaaS Context)
+
+| Store | Sweet spot | Festival-scale pitfall | Typical Indian use |
+|-------|------------|------------------------|-------------------|
+| MongoDB | Rich documents, secondary indexes | Shard key `{category:1}` → hot shard on "mobiles" | Product catalog, CMS |
+| DynamoDB | Serverless, predictable single-digit ms | Hot partition on `PK: SALE#2026` | SaaS on AWS, session store |
+| Cassandra | Write-heavy, multi-DC | CQL modeling learning curve | Clickstream, driver GPS (Swiggy) |
+| PostgreSQL JSONB | ACID + semi-structured | Vertical scale limits | Start here per [26_PostgreSQL_Relational_DB_Deep_Dive.md](./26_PostgreSQL_Relational_DB_Deep_Dive.md) |
+
+### Access-Pattern-First: DynamoDB Single-Table for Seller Dashboard
+
+```
+PK: SELLER#IN123     SK: PROFILE
+PK: SELLER#IN123     SK: ORDER#20261015#456
+PK: SELLER#IN123     SK: METRICS#DAY#2026-10-15
+GSI1: PK=ORDER_STATUS#SHIPPED  SK=2026-10-15  → ops queries
+```
+
+Avoid `PK: PRODUCT#SALE` for all Diwali deals — **write sharding** with `PK: PRODUCT#SALE#${shard}` where `shard = hash(sku) % 16`.
+
+```java
+// Spring Data MongoDB — embed variants read together on PDP
+@Document(collection = "products")
+public class Product {
+    @Id private String id;
+    @Indexed private String sellerId;
+    private List<Variant> variants;  // embed — no join on product detail page
+    private Map<String, Object> attributes;  // category-specific facets
+}
+```
+
+MongoDB multi-doc transactions for **inventory decrement + order line** only when crossing collections; prefer PostgreSQL as source of truth for money paths. Eventual consistency reads from Cassandra/clickstream pipelines feed recommendations — sync via Kafka per [25_Data_Engineering_Fundamentals.md](./25_Data_Engineering_Fundamentals.md). Interview line: *"Start SQL; add document store for catalog flexibility; add wide-column for append-only logs at 100K+ writes/sec."*

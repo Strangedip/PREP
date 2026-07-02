@@ -3,6 +3,9 @@
 > **Level**: MID+ (cache-aside) to SR+ (cluster, persistence, cache stampede, Redis as data structure server)
 > **Complements**: [05_Database_Performance_Tuning.md](./05_Database_Performance_Tuning.md) Section 5.3
 
+> **You are here**: SDE2 — Technical Skills
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [27_NoSQL_Databases_Guide.md](27_NoSQL_Databases_Guide.md) | **Next**: [29_Advanced_Networking_Infrastructure.md](29_Advanced_Networking_Infrastructure.md)
+
 ---
 
 ## 28.1 Redis Architecture
@@ -158,3 +161,51 @@ Atomic refill + consume — see [RateLimiter System Design](../04_SystemDesign/0
 | 10 | Redis vs Memcached? | Redis: data structures, persistence, replication. Memcached: simple, multi-threaded, no persistence. |
 
 **Must-say keywords**: cache-aside, stampede, SET NX, hash slot, sorted set, AOF, eviction policy, single-threaded, Redisson.
+
+---
+
+## §28.10 Production & Interview Depth — Flash Sales, Sessions & Rate Limits
+
+Redis is the first line of defense when Flipkart opens a flash SKU at midnight — **inventory display**, **session carts**, **API rate limits**, and **OTP throttling** all land here. ElastiCache in `ap-south-1` (Mumbai) is standard; interviewers probe cache-aside correctness and stampede math, not just `SET`/`GET`.
+
+### Trade-off: Cache-Aside vs Read-Through for Product Pages
+
+| Pattern | Consistency | Stampede risk | Flash sale fit |
+|---------|-------------|---------------|----------------|
+| Cache-aside + delete-on-write | Good if delete after DB commit | High on TTL expiry | Default — add mutex |
+| Read-through (Spring Cache) | Simpler app code | Medium | Catalog browsing |
+| Write-through | Stronger | Low | Session/profile |
+| Redis as primary (inventory) | Fast but lossy | N/A | Only with AOF + fallback to PG |
+
+### Spring Boot 3.x: Stampede-Safe Product Cache
+
+```java
+@Service
+public class ProductCacheService {
+
+  @Cacheable(value = "products", key = "#id", unless = "#result == null")
+  public Product getProduct(long id) {
+      return productRepository.findById(id).orElse(null);
+  }
+
+  @CacheEvict(value = "products", key = "#product.id")
+  @Transactional
+  public Product updateProduct(Product product) {
+      return productRepository.save(product);  // evict AFTER commit
+  }
+}
+```
+
+Configure Caffeine L1 + Redis L2 for **sub-ms local hits** on hot SKUs; cluster mode with hash tags `{sku:123}` co-locate stock + price keys. Rate-limit checkout APIs during IPL ticket drops using sorted-set sliding window — see [RateLimiter System Design](../04_SystemDesign/02_HighLevelDesign/RateLimiter/RateLimiter.md).
+
+```java
+// Redisson — distributed lock for single-flight cache rebuild
+RLock lock = redisson.getLock("lock:product:" + skuId);
+if (lock.tryLock(0, 10, TimeUnit.SECONDS)) {
+    try { return loadAndCache(skuId); }
+    finally { lock.unlock(); }
+}
+return getStaleOrThrow(skuId);  // graceful degradation
+```
+
+Cross-link: authoritative inventory in [26_PostgreSQL_Relational_DB_Deep_Dive.md](./26_PostgreSQL_Relational_DB_Deep_Dive.md); session fixation risks in [12_Security_OWASP_Cloud.md](./12_Security_OWASP_Cloud.md). Production checklist: `maxmemory-policy allkeys-lfu`, Multi-AZ replica for reads, monitor **evicted_keys** and **connected_clients** before festival — single-threaded Redis means **one hot key ≠ cluster fix** unless you shard keys by design.

@@ -1,8 +1,14 @@
 # Tech Guide — Complete Software Engineering Knowledge Base
 
+> **You are here**: All levels — TechGuide index
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [ROADMAP Fresher section](../ROADMAP.md#fresher) | **Next**: [00_Java_OOP_Fundamentals.md](00_Java_OOP_Fundamentals.md)
+
 > **Covers**: Associate SDE → Mid-Level SDE → Senior SDE → Lead Software Engineer
 > **Tech Stack**: Java 17-21, Spring Boot 3.x, Angular 17+, Microservices, Kubernetes, Cloud-Native
 > **Purpose**: Your lifetime technical reference. Read §00 fundamentals first (Associate), then sections 01 → 38 in order for full coverage.
+
+> **You are here**: All levels — Navigation
+> **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Next**: [00_Web_Fundamentals.md](00_Web_Fundamentals.md)
 
 ---
 
