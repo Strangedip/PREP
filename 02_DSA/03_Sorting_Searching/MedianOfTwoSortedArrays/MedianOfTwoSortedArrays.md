@@ -55,15 +55,12 @@ If `maxLeft1 > minRight2`, move cut left (`hi = i - 1`); else move right (`lo = 
 
 ```mermaid
 flowchart TD
-    START["Input: nums1=[1,3], nums2=[2]"]
-    START --> BOUNDS["lo=0, hi=n-1"]
-    BOUNDS --> MID["mid = (lo+hi)/2"]
-    MID --> CMP{"Compare nums[mid]"}
-    CMP -->|too small| LO["lo = mid+1"]
-    CMP -->|too large| HI["hi = mid-1"]
-    CMP -->|found| DONE["Return mid"]
-    LO --> BOUNDS
-    HI --> BOUNDS
+    START["nums1=[1,3], nums2=[2]"]
+    START --> BOUNDS["Binary search partition i in nums1"]
+    BOUNDS --> CUT["i=1: left1=[1], right1=[3], left2=[], right2=[2]"]
+    CUT --> CHECK{"maxLeft <= minRight on both sides?"}
+    CHECK -->|yes| MED["Median = (max(1,∅) + min(2,3)) / 2 = 2.0"]
+    CHECK -->|no| ADJ["Adjust partition left or right"]
 ```
 
 **Walkthrough (same example):**

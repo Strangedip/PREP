@@ -357,6 +357,70 @@ Result: Rider sees driver moving on the map in real-time (3-5 second updates)
 
 ---
 
+## End-to-end ride request
+
+```
+1. Rider: POST /rides/estimate → Pricing Service (distance, surge cell, ETA)
+2. Rider: POST /rides → Ride Service creates ride (REQUESTED)
+3. Matching Service: GEORADIUS 2km → 5km → 10km until drivers found
+4. Lock driver D via SETNX driver:D:lock (TTL 15s)
+5. Push offer to D's app; wait 15s
+6. D accepts → ride DRIVER_ASSIGNED; D.status = busy
+7. D streams location → Redis → Pub/Sub → rider WebSocket
+8. Trip completes → Payment Service (idempotent ride_id)
+9. Release driver lock; D.status = available
+```
+
+Steps 4–6 prevent the same driver accepting two rides.
+
+---
+
+## Double-booking prevention
+
+Two riders must not match the same driver simultaneously.
+
+```redis
+SET driver:42:lock <ride_id> NX EX 15
+```
+
+| Result | Meaning |
+|--------|---------|
+| OK | This ride owns the driver for 15 seconds |
+| null | Driver already locked — try next candidate |
+
+On accept: lock becomes permanent `busy` state until trip ends. On timeout: lock expires; driver returns to pool.
+
+**Interview mistake**: Only checking `status == available` in application code without atomic lock — race between two matching workers.
+
+---
+
+## Failure scenarios
+
+| Scenario | Impact | Response |
+|----------|--------|----------|
+| Surge miscalculation | Riders see wrong fare | Smooth multiplier over 60s windows; cap at 3× |
+| Driver GPS drops mid-trip | Stale map position | 60s TTL → mark offline; rider sees last known + message |
+| Payment fails after trip | Revenue loss / dispute | Complete trip record; retry payment async; block rider after N failures |
+| Matching storm (rain, 8pm) | 30s wait times | Expand radius; queue requests; show honest ETA |
+| Geohash boundary | Nearest driver missed | Query adjacent cells or use S2 |
+
+---
+
+## Interview walkthrough (40 min)
+
+| Phase | Cover |
+|-------|--------|
+| **Requirements** (5 min) | Match, track, price, pay; 5s match SLA |
+| **Location** (10 min) | 500K updates/sec → Kafka → Redis; GEORADIUS |
+| **Matching** (10 min) | Expanding radius, rank, lock, timeout, next driver |
+| **State machine** (5 min) | REQUESTED → … → PAYMENT_PROCESSED |
+| **Surge** (5 min) | H3/geohash cells; demand/supply ratio |
+| **Scale** (5 min) | City partition; WebSocket tracking |
+
+**Compare**: [FoodDelivery LLD](../../01_LowLevelDesign/FoodDelivery/FoodDelivery.md) for order state machine; [Ticketmaster](Ticketmaster.md) for Redis atomic holds.
+
+---
+
 **Difficulty**: Hard
 **Frequency**: Very High — top 5 most asked HLD problem
 **Key Patterns**: Geospatial Indexing (Geohash/QuadTree/S2), WebSocket, State Machine, Surge Pricing, City-based Partitioning

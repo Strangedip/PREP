@@ -234,3 +234,48 @@ public class CashDispenser {
 5. **Extension** — Transfer funds = new `TransactionStrategy`; PIN change = new authenticated sub-flow
 
 **Related designs**: [VendingMachine](../VendingMachine/VendingMachine.md) (FSM), [ParkingLot](../ParkingLot/ParkingLot.md) (Strategy), [BookMyShow](../BookMyShow/BookMyShow.md) (concurrency + holds)
+
+---
+
+## Sequence diagram: withdrawal happy path
+
+```
+User          ATMController    BankService    CashDispenser    TransactionLog
+  │                 │               │              │                │
+  │──insert card───▶│               │              │                │
+  │◀──prompt PIN───│               │              │                │
+  │──enter PIN─────▶│──validatePin─▶│              │                │
+  │◀──menu─────────│◀──ok──────────│              │                │
+  │──withdraw $100─▶│               │              │                │
+  │                 │──canDispense?──────────────▶│                │
+  │                 │◀──yes────────────────────────│                │
+  │                 │──debit───────────────────────▶│                │
+  │                 │◀──ok──────────────────────────│                │
+  │                 │──dispense────────────────────▶│                │
+  │◀──cash─────────│               │              │                │
+  │                 │──append log──────────────────────────────────▶│
+  │──eject card────▶│               │              │                │
+```
+
+---
+
+## REST API mapping (if interviewer asks web/mobile ATM)
+
+| Method | Endpoint | Maps to state |
+|--------|----------|---------------|
+| POST | `/atm/sessions` | insertCard → HasCard |
+| POST | `/atm/sessions/{id}/pin` | enterPin → Authenticated |
+| POST | `/atm/sessions/{id}/withdraw` | WithdrawStrategy |
+| GET | `/atm/sessions/{id}/balance` | BalanceStrategy |
+| DELETE | `/atm/sessions/{id}` | eject / timeout → Idle |
+
+---
+
+## Interview walkthrough (40 min)
+
+1. **State machine** — draw states first (interviewers love FSM)
+2. **Strategy pattern** — withdraw vs balance vs deposit
+3. **Concurrency** — one session per machine (`synchronized`)
+4. **Debit + dispense atomicity** — compensate on dispense failure
+5. **Greedy denominations** — walk through $180 with $100/$50/$20 bills
+6. **Extensions** — transfer, PIN change as new strategies

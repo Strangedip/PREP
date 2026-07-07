@@ -289,3 +289,98 @@ public record SuggestResponse(List<Suggestion> suggestions, boolean cacheHit) {
 | Elasticsearch | Flexible ranking | 20-50ms+, operational cost |
 | Precomputed topK at nodes | Fast reads | Large memory, stale on rank change |
 | Fan-out on write (precompute all prefixes) | Fast reads | Expensive offline compute |
+
+---
+
+## Deep dive: Trie with precomputed topK
+
+### Building the trie (offline)
+
+For each query in search logs (e.g., "strawberry", count=1M):
+
+```
+Insert "strawberry" into trie
+At node 's':     add "strawberry" to topK if count qualifies
+At node 'st':     add "strawberry" to topK
+At node 'str':    add "strawberry" to topK
+At node 'stra':   add "strawberry" to topK
+... every prefix node gets updated
+```
+
+### Query walkthrough
+
+```
+User types: "str"
+
+1. Normalize → "str"
+2. Redis miss → trie lookup
+3. Walk: root → s → t → r
+4. Return node('r').topK = ["strawberry", "streaming", "street", ...]
+5. Cache in Redis: suggest:str:en → JSON (TTL 15 min)
+```
+
+**Time complexity**: O(prefix length) — typically 3-15 character steps.
+
+```mermaid
+flowchart LR
+    root --> s --> t --> r
+    r -->|"topK"| TK["strawberry, streaming, street"]
+```
+
+### Memory trade-off
+
+| Approach | Query time | Memory | Freshness |
+|----------|------------|--------|-----------|
+| Trie + topK at each node | O(prefix) | High (~25 GB) | Stale until rebuild |
+| Trie without topK | O(prefix + K log N) | Lower | Better |
+| Elasticsearch edge n-gram | 20-50ms | ES cluster cost | Near real-time |
+
+---
+
+## Deep dive: Trending overlay
+
+Trie rebuilds hourly — viral queries spike in minutes.
+
+```
+Separate Redis sorted set: trending:global (updated every 1 min from stream)
+On suggest("cor"): merge trie results + trending matches
+  → "coronavirus" may appear despite hourly trie
+```
+
+---
+
+## Deep dive: Personalization merge
+
+```
+Parallel:
+  Thread 1: trie lookup("str") → 50ms budget
+  Thread 2: user:42:recent_searches from Redis → 10ms
+
+Merge:
+  Boost score if suggestion in user's history
+  Cap personalization influence at 30% (don't override global popularity entirely)
+```
+
+---
+
+## Failure modes
+
+| Failure | Mitigation |
+|---------|------------|
+| Trie rebuild failure | Keep old snapshot; double-buffer swap |
+| Hot prefix "a" | Dedicated Redis cache; CDN for mega-prefix |
+| Scraping abuse | Rate limit per IP; CAPTCHA on burst |
+| PII in suggestions | Blocklist; never use private searches globally |
+| Stale trending | Overlay layer updates faster than full trie |
+
+---
+
+## Interview walkthrough (40 min)
+
+1. **Requirements** — latency, scale, ranking signals
+2. **Trie + precomputed topK** — why O(prefix) matters
+3. **Caching layers** — Redis, CDN, client debounce
+4. **Offline pipeline** — Spark aggregation, trending
+5. **Trie vs Elasticsearch** — trade-off table
+6. **Safety** — blocklist, rate limits
+

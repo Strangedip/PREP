@@ -238,3 +238,148 @@ public record QueryResult(List<MetricPoint> series) {}
 5. **Fail-open on ingest** — Drop samples under overload vs crash the monitored app
 
 **Related**: [§11 Observability](../../../01_TechGuide/11_Observability.md), [§23 SRE](../../../01_TechGuide/23_SRE_Reliability_Engineering.md)
+
+---
+
+## Deep dive: Push vs Pull ingestion
+
+| Model | How | Pros | Cons | Used by |
+|-------|-----|------|------|---------|
+| **Pull (scrape)** | Prometheus scrapes `/metrics` every 15s | Simple, agentless on app | Misses short-lived pods | Prometheus, VictoriaMetrics |
+| **Push** | App/agent sends to gateway | Works for Lambda, batch jobs | Can overwhelm gateway | OpenTelemetry collector, StatsD |
+| **Hybrid** | Pull for long-running + push for ephemeral | Best of both | Two pipelines | Most large orgs |
+
+**Interview**: "Kubernetes pods live 30 seconds — pull may never scrape them. Use OpenTelemetry sidecar push for short-lived workloads."
+
+---
+
+## Deep dive: Cardinality explosion
+
+**Cardinality** = number of unique time series (metric name + label combinations).
+
+```
+http_requests_total{service="api", method="GET", status="200", user_id="12345"}
+                                                              ^^^^^^^^ DANGER
+```
+
+| Label | Safe? | Why |
+|-------|-------|-----|
+| `service`, `endpoint`, `status` | Yes | Low hundreds of values |
+| `user_id`, `order_id`, `trace_id` | **Never** | Millions of unique series |
+| `customer_tier` | Maybe | Bounded enum (free/pro/enterprise) |
+
+**What happens with high cardinality**:
+- TSDB memory explodes
+- Query latency degrades
+- Cost increases linearly with series count
+
+**Fix**: Aggregate at ingest; use **logs** for per-user debugging; use **traces** for request-level detail.
+
+---
+
+## Deep dive: Histograms and p99 latency
+
+### Why histograms matter
+
+```
+You cannot average percentiles across instances:
+
+Instance A: p99 = 200ms
+Instance B: p99 = 800ms
+Average p99 ≠ 500ms (wrong!)
+
+Histogram buckets are aggregatable:
+  sum(rate(http_duration_bucket[5m])) by (le)
+  → histogram_quantile(0.99, ...)
+```
+
+| Type | Aggregatable across pods? | Use |
+|------|---------------------------|-----|
+| **Histogram** | Yes (bucket sums) | Latency, size distributions |
+| **Summary** | No (pre-computed quantiles) | Legacy — avoid in K8s |
+| **Counter** | Yes (sum rates) | Request counts |
+| **Gauge** | Yes (avg/max) | Queue depth, memory |
+
+### Example PromQL for p99
+
+```promql
+histogram_quantile(0.99,
+  sum(rate(http_request_duration_seconds_bucket[5m])) by (le, service)
+)
+```
+
+---
+
+## Deep dive: Alerting state machine
+
+```
+                    ┌─────────┐
+         breach ──▶ │ PENDING │ ── sustained 5m ──▶ FIRING ──▶ notify
+                    └─────────┘                      │
+                         ▲                           │
+                         └──── resolved ──────────────┘
+```
+
+| State | Meaning | Action |
+|-------|---------|--------|
+| **OK** | Below threshold | None |
+| **PENDING** | One breach | Wait for `for: 5m` to avoid flapping |
+| **FIRING** | Sustained breach | Page on-call, Slack |
+| **Resolved** | Back to OK | Send recovery notification |
+
+**Alert fatigue prevention**:
+- Group by `service`, `alertname`
+- `repeat_interval: 4h` for same alert
+- Runbooks linked in annotation (`runbook_url`)
+
+---
+
+## Deep dive: SLOs and error budgets
+
+```
+SLO: 99.9% of requests < 500ms over 30 days
+Error budget: 0.1% = 43.2 minutes of bad latency per month
+
+When budget burned:
+  → Freeze feature releases
+  → Focus on reliability work
+```
+
+Connect metrics platform to business: "Payment p99 > 2s correlates with 3% checkout drop."
+
+---
+
+## Deep dive: Three pillars integration
+
+| Pillar | Tool examples | Question it answers |
+|--------|---------------|---------------------|
+| **Metrics** | Prometheus, Datadog | "Is error rate up?" |
+| **Logs** | ELK, Loki | "Why did this request fail?" |
+| **Traces** | Jaeger, Zipkin | "Which service was slow?" |
+
+**Correlation**: `trace_id` in logs + metrics labels → jump from dashboard spike to root cause span.
+
+---
+
+## Failure modes
+
+| Failure | Symptom | Mitigation |
+|---------|---------|------------|
+| Cardinality explosion | TSDB OOM, slow queries | Cardinality limiter at ingest; drop bad labels |
+| Ingest overload | Gateway drops metrics | Fail-open; sample/drop; never block app |
+| Hot dashboard query | Query service CPU spike | Redis cache; pre-aggregate common queries |
+| Clock skew | Misaligned data points | NTP on all nodes; use server timestamp |
+| Alert storm | 500 pages during incident | Grouping, inhibition rules, silences with expiry |
+| Retention cost | Storage bill grows | Aggressive downsampling; 15d raw → 1y hourly |
+
+---
+
+## Interview walkthrough (45 min)
+
+1. **Clarify** (5 min): metric types, alert needs, scale
+2. **Ingest** (10 min): push vs pull, OpenTelemetry
+3. **Storage** (10 min): sharding, downsampling, cardinality
+4. **Query** (5 min): PromQL, cache layer
+5. **Alerting** (5 min): state machine, on-call integration
+6. **SLO / pillars** (10 min): error budget, logs/traces correlation
+

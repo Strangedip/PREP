@@ -253,3 +253,99 @@ public record PlaybackResponse(String manifestUrl, List<String> resolutions, lon
 | GPU transcoding | Fast encode | Expensive compute |
 | Async view counts | Scales writes | Not real-time exact |
 | Multi-CDN | Capacity + resilience | Operational complexity |
+
+---
+
+## Deep dive: HLS playback step-by-step
+
+```
+1. Client requests manifest: GET /videos/123/playlist.m3u8
+2. Manifest lists segment URLs per quality:
+     #EXT-X-STREAM-INF:BANDWIDTH=2500000
+     720p/segment_001.ts
+     #EXT-X-STREAM-INF:BANDWIDTH=800000
+     360p/segment_001.ts
+3. Player estimates bandwidth → picks 720p
+4. Downloads segment_001.ts from CDN edge
+5. Buffers 3-5 segments ahead
+6. Bandwidth drops → switch to 360p mid-playback (ABR)
+7. Segment complete → request segment_002.ts
+```
+
+**Rebuffering** happens when buffer empties before next segment arrives — ABR lowers quality to prevent this.
+
+---
+
+## Deep dive: Transcoding cost model
+
+| Input | Factor | Cost driver |
+|-------|--------|-------------|
+| 1 hour 4K video | 5 renditions × H.264 | ~30 min GPU time |
+| 1M uploads/day | Queue depth | GPU fleet size |
+| Viral re-transcode | Priority queue | SLA for "ready" time |
+
+**Cost optimizations**:
+- Spot/preemptible GPU instances
+- Skip 4K for short clips (< 60 sec)
+- Cache transcoded output — same raw hash = reuse renditions
+- Tiered SLA: free users slower queue, creators faster
+
+---
+
+## Deep dive: Viral video thundering herd
+
+```
+Celebrity posts video → 10M viewers in 1 hour
+CDN cache: COLD for new content
+All requests miss → hit origin simultaneously
+Origin collapses
+```
+
+**Mitigations**:
+1. **Origin shield** — single regional cache layer before S3
+2. **Proactive prefetch** — push to CDN edges when transcode completes
+3. **Multi-CDN** — Akamai + CloudFront for capacity
+4. **Request collapsing** — shield tier deduplicates identical segment fetches
+
+---
+
+## Deep dive: View count pipeline
+
+```
+Player event → Kafka (view_events)
+            → Flink aggregation (dedupe by user+video, 30 min window)
+            → Redis counter (real-time display)
+            → Hourly batch → PostgreSQL / data warehouse
+```
+
+Display "1.2M views" — approximate is fine. Billing/fraud needs exact dedup.
+
+---
+
+## Failure modes
+
+| Failure | Impact | Mitigation |
+|---------|--------|------------|
+| Transcode worker crash | Video stuck processing | Retry job; DLQ after 3 attempts |
+| CDN origin overload | Buffering for users | Shield tier, prefetch |
+| Bad manifest | Player cannot start | Validate manifest in CI |
+| Upload incomplete | Orphan chunks in S3 | Lifecycle policy cleanup |
+| DRM license failure | Premium content blocked | Fallback error UX |
+
+---
+
+## Relationship to YouTube HLD
+
+[YouTube.md](../YouTube/YouTube.md) covers the full platform (search, recommendations, social). This doc focuses on **video pipeline core** — upload, transcode, CDN playback. Study both for complete video system design interviews.
+
+---
+
+## Interview walkthrough (40 min)
+
+1. **Separate upload vs playback paths** (different bottlenecks)
+2. **Transcoding** — why multiple renditions, GPU workers
+3. **ABR / HLS** — how player switches quality
+4. **CDN strategy** — edge, shield, origin
+5. **Viral video** — thundering herd mitigation
+6. **View counts** — async, approximate
+

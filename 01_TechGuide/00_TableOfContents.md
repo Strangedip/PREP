@@ -637,3 +637,17 @@ Each section below is tagged with the minimum level where the topic becomes rele
 | Elasticsearch | Inverted Index, BM25, Shard, Analyzer, Bool Query |
 | Polyglot | Python defaultdict/deque, Go goroutine/channel, GIL |
 | Compliance | GDPR erasure, PCI scope, tokenization, audit trail, data residency |
+
+---
+
+## Beyond TechGuide — other repo sections
+
+| Section | Hub | When to use |
+|---------|-----|-------------|
+| **Interview prep** | [00_Interview_Prep/README.md](../00_Interview_Prep/README.md) | Career, mocks, failure modes, Principal strategy |
+| **DSA** | [02_DSA/StudyGuide.md](../02_DSA/StudyGuide.md) | Coding problems by level |
+| **System design** | [04_SystemDesign/README.md](../04_SystemDesign/README.md) | LLD + HLD walkthroughs (Twitter, Ride Sharing, Ticketmaster, …) |
+| **On the job** | [06_On_The_Job/README.md](../06_On_The_Job/README.md) | Post-hire: first 90 days, debugging, on-call, RFCs |
+| **Full topic lookup** | [MASTER_INDEX.md](../MASTER_INDEX.md) | Find any file by topic, round, or level |
+
+**Back to**: [ROADMAP](../ROADMAP.md) | [README](../README.md)

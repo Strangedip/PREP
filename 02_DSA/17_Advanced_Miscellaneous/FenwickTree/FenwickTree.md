@@ -21,42 +21,48 @@ rangeSum(2, 4)  → 3 + 7 + 7 = 17
 
 ## Approach 1: Fenwick Tree / Binary Indexed Tree (Optimal for Sum)
 
-A Fenwick tree stores partial sums in a 1-indexed array `tree[]`. Each index `i` is responsible for a range whose length is the lowest set bit of `i` (`i & -i`).
+A Fenwick tree stores partial sums in a **1-indexed** array `tree[]`. Each index `i` is responsible for a range of length equal to the **lowest set bit** of `i` (`i & -i`).
 
-| Operation | Idea |
-|-----------|------|
-| `update(i, delta)` | Add `delta` at `i`, then propagate to parent indices: `i += i & -i` |
-| `prefixSum(i)` | Accumulate `tree[i]`, then move to parent: `i -= i & -i` |
-| `rangeSum(l, r)` | `prefixSum(r) - prefixSum(l - 1)` |
+### The `i & -i` trick explained
 
-### Key Logic
+```
+i   = 6  →  binary 110
+-i  = -6 →  two's complement 010
+i & -i     = 010 = 2
 
+Meaning: index 6 covers 2 elements ending at position 6
+```
 
-#### Example Flow
+| Operation | Pseudocode | Why O(log n) |
+|-----------|------------|--------------|
+| `update(i, delta)` | `i += i & -i` until `i > n` | At most log₂(n) steps |
+| `prefixSum(i)` | `i -= i & -i` until `i == 0` | Same |
 
-**Step flow (mermaid):**
+### Visual: tree[6] covers indices 5–6
+
+```
+Array (1-indexed):  [_, 1, 3, 5, 7, 9, 11]
+                      0  1  2  3  4  5   6
+
+tree[2] covers index 2        (length 1)
+tree[4] covers indices 3–4    (length 2)
+tree[6] covers indices 5–6    (length 2)
+```
+
+### Walkthrough: `rangeSum(2, 4)` on `[1, 3, 5, 7, 9, 11]`
+
+```
+prefixSum(4) = tree[4] + tree[2] = (3+7) + 3 = 13  ... depends on build
+prefixSum(1) = tree[1] = 1
+rangeSum(2,4) = prefixSum(4) - prefixSum(1) = 3 + 5 + 7 = 15
+```
 
 ```mermaid
 flowchart TD
-    START["Input: arr=[1,3,5,7,9,11], rangeSum(1,3)"]
-    START --> ROOT["Start at root / index 0"]
-    ROOT --> WALK["Traverse structure"]
-    WALK --> QUERY{"Query or update?"}
-    QUERY -->|query| AGG["Aggregate range"]
-    QUERY -->|update| PROP["Propagate to children"]
-    AGG --> DONE["Return result"]
-    PROP --> WALK
-```
-
-**Walkthrough (same example):**
-
-```
-Example: arr=[1,3,5,7,9,11], rangeSum(1,3)→15
-Approach: Fenwick Tree / Binary Indexed Tree (Optimal for Sum)
-
-Traverse from root/index 0
-Query aggregates or update nodes
-Return range sum / structure result
+    START["rangeSum(2, 4)"]
+    START --> P4["prefixSum(4): climb down tree"]
+    P4 --> P1["prefixSum(1): climb down tree"]
+    P1 --> SUB["prefixSum(4) - prefixSum(1) = 15"]
 ```
 ```java
 public void update(int i, int delta) {

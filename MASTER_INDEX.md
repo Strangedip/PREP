@@ -37,6 +37,7 @@
 | SQL JOINs, window functions | [35_SQL_Fundamentals.md](01_TechGuide/35_SQL_Fundamentals.md) | TECH | FRESHER |
 | DSA Path 1 (arrays, strings, trees) | [02_DSA/StudyGuide.md](02_DSA/StudyGuide.md) | COD | FRESHER |
 | Fresher resume & portfolio | [Resume_and_Portfolio.md](00_Interview_Prep/Career/Resume_and_Portfolio.md) | ALL | FRESHER |
+| Capstone portfolio projects | [Capstone_Projects.md](00_Interview_Prep/Career/Capstone_Projects.md) | ALL | FRESHER |
 | Fresher OA & screening | [Fresher_Screening_and_OA_Guide.md](00_Interview_Prep/Career/Fresher_Screening_and_OA_Guide.md) | COD | FRESHER |
 | Fresher failure modes | [Fresher_Failure_Modes.md](00_Interview_Prep/Levels/Fresher_Failure_Modes.md) | ALL | FRESHER |
 | SDE1 interview guide | [SDE1_Interview_Guide.md](00_Interview_Prep/Levels/SDE1_Interview_Guide.md) | ALL | SDE1 |
@@ -62,6 +63,20 @@
 | Executive communication | [Executive_Communication_Board_Narrative.md](00_Interview_Prep/Principal/Executive_Communication_Board_Narrative.md) | BEH | PRIN |
 | Vendor evaluation | [Vendor_Evaluation_Rubrics.md](00_Interview_Prep/Principal/Vendor_Evaluation_Rubrics.md) | TECH | PRIN |
 | Readiness checklist | [SelfAssessment.md](00_Interview_Prep/Core/SelfAssessment.md) | ALL | ALL |
+
+---
+
+## On the Job — Post-Hire (SDE1+)
+
+| Topic | File | Round | Level |
+|-------|------|-------|-------|
+| On-the-job hub | [06_On_The_Job/README.md](06_On_The_Job/README.md) | ALL | ALL |
+| First 90 days onboarding | [01_First_90_Days.md](06_On_The_Job/01_First_90_Days.md) | ALL | SDE1 |
+| Production debugging | [02_Production_Debugging.md](06_On_The_Job/02_Production_Debugging.md) | TECH | MID |
+| On-call & incidents | [03_On_Call_Incident_Response.md](06_On_The_Job/03_On_Call_Incident_Response.md) | TECH | SR |
+| RFC / ADR writing | [04_RFC_ADR_Writing.md](06_On_The_Job/04_RFC_ADR_Writing.md) | TECH | MID |
+| Code review culture | [05_Code_Review_Culture.md](06_On_The_Job/05_Code_Review_Culture.md) | ALL | ALL |
+| Engineering Manager track | [06_Engineering_Manager_Track.md](06_On_The_Job/06_Engineering_Manager_Track.md) | BEH | LEAD |
 
 ---
 
@@ -239,11 +254,13 @@
 | Round | Top 5 Resources |
 |-------|-----------------|
 | **Coding** | StudyGuide → AlgorithmicPatterns → 3 problems/day → Tier3 → mock |
-| **HLD** | §07 → HLD Template → URL Shortener → Chat → Payment |
-| **LLD** | Parking Lot → Vending Machine → BookMyShow → Food Delivery |
+| **HLD** | §07 → HLD Template → URL Shortener → News Feed → Twitter → Ride Sharing → Payment |
+| **LLD** | Parking Lot → Vending Machine → Snake & Ladder → BookMyShow → Food Delivery |
+| **Redis + cache SD** | §28 Redis → Distributed Cache HLD → Ticketmaster (atomic holds) |
 | **Java depth** | §02 → §15 → §16 → InterviewQuestions §Java |
 | **Behavioral** | §14 → Companies LP → level failure modes → InterviewPlaybook |
 | **AI** | 05_AI README → level section in ROADMAP → RAG (SR) → Agents (Lead) |
+| **On the job** | First 90 Days → Code Review → Production Debugging → On-Call |
 
 ---
 

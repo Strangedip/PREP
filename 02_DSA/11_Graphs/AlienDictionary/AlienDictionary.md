@@ -1,108 +1,187 @@
 # Alien Dictionary — LeetCode 269
 
 > **You are here**: Staff Engineer — DSA (graph)
+> **Depth**: Standard (full graph construction + topological sort walkthrough)
 > **Roadmap**: [Developer Master Roadmap](../../../ROADMAP.md) | **Prerequisites**: [Topological Sort](../TopologicalSort/TopologicalSort.md), [Course Schedule](../CourseSchedule/CourseSchedule.md) | **Next**: [Critical Connections](../CriticalConnections/CriticalConnections.md)
 > **Pattern**: [Topological Sort](../../../03_CodingPatterns/02_AlgorithmicPatterns.md#pattern-15-topological-sort) | **Catalog**: [Algorithmic Patterns](../../../03_CodingPatterns/02_AlgorithmicPatterns.md)
 
+---
+
 ## Problem Statement
 
-Given a sorted list of words in an **alien language**, derive the character order. Words are sorted lexicographically by the rules of this unknown language.
+Given a sorted list of words in an **alien language**, derive the character ordering. Words are sorted lexicographically by unknown rules.
 
-Return a string of unique characters in order. If invalid (cycle), return `""`.
+Return a string of unique characters in order. If the order is **invalid** (contradiction / cycle), return `""`.
 
-**Example:**
+**Examples:**
 ```
-Input: words = ["wrt","wrf","er","ett","rftt"]
+Input:  words = ["wrt","wrf","er","ett","rftt"]
 Output: "wertf"
 
-Input: words = ["z","x"]
+Input:  words = ["z","x"]
 Output: "zx"
 
-Input: words = ["z","x","z"]
-Output: ""  // cycle
+Input:  words = ["z","x","z"]
+Output: ""   // contradiction
 ```
 
 ---
 
-## Approach: Build graph + topological sort
+## Intuition — what are we really solving?
 
-### Step 1: Compare adjacent words
+Adjacent words in the sorted list give us **ordering constraints** between characters. Collect all constraints → build directed graph → topological sort.
+
+```
+"wrt" before "wrf"  →  at first differing char: t before f  →  edge t → f
+"wrf" before "er"   →  w before e  →  edge w → e
+... and so on
+```
+
+This is **topological sort on characters** — same template as [Course Schedule](../CourseSchedule/CourseSchedule.md) but nodes are chars, not courses.
+
+---
+
+## Step 1: Build graph from adjacent word pairs
 
 For each pair `words[i]`, `words[i+1]`:
-- Find first differing character at position `j`
-- Edge: `words[i][j] → words[i+1][j]` (first comes before second)
-- **Invalid**: `words[i]` starts with `words[i+1]` but is longer (e.g. `"abc"` before `"ab"`)
 
-### Step 2: Topological sort (Kahn's BFS)
+```java
+for (int i = 0; i < words.length - 1; i++) {
+    String w1 = words[i], w2 = words[i + 1];
 
-- In-degree count per character
-- Queue nodes with in-degree 0
-- Append to result; reduce neighbors' in-degree
-- If result length ≠ unique char count → cycle → `""`
+    // INVALID: prefix rule — longer word cannot come before shorter prefix
+    // e.g. "abc" before "ab" is impossible in sorted order
+    if (w1.length() > w2.length() && w1.startsWith(w2)) {
+        return "";
+    }
 
-### Complexity
+    for (int j = 0; j < Math.min(w1.length(), w2.length()); j++) {
+        char c1 = w1.charAt(j), c2 = w2.charAt(j);
+        if (c1 != c2) {
+            addEdge(c1, c2);  // c1 comes before c2
+            break;  // only first differing char matters for this pair
+        }
+    }
+}
+```
 
-- **Time**: O(C) where C = total characters across all words
-- **Space**: O(1) alphabet (26) or O(U) unique chars
+### Prefix invalid case (critical edge case)
+
+```
+words = ["abc", "ab"]
+
+"abc" is longer but "ab" is a prefix — in any valid alphabet,
+"ab" must come BEFORE "abc" (shorter string is smaller in lex order).
+
+So ["abc", "ab"] is INVALID → return ""
+```
 
 ---
 
-## Comparison with [Course Schedule](../CourseSchedule/CourseSchedule.md)
+## Step 2: Topological sort (Kahn's BFS)
 
-| | Course Schedule | Alien Dictionary |
-|---|-----------------|------------------|
-| Nodes | Course IDs | Characters |
-| Edges | Prerequisites | Derived from word order |
-| Cycle | Cannot finish | Invalid language |
+```java
+// Initialize all chars seen in any word (even isolated chars)
+for (String w : words)
+    for (char c : w.toCharArray())
+        graph.putIfAbsent(c, new HashSet<>());
 
-Same Kahn BFS template as [TopologicalSort](../TopologicalSort/TopologicalSort.md).
+// Kahn's algorithm
+Queue<Character> q = new LinkedList<>();
+for (char c : indegree.keySet())
+    if (indegree.get(c) == 0) q.offer(c);
+
+StringBuilder result = new StringBuilder();
+while (!q.isEmpty()) {
+    char c = q.poll();
+    result.append(c);
+    for (char next : graph.get(c)) {
+        indegree.put(next, indegree.get(next) - 1);
+        if (indegree.get(next) == 0) q.offer(next);
+    }
+}
+
+return result.length() == indegree.size() ? result.toString() : "";
+// If cycle exists, not all chars processed → return ""
+```
 
 ---
 
-## Java solution sketch
+## Full walkthrough: `["wrt","wrf","er","ett","rftt"]`
 
+### Extract edges
 
-#### Example Flow
+| Pair | First diff | Edge |
+|------|------------|------|
+| wrt vs wrf | t vs f | t → f |
+| wrf vs er | w vs e | w → e |
+| er vs ett | r vs t | r → t |
+| ett vs rftt | e vs r | e → r |
 
-**Step flow (mermaid):**
+### Graph
+
+```
+w → e → r → t → f
+```
+
+### Topological order
+
+One valid result: **wertf** (t before f from first edge; e,r,t chain from rest)
 
 ```mermaid
-flowchart TD
-    START["Input: words=["wrt","wrf","er","ett","rftt"]"]
-    START --> ENQ["Enqueue start node"]
-    ENQ --> Q{"Queue empty?"}
-    Q -->|no| DEQ["Dequeue front"]
-    DEQ --> NEI["Visit unvisited neighbors"]
-    NEI --> ENQ2["Enqueue neighbors"]
-    ENQ2 --> Q
-    Q -->|yes| DONE["Return shortest / order"]
+flowchart LR
+    w --> e --> r --> t --> f
 ```
 
-**Walkthrough (same example):**
+---
+
+## Cycle example: `["z","x","z"]`
 
 ```
-Example: words=["wrt","wrf","er","ett","rftt"] → "wertf"
-Approach: : Build graph + topological sort
+"z" vs "x"  →  z before x  →  edge z → x
+"x" vs "z"  →  x before z  →  edge x → z
 
-Enqueue start node/level
-Process neighbors level by level
-First reach target = shortest path
+Cycle: z → x → z  →  topological sort fails  →  return ""
 ```
+
+---
+
+## Complexity
+
+| Measure | Value | Why |
+|---------|-------|-----|
+| **Time** | O(C) | C = total characters across all words |
+| **Space** | O(1) alphabet | Max 26 letters (or O(U) unique chars) |
+
+---
+
+## Comparison with related problems
+
+| Problem | Nodes | Edges from | Cycle means |
+|---------|-------|------------|-------------|
+| [Course Schedule](../CourseSchedule/CourseSchedule.md) | Courses | Prerequisites | Cannot graduate |
+| [Topological Sort](../TopologicalSort/TopologicalSort.md) | Generic | Given DAG | Invalid DAG |
+| **Alien Dictionary** | Characters | Adjacent words | Invalid language order |
+
+---
+
+## Complete Java solution
+
 ```java
 public String alienOrder(String[] words) {
     Map<Character, Set<Character>> graph = new HashMap<>();
     Map<Character, Integer> indegree = new HashMap<>();
-    for (String w : words) {
+
+    for (String w : words)
         for (char c : w.toCharArray()) {
             graph.putIfAbsent(c, new HashSet<>());
             indegree.putIfAbsent(c, 0);
         }
-    }
+
     for (int i = 0; i < words.length - 1; i++) {
         String w1 = words[i], w2 = words[i + 1];
-        if (w1.length() > w2.length() && w1.startsWith(w2)) {
-            return "";
-        }
+        if (w1.length() > w2.length() && w1.startsWith(w2)) return "";
+
         for (int j = 0; j < Math.min(w1.length(), w2.length()); j++) {
             char c1 = w1.charAt(j), c2 = w2.charAt(j);
             if (c1 != c2) {
@@ -114,10 +193,11 @@ public String alienOrder(String[] words) {
             }
         }
     }
+
     Queue<Character> q = new LinkedList<>();
-    for (char c : indegree.keySet()) {
+    for (char c : indegree.keySet())
         if (indegree.get(c) == 0) q.offer(c);
-    }
+
     StringBuilder sb = new StringBuilder();
     while (!q.isEmpty()) {
         char c = q.poll();
@@ -135,22 +215,42 @@ Full code: [AlienDictionary.java](AlienDictionary.java)
 
 ---
 
-## Edge Cases
+## Edge cases checklist
 
-1. **Single word** — return unique chars in any valid order (often any order OK if no edges)
-2. **Prefix invalid** — `"abc"` before `"ab"` → `""`
-3. **Cycle** — `"z"` before `"x"` and implied `x` before `z`
-4. **Disconnected graph** — multiple independent char groups; topo still works
+| Case | Expected |
+|------|----------|
+| Single word `"abc"` | Return any order containing a,b,c (often all chars) |
+| Prefix invalid `"abc"` before `"ab"` | `""` |
+| Cycle | `""` |
+| Disconnected graph (no edges between groups) | Topo still includes all — order among components arbitrary |
+| Duplicate edges | Don't double-increment indegree (use Set for neighbors) |
+| Empty words array | `""` per problem constraints |
 
 ---
 
-## Interview Tips
+## Interview tips
 
-1. State graph construction before coding topo sort
-2. Mention duplicate edge handling (don't double-count indegree)
-3. Follow-up: **multiple valid orders** — return any one
+1. **State approach first**: "Build graph from adjacent words, then Kahn's topo sort"
+2. **Mention prefix case before coding** — interviewers often test this
+3. **Duplicate edges**: Use `Set` adjacency — don't add same edge twice
+4. **Follow-up**: Multiple valid orders? Return any one
+5. **Follow-up**: Dictionary with  Unicode? Same algorithm, larger alphabet
+
+---
+
+## Common mistakes
+
+| Mistake | Consequence |
+|---------|-------------|
+| Compare all char pairs in two words | Wrong edges — only first diff matters |
+| Forget prefix invalid check | Accept impossible input |
+| Double-count indegree | Wrong topo order |
+| DFS without cycle detection | Infinite loop on cycle |
+
+---
 
 ## Related
 
-- [Word Ladder](../WordLadder/WordLadder.md) — BFS on words
+- [Word Ladder](../WordLadder/WordLadder.md) — BFS on word graph (different problem)
+- [Critical Connections](../CriticalConnections/CriticalConnections.md) — graph connectivity
 - [Tier3 Differentiators](../../Tier3_Differentiators.md)

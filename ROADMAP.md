@@ -1,7 +1,7 @@
 # 🧭 Developer Master Roadmap
 
 > **Start here.** This is the canonical entry point for the Developer Master Book repo.
-> Companion navigators: [MASTER_INDEX.md](MASTER_INDEX.md) (topic lookup), [README.md](README.md) (repo overview), [00_Interview_Prep/README.md](00_Interview_Prep/README.md) (interview guides), [02_DSA/StudyGuide.md](02_DSA/StudyGuide.md) (DSA schedule).
+> Companion navigators: [MASTER_INDEX.md](MASTER_INDEX.md) (topic lookup), [README.md](README.md) (repo overview), [00_Interview_Prep/README.md](00_Interview_Prep/README.md) (interview guides), [04_SystemDesign/README.md](04_SystemDesign/README.md) (LLD/HLD catalog), [06_On_The_Job/README.md](06_On_The_Job/README.md) (post-hire), [02_DSA/StudyGuide.md](02_DSA/StudyGuide.md) (DSA schedule).
 
 ## How to use this roadmap
 
@@ -10,6 +10,7 @@
 3. Work **Core** before Recommended, then Optional. Each topic file is self-contained (no jumping across folders for the same concept).
 4. Track progress with [SelfAssessment.md](00_Interview_Prep/Core/SelfAssessment.md) (confidence 1–5 per topic).
 5. Pair with [InterviewPlaybook.md](00_Interview_Prep/Core/InterviewPlaybook.md) for scheduling and round protocols.
+6. **Already hired?** Skip to [On the Job](06_On_The_Job/README.md) — onboarding, debugging, on-call, RFCs (parallel to interview prep, not a replacement).
 
 ---
 
@@ -62,6 +63,7 @@ This repo uses **one linear ladder**: Fresher → SDE1 → SDE2 → Senior SDE �
 - [ ] `[Core]` [Operating Systems & Linux](01_TechGuide/32_Operating_Systems_and_Linux.md) — processes, basic debugging commands
 - [ ] `[Recommended]` [TypeScript & Frontend Landscape](01_TechGuide/37_TypeScript_and_Frontend_Landscape.md) — frontend breadth for full-stack awareness
 - [ ] `[Core]` [Career Prep — Resume & Portfolio](00_Interview_Prep/Career/Resume_and_Portfolio.md) — first-job resume, GitHub portfolio, application timeline
+- [ ] `[Recommended]` [Capstone Portfolio Projects](00_Interview_Prep/Career/Capstone_Projects.md) — 3 project specs with milestones and rubrics
 
 ### DSA (Path 1 — Weeks 5–12)
 - [ ] `[Core]` [DSA Study Guide — Path 1](02_DSA/StudyGuide.md) — 16–20 week Fresher curriculum
@@ -288,6 +290,7 @@ This repo uses **one linear ladder**: Fresher → SDE1 → SDE2 → Senior SDE �
 - [ ] `[Core]` [Event-Driven Architecture](01_TechGuide/19_Event_Driven_Architecture.md) — Kafka deep dive; §06 covers messaging intro
 - [ ] `[Recommended]` [SRE & Reliability Engineering](01_TechGuide/23_SRE_Reliability_Engineering.md) — error budgets, incidents (extends §11)
 - [ ] `[Recommended]` [NoSQL Databases Guide](01_TechGuide/27_NoSQL_Databases_Guide.md) — MongoDB, DynamoDB, Cassandra selection
+- [ ] `[Recommended]` [Redis Distributed Caching](01_TechGuide/28_Redis_Distributed_Caching.md) — cluster, locks, stampede; pairs with [Distributed Cache HLD](04_SystemDesign/02_HighLevelDesign/DistributedCache/DistributedCache.md)
 - [ ] `[Recommended]` [Kubernetes Deep Dive](01_TechGuide/30_Kubernetes_Deep_Dive.md) — K8s ops; §13 covers production K8s trends
 - [ ] `[Recommended]` [Advanced Networking Infrastructure](01_TechGuide/29_Advanced_Networking_Infrastructure.md) — VPC, L4/L7 LB; §17 covers protocols
 - [ ] `[Recommended]` [Search Engines Elasticsearch](01_TechGuide/34_Search_Engines_Elasticsearch.md) — inverted index, BM25
@@ -497,6 +500,33 @@ Consolidated content backlog — **all rows below are Done** and link to shipped
 | Fresher OA / screening guide | Fresher | **Done** — [Fresher_Screening_and_OA_Guide.md](00_Interview_Prep/Career/Fresher_Screening_and_OA_Guide.md) |
 | SDE1 interview guide | SDE1 | **Done** — [SDE1_Interview_Guide.md](00_Interview_Prep/Levels/SDE1_Interview_Guide.md) |
 | Failure modes all levels | All | **Done** — Fresher, SDE1 (in guide), SDE2, Senior, Tech Lead, Staff, Principal |
+| On-the-job lifecycle (post-hire) | SDE1+ | **Done** — [06_On_The_Job/](06_On_The_Job/README.md) |
+| Capstone portfolio projects | Fresher | **Done** — [Capstone_Projects.md](00_Interview_Prep/Career/Capstone_Projects.md) |
+| Expanded LLD (Hotel, Food Delivery) | SDE2 | **Done** — full APIs, flows, tests |
+| Expanded HLD (YouTube, WebCrawler) | Senior | **Done** — deep dives, failure modes |
+| Redis deep dive (§28) | SDE2+ | **Done** — [28_Redis_Distributed_Caching.md](01_TechGuide/28_Redis_Distributed_Caching.md) |
+| Remaining HLD/LLD depth | Senior/SDE2 | **Done** — Metrics, Video, FileStorage, Search, NewsFeed, Notification, Ticketmaster, Chat, WhatsApp, Instagram, ATM, Twitter, RideSharing, SnakeAndLadder |
+| Tier 3 DSA depth (LFU, Alien Dict, Tarjan) | Staff | **Done** — walkthroughs + implementations |
+
+---
+
+## On the Job — Post-Hire Lifecycle (ALL levels after Day 1)
+
+> **Not interview prep** — skills for thriving after you land the role. Start at [06_On_The_Job/README.md](06_On_The_Job/README.md).
+
+### New hire & daily engineering
+- [ ] `[Core]` [First 90 Days](06_On_The_Job/01_First_90_Days.md) — onboarding, ramp, legacy codebases
+- [ ] `[Core]` [Code Review Culture](06_On_The_Job/05_Code_Review_Culture.md) — giving and receiving feedback
+
+### SDE2 / Senior
+- [ ] `[Core]` [Production Debugging](06_On_The_Job/02_Production_Debugging.md) — logs, dumps, tracing, root cause
+- [ ] `[Core]` [RFC and ADR Writing](06_On_The_Job/04_RFC_ADR_Writing.md) — technical decision records
+
+### Senior / Tech Lead
+- [ ] `[Core]` [On-Call & Incident Response](06_On_The_Job/03_On_Call_Incident_Response.md) — mitigate, communicate, post-mortem
+
+### Career fork
+- [ ] `[Recommended]` [Engineering Manager Track](06_On_The_Job/06_Engineering_Manager_Track.md) — IC vs EM path
 
 ---
 

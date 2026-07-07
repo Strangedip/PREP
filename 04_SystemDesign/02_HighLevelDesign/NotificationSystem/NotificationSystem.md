@@ -318,3 +318,77 @@ CREATE TABLE user_notification_preferences (
    - User preference includes `locale`.
    - Template resolution selects the correct language version.
 
+---
+
+## Deep dive: Priority queue architecture
+
+```
+API receives notification request
+    → Validate user preferences + quiet hours
+    → Publish to Kafka topic by priority:
+         notifications.critical  (partitioned by user_id)
+         notifications.high
+         notifications.normal
+         notifications.low
+
+Workers per priority tier:
+  CRITICAL: 20 workers, no batching, < 1s SLA
+  HIGH:     10 workers, batch up to 10
+  NORMAL:   5 workers, batch up to 50
+  LOW:      2 workers, digest every 15 min
+```
+
+**Why separate topics**: Low-priority digest must not block OTP delivery.
+
+---
+
+## Deep dive: Channel selection logic
+
+```java
+List<Channel> resolveChannels(NotificationEvent event, UserPreferences prefs) {
+    if (event.priority() == CRITICAL) {
+        return List.of(PUSH, SMS, EMAIL); // override quiet hours
+    }
+    if (prefs.isQuietHoursNow()) {
+        return List.of(IN_APP); // hold push/email until morning
+    }
+    return prefs.channelsFor(event.category());
+}
+```
+
+---
+
+## Deep dive: Idempotent delivery
+
+```
+Kafka delivers at-least-once → worker may process same notification twice
+
+Dedup key: notification_id + channel
+Redis SETNX dedup:{notification_id}:{channel} EX 3600
+  → if already sent, skip
+  → else send and record in ClickHouse
+```
+
+---
+
+## Failure modes
+
+| Failure | Mitigation |
+|---------|------------|
+| SES/FCM outage | Retry with backoff; DLQ; fallback channel |
+| Kafka lag | Scale consumers; priority topics isolated |
+| Duplicate notifications | Idempotency key per channel |
+| Quiet hours bug | Timezone-aware scheduling; test IST/UTC |
+| Template render failure | Fallback plain-text; alert ops |
+
+---
+
+## Interview walkthrough (40 min)
+
+1. **Multi-channel** — push, email, SMS, in-app
+2. **Priority queues** — critical vs digest
+3. **User preferences** — quiet hours, opt-out
+4. **At-least-once + dedup** — idempotency keys
+5. **Analytics** — delivery rates in ClickHouse
+6. **Adding new channel** — Open/Closed workers
+

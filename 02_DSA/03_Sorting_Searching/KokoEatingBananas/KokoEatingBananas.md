@@ -39,26 +39,28 @@ If `hours(k) <= h`, try smaller `k`; else increase `k`.
 
 ```mermaid
 flowchart TD
-    START["Input: piles=[3,6,7,11], h=8"]
-    START --> BOUNDS["lo=0, hi=n-1"]
-    BOUNDS --> MID["mid = (lo+hi)/2"]
-    MID --> CMP{"Compare nums[mid]"}
-    CMP -->|too small| LO["lo = mid+1"]
-    CMP -->|too large| HI["hi = mid-1"]
-    CMP -->|found| DONE["Return mid"]
-    LO --> BOUNDS
-    HI --> BOUNDS
+    START["piles=[3,6,7,11], h=8"]
+    START --> BOUNDS["lo=1, hi=max(piles)=11"]
+    BOUNDS --> MID["mid = candidate speed = 6"]
+    MID --> FEAS{"canFinish(6)? sum(ceil(pile/6)) <= 8"}
+    FEAS -->|yes: 2+1+2+2=7h| HI["hi = mid (try slower)"]
+    FEAS -->|no| LO["lo = mid + 1"]
+    HI --> CHECK{"lo < hi?"}
+    LO --> CHECK
+    CHECK -->|yes| MID2["mid = 4"]
+    MID2 --> FEAS2{"canFinish(4)? 1+2+2+3=8h"}
+    FEAS2 -->|yes| DONE["Return lo = 4"]
 ```
 
 **Walkthrough (same example):**
 
 ```
-Example: piles=[3,6,7,11], h=8 → speed k=4
-Approach: : Binary Search on Answer
+Answer space: speed k in [1, 11] (1 to max pile)
 
-Set lo/hi bounds on answer or index
-Compare mid element with target
-Halve search space until found
+k=6: hours = ceil(3/6)+ceil(6/6)+ceil(7/6)+ceil(11/6) = 1+1+2+2 = 7 ≤ 8 → feasible, try slower
+k=3: hours = 1+2+3+4 = 10 > 8 → too slow, need faster
+k=4: hours = 1+2+2+3 = 8 ≤ 8 → feasible
+k=5: also feasible but 4 is minimum → answer = 4
 ```
 ```java
 public int minEatingSpeed(int[] piles, int h) {

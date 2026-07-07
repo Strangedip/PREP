@@ -240,4 +240,210 @@ public record FrontierEntry(String urlHash, String normalizedUrl, String domain,
 4. **Distributed crawling** — Consistent hashing on domain for worker assignment
 5. **Relation to search** — Crawler feeds indexer (Elasticsearch) — see Search Autocomplete HLD
 
+---
+
+## Deep dive: URL Frontier design
+
+The frontier is the **heart of the crawler** — it decides what to fetch next.
+
+### BFS vs priority crawl
+
+| Strategy | Behavior | Best for |
+|----------|----------|----------|
+| **BFS** | Discovers pages breadth-first from seeds | Initial corpus mapping |
+| **Priority queue** | High PageRank / fresh pages first | Production search engine |
+| **Recency-weighted** | Boost `last_crawled_at` stale pages | News, ecommerce prices |
+
+### Domain-aware scheduling
+
+Problem: One hot domain (e.g. `wikipedia.org`) can starve others.
+
+```
+Solution: Separate sub-queue per domain
+  - Global scheduler picks domain with highest priority AND available token
+  - Token bucket per domain: max 2 req/sec default
+  - Worker pool: hash(domain) % N → dedicated worker affinity (cache robots.txt)
+```
+
+### Kafka partitioning
+
+```
+Topic: crawl-frontier
+Partition key: hash(domain)  → all URLs for amazon.in land in same partition
+                              → preserves order + politeness per domain
+```
+
+---
+
+## Deep dive: URL normalization (must get right)
+
+Inconsistent normalization causes duplicate fetches:
+
+```
+Raw:      HTTP://Example.com:80/page/index.html?utm=abc#section
+Normalized: http://example.com/page/index.html
+
+Rules:
+  1. Lowercase scheme and host
+  2. Remove default ports (80 http, 443 https)
+  3. Resolve relative URLs against base
+  4. Strip fragment (#section) — not sent to server
+  5. Optional: strip tracking params (utm_*, fbclid)
+  6. Canonicalize trailing slash policy
+  7. Punycode international domains
+```
+
+**Interview trap**: Treating `http://a.com` and `http://a.com/` as different — pick one rule and apply consistently.
+
+---
+
+## Deep dive: Deduplication layers
+
+```
+New URL discovered
+    │
+    ▼
+┌─────────────────┐
+│ Bloom filter    │  "Probably seen?" → skip (fast, in-memory per worker)
+└────────┬────────┘
+         │ probably new
+         ▼
+┌─────────────────┐
+│ Redis SET / DB  │  Exact URL hash dedup (distributed)
+└────────┬────────┘
+         │ new URL
+         ▼
+┌─────────────────┐
+│ Content hash    │  Simhash / SHA-256 of body → near-duplicate detection
+└─────────────────┘
+```
+
+### Bloom filter math (interview bonus)
+
+- Size `m` bits, `k` hash functions, `n` inserted elements
+- False positive rate ≈ `(1 - e^(-kn/m))^k`
+- **1% FP rate** with 1B URLs ≈ 1.2 GB bloom filter — acceptable RAM cost vs DB lookups
+
+**False positive consequence**: Rare new URL skipped — acceptable at web scale.
+
+---
+
+## Deep dive: Politeness and robots.txt
+
+### Why politeness matters
+
+- **Ethical**: Don't DDoS small sites
+- **Practical**: Aggressive crawling → IP ban → zero data
+- **Legal**: robots.txt is convention (not law everywhere, but industry standard)
+
+### robots.txt flow
+
+```
+1. First fetch for domain → GET /robots.txt (cache 24h)
+2. Parse Disallow: /admin, /private
+3. Before enqueueing URL → check path allowed
+4. Respect Crawl-delay if present (non-standard but used)
+```
+
+### Rate limiting implementation
+
+```java
+// Token bucket per domain
+class DomainRateLimiter {
+    private final Map<String, RateLimiter> buckets = new ConcurrentHashMap<>();
+
+    boolean tryAcquire(String domain) {
+        return buckets
+            .computeIfAbsent(domain, d -> RateLimiter.create(1.0)) // 1 req/sec
+            .tryAcquire();
+    }
+}
+```
+
+---
+
+## Deep dive: Fetch worker lifecycle
+
+```
+1. Poll URL from frontier (blocked if domain rate limited → requeue with delay)
+2. Check robots.txt cache
+3. HTTP GET with timeouts (connect 5s, read 10s)
+4. Handle redirects (max 5 hops; normalize each redirect URL)
+5. Parse Content-Type — only process text/html for link extraction
+6. Store raw HTML to S3: s3://crawl/{url_hash}.html
+7. Extract links → normalize → dedup → enqueue new URLs
+8. Update crawl_log (status, content_hash, fetched_at)
+```
+
+### HTTP status handling
+
+| Status | Action |
+|--------|--------|
+| 200 | Store + extract links |
+| 301/302 | Follow redirect; enqueue final URL |
+| 404 | Mark fetched; don't recrawl soon |
+| 429 | Back off domain rate; requeue |
+| 5xx | Retry with exponential backoff (max 3) |
+| Timeout | Retry; circuit-break domain after N failures |
+
+---
+
+## Recrawl strategy
+
+Not every page needs daily refresh:
+
+| Page type | Recrawl interval |
+|-----------|------------------|
+| News homepage | 15–60 minutes |
+| Product price page | 1–6 hours |
+| Static blog post | 7–30 days |
+| 404 / dead | 90 days or never |
+
+**Priority score formula** (simplified):
+
+```
+priority = w1 * page_rank + w2 * freshness_need + w3 * change_frequency
+```
+
+---
+
+## Distributed coordination
+
+| Challenge | Single-machine | Distributed |
+|-----------|------------------|-------------|
+| Frontier | PriorityQueue in memory | Kafka partitioned by domain |
+| Dedup | HashSet | Redis Cluster + Bloom per worker |
+| robots.txt | Local cache | Redis with TTL |
+| Politeness | synchronized | Per-domain token bucket in Redis |
+
+**No central coordinator**: Workers are stateless; Kafka consumer groups partition work.
+
+---
+
+## Failure modes (expanded)
+
+| Failure | Symptom | Mitigation |
+|---------|---------|------------|
+| Hot domain queue | One domain blocks partition | Per-domain fair scheduling |
+| Duplicate explosion | 10B URLs, mostly dupes | Bloom + aggressive normalization |
+| Slow host | Worker stuck 30s | Strict timeouts; circuit breaker |
+| Worker crash mid-fetch | URL lost | At-least-once queue; idempotent dedup |
+| robots.txt 500 | Unknown if allowed | Default deny or retry; don't crawl until resolved |
+| DNS failure | Domain unreachable | Dead-letter; alert if seed domain |
+| Parser bug | Infinite link loop | Max depth limit; max URLs per domain |
+| Storage full | S3 write fails | Tiered storage; compress HTML |
+
+---
+
+## Connection to search indexing
+
+```
+Crawler → S3 (raw HTML)
+       → Parser extracts text, title, links
+       → Indexer builds inverted index (Elasticsearch)
+       → Search API serves queries
+```
+
+See [SearchAutocomplete HLD](../SearchAutocomplete/SearchAutocomplete.md) for query-side design.
+
 **Related**: [SearchAutocomplete](../SearchAutocomplete/SearchAutocomplete.md), [DistributedCache](../DistributedCache/DistributedCache.md)

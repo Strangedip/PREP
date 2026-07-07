@@ -314,3 +314,77 @@ public record HoldResponse(String holdId, Instant expiresAt) {}
 | DB-only locking | Strong consistency simple model | Harder at 5K holds/sec |
 | Section-level cache | Fast map loads | Less granular real-time UI |
 | Virtual waiting room | Protects backend | User frustration, complex UX |
+
+---
+
+## Deep dive: Redis Lua atomic hold (full script)
+
+```lua
+-- KEYS[1] = seat hash key for event
+-- ARGV[1] = seat_id, ARGV[2] = user_id, ARGV[3] = expire_timestamp
+
+local status = redis.call('HGET', KEYS[1], ARGV[1])
+if status == false or status == 'AVAILABLE' then
+    redis.call('HSET', KEYS[1], ARGV[1],
+        'HELD:' .. ARGV[2] .. ':' .. ARGV[3])
+    redis.call('EXPIRE', KEYS[1], 7200)
+    return 1
+end
+return 0
+```
+
+**Why Lua**: `HGET` + `HSET` must be atomic — no race between two users grabbing same seat.
+
+See [§28 Redis](../../../01_TechGuide/28_Redis_Distributed_Caching.md) for SET NX patterns and TTL strategy.
+
+---
+
+## Deep dive: End-to-end flash sale timeline
+
+```
+T-30min:  CDN pre-warm seat map layout (static)
+T-0:      Sale opens → waiting room admits 5K users/min
+T+0:      50K QPS seat map reads (Redis bitmap per section)
+T+1min:   5K hold attempts/sec → Redis Lua CAS
+T+5min:   80% seats held or booked
+T+10min:  TTL releases abandoned holds → seats return to pool
+T+60min:  Event 95% sold out
+```
+
+---
+
+## Deep dive: Payment saga
+
+```
+1. hold_id created (HELD state)
+2. Payment authorized (idempotency_key = hold_id)
+3a. Success → confirm seats BOOKED → publish BookingConfirmed
+3b. Fail → release hold → AVAILABLE
+3c. Timeout → Redis TTL + sweeper job
+```
+
+**Outbox pattern**: Write `orders` row + `outbox_events` in same DB transaction → relay to Kafka for email.
+
+---
+
+## Failure modes
+
+| Failure | Impact | Mitigation |
+|---------|--------|------------|
+| Redis down | Cannot hold seats | Fallback to DB `FOR UPDATE SKIP LOCKED` |
+| Double checkout click | Double charge risk | Idempotency key on payment |
+| Hold TTL too short | User loses seats mid-payment | One-time 2-min extension |
+| Section map stale | User sees available seat that's gone | Optimistic UI + confirm on hold response |
+| Waiting room bypass | Bots scrape API | WAF, token admission, CAPTCHA |
+
+---
+
+## Interview walkthrough (45 min)
+
+1. **Seat state machine** — AVAILABLE → HELD → BOOKED
+2. **Concurrency** — Redis Lua vs DB locks (compare both)
+3. **Hold TTL** — auto-release abandoned carts
+4. **Flash sale** — waiting room, rate limits
+5. **Payment** — idempotency, saga
+6. **Link to LLD** — [BookMyShow](../../01_LowLevelDesign/BookMyShow/BookMyShow.md) for OOD detail
+

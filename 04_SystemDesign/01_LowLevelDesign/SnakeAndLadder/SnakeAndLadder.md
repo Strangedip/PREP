@@ -17,6 +17,66 @@ This problem tests your ability to model game state, enforce turn-based rules, a
 
 ---
 
+## How one turn works
+
+```
+State: Alice at 14, Bob at 22, Charlie at 8. Alice's turn.
+
+1. Roll dice → 4
+2. New position: 14 + 4 = 18
+3. Board check at 18 → ladder to 77
+4. Alice moves to 77
+5. 77 >= 100? No → advance turn to Bob
+```
+
+**Exact-landing variant**: If Alice is at 97 and rolls 5, she stays at 97 (needs exactly 3 to win).
+
+```mermaid
+flowchart LR
+    ROLL[Roll dice] --> MOVE[Add to position]
+    MOVE --> SNAKE{Ladder or snake?}
+    SNAKE -->|snake| DOWN[Move down]
+    SNAKE -->|ladder| UP[Move up]
+    SNAKE -->|none| WIN{>= board size?}
+    DOWN --> WIN
+    UP --> WIN
+    WIN -->|yes| END[Game over]
+    WIN -->|no| NEXT[Next player]
+```
+
+---
+
+## Class relationships
+
+```
+SnakeAndLadderGame
+  ├── Board (snakes, ladders maps)
+  ├── DiceStrategy ← SingleDice / DoubleDice
+  ├── List<Player>
+  ├── GameState (WAITING | IN_PROGRESS | FINISHED)
+  └── List<GameEventListener>
+
+Board.getFinalPosition(pos) → applies snake/ladder in O(1)
+Game.playTurn() → roll → move → resolve → win check → advance
+```
+
+---
+
+## Edge cases
+
+| Case | Rule |
+|------|------|
+| Roll overshoots with exact landing | Turn skipped; position unchanged |
+| Roll overshoots without exact landing | Clamp to cell 100 (win) |
+| Land on snake head | Move to tail immediately |
+| Land on ladder bottom | Move to top immediately |
+| Snake and ladder same cell | Invalid board — reject at construction |
+| Add player after start | Throw `IllegalStateException` |
+| < 2 players at start | Throw `IllegalStateException` |
+| Roll again on 6 (extension) | Skip `advanceTurn()` when roll == max |
+
+---
+
 ## Design Patterns Used
 
 | Pattern | Where | Why |
@@ -415,3 +475,28 @@ public class Main {
 4. **Thread safety considerations?**
    - For a local game, no thread safety is needed (turns are sequential). For an online game, the game state would be protected by a lock or processed through a single-threaded event loop (actor model).
 
+---
+
+## Online extension (if interviewer asks)
+
+```
+Client → POST /games/{id}/roll (server rolls dice — never trust client)
+Server → playTurn() → broadcast GameEvent to all players via WebSocket
+```
+
+Server-authoritative dice prevents cheating. One `SnakeAndLadderGame` instance per room; `synchronized playTurn()` or actor mailbox.
+
+---
+
+## Interview walkthrough (35 min)
+
+| Phase | Cover |
+|-------|--------|
+| **Clarify** (5 min) | Players (2–4), board size, exact landing?, dice type |
+| **State machine** (5 min) | WAITING → IN_PROGRESS → FINISHED |
+| **Core loop** (10 min) | `playTurn()` — roll, move, snake/ladder, win, advance |
+| **Patterns** (5 min) | Strategy (dice), Observer (events), State (game phase) |
+| **Board validation** (5 min) | No overlapping snakes/ladders; head > tail |
+| **Tests** (5 min) | Exact landing skip; snake at 99→10; win on cell 100 |
+
+**Related**: [VendingMachine](../VendingMachine/VendingMachine.md) (State), [ATM](../ATM/ATM.md) (turn-based FSM).

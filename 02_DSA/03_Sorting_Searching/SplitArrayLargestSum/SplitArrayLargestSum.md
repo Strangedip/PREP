@@ -43,15 +43,13 @@ Monotonicity: if `maxSum` works, any larger limit also works → search for the 
 
 ```mermaid
 flowchart TD
-    START["Input: nums=[7,2,5,10,8], k=2"]
-    START --> BOUNDS["lo=0, hi=n-1"]
-    BOUNDS --> MID["mid = (lo+hi)/2"]
-    MID --> CMP{"Compare nums[mid]"}
-    CMP -->|too small| LO["lo = mid+1"]
-    CMP -->|too large| HI["hi = mid-1"]
-    CMP -->|found| DONE["Return mid"]
-    LO --> BOUNDS
-    HI --> BOUNDS
+    START["nums=[7,2,5,10,8], k=2"]
+    START --> BOUNDS["lo=max(nums)=10, hi=sum(nums)=32"]
+    BOUNDS --> MID["mid = max allowed subarray sum = 18"]
+    MID --> FEAS{"feasible(18)? split into ≤2 subarrays"}
+    FEAS -->|yes: [7,2,5] and [10,8]| HI["hi = mid (try smaller limit)"]
+    FEAS -->|no| LO["lo = mid + 1"]
+    HI --> DONE["Return minimum feasible max-sum = 18"]
 ```
 
 **Walkthrough (same example):**

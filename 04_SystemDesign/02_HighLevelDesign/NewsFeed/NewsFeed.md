@@ -325,3 +325,77 @@ CREATE TABLE following (
    - Posts go through a moderation pipeline (ML classifier + human review) before being eligible for fan-out.
    - Flagged posts are removed from all caches via a "post removed" event.
 
+---
+
+## Deep dive: Fan-out on write (step by step)
+
+```
+User B (500 followers) posts tweet T1:
+
+1. Post Service writes T1 to Cassandra (user_id=B, post_id=T1)
+2. Publish PostCreated event to Kafka
+3. Fan-out Worker consumes event:
+   a. Lookup followers of B from graph service (500 IDs)
+   b. For each follower F:
+      ZADD feed:F score(T1) T1
+   c. Trim feed:F to max 500 posts (ZREMRANGEBYRANK)
+4. User A opens app → ZREVRANGE feed:A 0 19 → includes T1 if A follows B
+```
+
+**Cost**: O(followers) writes per post. Celebrity with 50M followers = 50M Redis writes → **use fan-out on read instead**.
+
+---
+
+## Deep dive: Celebrity merge at read time
+
+```
+User A follows: 200 regular users + 3 celebrities
+
+Feed read:
+  1. ZREVRANGE feed:A 0 19        → precomputed (fast)
+  2. For each celebrity C:
+       ZREVRANGE posts:C 0 4       → last 5 posts (cached)
+  3. Merge-sort by score
+  4. Return top 20
+```
+
+Cap celebrity queries at ~10-20 per feed load — cache celebrity recent posts in Redis.
+
+---
+
+## Deep dive: Redis feed data structure
+
+```redis
+# User's home feed
+ZADD feed:user123 0.95 "post-abc" 0.87 "post-def"
+ZREVRANGE feed:user123 0 19 WITHSCORES
+
+# Trim to prevent unbounded growth
+ZREMRANGEBYRANK feed:user123 0 -501   # keep top 500 by rank
+```
+
+**Score formula** (simplified): `0.4 * recency + 0.3 * engagement_velocity + 0.2 * relationship + 0.1 * content_type`
+
+---
+
+## Failure modes
+
+| Failure | Mitigation |
+|---------|------------|
+| Fan-out worker lag | Kafka consumer scaling; monitor lag |
+| Redis memory full | Trim feeds; evict inactive users |
+| Celebrity post storm | Fan-out on read only for >10K followers |
+| Inconsistent like count | Async counter — eventual consistency OK |
+| Deleted post in feed | Delete event → workers ZREM from all feeds |
+
+---
+
+## Interview walkthrough (45 min)
+
+1. **Clarify** — Twitter vs Facebook vs Instagram feed differences
+2. **Fan-out write vs read** — celebrity problem
+3. **Hybrid approach** — threshold (10K followers)
+4. **Storage** — Cassandra posts + Redis feed cache
+5. **Ranking** — signals and offline ML mention
+6. **Pagination** — cursor-based, not offset
+

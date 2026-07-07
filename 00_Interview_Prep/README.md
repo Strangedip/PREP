@@ -15,6 +15,8 @@ This folder collects **everything that is not coding problems, TechGuide theory,
 | **Find any topic fast** | [../MASTER_INDEX.md](../MASTER_INDEX.md) |
 | **Track daily prep** | [../Tracking_Iron_Protocol.xlsx](../Tracking_Iron_Protocol.xlsx) (regenerate: `python tools/tracker_generator.py`) |
 | **Fresher job search** | [Career/Resume_and_Portfolio.md](Career/Resume_and_Portfolio.md) |
+| **Portfolio capstone projects** | [Career/Capstone_Projects.md](Career/Capstone_Projects.md) |
+| **Already hired — on the job** | [../06_On_The_Job/README.md](../06_On_The_Job/README.md) |
 | **12-week schedule & rounds** | [Core/InterviewPlaybook.md](Core/InterviewPlaybook.md) |
 | **Confidence scorecard** | [Core/SelfAssessment.md](Core/SelfAssessment.md) |
 
@@ -52,6 +54,7 @@ This folder collects **everything that is not coding problems, TechGuide theory,
 | File | Level |
 |------|-------|
 | [Resume_and_Portfolio.md](Career/Resume_and_Portfolio.md) | Fresher |
+| [Capstone_Projects.md](Career/Capstone_Projects.md) | Fresher → SDE2 (portfolio specs + rubrics) |
 | [Fresher_Screening_and_OA_Guide.md](Career/Fresher_Screening_and_OA_Guide.md) | Fresher |
 
 ---
@@ -102,4 +105,6 @@ This folder collects **everything that is not coding problems, TechGuide theory,
 | Coding problems + Java solutions | [02_DSA/](../02_DSA/) |
 | Design patterns + machine coding | [03_CodingPatterns/](../03_CodingPatterns/) |
 | LLD + HLD problems | [04_SystemDesign/](../04_SystemDesign/) |
+| Machine coding round (90 min) | [03_CodingPatterns/Machine_Coding_Round_Guide.md](../03_CodingPatterns/Machine_Coding_Round_Guide.md) |
 | AI / RAG / agents | [05_AI/](../05_AI/) |
+| Post-hire (on the job) | [06_On_The_Job/](../06_On_The_Job/) |

@@ -311,3 +311,104 @@ public record MessageAck(String clientMessageId, String status) {
 | Signal protocol | Industry-proven, forward secrecy | Complex client implementation |
 | Encrypted media on S3 | Scales cheaply | CDN caches encrypted blobs only |
 | Cassandra for envelopes | Write scale | Ops complexity |
+
+---
+
+## Deep dive: Signal protocol (interview level)
+
+You do **not** implement crypto from scratch. Understand the **architecture implications**:
+
+| Concept | What it means for backend |
+|---------|---------------------------|
+| **Identity key** | Long-term key pair per device — stored in Key Directory (public only) |
+| **PreKeys** | One-time keys for offline first message |
+| **Double Ratchet** | Forward secrecy — past messages safe if key compromised today |
+| **Sender Keys (groups)** | Efficient group encryption — rotate on member leave |
+
+### 1:1 message flow (simplified)
+
+```
+1. Alice fetches Bob's prekey bundle from Key Directory
+2. Alice encrypts on device → ciphertext + metadata envelope
+3. Server stores/forwards envelope (cannot decrypt body)
+4. Bob decrypts with device private keys
+5. Server may see: sender, recipient, timestamp, size — NOT content
+```
+
+### Group member leaves
+
+```
+1. Remaining members generate new sender key
+2. Distribute encrypted key update to each member device
+3. Ex-member cannot decrypt messages after rotation
+```
+
+**Interview line**: "Server is a dumb router of encrypted envelopes; Key Directory holds public keys only."
+
+---
+
+## Deep dive: Multi-device sync
+
+```
+User has Phone + Desktop (same account):
+
+Option A: Encrypt message separately per device (2x ciphertext)
+Option B: Phone encrypts once; syncs session to Desktop via QR-linked keys
+
+WhatsApp uses linked devices with end-to-end encrypted sync channel.
+```
+
+---
+
+## Deep dive: Encrypted media
+
+```
+1. Client generates random AES key for media file
+2. Encrypts file client-side
+3. Uploads encrypted blob to S3 via presigned URL
+4. Sends message with: encrypted_media_key + S3 URL (in encrypted envelope)
+5. CDN serves encrypted bytes — useless without key
+6. Recipient decrypts media locally
+```
+
+Server never sees image/video plaintext — moderation relies on **reported content** decrypted client-side.
+
+---
+
+## Deep dive: Push without leaking content
+
+```json
+{
+  "title": "New message",
+  "body": "You have a new message",
+  "data": { "conversation_id": "abc", "sender_id": "42" }
+}
+```
+
+**Never** put message text in FCM/APNs payload — visible in notification tray.
+
+---
+
+## Failure modes
+
+| Failure | Mitigation |
+|---------|------------|
+| Key Directory unavailable | Cache prekey bundles; retry |
+| Offline recipient | Store envelope until WebSocket pull |
+| Device key compromise | User revokes device; rotate identity key |
+| Backup key lost | User cannot restore — by design for E2EE |
+| Group key rotation lag | Queue rotation; block sends until complete |
+
+---
+
+## Interview walkthrough (45 min)
+
+1. **E2EE principle** — server routes ciphertext only
+2. **Key Directory** — public keys, prekeys
+3. **1:1 and group** — sender keys, rotation on leave
+4. **Multi-device** — linked device model
+5. **Media** — client-side encrypt + S3
+6. **Push** — metadata only, no content
+
+**Compare**: [ChatSystem](../ChatSystem/ChatSystem.md) for non-E2EE (Slack-style) architecture.
+

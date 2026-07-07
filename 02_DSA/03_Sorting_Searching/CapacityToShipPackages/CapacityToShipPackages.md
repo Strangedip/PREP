@@ -49,15 +49,13 @@ Monotonicity: if capacity `c` works, any `c' > c` also works → binary search f
 
 ```mermaid
 flowchart TD
-    START["Input: weights=[1,2,3,4,5,6,7,8,9,10], days=5"]
-    START --> BOUNDS["lo=0, hi=n-1"]
-    BOUNDS --> MID["mid = (lo+hi)/2"]
-    MID --> CMP{"Compare nums[mid]"}
-    CMP -->|too small| LO["lo = mid+1"]
-    CMP -->|too large| HI["hi = mid-1"]
-    CMP -->|found| DONE["Return mid"]
-    LO --> BOUNDS
-    HI --> BOUNDS
+    START["weights=[1..10], days=5"]
+    START --> BOUNDS["lo=max(w)=10, hi=sum(w)=55"]
+    BOUNDS --> MID["mid = candidate capacity = 15"]
+    MID --> FEAS{"feasible(15)? greedy pack ≤ 5 days"}
+    FEAS -->|yes: [1,2,3,4,5],[6,7],[8],[9],[10]| HI["hi = mid (try smaller)"]
+    FEAS -->|no| LO["lo = mid + 1"]
+    HI --> DONE["Return minimum feasible capacity = 15"]
 ```
 
 **Walkthrough (same example):**

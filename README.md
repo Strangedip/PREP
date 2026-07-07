@@ -49,6 +49,7 @@ PREP/
 ├── 03_CodingPatterns/           ← GoF patterns + algorithmic patterns + machine coding
 ├── 04_SystemDesign/             ← LLD + HLD + templates
 ├── 05_AI/                       ← RAG, agents, MLOps, AI system design
+├── 06_On_The_Job/               ← Post-hire: onboarding, debugging, on-call, RFC/ADR, EM track
 │
 └── tools/
     └── tracker_generator.py     ← Regenerates Tracking_Iron_Protocol.xlsx
@@ -64,6 +65,7 @@ PREP/
 | 4 | Interview process, companies, mocks → [00_Interview_Prep/README.md](00_Interview_Prep/README.md) |
 | 5 | System design → [04_SystemDesign/README.md](04_SystemDesign/README.md) |
 | 6 | Can't find a topic → [MASTER_INDEX.md](MASTER_INDEX.md) |
+| 7 | Already hired / on the job → [06_On_The_Job/](06_On_The_Job/README.md) |
 
 ---
 
@@ -121,7 +123,7 @@ You build production systems. Now learn to design them at scale.
 | 3-4 | System Design Concepts (CAP, Scaling, LB) | [§07 System Design](01_TechGuide/07_System_Design.md) | CRITICAL |
 | 5-6 | HLD Practice (URL Shortener, Chat System) | [04_SystemDesign/02_HighLevelDesign/](04_SystemDesign/02_HighLevelDesign/) | CRITICAL |
 | 7-8 | LLD Practice (Parking Lot, Elevator) | [04_SystemDesign/01_LowLevelDesign/](04_SystemDesign/01_LowLevelDesign/) | HIGH |
-| 9-10 | DB Scaling (Sharding, Caching, Redis) | [§05 Database](01_TechGuide/05_Database_Performance_Tuning.md) (Sections 5.2-5.3) | HIGH |
+| 9-10 | DB Scaling (Sharding, Caching, Redis) | [§05 Database](01_TechGuide/05_Database_Performance_Tuning.md) (Sections 5.2-5.3), then [§28 Redis](01_TechGuide/28_Redis_Distributed_Caching.md) | HIGH |
 | 11-12 | DSA Hard Problems + Mock Interviews | [02_DSA/StudyGuide.md — Path 3](02_DSA/StudyGuide.md) | CRITICAL |
 
 **Key outcome**: Design scalable distributed systems. Solve Hard DSA problems. Explain trade-offs.

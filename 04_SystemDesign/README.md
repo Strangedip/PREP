@@ -357,6 +357,7 @@ Use the [HLD Template](00_Templates/HLD_Template/HLD_Template.md) for these comm
 |-------|---------------|
 | SOLID Principles deep dive | [03_Design_Patterns_SOLID_CleanArch.md](../01_TechGuide/03_Design_Patterns_SOLID_CleanArch.md) |
 | Caching patterns (Cache-Aside, Write-Through) | [05_Database_Performance_Tuning.md](../01_TechGuide/05_Database_Performance_Tuning.md) |
+| Redis deep dive (cluster, locks, stampede) | [28_Redis_Distributed_Caching.md](../01_TechGuide/28_Redis_Distributed_Caching.md) |
 | CAP Theorem, Load Balancing, API Gateway | [07_System_Design.md](../01_TechGuide/07_System_Design.md) |
 | Kafka, gRPC, Resilience patterns | [06_Microservices_Distributed_Systems.md](../01_TechGuide/06_Microservices_Distributed_Systems.md) |
 | Database indexing, sharding, EXPLAIN ANALYZE | [05_Database_Performance_Tuning.md](../01_TechGuide/05_Database_Performance_Tuning.md) |

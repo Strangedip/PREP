@@ -139,15 +139,12 @@ Use quicksort partitioning to find kth largest without fully sorting.
 
 ```mermaid
 flowchart TD
-    START["Input: nums=[3,2,1,5,6,4], k=2"]
-    START --> BOUNDS["lo=0, hi=n-1"]
-    BOUNDS --> MID["mid = (lo+hi)/2"]
-    MID --> CMP{"Compare nums[mid]"}
-    CMP -->|too small| LO["lo = mid+1"]
-    CMP -->|too large| HI["hi = mid-1"]
-    CMP -->|found| DONE["Return mid"]
-    LO --> BOUNDS
-    HI --> BOUNDS
+    START["nums=[3,2,1,5,6,4], k=2 → find 2nd largest"]
+    START --> PIVOT["Partition around pivot"]
+    PIVOT --> POS{"pivot index vs n-k?"}
+    POS -->|pivot too small| RIGHT["Search right half"]
+    POS -->|pivot too large| LEFT["Search left half"]
+    POS -->|equal| DONE["Return nums[pivot] = 5"]
 ```
 
 **Walkthrough (same example):**

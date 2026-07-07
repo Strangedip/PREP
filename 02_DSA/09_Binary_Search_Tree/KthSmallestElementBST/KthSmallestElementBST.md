@@ -333,15 +333,10 @@ public int kthSmallestMorris(TreeNode root, int k) {
 
 ```mermaid
 flowchart TD
-    START["Input: root=[3,1,4,null,2], k=1"]
-    START --> BOUNDS["lo=0, hi=n-1"]
-    BOUNDS --> MID["mid = (lo+hi)/2"]
-    MID --> CMP{"Compare nums[mid]"}
-    CMP -->|too small| LO["lo = mid+1"]
-    CMP -->|too large| HI["hi = mid-1"]
-    CMP -->|found| DONE["Return mid"]
-    LO --> BOUNDS
-    HI --> BOUNDS
+    START["BST root=3, k=1 → find 1st smallest"]
+    START --> ROOT["At node 3: left subtree has 2 nodes"]
+    ROOT --> LEFT["k <= 2 → search left subtree"]
+    LEFT --> NODE1["At node 1: left empty, count=1 → return 1"]
 ```
 
 **Walkthrough (same example):**

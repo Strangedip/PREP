@@ -293,3 +293,56 @@ public record PostCreatedEvent(long postId, long userId) {}
 | Redis feed cache | Sub-ms feed reads | Memory cost for active users |
 | Async like counters | Handles viral posts | Stale counts briefly |
 | Fan-out hybrid | Balances celebrity problem | Two code paths to maintain |
+
+---
+
+## Deep dive: Like counter — avoiding hot rows
+
+**Problem**: Viral post gets 1M likes/min → single `like_count` row in PostgreSQL melts.
+
+```
+Solution:
+1. Client likes → Kafka event LikeEvent(post_id, user_id)
+2. Consumer batches: INCR Redis post:123:likes
+3. Every 10s: flush Redis → PostgreSQL async
+4. Display: Redis count (approximate) or cached value
+```
+
+**Dedup**: `SADD likes:post:123 user:456` — set membership prevents double-like.
+
+---
+
+## Deep dive: Stories 24h lifecycle
+
+```
+1. Upload story media → S3 stories bucket
+2. Redis: ZADD stories:user:42 <expiry_ts> story_id
+3. Feed API: ZRANGEBYSCORE stories:followed_users now now+24h
+4. Cron job: delete expired S3 objects + Redis entries
+```
+
+Stories never hit permanent posts table — ephemeral by design.
+
+---
+
+## Failure modes
+
+| Failure | Mitigation |
+|---------|------------|
+| Fan-out lag | Scale workers; celebrity uses read path |
+| Media processing delay | status=processing; poll/WebSocket |
+| Like storm | Async counter via Redis |
+| CDN stale image | Versioned URLs `?v=timestamp` |
+| Explore ranking stale | Hourly offline refresh + trending overlay |
+
+---
+
+## Interview walkthrough (45 min)
+
+1. **Upload pipeline** — presigned S3, async resize
+2. **Feed** — fan-out write vs read, 10K threshold
+3. **Stories** — TTL Redis + S3 lifecycle
+4. **Likes** — async counters, no hot row
+5. **CDN** — TTL strategy per content type
+6. **Compare** — [NewsFeed](../NewsFeed/NewsFeed.md) for text-first
+

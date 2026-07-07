@@ -21,6 +21,12 @@ First-job loops at **TCS/Infosys campus**, **product startups**, and **service-t
 
 **Self-check**: Solve [Two Sum](../../02_DSA/01_Arrays_Matrix/TwoSum/TwoSum.md), [Valid Parentheses](../../02_DSA/06_Stacks_Queues/ValidParentheses/ValidParentheses.md), [Reverse Linked List](../../02_DSA/05_Linked_Lists/ReverseLinkedList/ReverseLinkedList.md) in 20 min each — explain approach first.
 
+**Example failure story (OA):**
+
+> Candidate solved problem 1 with O(n²) nested loops. Problem 2 was a two-pointer Medium disguised with Easy tags. Spent 55 minutes on problem 1; never started problem 2. Cutoff was "complete 2 problems."
+>
+> **Fix**: After 15 min stuck, switch problems. Always state complexity before coding. Complete [StudyGuide Path 1](../../02_DSA/StudyGuide.md) until 80% Easy before applying.
+
 ---
 
 ### Technical phone screen — 30–45 min
@@ -33,6 +39,14 @@ First-job loops at **TCS/Infosys campus**, **product startups**, and **service-t
 | **HTTP basics missing** | 200 vs 404 vs 500 same thing | [Web Fundamentals](../../01_TechGuide/00_Web_Fundamentals.md) |
 | **No questions at end** | "No questions" signals low curiosity | Prepare 2: team stack, onboarding, code review process |
 
+**Example failure story (phone screen):**
+
+> Interviewer asked "Walk me through your final year project." Candidate said "We made a web app using Spring." No mention of their role, database choices, or challenges. Follow-up "What was hardest?" — silence.
+>
+> **Better answer (2 min)**: "I built the REST API for a library system — 12 endpoints, PostgreSQL, JWT auth. Hardest part was preventing duplicate book reservations; I used a DB unique constraint on (book_id, date). Load-tested to 200 concurrent users on college WiFi."
+>
+> Prep: [Resume guide](../Career/Resume_and_Portfolio.md) + [Capstone Projects](../Career/Capstone_Projects.md)
+
 ---
 
 ### Face-to-face / final technical — 45–60 min
@@ -44,6 +58,12 @@ First-job loops at **TCS/Infosys campus**, **product startups**, and **service-t
 | **No edge cases** | Empty array, single element | Every Easy problem "Edge Cases" in `02_DSA` |
 | **Cannot dry-run** | Code has off-by-one | Trace on paper before saying "done" |
 | **Overclaims stack** | Lists Kafka on fresher resume | [CodeQuality](../Core/CodeQuality.md) — honest depth |
+
+**Example failure story (face-to-face):**
+
+> Candidate coded Two Sum in silence for 8 minutes. Solution was correct but interviewer had to ask "what are you thinking?" three times. Final feedback: "Technically OK, communication risk on team."
+>
+> **Fix**: Narrate every 60–90 seconds: "I'll use a HashMap to store complements… I'm handling the empty array case… Let me trace with [2,7,11,15]…" See [Interview Playbook §3](../Core/InterviewPlaybook.md).
 
 ---
 
@@ -78,3 +98,16 @@ First-job loops at **TCS/Infosys campus**, **product startups**, and **service-t
 - [ ] [Screening & OA guide](../Career/Fresher_Screening_and_OA_Guide.md) — platform-specific tips
 
 **Ready for SDE1 prep when**: Path 1 phases 1–2 complete + [SDE1 Interview Guide](SDE1_Interview_Guide.md) self-check passes.
+
+---
+
+## 4-week recovery plan (if failing screens)
+
+| Week | Focus | Deliverable |
+|------|-------|-------------|
+| 1 | OA speed | 20 Easy problems timed (25 min each) |
+| 2 | Project story | 5-min project pitch recorded on phone |
+| 3 | Fundamentals | [CS](../../01_TechGuide/00_Computer_Science_Fundamentals.md), [OOP](../../01_TechGuide/00_Java_OOP_Fundamentals.md), [SQL](../../01_TechGuide/35_SQL_Fundamentals.md) — explain each aloud |
+| 4 | Mock | 1 timed OA simulation + 1 project + 1 coding round with friend |
+
+**Portfolio boost**: Complete [Capstone Project 1](../Career/Capstone_Projects.md) if resume projects are weak.

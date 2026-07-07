@@ -44,33 +44,30 @@ Combine two structures to get O(1) for every operation:
 3. `remove` the last element (O(1)).
 4. Remove the target from the map.
 
-### Key Logic
+### Swap-and-pop visual
 
+```
+list: [1, 2, 3]   map: {1→0, 2→1, 3→2}
 
-#### Example Flow
+remove(2):
+  idx=1, lastVal=3
+  list.set(1, 3)  →  [1, 3, 3]
+  map.put(3, 1)   →  {1→0, 3→1}
+  list.remove(2)  →  [1, 3]
+  map.remove(2)   →  {1→0, 3→1}  ✓
 
-**Step flow (mermaid):**
+getRandom(): returns 1 or 3 with equal probability
+```
 
 ```mermaid
 flowchart TD
-    START["Input: insert(1), remove(2)"]
-    START --> BUILD["Build HashMap / Set"]
-    BUILD --> SCAN["Scan input once"]
-    SCAN --> LOOKUP{"Key seen?"}
-    LOOKUP -->|yes| FOUND["Return match"]
-    LOOKUP -->|no| STORE["Store in map"]
-    STORE --> SCAN
-```
-
-**Walkthrough (same example):**
-
-```
-Example: insert(1), remove(2)→false, insert(2), getRandom()→1 or 2
-Approach: ArrayList + HashMap (Optimal for Unique Values)
-
-Scan input left-to-right
-Store seen keys/values in hash map
-O(1) lookup finds complement or group
+    REM["remove(val)"]
+    REM --> HAS{"val in map?"}
+    HAS -->|no| FALSE["return false"]
+    HAS -->|yes| SWAP["Swap val with last element in list"]
+    SWAP --> UPD["Update map index for swapped element"]
+    UPD --> POP["Pop last from list; remove val from map"]
+    POP --> TRUE["return true"]
 ```
 ```java
 public boolean remove(int val) {

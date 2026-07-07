@@ -272,3 +272,88 @@ public record FileMetadataResponse(long fileId, long versionId, List<String> chu
 | Last-write-wins | Simple | User may lose edits |
 | SQL for metadata | ACID, joins for permissions | Shard carefully at scale |
 | Direct S3 upload | Scales bandwidth | More complex client logic |
+
+---
+
+## Deep dive: Delta sync algorithm
+
+When a file changes locally, the client does **not** re-upload the entire file:
+
+```
+1. Split file into 4 MB chunks
+2. Compute SHA-256 hash per chunk
+3. Fetch server manifest: [hash_a, hash_b, hash_c]
+4. Compare:
+   Local:  [hash_a, hash_x, hash_c]   ← chunk 2 changed
+5. Upload ONLY chunk with hash_x (missing on server)
+6. POST new manifest [hash_a, hash_x, hash_c]
+```
+
+**Bandwidth savings**: Edit one page in 100 MB PDF → upload ~4 MB chunk, not 100 MB.
+
+---
+
+## Deep dive: Conflict resolution scenarios
+
+| Scenario | Strategy | User experience |
+|----------|----------|-----------------|
+| Two devices edit different files | No conflict | Both sync independently |
+| Two devices edit same file offline | Last-write-wins OR keep-both | "report (conflicted copy).pdf" |
+| Real-time co-edit (Google Docs) | Operational Transform / CRDT | Requires different architecture |
+| Delete on A, edit on B | Delete wins or prompt user | "File was deleted on another device" |
+
+**Interview default**: Last-write-wins with `updated_at` comparison + optional "keep both copies" for consumer Dropbox-style apps.
+
+---
+
+## Deep dive: Garbage collection of chunks
+
+```
+chunks table: hash, size, ref_count
+
+On file delete → decrement ref_count for each chunk in version
+Background job (nightly):
+  SELECT hash FROM chunks WHERE ref_count = 0 AND deleted_at < now() - 7 days
+  DELETE from S3
+  DELETE from chunks table
+```
+
+**7-day grace**: Accidental delete recovery window.
+
+---
+
+## Deep dive: Share link security
+
+```
+GET /v1/shares/{token}
+  → Validate token not expired
+  → Check permission (view vs edit)
+  → Log audit: who accessed when
+  → Return presigned S3 URLs (15 min TTL)
+```
+
+**Public link**: `https://dropbox.com/s/abc123` → token maps to resource + permission.
+
+---
+
+## Failure modes
+
+| Failure | Mitigation |
+|---------|------------|
+| Partial chunk upload | Resume from manifest; idempotent PUT by hash |
+| Split-brain metadata | User_id sharding; version vectors for conflict |
+| Orphan chunks | ref_count + GC job |
+| Share link leak | Short TTL presigned URLs; revoke token |
+| Sync storm on login | Rate limit; batch delta API |
+
+---
+
+## Interview walkthrough (45 min)
+
+1. **Metadata vs blob split** — SQL for tree, S3 for bytes
+2. **Content-addressable chunks** — dedup, integrity, resume
+3. **Delta sync** — hash comparison, upload only changes
+4. **Conflict handling** — LWW vs keep-both
+5. **Sharing & security** — ACL, presigned URLs
+6. **GC** — ref_count for chunks
+

@@ -407,3 +407,43 @@ Resolution:
    - Network partition: May lose recent writes if primary fails before replication.
    - Trade-off: Accept eventual consistency for caching (AP in CAP). Use database for source of truth.
 
+---
+
+## Deep dive: Consistent hashing (detailed)
+
+```
+Hash ring with 3 nodes, 150 virtual nodes each:
+
+key "user:123" → hash → position on ring → clockwise to nearest node
+
+Add node D:
+  Migrate only slots that now map to D (not full cache flush)
+```
+
+**Virtual nodes**: Prevent uneven distribution when few physical nodes.
+
+---
+
+## Deep dive: Cache aside at scale (tie-in)
+
+Full Redis patterns — stampede, TTL, cluster slots, hot keys — are covered in [§28 Redis Deep Dive](../../../01_TechGuide/28_Redis_Distributed_Caching.md). This HLD focuses on **distributed cache layer architecture**; §28 covers **operational Redis usage**.
+
+| Topic | This HLD | §28 Redis |
+|-------|----------|-----------|
+| Sharding topology | Yes | Cluster slots detail |
+| Eviction policies | Overview | Full comparison + production defaults |
+| Stampede prevention | Code samples | Spring Boot + Redisson patterns |
+| Rate limiting | Mention | Sorted set + Lua detail |
+
+---
+
+## Interview walkthrough (40 min)
+
+1. **Why cache** — read latency, DB protection
+2. **Cache-aside vs write-through** — when each
+3. **Sharding** — consistent hashing, virtual nodes
+4. **Replication** — async, failover timeline
+5. **Hot keys** — replication, local L1 cache
+6. **Stampede** — lock, early refresh
+7. **Redis vs Memcached** — decision table
+

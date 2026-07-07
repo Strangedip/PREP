@@ -323,3 +323,79 @@ The server **never sees plaintext messages**. This has implications:
    - **Long Polling**: Higher latency, more HTTP overhead. Used as fallback.
    - **SSE**: Server-to-client only, not suitable for chat (need client→server too).
 
+---
+
+## Deep dive: Group message fan-out
+
+```
+User A sends to group G (500 members):
+
+1. A's Chat Server receives message via WebSocket
+2. Write message once to Cassandra (conversation_id=G)
+3. Publish to Kafka: chat.messages.group with 500 partition keys OR
+4. Fan-out service: for each member M in G:
+     - If M online: route to M's chat server via session store
+     - If M offline: already in Cassandra; push notification
+```
+
+| Group size | Strategy |
+|------------|----------|
+| < 100 members | Fan-out on send (write to each member's inbox) |
+| 100-500 | Kafka fan-out workers |
+| 500+ / celebrity | Fan-out on read — members pull group feed |
+
+---
+
+## Deep dive: Presence system
+
+```redis
+SET presence:user:42 "online" EX 60    # heartbeat every 30s
+GET presence:user:42
+
+# Last seen
+SET lastseen:user:42 1719398400
+```
+
+**Heartbeat**: Client pings every 30s; key expires in 60s → offline if no ping.
+
+**Privacy**: User can hide last-seen — server skips updates for followers.
+
+---
+
+## Deep dive: Message status flow
+
+```
+A sends → Server stores (SENT to A)
+       → B receives (DELIVERED to A)
+       → B opens chat (READ to A)
+
+Implementation:
+  Kafka topic: chat.receipts
+  A's server pushes receipt updates to A's WebSocket
+```
+
+---
+
+## Failure modes
+
+| Failure | Mitigation |
+|---------|------------|
+| Chat server crash | Client reconnect; Kafka retains messages |
+| Kafka lag | Scale consumers; monitor lag alert |
+| Session store stale | TTL on userId→serverId; reconnect fixes |
+| Group fan-out storm | Rate limit; stagger push notifications |
+| Cassandra hot partition | Shard conversation_id |
+
+---
+
+## Interview walkthrough (45 min)
+
+1. **WebSocket + session routing** — Redis userId→serverId
+2. **Kafka between servers** — why not direct RPC
+3. **1:1 delivery flow** — online vs offline
+4. **Group fan-out** — size-based strategy
+5. **Presence & receipts** — Redis + Kafka
+6. **Scale numbers** — 500M DAU, 50B msgs/day
+
+**Compare**: [WhatsApp](../WhatsApp/WhatsApp.md) for E2EE variant.
+

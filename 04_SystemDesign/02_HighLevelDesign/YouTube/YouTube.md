@@ -236,4 +236,179 @@ public enum VideoStatus { PROCESSING, READY, FAILED }
 4. **Copyright / moderation** — Separate pipeline (hash matching, ML classifiers)
 5. **Live vs VOD** — Live uses RTMP ingest + low-latency HLS; VOD uses batch transcode
 
+---
+
+## Deep dive: Upload pipeline (step by step)
+
+### Why resumable upload matters
+
+A 4 GB video on a flaky mobile connection will fail mid-upload. Clients must resume from the last successful chunk without re-uploading from byte 0.
+
+```
+1. Client: POST /v1/uploads { title, totalBytes, checksum }
+2. API: Create upload_session row (status=IN_PROGRESS)
+3. API: Return presigned URLs for chunks 1..N (S3 multipart or GCS resumable)
+4. Client: PUT each chunk directly to object storage (bypasses API servers)
+5. Client: POST /v1/uploads/{id}/complete { chunkManifest }
+6. API: Verify all chunks present → enqueue TranscodeJobEvent
+7. Worker: Download raw → transcode → upload renditions → update video.status=READY
+```
+
+### Chunk sizing trade-off
+
+| Chunk size | Pros | Cons |
+|------------|------|------|
+| 5 MB | Fast retry on failure | More API round-trips |
+| 64 MB | Fewer requests | Painful retry on mobile |
+| **8–16 MB** | Common default | Balance for most clients |
+
+---
+
+## Deep dive: Transcoding pipeline
+
+### Why multiple renditions?
+
+Users on 3G need 360p; users on fiber want 1080p. **Adaptive Bitrate Streaming (ABR)** switches quality mid-playback based on bandwidth.
+
+| Rendition | Resolution | Typical bitrate | Use case |
+|-----------|------------|-----------------|----------|
+| 360p | 640×360 | 800 Kbps | Slow mobile |
+| 480p | 854×480 | 1.2 Mbps | Average mobile |
+| 720p | 1280×720 | 2.5 Mbps | WiFi / tablet |
+| 1080p | 1920×1080 | 5 Mbps | Desktop / TV |
+
+### Worker architecture
+
+```
+Kafka topic: transcode-jobs (partitioned by video_id)
+    │
+    ├── GPU Worker Pool (NVENC / FFmpeg)
+    │     ├── Download raw from uploads/
+    │     ├── Transcode to HLS segments per rendition
+    │     ├── Generate thumbnail sprite
+    │     └── Upload to delivery/ bucket
+    │
+    └── Priority queue: live events > verified creators > default
+```
+
+**Cost control**: Spot/preemptible GPU instances; batch transcode off-peak; skip 1080p for short clips.
+
+---
+
+## Deep dive: Playback and CDN
+
+### Request path
+
+```
+1. Client: GET /v1/videos/{id}/stream
+2. API: Check video.status == READY
+3. API: Increment view counter (Redis INCR — async flush)
+4. API: Return signed CDN URL to HLS manifest (.m3u8)
+5. CDN edge: Serve .ts segments from nearest PoP
+6. Client player: ABR algorithm picks segment quality
+```
+
+### CDN cache strategy
+
+| Asset | TTL | Invalidation |
+|-------|-----|--------------|
+| HLS segments (.ts) | Long (immutable) | Never — new video = new path |
+| Manifest (.m3u8) | Short (30s–5min) | On new rendition publish |
+| Thumbnails | Medium (1h) | On video update |
+
+**Cost reality**: CDN egress dominates YouTube-scale bills — 95%+ cache hit rate is non-negotiable.
+
+---
+
+## Deep dive: View counting at scale
+
+Exact per-view counts at billions of plays/day are expensive and unnecessary for display.
+
+```
+Client plays video → API fires view event (dedupe by session/device, 30 min window)
+                 → Redis INCR video:{id}:views:today
+                 → Flink/Kafka consumer aggregates hourly
+                 → Batch flush to PostgreSQL / BigQuery
+```
+
+| Accuracy | Approach |
+|----------|----------|
+| Display "1.2M views" | Approximate — ±1–2% acceptable |
+| Creator analytics | More precise per-channel aggregation |
+| Billing / fraud | Exact dedup with device fingerprint |
+
+---
+
+## Deep dive: Search and recommendations
+
+### Search (Elasticsearch)
+
+```
+Index fields: title^3, description, tags, channel_name
+Ranking signals: text relevance + view_count + recency + engagement rate
+Personalization: boost subscribed channels in results
+```
+
+### Recommendations (offline + online)
+
+| Stage | What happens |
+|-------|--------------|
+| **Offline (daily)** | ML model trains on watch history → generates 500 candidate video IDs per user |
+| **Online (request)** | Merge subscription feed + cached candidates + trending; rank with lightweight model |
+| **Exploration** | 10–15% slots for new content (avoid filter bubble) |
+
+**Two-tower model** (interview vocabulary): User embedding × Video embedding → relevance score. Precompute video embeddings; user embedding at request time.
+
+---
+
+## Live streaming vs VOD
+
+| Dimension | VOD (uploaded) | Live stream |
+|-----------|----------------|-------------|
+| Ingest | Chunked upload to S3 | RTMP/WebRTC to ingest server |
+| Processing | Batch transcode (minutes) | Real-time transcode (< 3s latency) |
+| Delivery | Standard HLS | Low-latency HLS (LL-HLS) or WebRTC |
+| Scale challenge | Storage + transcode cost | Ingest bandwidth + concurrent viewers |
+| DVR | N/A | Optional replay → VOD pipeline |
+
+---
+
+## Content moderation pipeline (brief)
+
+Separate async pipeline — do not block upload completion:
+
+```
+Upload complete → Content ID hash match (copyright)
+               → ML classifier (NSFW, violence)
+               → Human review queue if flagged
+               → status: READY | LIMITED | REMOVED
+```
+
+---
+
+## Failure modes and mitigations
+
+| Failure | Impact | Mitigation |
+|---------|--------|------------|
+| Transcode worker crash | Video stuck PROCESSING | Retry job; dead-letter after 3 attempts |
+| CDN origin overload | Playback buffering | Multi-CDN; origin shield |
+| Upload session expired | Client must restart | Extend TTL on activity; resume manifest |
+| Hot video (viral) | Origin cache miss storm | Pre-warm CDN; separate "viral" bucket |
+| Recommendation model stale | Poor feed quality | Canary deploy; fallback to trending |
+| View count Redis loss | Under-counted views | Rebuild from event log |
+
+---
+
+## Scaling summary
+
+| Component | Bottleneck | Scale lever |
+|-----------|------------|-------------|
+| Upload API | Connection count | Stateless + presigned direct upload |
+| Object storage | Write throughput | Shard buckets by user_id hash |
+| Transcode | GPU capacity | Auto-scale worker pool on queue depth |
+| Metadata DB | Read QPS | Read replicas + Redis cache |
+| CDN | Egress bandwidth | More PoPs; peer among ISPs |
+| Search | Query latency | ES cluster; query cache |
+| Recommendations | Personalization CPU | Precompute candidates; edge cache |
+
 **Related**: [VideoStreaming](../VideoStreaming/VideoStreaming.md), [Instagram](../Instagram/Instagram.md), [SearchAutocomplete](../SearchAutocomplete/SearchAutocomplete.md)

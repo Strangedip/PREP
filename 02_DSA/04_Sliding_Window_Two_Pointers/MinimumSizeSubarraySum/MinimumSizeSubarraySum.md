@@ -162,15 +162,13 @@ Build a prefix sum array and use binary search to find the smallest window for e
 
 ```mermaid
 flowchart TD
-    START["Input: nums=[2,3,1,2,4,3], target=7"]
-    START --> BOUNDS["lo=0, hi=n-1"]
-    BOUNDS --> MID["mid = (lo+hi)/2"]
-    MID --> CMP{"Compare nums[mid]"}
-    CMP -->|too small| LO["lo = mid+1"]
-    CMP -->|too large| HI["hi = mid-1"]
-    CMP -->|found| DONE["Return mid"]
-    LO --> BOUNDS
-    HI --> BOUNDS
+    START["nums=[2,3,1,2,4,3], target=7"]
+    START --> WIN["left=0, sum=0, minLen=∞"]
+    WIN --> EXPAND["Expand right: add nums[right] to sum"]
+    EXPAND --> CHECK{"sum >= 7?"}
+    CHECK -->|no| EXPAND
+    CHECK -->|yes| SHRINK["Record minLen; shrink from left"]
+    SHRINK --> DONE["Best window: [4,3] length=2"]
 ```
 
 **Walkthrough (same example):**

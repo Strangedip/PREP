@@ -78,15 +78,14 @@ public int lengthOfLISDP(int[] nums) {
 
 ```mermaid
 flowchart TD
-    START["Input: nums=[10,9,2,5,3,7,101,18]"]
-    START --> BOUNDS["lo=0, hi=n-1"]
-    BOUNDS --> MID["mid = (lo+hi)/2"]
-    MID --> CMP{"Compare nums[mid]"}
-    CMP -->|too small| LO["lo = mid+1"]
-    CMP -->|too large| HI["hi = mid-1"]
-    CMP -->|found| DONE["Return mid"]
-    LO --> BOUNDS
-    HI --> BOUNDS
+    START["nums=[10,9,2,5,3,7,101,18]"]
+    START --> TAILS["Maintain tails[] = smallest tail per LIS length"]
+    TAILS --> NEXT["For each num: binary search position in tails"]
+    NEXT --> EXTEND{"pos == tails.size?"}
+    EXTEND -->|yes| ADD["Append num — extend LIS"]
+    EXTEND -->|no| REPLACE["Replace tails[pos] — keep smallest tail"]
+    ADD --> RESULT["tails length = 4 → [2,3,7,18]"]
+    REPLACE --> NEXT
 ```
 
 **Walkthrough (same example):**
@@ -170,15 +169,14 @@ Keep parent pointers to backtrack and build the actual subsequence.
 
 ```mermaid
 flowchart TD
-    START["Input: nums=[10,9,2,5,3,7,101,18]"]
-    START --> BOUNDS["lo=0, hi=n-1"]
-    BOUNDS --> MID["mid = (lo+hi)/2"]
-    MID --> CMP{"Compare nums[mid]"}
-    CMP -->|too small| LO["lo = mid+1"]
-    CMP -->|too large| HI["hi = mid-1"]
-    CMP -->|found| DONE["Return mid"]
-    LO --> BOUNDS
-    HI --> BOUNDS
+    START["nums=[10,9,2,5,3,7,101,18]"]
+    START --> TAILS["Maintain tails[] = smallest tail per LIS length"]
+    TAILS --> NEXT["For each num: binary search position in tails"]
+    NEXT --> EXTEND{"pos == tails.size?"}
+    EXTEND -->|yes| ADD["Append num — extend LIS"]
+    EXTEND -->|no| REPLACE["Replace tails[pos] — keep smallest tail"]
+    ADD --> RESULT["tails length = 4 → [2,3,7,18]"]
+    REPLACE --> NEXT
 ```
 
 **Walkthrough (same example):**
@@ -201,15 +199,14 @@ Track count of ways to form LIS of each length.
 
 ```mermaid
 flowchart TD
-    START["Input: nums=[10,9,2,5,3,7,101,18]"]
-    START --> BOUNDS["lo=0, hi=n-1"]
-    BOUNDS --> MID["mid = (lo+hi)/2"]
-    MID --> CMP{"Compare nums[mid]"}
-    CMP -->|too small| LO["lo = mid+1"]
-    CMP -->|too large| HI["hi = mid-1"]
-    CMP -->|found| DONE["Return mid"]
-    LO --> BOUNDS
-    HI --> BOUNDS
+    START["nums=[10,9,2,5,3,7,101,18]"]
+    START --> TAILS["Maintain tails[] = smallest tail per LIS length"]
+    TAILS --> NEXT["For each num: binary search position in tails"]
+    NEXT --> EXTEND{"pos == tails.size?"}
+    EXTEND -->|yes| ADD["Append num — extend LIS"]
+    EXTEND -->|no| REPLACE["Replace tails[pos] — keep smallest tail"]
+    ADD --> RESULT["tails length = 4 → [2,3,7,18]"]
+    REPLACE --> NEXT
 ```
 
 **Walkthrough (same example):**
@@ -232,15 +229,14 @@ Allow equal elements: change `>` to `>=` in comparison.
 
 ```mermaid
 flowchart TD
-    START["Input: nums=[10,9,2,5,3,7,101,18]"]
-    START --> BOUNDS["lo=0, hi=n-1"]
-    BOUNDS --> MID["mid = (lo+hi)/2"]
-    MID --> CMP{"Compare nums[mid]"}
-    CMP -->|too small| LO["lo = mid+1"]
-    CMP -->|too large| HI["hi = mid-1"]
-    CMP -->|found| DONE["Return mid"]
-    LO --> BOUNDS
-    HI --> BOUNDS
+    START["nums=[10,9,2,5,3,7,101,18]"]
+    START --> TAILS["Maintain tails[] = smallest tail per LIS length"]
+    TAILS --> NEXT["For each num: binary search position in tails"]
+    NEXT --> EXTEND{"pos == tails.size?"}
+    EXTEND -->|yes| ADD["Append num — extend LIS"]
+    EXTEND -->|no| REPLACE["Replace tails[pos] — keep smallest tail"]
+    ADD --> RESULT["tails length = 4 → [2,3,7,18]"]
+    REPLACE --> NEXT
 ```
 
 **Walkthrough (same example):**
@@ -263,15 +259,14 @@ Change condition to find decreasing subsequence.
 
 ```mermaid
 flowchart TD
-    START["Input: nums=[10,9,2,5,3,7,101,18]"]
-    START --> BOUNDS["lo=0, hi=n-1"]
-    BOUNDS --> MID["mid = (lo+hi)/2"]
-    MID --> CMP{"Compare nums[mid]"}
-    CMP -->|too small| LO["lo = mid+1"]
-    CMP -->|too large| HI["hi = mid-1"]
-    CMP -->|found| DONE["Return mid"]
-    LO --> BOUNDS
-    HI --> BOUNDS
+    START["nums=[10,9,2,5,3,7,101,18]"]
+    START --> TAILS["Maintain tails[] = smallest tail per LIS length"]
+    TAILS --> NEXT["For each num: binary search position in tails"]
+    NEXT --> EXTEND{"pos == tails.size?"}
+    EXTEND -->|yes| ADD["Append num — extend LIS"]
+    EXTEND -->|no| REPLACE["Replace tails[pos] — keep smallest tail"]
+    ADD --> RESULT["tails length = 4 → [2,3,7,18]"]
+    REPLACE --> NEXT
 ```
 
 **Walkthrough (same example):**
@@ -349,15 +344,14 @@ Halve search space until found
 
 ```mermaid
 flowchart TD
-    START["Input: nums=[10,9,2,5,3,7,101,18]"]
-    START --> BOUNDS["lo=0, hi=n-1"]
-    BOUNDS --> MID["mid = (lo+hi)/2"]
-    MID --> CMP{"Compare nums[mid]"}
-    CMP -->|too small| LO["lo = mid+1"]
-    CMP -->|too large| HI["hi = mid-1"]
-    CMP -->|found| DONE["Return mid"]
-    LO --> BOUNDS
-    HI --> BOUNDS
+    START["nums=[10,9,2,5,3,7,101,18]"]
+    START --> TAILS["Maintain tails[] = smallest tail per LIS length"]
+    TAILS --> NEXT["For each num: binary search position in tails"]
+    NEXT --> EXTEND{"pos == tails.size?"}
+    EXTEND -->|yes| ADD["Append num — extend LIS"]
+    EXTEND -->|no| REPLACE["Replace tails[pos] — keep smallest tail"]
+    ADD --> RESULT["tails length = 4 → [2,3,7,18]"]
+    REPLACE --> NEXT
 ```
 
 **Walkthrough (same example):**

@@ -29,6 +29,8 @@ Example: *Built a REST booking API with Spring Boot and PostgreSQL; load-tested 
 
 Link every project to **GitHub** with a clean README (setup steps, architecture diagram, test command).
 
+**Structured capstone specs**: See [Capstone_Projects.md](Capstone_Projects.md) for three level-appropriate projects (Task API, Order Service, Observability Platform) with milestones and evaluation rubrics.
+
 ---
 
 ## Portfolio checklist

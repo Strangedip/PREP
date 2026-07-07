@@ -227,8 +227,8 @@ Handles the asynchronous push of tweets to followers' timelines.
 Tweet Created → Kafka Topic "tweet-created"
   → Fan-Out Workers consume the message
   → For each follower of the tweet author:
-      → LPUSH tweet_id to Redis list "timeline:{follower_id}"
-      → Trim list to 800 entries (no need to keep ancient tweets)
+      → ZADD timeline:{follower_id} <timestamp_score> tweet_id
+      → ZREMRANGEBYRANK to keep top 800 entries
 ```
 
 **Why Kafka?**: The fan-out is asynchronous. Kafka provides:
@@ -352,6 +352,56 @@ GET    /api/v1/search?q=spring+boot&type=tweets&cursor=...
 3. **Why cursor pagination?** — New tweets arrive constantly; offset pagination would skip or duplicate tweets.
 4. **Consistency model** — Eventual consistency is acceptable. A follower seeing a tweet 2-3 seconds late is fine. Strong consistency would require synchronous fan-out, which is too slow.
 5. **How to handle trending topics?** — Count hashtag frequencies in a sliding window using Kafka Streams or Apache Flink, rank by velocity (rate of increase), not just volume.
+
+---
+
+## Hybrid timeline — one read, step by step
+
+User **B** opens home feed. B follows 180 regular accounts and 3 celebrities.
+
+```
+1. ZREVRANGE timeline:B 0 19          → 20 precomputed tweet IDs (fan-out on write)
+2. For each celebrity C in B's list:
+     ZREVRANGE posts:C 0 4             → 5 recent tweets each (cached)
+3. Merge 20 + 15 = 35 candidates
+4. Rank by score (recency + engagement)
+5. Hydrate tweet IDs → full objects from Tweet Service / cache
+6. Return top 20 + next_cursor
+```
+
+**Latency budget**: Redis reads ~5ms each; celebrity merge ~3 parallel calls; hydrate batch ~50ms. Total under 300ms p99.
+
+**Why not push to celebrities' followers?** One tweet from a user with 50M followers = 50M Redis writes. At 12K tweets/sec peak, that path does not scale.
+
+---
+
+## Failure scenarios
+
+| Scenario | What breaks | Mitigation |
+|----------|-------------|------------|
+| Celebrity posts during IPL final | Fan-out lag spikes for regular users | Isolate celebrity path to read-merge only; never enqueue 50M writes |
+| Redis shard hot (viral hashtag) | One timeline key overloaded | Shard by user_id; no global key |
+| Fan-out worker dies mid-batch | Some followers miss tweet in cache | Kafka replay; at-least-once fan-out is idempotent (ZADD same tweet_id) |
+| User unfollows A | A's old tweets still in cache | Unfollow handler ZREMs A's tweet IDs from timeline (async) |
+| Delete tweet | Stale ID in timelines | `tweet-deleted` event → fan-out workers purge from all cached timelines |
+
+Eventual consistency is acceptable: a follower seeing a tweet 2–5 seconds late is fine. Showing a deleted tweet for 30 seconds is not — delete propagation should be faster than fan-out (priority queue).
+
+---
+
+## Interview walkthrough (40 min)
+
+| Phase | Cover |
+|-------|--------|
+| **Requirements** (5 min) | Post, follow, home timeline, search; 100:1 read/write; <300ms feed |
+| **Capacity** (5 min) | 500M tweets/day, 1B timeline reads/day |
+| **Write path** (5 min) | Tweet Service → Kafka → async fan-out for non-celebrities |
+| **Read path** (10 min) | Hybrid fan-out — this is the core; draw the 6 steps above |
+| **Storage** (5 min) | Snowflake ID, shard tweets by user_id, Redis ZSET for timelines |
+| **Search & media** (5 min) | Elasticsearch async; S3 + CDN — brief |
+| **Trade-offs** (5 min) | AP over CP; cursor pagination; celebrity threshold |
+
+**One-liner to close**: "Writes are cheap and async; reads are precomputed for the long tail and merged at read time for the celebrity head."
 
 ---
 
