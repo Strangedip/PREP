@@ -30,6 +30,11 @@ Around Tech Lead level, many developers face a career choice:
 
 **Hard truth**: If you become EM to escape coding without liking people management, you will be miserable.
 
+**Deep dives** (use after this overview):
+- [Hiring Loop Design](07_Hiring_Loop_Design.md) — running interviews as the company
+- [One-on-Ones & Performance Reviews](08_One_on_Ones_and_Performance_Reviews.md) — 1:1s, feedback, promotion packets
+- [Stakeholder Updates](09_Stakeholder_Updates_and_Visibility.md) — visibility without politics
+
 ---
 
 ## EM core responsibilities

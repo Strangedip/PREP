@@ -288,6 +288,7 @@ This repo uses **one linear ladder**: Fresher → SDE1 → SDE2 → Senior SDE �
 - [ ] `[Core]` [DevOps CI/CD & Docker](01_TechGuide/10_DevOps_CICD_Docker.md) — containers, CI/CD, GitOps
 - [ ] `[Core]` [Performance Engineering & JVM](01_TechGuide/18_Performance_Engineering_JVM.md) — GC tuning, JFR, profiling
 - [ ] `[Core]` [Event-Driven Architecture](01_TechGuide/19_Event_Driven_Architecture.md) — Kafka deep dive; §06 covers messaging intro
+- [ ] `[Core]` [Monolith → Microservices Migration](01_TechGuide/39_Monolith_to_Microservices_Migration.md) — Strangler Fig playbook, dual-write, metrics, Conway
 - [ ] `[Recommended]` [SRE & Reliability Engineering](01_TechGuide/23_SRE_Reliability_Engineering.md) — error budgets, incidents (extends §11)
 - [ ] `[Recommended]` [NoSQL Databases Guide](01_TechGuide/27_NoSQL_Databases_Guide.md) — MongoDB, DynamoDB, Cassandra selection
 - [ ] `[Recommended]` [Redis Distributed Caching](01_TechGuide/28_Redis_Distributed_Caching.md) — cluster, locks, stampede; pairs with [Distributed Cache HLD](04_SystemDesign/02_HighLevelDesign/DistributedCache/DistributedCache.md)
@@ -343,6 +344,8 @@ This repo uses **one linear ladder**: Fresher → SDE1 → SDE2 → Senior SDE �
 - [ ] `[Core]` [Self-Assessment — Sections 11–20](00_Interview_Prep/Core/SelfAssessment.md) — system design, DevOps, security depth
 - [ ] `[Core]` [Interview Questions](00_Interview_Prep/Core/InterviewQuestions.md) — senior-level rapid review
 - [ ] `[Core]` [Senior Loop Failure Modes](00_Interview_Prep/Levels/Senior_Failure_Modes.md) — HLD NFR gaps, coding depth, behavioral at senior bands
+- [ ] `[Recommended]` [Mid-Career Switch / Negotiate / Plateau](00_Interview_Prep/Career/Mid_Career_Switch_Negotiate_Plateau.md) — switch while employed, plateau diagnosis
+- [ ] `[Recommended]` [Product Partnership](00_Interview_Prep/Career/Product_Partnership.md) — PM collaboration, prioritization
 
 ---
 
@@ -367,6 +370,8 @@ This repo uses **one linear ladder**: Fresher → SDE1 → SDE2 → Senior SDE �
 - [ ] `[Core]` [Companies Guide — behavioral & LP mapping](00_Interview_Prep/Core/Companies.md) — Amazon LP→STAR, company-specific rounds
 - [ ] `[Core]` [Interview Playbook — STAR & behavioral protocol](00_Interview_Prep/Core/InterviewPlaybook.md) — Section 5 STAR method
 - [ ] `[Core]` [Tech Lead — Conflict & Performance](00_Interview_Prep/Levels/Tech_Lead_Conflict_and_Performance.md) — STAR conflict stories, perf conversations, LP mapping
+- [ ] `[Recommended]` [Product Partnership](00_Interview_Prep/Career/Product_Partnership.md) — PM/design intake, prioritization, saying no with options
+- [ ] `[Recommended]` [Mid-Career Switch / Negotiate / Plateau](00_Interview_Prep/Career/Mid_Career_Switch_Negotiate_Plateau.md) — job switch while employed, negotiation scripts
 
 ### Interview Prep
 - [ ] `[Core]` [Self-Assessment — Sections 21–27](00_Interview_Prep/Core/SelfAssessment.md) — DSA hard, leadership, full score ≥ 160
@@ -455,6 +460,7 @@ This repo uses **one linear ladder**: Fresher → SDE1 → SDE2 → Senior SDE �
 - [ ] `[Core]` [Enterprise Architecture Frameworks](00_Interview_Prep/Principal/Enterprise_Architecture_Frameworks.md) — TOGAF ADM, Zachman matrix, strategic DDD, context maps
 - [ ] `[Core]` [Multi-Year Vision & Build-vs-Buy](00_Interview_Prep/Principal/Multi_Year_Vision_Build_vs_Buy.md) — 3-year pillars, build-vs-buy matrix, executive narrative
 - [ ] `[Core]` [Organization Design — Conway & Team Topologies](00_Interview_Prep/Principal/Organization_Design_Conway_Team_Topologies.md) — stream/platform/enabling teams, Conway reversal
+- [ ] `[Core]` [Monolith → Microservices Migration](01_TechGuide/39_Monolith_to_Microservices_Migration.md) — org-scale strangler, exec narrative
 
 ### System Design
 - [ ] `[Recommended]` [Payment System](04_SystemDesign/02_HighLevelDesign/PaymentSystem/PaymentSystem.md) — regulated financial architecture reference
@@ -502,6 +508,11 @@ Consolidated content backlog — **all rows below are Done** and link to shipped
 | Failure modes all levels | All | **Done** — Fresher, SDE1 (in guide), SDE2, Senior, Tech Lead, Staff, Principal |
 | On-the-job lifecycle (post-hire) | SDE1+ | **Done** — [06_On_The_Job/](06_On_The_Job/README.md) |
 | Capstone portfolio projects | Fresher | **Done** — [Capstone_Projects.md](00_Interview_Prep/Career/Capstone_Projects.md) |
+| Mid-career switch / negotiate / plateau | SDE2+ | **Done** — [Mid_Career_Switch_Negotiate_Plateau.md](00_Interview_Prep/Career/Mid_Career_Switch_Negotiate_Plateau.md) |
+| Product partnership (PM / roadmap) | SDE2+ | **Done** — [Product_Partnership.md](00_Interview_Prep/Career/Product_Partnership.md) |
+| Monolith → microservices migration playbook | Senior+ | **Done** — [39_Monolith_to_Microservices_Migration.md](01_TechGuide/39_Monolith_to_Microservices_Migration.md) |
+| Hiring loops, 1:1s, stakeholder visibility | Tech Lead+ | **Done** — [07](06_On_The_Job/07_Hiring_Loop_Design.md), [08](06_On_The_Job/08_One_on_Ones_and_Performance_Reviews.md), [09](06_On_The_Job/09_Stakeholder_Updates_and_Visibility.md) |
+| Content style guide | Maintainers | **Done** — [STYLE.md](STYLE.md) |
 | Expanded LLD (Hotel, Food Delivery) | SDE2 | **Done** — full APIs, flows, tests |
 | Expanded HLD (YouTube, WebCrawler) | Senior | **Done** — deep dives, failure modes |
 | Redis deep dive (§28) | SDE2+ | **Done** — [28_Redis_Distributed_Caching.md](01_TechGuide/28_Redis_Distributed_Caching.md) |
@@ -525,14 +536,17 @@ Consolidated content backlog — **all rows below are Done** and link to shipped
 ### Senior / Tech Lead
 - [ ] `[Core]` [On-Call & Incident Response](06_On_The_Job/03_On_Call_Incident_Response.md) — mitigate, communicate, post-mortem
 
-### Career fork
+### Career fork & people leadership
 - [ ] `[Recommended]` [Engineering Manager Track](06_On_The_Job/06_Engineering_Manager_Track.md) — IC vs EM path
+- [ ] `[Recommended]` [Hiring Loop Design](06_On_The_Job/07_Hiring_Loop_Design.md) — loop blueprints, rubrics, calibration
+- [ ] `[Recommended]` [One-on-Ones & Performance Reviews](06_On_The_Job/08_One_on_Ones_and_Performance_Reviews.md) — 1:1 agenda, feedback, promotion packets
+- [ ] `[Recommended]` [Stakeholder Updates & Visibility](06_On_The_Job/09_Stakeholder_Updates_and_Visibility.md) — weekly briefs, demos, promotion evidence
 
 ---
 
 ## Maintenance note
 
-Every new file added to this repo must be linked from the relevant level's section above, tagged `[Core]` / `[Recommended]` / `[Optional]`. No orphan files.
+Every new file added to this repo must be linked from the relevant level's section above, tagged `[Core]` / `[Recommended]` / `[Optional]`. No orphan files. Follow [STYLE.md](STYLE.md) for voice and structure.
 
 When topic duplication exists, the **primary** file is `[Core]`; the secondary is `[Optional] — deeper dive` (e.g. Kafka: §06 Core at Senior, §19 Optional deeper dive). **Do not split one topic across files** — each subject has a single canonical home; cross-links point to that file only.
 

@@ -137,17 +137,52 @@ Deep dives: [§26 PostgreSQL](../../01_TechGuide/26_PostgreSQL_Relational_DB_Dee
 
 ---
 
+## Tabletop exercise — PayKart region loss (90 min)
+
+Run this as a Principal interview whiteboard or an internal game day.
+
+### Scenario
+
+`ap-south-1` loses connectivity for 40 minutes during a sale. PostgreSQL primary unreachable; Kafka in-region paused; standby `ap-southeast-1` is warm (active-passive).
+
+### Facilitator checklist
+
+| Minute | Prompt | Expected Principal moves |
+|--------|--------|--------------------------|
+| 0–10 | Declare Sev-1; who is IC? | Name IC, comms lead, scribe; page runbook |
+| 10–25 | Failover decision | Stop writes via flag; promote replica; shift GLB; **no** dual primary |
+| 25–40 | Payments in flight | Idempotency; PSP reconcile; customer messaging |
+| 40–55 | Kafka | Consumers on standby; lag thresholds; no silent drop |
+| 55–70 | Declare stable | Smoke tests; RTO/RPO actuals |
+| 70–90 | Postmortem spine | Triggers, action items, whether Tier 3 (active-read) is justified |
+
+### Scoring (interview)
+
+| Signal | Strong | Weak |
+|--------|--------|------|
+| Split-brain avoidance | Explicit write stop before promote | "Just flip DNS" |
+| Money correctness | Idempotency + reconcile | "Retry all webhooks" |
+| Honesty on RTO | Minutes, not seconds, for DNS/DB | Claims zero downtime without design |
+| Cost judgment | Doesn't jump to active-active write | "We should have been multi-master" |
+
+Full migration context: [§39](../../01_TechGuide/39_Monolith_to_Microservices_Migration.md).
+
+---
+
 ## Interview discussion points
 
 1. **How do you avoid double payment on failover?** Idempotency keys in durable store replicated or global ID service; reconcile with PSP.
 2. **DNS failover vs anycast?** DNS TTL 60s = minutes of bleed; GLB health checks faster.
 3. **Kafka during region loss?** Consumers in healthy region; replay from offset after mirror catches up.
 4. **GDPR data residency?** EU users' data never written to India region — shard by residency, not just DR copy ([§38](../../01_TechGuide/38_Compliance_and_Regulated_Systems.md)).
+5. **Walk the tabletop** above in 10 minutes.
 
 ---
 
 ## Related
 
 - [§31 Cloud AWS/GCP/Azure](../../01_TechGuide/31_Cloud_Computing_AWS_GCP_Azure.md)
+- [§23 SRE](../../01_TechGuide/23_SRE_Reliability_Engineering.md)
 - [Critical Connections DSA](../../02_DSA/11_Graphs/CriticalConnections/CriticalConnections.md) — network bridge analogy
 - [Multi-Year Vision](Multi_Year_Vision_Build_vs_Buy.md) — when to defer multi-region
+- [On-Call & Incidents](../../06_On_The_Job/03_On_Call_Incident_Response.md)

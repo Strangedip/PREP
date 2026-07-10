@@ -600,6 +600,15 @@ Each section below is tagged with the minimum level where the topic becomes rele
 - **38.6 Audit & Compliance Logging**
 - **38.7 Change Management (SOX)**
 
+### [Section 39: Monolith → Microservices Migration](./39_Monolith_to_Microservices_Migration.md) `SR+`
+
+- **39.1 When to migrate vs modularize**
+- **39.2 Strangler Fig, ACL, Branch by Abstraction**
+- **39.3 Expand–Contract, dual-write, outbox**
+- **39.4 Traffic toolkit**: flags, shadow, canary, rollback
+- **39.5 Metrics, Conway alignment, exec one-pager**
+- **39.6 Worked narrative**: PayKart checkout extraction
+
 ---
 
 ## Quick Reference: Keywords to Use in Interviews
@@ -616,6 +625,7 @@ Each section below is tagged with the minimum level where the topic becomes rele
 | Database | Covering Index, Partition Pruning, Leftmost Prefix Rule, N+1 Problem |
 | Caching | Cache-Aside, Cache Stampede, TTL, Eviction Policy, Near-Cache |
 | System Design | CAP Theorem, Consistent Hashing, Strangler Fig, Anti-Corruption Layer |
+| Migration | Expand-Contract, Dual-Write, Shadow Traffic, Outbox, Conway Alignment |
 | Kubernetes | Desired State, Reconciliation Loop, Readiness Probe, HPA, Pod Disruption Budget |
 | AI/RAG | Vector Embedding, Cosine Similarity, Semantic Search, Chunking, Context Window |
 | Angular | Standalone Components, Signals, OnPush, Zoneless, @defer, NgRx Signal Store, switchMap, Functional Guards, Functional Interceptors |

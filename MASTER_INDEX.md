@@ -39,6 +39,8 @@
 | Fresher resume & portfolio | [Resume_and_Portfolio.md](00_Interview_Prep/Career/Resume_and_Portfolio.md) | ALL | FRESHER |
 | Capstone portfolio projects | [Capstone_Projects.md](00_Interview_Prep/Career/Capstone_Projects.md) | ALL | FRESHER |
 | Fresher OA & screening | [Fresher_Screening_and_OA_Guide.md](00_Interview_Prep/Career/Fresher_Screening_and_OA_Guide.md) | COD | FRESHER |
+| Mid-career switch / negotiate / plateau | [Mid_Career_Switch_Negotiate_Plateau.md](00_Interview_Prep/Career/Mid_Career_Switch_Negotiate_Plateau.md) | ALL | MID |
+| Product partnership (PM / roadmap) | [Product_Partnership.md](00_Interview_Prep/Career/Product_Partnership.md) | BEH | MID |
 | Fresher failure modes | [Fresher_Failure_Modes.md](00_Interview_Prep/Levels/Fresher_Failure_Modes.md) | ALL | FRESHER |
 | SDE1 interview guide | [SDE1_Interview_Guide.md](00_Interview_Prep/Levels/SDE1_Interview_Guide.md) | ALL | SDE1 |
 | Interview prep schedule | [InterviewPlaybook.md](00_Interview_Prep/Core/InterviewPlaybook.md) | ALL | ALL |
@@ -77,6 +79,9 @@
 | RFC / ADR writing | [04_RFC_ADR_Writing.md](06_On_The_Job/04_RFC_ADR_Writing.md) | TECH | MID |
 | Code review culture | [05_Code_Review_Culture.md](06_On_The_Job/05_Code_Review_Culture.md) | ALL | ALL |
 | Engineering Manager track | [06_Engineering_Manager_Track.md](06_On_The_Job/06_Engineering_Manager_Track.md) | BEH | LEAD |
+| Hiring loop design | [07_Hiring_Loop_Design.md](06_On_The_Job/07_Hiring_Loop_Design.md) | BEH | LEAD |
+| One-on-ones & performance reviews | [08_One_on_Ones_and_Performance_Reviews.md](06_On_The_Job/08_One_on_Ones_and_Performance_Reviews.md) | BEH | LEAD |
+| Stakeholder updates & visibility | [09_Stakeholder_Updates_and_Visibility.md](06_On_The_Job/09_Stakeholder_Updates_and_Visibility.md) | BEH | MID |
 
 ---
 
@@ -134,6 +139,7 @@
 |-------|------|-------|-------|
 | CAP, scaling, load balancing | [07_System_Design.md](01_TechGuide/07_System_Design.md) | SD | SR |
 | Circuit breaker, SAGA, Kafka | [06_Microservices_Distributed_Systems.md](01_TechGuide/06_Microservices_Distributed_Systems.md) | SD/TECH | SR |
+| Monolith → microservices migration | [39_Monolith_to_Microservices_Migration.md](01_TechGuide/39_Monolith_to_Microservices_Migration.md) | SD/TECH | SR |
 | Event sourcing, CQRS, CDC | [19_Event_Driven_Architecture.md](01_TechGuide/19_Event_Driven_Architecture.md) | SD | SR |
 | DSA ↔ SD mapping | [CrossReferences.md](00_Interview_Prep/Core/CrossReferences.md) | SD | SR |
 
@@ -264,4 +270,4 @@
 
 ---
 
-*Last updated: July 2026 — aligned to Fresher→Principal ROADMAP*
+*Last updated: July 2026 — Fresher→Principal ROADMAP; §39 migration; mid-career & on-the-job leadership guides*

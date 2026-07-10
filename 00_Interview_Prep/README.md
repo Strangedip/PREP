@@ -56,6 +56,8 @@ This folder collects **everything that is not coding problems, TechGuide theory,
 | [Resume_and_Portfolio.md](Career/Resume_and_Portfolio.md) | Fresher |
 | [Capstone_Projects.md](Career/Capstone_Projects.md) | Fresher → SDE2 (portfolio specs + rubrics) |
 | [Fresher_Screening_and_OA_Guide.md](Career/Fresher_Screening_and_OA_Guide.md) | Fresher |
+| [Mid_Career_Switch_Negotiate_Plateau.md](Career/Mid_Career_Switch_Negotiate_Plateau.md) | SDE2 → Staff (switch, negotiate, plateau, burnout) |
+| [Product_Partnership.md](Career/Product_Partnership.md) | SDE2 → Principal (PM/design/roadmap) |
 
 ---
 
@@ -108,3 +110,4 @@ This folder collects **everything that is not coding problems, TechGuide theory,
 | Machine coding round (90 min) | [03_CodingPatterns/Machine_Coding_Round_Guide.md](../03_CodingPatterns/Machine_Coding_Round_Guide.md) |
 | AI / RAG / agents | [05_AI/](../05_AI/) |
 | Post-hire (on the job) | [06_On_The_Job/](../06_On_The_Job/) |
+| Writing / contribution style | [STYLE.md](../STYLE.md) |

@@ -95,6 +95,48 @@ Problem: Payment change breaks cart; one release train; PCI scope entire app
 
 ---
 
+## Worked re-org — PayKart after payment extraction
+
+**Before** (layer teams):
+
+```
+Frontend squad (Angular) ── calls ──► Backend monolith squad (everyone)
+                                      └── shared DB, shared on-call
+Platform = 2 SREs with wiki
+```
+
+**Pain**: Every checkout change needs FE + BE + DB owners; payment incidents page the whole backend.
+
+**After** (stream + platform + complicated subsystem):
+
+```
+┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐
+│ Stream: Checkout │  │ Stream: Catalog  │  │ Complicated:     │
+│ FE + BFF + cart  │  │ Browse + search  │  │ Payment ledger   │
+│ owns cart API    │  │ owns catalog API │  │ + PSP adapters   │
+└────────┬─────────┘  └────────┬─────────┘  └────────┬─────────┘
+         │                     │                     │
+         └────────── events / APIs ──────────────────┘
+                           │
+                  ┌────────┴────────┐
+                  │ Platform (IDP)  │  golden path, CI, obs, Kafka
+                  └─────────────────┘
+                  ┌─────────────────┐
+                  │ Enabling (temp) │  outbox adoption coaching
+                  └─────────────────┘
+```
+
+**Interaction rules**:
+- Checkout **X-as-a-Service** to Payment (versioned API + SLOs)
+- Platform **collaborates** then moves to X-as-a-Service templates
+- Enabling team **disbands** after 2 quarters of outbox competence
+
+**Headcount sketch** (illustrative): Payment complicated-subsystem = 6 eng; Platform = 5; each stream = 8–10. Do not create 20 "microservices" with 20 teams of one.
+
+Migration sequencing: [§39](../../01_TechGuide/39_Monolith_to_Microservices_Migration.md).
+
+---
+
 ## Metrics that prove alignment
 
 | Metric | Healthy signal |
@@ -116,6 +158,7 @@ Problem: Payment change breaks cart; one release train; PCI scope entire app
 | Stream vs platform? | Stream ships features; platform ships golden paths and APIs. |
 | Shared DB between teams? | Avoid — use APIs/events; shared DB = hidden monolith. |
 | Re-org for microservices? | Sometimes yes — split by bounded context, not layer (frontend team / backend team). |
+| Walk PayKart | Layer → stream/platform/payment; name interaction modes. |
 
 ---
 
@@ -123,4 +166,5 @@ Problem: Payment change breaks cart; one release train; PCI scope entire app
 
 - [Multi-Team Architecture Review](../Levels/Multi_Team_Architecture_Review.md)
 - [Multi-Year Vision & Build-vs-Buy](Multi_Year_Vision_Build_vs_Buy.md)
+- [§39 Migration Playbook](../../01_TechGuide/39_Monolith_to_Microservices_Migration.md)
 - [§06 Microservices](../../01_TechGuide/06_Microservices_Distributed_Systems.md)

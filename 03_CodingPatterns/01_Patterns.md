@@ -1,159 +1,159 @@
-# **Complete List of Design Patterns Explained So Far**
+# GoF Design Patterns — Catalog & Reference
 
 > **You are here**: SDE2 — Technical Skills (GoF patterns)
 > **Roadmap**: [Developer Master Roadmap](../ROADMAP.md) | **Prerequisites**: [Design Patterns & SOLID](../01_TechGuide/03_Design_Patterns_SOLID_CleanArch.md) | **Next**: [Parking Lot LLD](../04_SystemDesign/01_LowLevelDesign/ParkingLot/ParkingLot.md)
 
-Here is the **updated** list of all design patterns I have explained, along with **why and when to use them**:
+Catalog of GoF design patterns covered in this guide, with **what each pattern does** and **when to use it**:
 
 ---
 
 ### **1. Singleton Pattern**
-✅ **Ensures only one instance of a class exists globally.**  
-📌 **Use When:** You need a single shared instance, like database connections, logging, or configuration management.
+**What:** Ensures only one instance of a class exists globally.
+**Use when:** You need a single shared instance, like database connections, logging, or configuration management.
 
 ---
 
 ### **2. Factory Pattern**
-✅ **Encapsulates object creation logic and provides a flexible way to instantiate objects.**  
-📌 **Use When:** You need dynamic object creation, avoiding `new` keyword usage in multiple places (e.g., DAO creation, service instantiation).
+**What:** Encapsulates object creation logic and provides a flexible way to instantiate objects.
+**Use when:** You need dynamic object creation, avoiding `new` keyword usage in multiple places (e.g., DAO creation, service instantiation).
 
 ---
 
 ### **3. Abstract Factory Pattern**
-✅ **Creates families of related objects without specifying their concrete classes.**  
-📌 **Use When:** You need to produce multiple types of related objects dynamically (e.g., UI themes with buttons, menus, and text fields).
+**What:** Creates families of related objects without specifying their concrete classes.
+**Use when:** You need to produce multiple types of related objects dynamically (e.g., UI themes with buttons, menus, and text fields).
 
 ---
 
 ### **4. Builder Pattern**
-✅ **Simplifies object creation for complex objects with many parameters.**  
-📌 **Use When:** You need to create immutable objects with multiple optional parameters (e.g., configuring an HTTP request or building a report).
+**What:** Simplifies object creation for complex objects with many parameters.
+**Use when:** You need to create immutable objects with multiple optional parameters (e.g., configuring an HTTP request or building a report).
 
 ---
 
 ### **5. Prototype Pattern**
-✅ **Allows cloning of existing objects instead of creating new instances.**  
-📌 **Use When:** Object creation is expensive and you want to reuse an existing instance (e.g., object caching, game character cloning).
+**What:** Allows cloning of existing objects instead of creating new instances.
+**Use when:** Object creation is expensive and you want to reuse an existing instance (e.g., object caching, game character cloning).
 
 ---
 
 ### **6. Adapter Pattern**
-✅ **Converts one interface into another compatible interface.**  
-📌 **Use When:** You need to integrate an old system with a new API or connect incompatible interfaces (e.g., legacy code adaptation).
+**What:** Converts one interface into another compatible interface.
+**Use when:** You need to integrate an old system with a new API or connect incompatible interfaces (e.g., legacy code adaptation).
 
 ---
 
 ### **7. Bridge Pattern**
-✅ **Decouples abstraction from implementation to allow independent variations.**  
-📌 **Use When:** You need to extend both functionality and implementation separately (e.g., different payment methods and gateways).
+**What:** Decouples abstraction from implementation to allow independent variations.
+**Use when:** You need to extend both functionality and implementation separately (e.g., different payment methods and gateways).
 
 ---
 
 ### **8. Composite Pattern**
-✅ **Manages hierarchical structures where objects can be treated uniformly.**  
-📌 **Use When:** You need to handle individual and group objects in the same way (e.g., file systems, menus, product categories).
+**What:** Manages hierarchical structures where objects can be treated uniformly.
+**Use when:** You need to handle individual and group objects in the same way (e.g., file systems, menus, product categories).
 
 ---
 
 ### **9. Decorator Pattern**
-✅ **Dynamically adds new behavior to objects without modifying their structure.**  
-📌 **Use When:** You need to extend object functionality without modifying the original class (e.g., logging, security, caching enhancements).
+**What:** Dynamically adds new behavior to objects without modifying their structure.
+**Use when:** You need to extend object functionality without modifying the original class (e.g., logging, security, caching enhancements).
 
 ---
 
 ### **10. Facade Pattern**
-✅ **Provides a simplified, unified interface to a complex system.**  
-📌 **Use When:** You need to simplify interactions with multiple subsystems (e.g., order processing in e-commerce).
+**What:** Provides a simplified, unified interface to a complex system.
+**Use when:** You need to simplify interactions with multiple subsystems (e.g., order processing in e-commerce).
 
 ---
 
 ### **11. Flyweight Pattern**
-✅ **Minimizes memory usage by sharing common objects instead of creating new ones.**  
-📌 **Use When:** Your application creates a large number of similar objects (e.g., caching, UI rendering optimization).
+**What:** Minimizes memory usage by sharing common objects instead of creating new ones.
+**Use when:** Your application creates a large number of similar objects (e.g., caching, UI rendering optimization).
 
 ---
 
 ### **12. Proxy Pattern**
-✅ **Provides a surrogate for another object to control access.**  
-📌 **Use When:** You need to add security, lazy loading, or remote access to an object (e.g., database access control, API rate limiting).
+**What:** Provides a surrogate for another object to control access.
+**Use when:** You need to add security, lazy loading, or remote access to an object (e.g., database access control, API rate limiting).
 
 ---
 
 ### **13. Chain of Responsibility Pattern**
-✅ **Passes a request through a chain of handlers until one processes it.**  
-📌 **Use When:** You need a flexible way to handle requests (e.g., logging, authentication, middleware filters).
+**What:** Passes a request through a chain of handlers until one processes it.
+**Use when:** You need a flexible way to handle requests (e.g., logging, authentication, middleware filters).
 
 ---
 
 ### **14. Command Pattern**
-✅ **Encapsulates requests as objects, allowing execution, queuing, and undo functionality.**  
-📌 **Use When:** You need to support undo/redo operations or queue tasks (e.g., transaction rollback, task scheduling).
+**What:** Encapsulates requests as objects, allowing execution, queuing, and undo functionality.
+**Use when:** You need to support undo/redo operations or queue tasks (e.g., transaction rollback, task scheduling).
 
 ---
 
 ### **15. Interpreter Pattern**
-✅ **Defines a language grammar and provides an interpreter for processing expressions.**  
-📌 **Use When:** You need to process user-defined queries, expressions, or DSL (e.g., search filtering, mathematical expression evaluation).
+**What:** Defines a language grammar and provides an interpreter for processing expressions.
+**Use when:** You need to process user-defined queries, expressions, or DSL (e.g., search filtering, mathematical expression evaluation).
 
 ---
 
 ### **16. Iterator Pattern**
-✅ **Provides a way to access elements of a collection without exposing its implementation.**  
-📌 **Use When:** You need a standard way to iterate through different types of collections (e.g., database result sets, tree structures).
+**What:** Provides a way to access elements of a collection without exposing its implementation.
+**Use when:** You need a standard way to iterate through different types of collections (e.g., database result sets, tree structures).
 
 ---
 
 ### **17. Mediator Pattern**
-✅ **Centralizes communication between multiple objects to reduce dependencies.**  
-📌 **Use When:** You need to decouple components that communicate frequently (e.g., chat systems, microservices communication).
+**What:** Centralizes communication between multiple objects to reduce dependencies.
+**Use when:** You need to decouple components that communicate frequently (e.g., chat systems, microservices communication).
 
 ---
 
 ### **18. Memento Pattern**
-✅ **Saves an object’s state to restore it later (undo functionality).**  
-📌 **Use When:** You need rollback or undo features (e.g., form input recovery, document editing history).
+**What:** Saves an object’s state to restore it later (undo functionality).
+**Use when:** You need rollback or undo features (e.g., form input recovery, document editing history).
 
 ---
 
 ### **19. Observer Pattern**
-✅ **Defines a dependency between objects, so when one changes, others are notified.**  
-📌 **Use When:** You need event-driven systems (e.g., notification systems, real-time stock price updates).
+**What:** Defines a dependency between objects, so when one changes, others are notified.
+**Use when:** You need event-driven systems (e.g., notification systems, real-time stock price updates).
 
 ---
 
 ### **20. State Pattern**
-✅ **Allows an object to change its behavior dynamically based on its state.**  
-📌 **Use When:** You need to manage state transitions (e.g., order processing, authentication states).
+**What:** Allows an object to change its behavior dynamically based on its state.
+**Use when:** You need to manage state transitions (e.g., order processing, authentication states).
 
 ---
 
 ### **21. Strategy Pattern**
-✅ **Encapsulates algorithms inside separate classes for flexible swapping.**  
-📌 **Use When:** You need to switch between different behaviors dynamically (e.g., payment processing, sorting algorithms).
+**What:** Encapsulates algorithms inside separate classes for flexible swapping.
+**Use when:** You need to switch between different behaviors dynamically (e.g., payment processing, sorting algorithms).
 
 ---
 
 ### **22. Template Method Pattern**
-✅ **Defines a skeleton of an algorithm, allowing subclasses to customize steps.**  
-📌 **Use When:** You need to enforce a standard process with customizable steps (e.g., authentication workflows, report generation).
+**What:** Defines a skeleton of an algorithm, allowing subclasses to customize steps.
+**Use when:** You need to enforce a standard process with customizable steps (e.g., authentication workflows, report generation).
 
 ---
 
 ### **23. Visitor Pattern**
-✅ **Adds new behaviors to objects without modifying them.**  
-📌 **Use When:** You need to process different object types in a structured way (e.g., report generation, AST processing).
+**What:** Adds new behaviors to objects without modifying them.
+**Use when:** You need to process different object types in a structured way (e.g., report generation, AST processing).
 
 ---
 
 ### **24. Null Object Pattern**
-✅ **Provides a default "do-nothing" behavior for missing objects instead of returning `null`.**  
-📌 **Use When:** You need to handle missing data gracefully and avoid `NullPointerException` (e.g., missing users, logging stubs).
+**What:** Provides a default "do-nothing" behavior for missing objects instead of returning `null`.
+**Use when:** You need to handle missing data gracefully and avoid `NullPointerException` (e.g., missing users, logging stubs).
 
 ---
 
 ### **25. Servant Pattern**
-✅ **Encapsulates common functionality in a helper (servant) class shared across multiple unrelated objects.**  
-📌 **Use When:** You need to apply shared behavior without modifying classes (e.g., validation, logging, object conversions).
+**What:** Encapsulates common functionality in a helper (servant) class shared across multiple unrelated objects.
+**Use when:** You need to apply shared behavior without modifying classes (e.g., validation, logging, object conversions).
 
 ---
 
@@ -188,7 +188,7 @@ Here is the **updated** list of all design patterns I have explained, along with
 
 ---
 
-This is the **updated complete list** of design patterns I have explained. Would you like me to explain **another design pattern** or **Spring Boot feature**?
+Each pattern below includes Java implementations, Spring Boot integration notes, and trade-offs. Use the summary table for quick lookup, then jump to the detailed section for the pattern you need.
 
 ## Java & Spring Boot Fact: Dependency Injection in Spring Boot
 
@@ -564,17 +564,17 @@ public class PrototypeService {
 ---
 
 ## **Benefits of Using Singleton Pattern in Spring Boot**
-### ✅ **Improved Performance**
+### **Improved Performance**
 - Reduces memory consumption by reusing instances.
 - Eliminates unnecessary object creation.
 
-### ✅ **Better Maintainability**
+### **Better Maintainability**
 - Centralized resource management simplifies debugging.
 
-### ✅ **Thread Safety**
+### **Thread Safety**
 - When implemented correctly (e.g., using `@Service` or `@Bean`), Singleton beans in Spring Boot are **thread-safe**.
 
-### ✅ **Consistency**
+### **Consistency**
 - Ensures that only one instance of a class handles business logic, reducing inconsistencies.
 
 ---
@@ -825,16 +825,16 @@ public class NotificationController {
 ---
 
 ## **Advantages of Using Factory Pattern in Spring Boot**
-### ✅ **Better Code Maintainability**
+### **Better Code Maintainability**
 - Decouples object creation logic from business logic.
 
-### ✅ **Scalability**
+### **Scalability**
 - Easy to add new notification types without modifying existing code.
 
-### ✅ **Flexibility**
+### **Flexibility**
 - Allows switching between different implementations dynamically.
 
-### ✅ **Reduces Complexity**
+### **Reduces Complexity**
 - Avoids complex `if-else` conditions in multiple places.
 
 ---
@@ -894,20 +894,20 @@ Instead of using **constructors with multiple parameters**, the Builder Pattern 
 ---
 
 ## **Why Use the Builder Pattern?**
-### ✅ **Better Readability**
+### **Better Readability**
 - Eliminates the problem of **long constructors** (`new User("John", "Doe", "NY", 25, "Engineer")`).
 - Instead, allows easy-to-read code like:
   ```java
   User user = new UserBuilder().firstName("John").lastName("Doe").age(25).build();
   ```
 
-### ✅ **Immutable Objects**
+### **Immutable Objects**
 - Since fields are **final**, the object is **thread-safe** and cannot be modified after creation.
 
-### ✅ **Flexible Object Creation**
+### **Flexible Object Creation**
 - Allows setting only **needed fields** without requiring unnecessary parameters.
 
-### ✅ **Encapsulation of Complexity**
+### **Encapsulation of Complexity**
 - If object creation requires multiple steps, it’s managed within the builder.
 
 ---

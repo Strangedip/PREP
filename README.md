@@ -5,12 +5,13 @@
 > **Tech stack**: Java 17–21, Spring Boot 3.x, Angular 17+, Microservices, Kubernetes, Cloud-Native, AI/RAG
 >
 > **Start here**: [ROADMAP.md](ROADMAP.md) — map your level on the linear ladder, then follow the checklist
+> **Style**: [STYLE.md](STYLE.md) — how this book stays complete, clean, and non-generic
 
 ---
 
 ## What This Repository Covers
 
-One self-contained repo: follow [ROADMAP.md](ROADMAP.md) level-by-level. Each topic file holds full depth for that subject — no hopping across folders for the same concept.
+One self-contained repo: follow [ROADMAP.md](ROADMAP.md) level-by-level. Each topic file holds full depth for that subject — no hopping across folders for the same concept. Covers **interview prep and the full career arc** — coding, design, architecture, AI, leadership, product partnership, and on-the-job craft through Principal.
 
 | Level | What You Need | Where to Start in ROADMAP |
 |-------|---------------|---------------------------|
@@ -34,24 +35,26 @@ PREP/
 ├── README.md                    ← You are here (overview)
 ├── ROADMAP.md                   ← START HERE — level checklist (Fresher → Principal)
 ├── MASTER_INDEX.md              ← Topic → file → round → level lookup
-├── Tracking_Iron_Protocol.xlsx  ← Daily prep tracker (generate: python tools/tracker_generator.py)
+├── STYLE.md                     ← Voice, structure, contribution rules
+├── Tracking_Iron_Protocol.xlsx  ← Daily prep tracker (generate: see tools/)
 │
 ├── 00_Interview_Prep/           ← Career, mocks, companies, level guides, Principal strategy
 │   ├── README.md                ← Hub for all interview-prep markdown (not DSA/SD)
-│   ├── Career/                  ← Resume & portfolio (Fresher)
+│   ├── Career/                  ← Resume, capstones, mid-career, product partnership
 │   ├── Core/                    ← Playbook, SelfAssessment, Companies, CodeQuality, CrossRefs
 │   ├── Mock/                    ← Mock interview rubric
 │   ├── Levels/                  ← SDE2 → Staff failure modes, loops, comp, ARF
 │   └── Principal/               ← EA frameworks, vision, org design, DR, integration, exec comms
 │
-├── 01_TechGuide/                ← Java, Spring, distributed systems, platform (§00–§38)
+├── 01_TechGuide/                ← Java, Spring, distributed systems, platform, migration (§00–§39)
 ├── 02_DSA/                      ← 125+ problems + StudyGuide + Tier3
 ├── 03_CodingPatterns/           ← GoF patterns + algorithmic patterns + machine coding
 ├── 04_SystemDesign/             ← LLD + HLD + templates
 ├── 05_AI/                       ← RAG, agents, MLOps, AI system design
-├── 06_On_The_Job/               ← Post-hire: onboarding, debugging, on-call, RFC/ADR, EM track
+├── 06_On_The_Job/               ← Post-hire: onboarding, debugging, on-call, hiring, 1:1s, EM
 │
 └── tools/
+    ├── requirements.txt         ← pandas, xlsxwriter for tracker
     └── tracker_generator.py     ← Regenerates Tracking_Iron_Protocol.xlsx
 ```
 
@@ -66,6 +69,7 @@ PREP/
 | 5 | System design → [04_SystemDesign/README.md](04_SystemDesign/README.md) |
 | 6 | Can't find a topic → [MASTER_INDEX.md](MASTER_INDEX.md) |
 | 7 | Already hired / on the job → [06_On_The_Job/](06_On_The_Job/README.md) |
+| 8 | Generate daily tracker → `pip install -r tools/requirements.txt` then `python tools/tracker_generator.py` |
 
 ---
 
@@ -219,6 +223,7 @@ You own technical direction. Now master everything and lead.
 | 36 | [Polyglot Python & Go](01_TechGuide/36_Polyglot_Interview_Python_and_Go.md) | Python/Go DSA syntax, goroutines, GIL | Mid-Level+ |
 | 37 | [TypeScript & Frontend Landscape](01_TechGuide/37_TypeScript_and_Frontend_Landscape.md) | TS types, React vs Angular, SSR, browser security | All Levels |
 | 38 | [Compliance & Regulated Systems](01_TechGuide/38_Compliance_and_Regulated_Systems.md) | GDPR, PCI-DSS, audit trails, PII handling | Senior+ |
+| 39 | [Monolith → Microservices Migration](01_TechGuide/39_Monolith_to_Microservices_Migration.md) | Strangler Fig, dual-write, metrics, Conway, exec one-pager | Senior+ |
 
 ### AI — What Each Section Covers
 
@@ -242,6 +247,7 @@ You own technical direction. Now master everything and lead.
 |------|---------|-------------|
 | [00_Interview_Prep/README.md](00_Interview_Prep/README.md) | Hub for career, mocks, level guides, Principal strategy | Interview process & meta prep |
 | [MASTER_INDEX.md](MASTER_INDEX.md) | Topic → file → round → level — full navigation | Finding any topic quickly |
+| [STYLE.md](STYLE.md) | Voice, structure, depth targets, no-orphan rules | When adding or editing content |
 | [InterviewPlaybook.md](00_Interview_Prep/Core/InterviewPlaybook.md) | 12-week schedule, STAR, coding/SD round protocols | Structured prep plan |
 | [InterviewQuestions.md](00_Interview_Prep/Core/InterviewQuestions.md) | Top 218 interview questions with one-line answers + section references | Night before interviews |
 | [CodeQuality.md](00_Interview_Prep/Core/CodeQuality.md) | SOLID, Clean Code, naming conventions, anti-patterns, code review checklist | Before any coding round |
@@ -284,6 +290,7 @@ Use these keywords in your answers to signal depth to the interviewer.
 | **Observability** | Three Pillars, RED Method, USE Method, SLI/SLO/SLA, OpenTelemetry, Tail Sampling |
 | **API Design** | RFC 7807, Cursor Pagination, Idempotency Key, HATEOAS, OpenAPI, Versioning, Sunset Header |
 | **Architecture** | Clean Architecture, Hexagonal, CQRS, Event Sourcing, Bounded Context, DIP, Ports and Adapters |
+| **Migration** | Strangler Fig, Anti-Corruption Layer, Expand-Contract, Dual-Write, Shadow Traffic, Outbox |
 | **Leadership** | STAR Method, Ownership, Data-driven, Trade-offs, ADR, Error Budget, Disagree and Commit |
 | **Modern Java** | Records, Sealed Classes, Pattern Matching, Virtual Threads, Structured Concurrency, Gatherers |
 | **Testing** | Testing Pyramid, Testcontainers, WireMock, Contract Testing, Mutation Testing, Arrange-Act-Assert |

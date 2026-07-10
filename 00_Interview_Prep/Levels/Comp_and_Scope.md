@@ -89,7 +89,19 @@ This repo maps: **Tech Lead** → [§14](../../01_TechGuide/14_Leadership_Behavi
 **ESOP clarity** (startup):
 > "What was last round valuation? What's the preferred price for my grant? Is there liquidity timeline?"
 
-Full tactics: [Companies.md § Negotiation](../Core/Companies.md).
+**Sign-on to bridge RSU cliff**:
+> "Year-1 equity is below my current unvested. Can we bridge with sign-on of [amount] over 12 months, or front-load RSU year 1?"
+
+**Remote / hybrid in writing**:
+> "Can hybrid / WFH days be in the offer letter? Festival on-call fairness and commute matter for retention."
+
+**Counter when they say "band max"**:
+> "Understood on base. Can we move total via sign-on or year-1 RSU, and confirm [Level code] in the letter?"
+
+**Decline politely (keep door open)**:
+> "I'm going to accept another role that matches Staff scope more closely. I have a lot of respect for [team] — happy to reconnect if a [Level] seat opens."
+
+Full mid-career switch protocol: [Mid-Career Playbook](../Career/Mid_Career_Switch_Negotiate_Plateau.md). Company LPs: [Companies.md § Negotiation](../Core/Companies.md).
 
 ---
 

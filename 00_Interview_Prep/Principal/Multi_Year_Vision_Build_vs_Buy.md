@@ -90,6 +90,74 @@ Pair with [Executive Communication](Executive_Communication_Board_Narrative.md) 
 
 ---
 
+## Worked narrative — PayKart (India retail fintech) FY26–FY28
+
+**Company shape**: Checkout + UPI/card orchestration; ~8K RPS festival peak; 120 engineers; monolith + early Kafka.
+
+### Current state (honest)
+
+| Area | Reality |
+|------|---------|
+| Architecture | Checkout monolith owns cart, pricing, payment calls, inventory reservation |
+| Reliability | 4 payment Sev-1s last festival; webhook lag + missing DLQ |
+| Delivery | Friday freezes; payment fix waits on unrelated catalog deploy |
+| Cost | Cloud OpEx up 35% YoY; no unit-cost dashboard (₹ per successful order) |
+| Org | 6 squads, one repo; "platform" is two SREs with a wiki |
+
+### Forces (why change now)
+
+- RBI/PCI audit wants **narrower PCI scope** ([§38](../../01_TechGuide/38_Compliance_and_Regulated_Systems.md))
+- Competitor checkout p99 ~300ms; ours 900ms at peak → conversion tax
+- Hiring: cannot staff 3 more monolith experts; need golden paths ([§24](../../01_TechGuide/24_Platform_Engineering_IDP.md))
+
+### Three pillars (only)
+
+1. **Event-native order pipeline** — outbox + Kafka; payment & inventory as extracted services ([§39 Migration](../../01_TechGuide/39_Monolith_to_Microservices_Migration.md))
+2. **Golden-path microservices on EKS** — one template, observability baked in
+3. **SLO + error-budget culture** — payment availability 99.95%; freeze features when budget burned
+
+### Explicit non-goals
+
+- No multi-region **active-active writes** in FY26 (see [DR guide](Multi_Region_Active_Active_DR.md))
+- No org-wide GraphQL federation
+- No "rewrite in Go" program
+
+### Build vs buy (this narrative)
+
+| Capability | Decision | Why |
+|------------|----------|-----|
+| Payment tokenization / vault | **Buy** (PSP) | PCI scope reduction |
+| Checkout orchestration + ledger keys | **Build** | Differentiation + latency SLO |
+| APM / logs | **Buy** | Commodity |
+| Fraud ML (v1) | **Buy** API → **hybrid** later | Time-to-market |
+| RAG helpdesk | **Hybrid** — buy embeddings, build retrieval | [05_AI](../../05_AI/03_RAG_Architecture.md) |
+
+### Milestone table
+
+| Quarter | Milestone | Metric |
+|---------|-----------|--------|
+| FY26 Q1 | Outbox on payment path; DLQ + alerts | Duplicate charge rate = 0 in shadow |
+| FY26 Q2 | Payment service serves 30% traffic | p99 ≤ baseline + 10% |
+| FY26 Q3 | Inventory reservation extracted | Oversell incidents −50% |
+| FY26 Q4 | Golden path: 70% new services from template | Lead time −30% |
+| FY27 H1 | PCI scope = payment service + PSP only | Audit findings closed |
+| FY27 H2 | Decide multi-region tier (passive vs active-read) | RTO drill ≤ 30 min |
+
+### Risks
+
+| Risk | Mitigation |
+|------|------------|
+| Conway mismatch | Payment stream team owns service end-to-end ([Org Design](Organization_Design_Conway_Team_Topologies.md)) |
+| Dual-write bugs | Idempotency + reconcile job before contract phase |
+| Festival freeze conflict | Feature flags; no schema break in freeze window |
+| Vendor lock (APM) | OpenTelemetry first; vendor is backend |
+
+### 60-second exec version
+
+> "FY27 bet is **event-native checkout** on Kubernetes. We **buy** tokenization and APM to shrink PCI and ops load; we **build** orchestration and inventory reservation because that is our latency and correctness moat. We defer active-active multi-region until single-region SLO is green for two quarters. Success = 40% fewer payment Sev-1s and 2× deploy frequency on the payment path."
+
+---
+
 ## Common failure modes (Principal interviews)
 
 | Failure | Why it fails | Fix |
@@ -99,6 +167,7 @@ Pair with [Executive Communication](Executive_Communication_Board_Narrative.md) 
 | Build everything | 18-month science project | Buy commodity; build moat |
 | Buy everything | No platform skill, vendor tax | Own orchestration + data model |
 | Ignoring Conway | Org can't staff the architecture | Align teams to pillars first |
+| Vision without milestones | Cannot course-correct | Quarterly metric table |
 
 ---
 
@@ -106,5 +175,6 @@ Pair with [Executive Communication](Executive_Communication_Board_Narrative.md) 
 
 - [Vendor Evaluation Rubrics](Vendor_Evaluation_Rubrics.md)
 - [Organization Design — Conway & Team Topologies](Organization_Design_Conway_Team_Topologies.md)
+- [§39 Monolith → Microservices Migration](../../01_TechGuide/39_Monolith_to_Microservices_Migration.md)
 - [Staff/Principal Advance Criteria](../Levels/Staff_Principal_Advance_Criteria.md)
 - [Principal Interview Loop Guide](Interview_Loop_Guide.md)

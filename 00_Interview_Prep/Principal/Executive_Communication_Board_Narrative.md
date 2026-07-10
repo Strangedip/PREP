@@ -113,11 +113,50 @@ Link: [Tech Lead Conflict](../Levels/Tech_Lead_Conflict_and_Performance.md) STAR
 
 ---
 
+## Worked board packet — PayKart QBR (10 slides max)
+
+Use with the vision narrative in [Multi-Year Vision](Multi_Year_Vision_Build_vs_Buy.md).
+
+| # | Slide | Content (one idea each) |
+|---|-------|-------------------------|
+| 1 | Title | FY26 Q3 Engineering QBR — Checkout reliability |
+| 2 | Outcome | Conversion and Sev-1 trend (business first) |
+| 3 | Situation | Monolith deploy coupling; p99 900ms at peak |
+| 4 | Complication | Festival load forecast 2×; PCI audit in Q4 |
+| 5 | Bet | Strangle payment + inventory; buy vault/APM |
+| 6 | Progress | 30% traffic on payment service; DLQ live |
+| 7 | Money | ₹ per order; OpEx vs avoided downtime |
+| 8 | Risks | Dual-write soak; hiring for stream team |
+| 9 | Ask | Approve 2 engineers + defer multi-region |
+| 10 | Appendix | Architecture spine (optional; leave behind) |
+
+**Spoken opener (45 seconds)**:
+
+> "Checkout conversion still leaks ~1.5% at peak when p99 crosses 800ms. We are mid-strangler on payment: thirty percent of traffic is on the new service with zero duplicate charges in shadow. I need approval to finish inventory extraction next quarter and explicitly defer multi-region so we do not split focus before SLO is green."
+
+---
+
+## Weekly eng brief (paste-ready)
+
+```
+1. Outcome: payment p99 420ms (target 350) — yellow
+2. Shipped: DLQ dashboards; canary to 30%
+3. Next: inventory reservation ACL in monolith
+4. Risk: festival freeze starts [date] — need flag defaults agreed
+5. Ask: PM confirm promo API can slip one sprint
+```
+
+IC-level visibility habits: [Stakeholder Updates](../../06_On_The_Job/09_Stakeholder_Updates_and_Visibility.md).
+
+---
+
 ## Interview role-play prompts
 
 1. "Explain last quarter's biggest technical bet to the CFO in 2 minutes."
 2. "Board asks why you missed SLO during sale — what do you say?"
 3. "CEO wants AI in every feature — how do you respond?" → [§05 AI](../../05_AI/README.md) phased approach
+4. "Finance cut 20% cloud budget — what do you cut first vs last?"
+5. Walk the QBR table above without slides.
 
 ---
 
@@ -126,3 +165,4 @@ Link: [Tech Lead Conflict](../Levels/Tech_Lead_Conflict_and_Performance.md) STAR
 - [Principal Interview Loop Guide](Interview_Loop_Guide.md)
 - [Comp & Scope — Staff vs Principal](../Levels/Comp_and_Scope.md)
 - [§20 Technical Leadership](../../01_TechGuide/20_Technical_Leadership_Architecture.md)
+- [Stakeholder Updates](../../06_On_The_Job/09_Stakeholder_Updates_and_Visibility.md)
